@@ -330,5 +330,147 @@
   <!-- Stripe.js (payment — loads last, not needed until checkout) -->
   <script src="https://js.stripe.com/v3/"></script>
 
+  <!-- ============================================================
+       Auth Debug Logger — REMOVE BEFORE NEXT PRODUCTION DEPLOY
+       Logs sign-in events to localStorage key "iqp_auth_debug".
+       To read: paste in mobile browser console:
+         JSON.parse(localStorage.getItem('iqp_auth_debug')||'[]').forEach(x=>console.log(x))
+       To clear: localStorage.removeItem('iqp_auth_debug')
+       ============================================================ -->
+  <script>
+  (function() {
+    var MAX_ENTRIES = 200;
+    var STORAGE_KEY = 'iqp_auth_debug';
+
+    function ts() { return new Date().toISOString(); }
+
+    function save(entry) {
+      try {
+        var log = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+        log.push(entry);
+        if (log.length > MAX_ENTRIES) log = log.slice(-MAX_ENTRIES);
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(log));
+      } catch(e) {}
+    }
+
+    function dbg(level, msg, data) {
+      var entry = { t: ts(), level: level, msg: msg };
+      if (data !== undefined) entry.data = data;
+      save(entry);
+      console[level === 'error' ? 'error' : level === 'warn' ? 'warn' : 'log'](
+        '[AUTH-DBG] ' + ts() + ' ' + msg, data !== undefined ? data : '');
+    }
+
+    // Intercept window.fetch to log Firebase auth network requests
+    var _origFetch = window.fetch;
+    window.fetch = function(url, opts) {
+      var urlStr = String(url);
+      var isAuth = urlStr.indexOf('identitytoolkit') !== -1 ||
+                   urlStr.indexOf('securetoken') !== -1;
+      if (isAuth) dbg('info', 'FETCH →', urlStr);
+      return _origFetch.apply(this, arguments).then(function(resp) {
+        if (isAuth) dbg(resp.ok ? 'info' : 'error', 'FETCH ← ' + resp.status, urlStr);
+        return resp;
+      }, function(err) {
+        if (isAuth) dbg('error', 'FETCH ERR', { url: urlStr, err: String(err) });
+        throw err;
+      });
+    };
+
+    // Intercept XMLHttpRequest as a fallback (Firebase compat sometimes uses XHR)
+    var _origXHROpen  = XMLHttpRequest.prototype.open;
+    var _origXHRSend  = XMLHttpRequest.prototype.send;
+    XMLHttpRequest.prototype.open = function(method, url) {
+      this._dbgUrl = String(url);
+      return _origXHROpen.apply(this, arguments);
+    };
+    XMLHttpRequest.prototype.send = function() {
+      var url = this._dbgUrl || '';
+      var isAuth = url.indexOf('identitytoolkit') !== -1 ||
+                   url.indexOf('securetoken') !== -1;
+      if (isAuth) {
+        var xhr = this;
+        dbg('info', 'XHR →', url);
+        xhr.addEventListener('load', function() {
+          dbg(xhr.status < 400 ? 'info' : 'error', 'XHR ← ' + xhr.status, url);
+        });
+        xhr.addEventListener('error', function() {
+          dbg('error', 'XHR NET ERR', url);
+        });
+        xhr.addEventListener('timeout', function() {
+          dbg('error', 'XHR TIMEOUT', url);
+        });
+      }
+      return _origXHRSend.apply(this, arguments);
+    };
+
+    // Observe sign-in modal opening
+    var observer = new MutationObserver(function(muts) {
+      muts.forEach(function(m) {
+        m.addedNodes.forEach(function(n) {
+          if (n.id === 'sign-in-modal' || n.id === 'auth-modals-container') {
+            dbg('info', 'AUTH MODALS INJECTED');
+          }
+        });
+        if (m.type === 'attributes' && m.target && m.target.id === 'sign-in-modal') {
+          dbg('info', 'sign-in-modal style change', m.target.style.display);
+        }
+      });
+    });
+    observer.observe(document.body, { childList: true, subtree: true, attributes: true, attributeFilter: ['style'] });
+
+    // Intercept sign-in button click (delegated — button injected dynamically)
+    document.addEventListener('click', function(e) {
+      var btn = e.target;
+      if (!btn) return;
+      var id = btn.id;
+      if (id === 'sign-in-submit' || id === 'sign-up-button' ||
+          id === 'google-sign-in-button' || id === 'google-sign-up-button') {
+        var emailEl = document.getElementById('sign-in-email') ||
+                      document.getElementById('sign-up-email');
+        dbg('info', 'BTN CLICK: ' + id, {
+          online:  navigator.onLine,
+          ua:      navigator.userAgent.slice(0, 80),
+          email:   emailEl ? emailEl.value.replace(/(.{2}).*@/, '$1***@') : 'n/a',
+          authSDK: typeof firebase !== 'undefined' && typeof firebase.auth === 'function' ? 'ready' : 'NOT READY',
+          _auth:   typeof window.QuizProsAuthManager !== 'undefined' ? 'module present' : 'MISSING'
+        });
+      }
+    }, true);
+
+    // Log Firebase auth state changes
+    document.addEventListener('quizpros:auth:signed_in', function(e) {
+      dbg('info', 'AUTH STATE: signed_in', (e.detail||{}).email ? (e.detail.email).replace(/(.{2}).*@/, '$1***@') : '');
+    });
+    document.addEventListener('quizpros:auth:signed_out', function() {
+      dbg('info', 'AUTH STATE: signed_out');
+    });
+
+    dbg('info', 'AUTH-DEBUG LOADED', {
+      ua:     navigator.userAgent.slice(0, 80),
+      online: navigator.onLine,
+      href:   window.location.href
+    });
+
+    // Expose read/clear helpers on window for easy console access
+    window._authDebugRead = function() {
+      return JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+    };
+    window._authDebugClear = function() {
+      localStorage.removeItem(STORAGE_KEY);
+      console.log('[AUTH-DBG] log cleared');
+    };
+    window._authDebugDump = function() {
+      var entries = window._authDebugRead();
+      entries.forEach(function(e) {
+        console.log('[' + e.level + '] ' + e.t + ' ' + e.msg, e.data !== undefined ? e.data : '');
+      });
+      console.log('--- ' + entries.length + ' entries total ---');
+    };
+
+    console.log('[AUTH-DBG] Helpers: _authDebugDump() | _authDebugRead() | _authDebugClear()');
+  })();
+  </script>
+
 </body>
 </html>
