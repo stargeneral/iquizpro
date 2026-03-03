@@ -213,18 +213,32 @@ window.QuizProsAuthManager = (function () {
       .catch(e => { log.error('signUp error:', e); throw e; });
   }
 
+  // Detect mobile devices — used to choose signInWithPopup over signInWithRedirect
+  // on mobile, where the redirect flow can be interrupted by the OS or browser.
+  function _isMobileDevice() {
+    return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+  }
+
   function signInWithGoogle() {
     if (!initialize()) return Promise.reject(new Error('Auth not initialized'));
     if (_googleInProgress) return Promise.reject(new Error('Auth already in progress'));
     _googleInProgress = true;
-    try {
-      const provider = new firebase.auth.GoogleAuthProvider();
-      return _auth.signInWithRedirect(provider)
-        .catch(e => { _googleInProgress = false; log.error('Google sign-in error:', e); throw e; });
-    } catch (e) {
-      _googleInProgress = false;
-      return Promise.reject(e);
-    }
+    return _waitForAuth(3000)
+      .then(function(auth) {
+        const provider = new firebase.auth.GoogleAuthProvider();
+        if (_isMobileDevice()) {
+          // Use popup on mobile — more reliable than redirect in mobile browsers
+          // and PWA standalone mode where redirect can be swallowed by the OS.
+          return auth.signInWithPopup(provider)
+            .then(result => { _googleInProgress = false; return result.user; })
+            .catch(e => { _googleInProgress = false; log.error('Google sign-in (popup) error:', e); throw e; });
+        } else {
+          // Redirect is preferred on desktop (no popup blocker issues)
+          return auth.signInWithRedirect(provider)
+            .catch(e => { _googleInProgress = false; log.error('Google sign-in (redirect) error:', e); throw e; });
+        }
+      })
+      .catch(e => { _googleInProgress = false; throw e; });
   }
 
   function signOut() {
@@ -252,8 +266,10 @@ window.QuizProsAuthManager = (function () {
       'auth/email-already-in-use': 'An account with this email already exists.',
       'auth/weak-password':        'Password must be at least 6 characters.',
       'auth/invalid-email':        'Please enter a valid email address.',
-      'auth/popup-closed-by-user': 'Sign-in was cancelled.',
-      'auth/not-ready':            'Service is starting up — please try again in a moment.'
+      'auth/popup-closed-by-user':    'Sign-in was cancelled.',
+      'auth/popup-blocked':           'Pop-up was blocked. Please allow pop-ups for this site and try again.',
+      'auth/cancelled-popup-request': 'Sign-in was cancelled.',
+      'auth/not-ready':               'Service is starting up — please try again in a moment.'
     };
     return map[e.code] || (e.message || 'An error occurred. Please try again.');
   }
@@ -569,12 +585,22 @@ window.QuizProsAuthManager = (function () {
     const btn = e.currentTarget;
     const originalText = btn.textContent;
     btn.disabled = true;
-    btn.textContent = 'Redirecting to Google…';
-    signInWithGoogle().catch(err => {
-      btn.disabled = false;
-      btn.textContent = originalText;
-      log.error('Google sign-in failed:', err);
-    });
+    btn.textContent = _isMobileDevice() ? 'Opening Google…' : 'Redirecting to Google…';
+    signInWithGoogle()
+      .then(() => {
+        // Popup flow resolved — onAuthStateChanged closes the modal;
+        // reset the button as a safety net in case the modal stays open.
+        btn.disabled = false;
+        btn.textContent = originalText;
+      })
+      .catch(err => {
+        btn.disabled = false;
+        btn.textContent = originalText;
+        // Silently ignore user-cancelled popups; log everything else.
+        if (err.code !== 'auth/popup-closed-by-user' && err.code !== 'auth/cancelled-popup-request') {
+          log.error('Google sign-in failed:', err);
+        }
+      });
   }
 
   // ─── UI Helpers ────────────────────────────────────────────────────────────
