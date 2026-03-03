@@ -469,6 +469,10 @@
     };
 
     console.log('[AUTH-DBG] Helpers: _authDebugDump() | _authDebugRead() | _authDebugClear()');
+
+    if (/Mobile|iPhone|iPad|Android/.test(navigator.userAgent)) {
+      console.log('📱 MOBILE DETECTED - Logs active. Reproduce hang, screenshot console + share!');
+    }
   })();
   </script>
 
