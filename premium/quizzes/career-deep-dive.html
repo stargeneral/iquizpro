@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Career Deep Dive Assessment - IQuizPros Premium</title>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-0QZSJ62FJV"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-0QZSJ62FJV');
+    </script>
+    <!-- Fonts and Styles -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Open+Sans&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+    <link rel="stylesheet" href="../../css/base.css" />
+    <link rel="stylesheet" href="../../css/components.css" />
+    <link rel="stylesheet" href="../../css/layout.css" />
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../styles.css?v=1.2" />
+    
+    <!-- Main app script and modules -->
+    <script src="../../js/config.js"></script>
+    <script src="../../js/utils/utils.js"></script>
+    <script src="../../js/utils/storage.js"></script>
+    <script src="../../js/utils/api.js"></script>
+    <script src="../../js/utils/feature-flags.js"></script>
+    <script src="../../js/components/header.js"></script>
+    <script src="../../js/components/footer.js"></script>
+    <script src="../../js/components/premium-badge.js"></script>
+    <script src="../../js/modules/analytics.js"></script>
+    <script src="../../js/modules/cookie-consent.js"></script>
+    <script src="../../js/modules/premium.js"></script>
+    <script src="../../js/modules/ui-manager.js"></script>
+    <script src="../../js/modules/user-manager.js"></script>
+    <script src="../../js/modules/quiz-engine.js"></script>
+  </head>
+  <body>
+    <div class="quiz-container">
+      <!-- Header Section -->
+      <div class="quiz-header">
+        <a href="../dashboard.html" class="back-button"><i class="fas fa-arrow-left"></i> Back to Dashboard</a>
+        <div class="quiz-topic-info">Career Deep Dive Assessment</div>
+        <div id="premium-badge-container"></div>
+      </div>
+      
+      <!-- Quiz Introduction Section -->
+      <div id="quiz-intro" class="quiz-intro-section">
+        <div class="quiz-intro-content">
+          <h1>Career Deep Dive Assessment</h1>
+          <p>Discover your ideal career path with our comprehensive assessment of your skills, values, and work preferences.</p>
+          
+          <div class="quiz-meta-info">
+            <div class="quiz-meta-item">
+              <i class="fas fa-clock"></i>
+              <span>10-15 minutes</span>
+            </div>
+            <div class="quiz-meta-item">
+              <i class="fas fa-tag"></i>
+              <span>Professional</span>
+            </div>
+            <div class="quiz-meta-item">
+              <i class="fas fa-question-circle"></i>
+              <span>15 questions</span>
+            </div>
+          </div>
+          
+          <div class="quiz-description">
+            <h2>About This Assessment</h2>
+            <p>This premium assessment is designed to help you identify your ideal career path based on your unique combination of skills, values, work preferences, and personality traits. By analyzing your responses to carefully crafted questions, we'll provide you with personalized insights into your career strengths and potential growth areas.</p>
+            
+            <h2>What You'll Discover</h2>
+            <ul>
+              <li>Your dominant career profile and what it means for your professional path</li>
+              <li>Specific career paths that align with your profile</li>
+              <li>Your key professional strengths and how to leverage them</li>
+              <li>Areas for growth and development to enhance your career success</li>
+              <li>Work environments where you're most likely to thrive</li>
+            </ul>
+            
+            <h2>How to Take This Assessment</h2>
+            <p>For the most accurate results, choose the answers that best reflect your natural tendencies rather than what you think is "right" or what others expect of you. There are no wrong answers—this assessment is about understanding your unique preferences and strengths.</p>
+          </div>
+          
+          <button id="start-quiz-btn" class="btn btn-primary btn-lg">Start Assessment</button>
+        </div>
+      </div>
+      
+      <!-- Main Quiz Container (initially hidden) -->
+      <div id="main-quiz-container" class="main-quiz-container" style="display: none;">
+        <!-- Loading Screen -->
+        <div id="loading" class="loading-screen">
+          <div class="loading-spinner"></div>
+          <p>Loading your assessment...</p>
+        </div>
+        
+        <!-- Progress Bar -->
+        <div class="quiz-progress">
+          <div class="progress-bar">
+            <div id="progress" class="progress" style="width: 0%"></div>
+          </div>
+          <div class="progress-text">
+            Question <span id="current-question">1</span> of <span id="total-questions">15</span>
+          </div>
+        </div>
+        
+        <!-- Question Container -->
+        <div id="question-container" class="question-container"></div>
+        
+        <!-- Pre-Result Screen (initially hidden) -->
+        <div id="pre-result" class="result-container" style="display: none;">
+          <div id="locked-result" class="locked-result">
+            <div class="lock-icon">🔍</div>
+            <h2>Your Career Profile Is Ready!</h2>
+            <div class="personality-result-preview">
+              <h3>Your Career Profile:</h3>
+              <h2 id="result-profile-title">Career Profile</h2>
+            </div>
+            
+            <div class="share-instructions">
+              <strong>To view your detailed career analysis:</strong>
+              <ol>
+                <li>Share this assessment with colleagues or friends who might benefit</li>
+                <li>After sharing, you'll see your complete career profile and recommendations</li>
+              </ol>
+            </div>
+            
+            <button id="whatsapp-share-first" class="share-btn">
+              <i class="fab fa-whatsapp"></i> View My Career Profile
+            </button>
+          </div>
+        </div>
+        
+        <!-- Final Result Screen (initially hidden) -->
+        <div id="final-result" class="result-container" style="display: none;"></div>
+      </div>
+      
+      <!-- Footer Section -->
+      <div class="quiz-footer">
+        <div class="footer-content">
+          <div class="copyright">© 2025 IQuizPros</div>
+          <div class="footer-links">
+            <a href="../../privacy-policy.html" class="footer-link">Privacy Policy</a>
+            <a href="../../terms-of-use.html" class="footer-link">Terms of Use</a>
+            <a href="../../contact-page.html" class="footer-link">Contact</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        // Initialize analytics
+        if (window.QuizProsAnalytics) {
+          QuizProsAnalytics.trackPageView('Career Deep Dive Assessment', '/premium/quizzes/career-deep-dive.html');
+        }
+        
+        // Check if user has premium access
+        if (window.QuizProsPremium && !window.QuizProsPremium.hasPremiumAccess()) {
+          // Redirect to premium landing page if not premium
+          window.location.href = '../index.html';
+          return;
+        }
+        
+        // Add premium badge to header
+        const badgeContainer = document.getElementById('premium-badge-container');
+        if (badgeContainer && window.QuizProsPremiumBadge) {
+          const tier = window.QuizProsPremium.getCurrentTier();
+          const badge = window.QuizProsPremiumBadge.createBadge(tier);
+          badgeContainer.appendChild(badge);
+        }
+        
+        // Set up start quiz button
+        const startQuizBtn = document.getElementById('start-quiz-btn');
+        if (startQuizBtn) {
+          startQuizBtn.addEventListener('click', function() {
+            // Hide intro section
+            document.getElementById('quiz-intro').style.display = 'none';
+            
+            // Show quiz container
+            document.getElementById('main-quiz-container').style.display = 'block';
+            
+            // Start the quiz
+            if (window.QuizProsEngine) {
+              window.QuizProsEngine.startQuiz('career-deep-dive');
+              
+              // Track event
+              if (window.QuizProsAnalytics) {
+                window.QuizProsAnalytics.trackEvent(
+                  'Premium',
+                  'StartQuiz',
+                  'Career Deep Dive'
+                );
+              }
+            }
+          });
+        }
+        
+        // Set up share button event (for results)
+        document.getElementById('whatsapp-share-first').addEventListener('click', function() {
+          // This will be handled by the quiz engine, but we'll add a backup handler
+          setTimeout(() => {
+            // If the final result isn't showing after a delay, trigger it manually
+            if (document.getElementById('final-result').style.display === 'none') {
+              document.getElementById('pre-result').style.display = 'none';
+              document.getElementById('final-result').style.display = 'block';
+              
+              // Create a basic result display as fallback
+              document.getElementById('final-result').innerHTML = `
+                <h2>Your Career Profile</h2>
+                <p>Based on your responses, you have a unique combination of traits that would make you well-suited for certain career paths.</p>
+                <p>For a more detailed analysis, please retake the assessment or contact support.</p>
+                <button id="try-again" class="share-btn secondary">
+                  <i class="fas fa-redo"></i> Try Again
+                </button>
+              `;
+              
+              // Set up try again button
+              document.getElementById('try-again').addEventListener('click', function() {
+                window.location.reload();
+              });
+            }
+          }, 3000);
+        });
+      });
+    </script>
+  </body>
+</html>

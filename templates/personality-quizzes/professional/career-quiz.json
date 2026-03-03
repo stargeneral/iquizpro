@@ -1,0 +1,102 @@
+{
+    "id": "career-quiz",
+    "name": "Career Aptitude Test",
+    "description": "Discover your ideal career path based on your natural strengths and preferences",
+    "icon": "fas fa-briefcase",
+    "banner": "assets/images/career-banner.webp",
+    "personalityTypes": {
+      "analytical": {
+        "title": "The Analytical Problem-Solver",
+        "description": "You thrive in environments where you can analyze complex information and find logical solutions. You have a natural ability to see patterns and solve problems systematically.",
+        "characteristics": [
+          "Excellent critical thinking skills",
+          "Detail-oriented approach to tasks",
+          "Preference for data-driven decisions",
+          "Strong logical reasoning abilities",
+          "Natural talent for identifying patterns"
+        ],
+        "strengths": "Problem analysis, strategic thinking, attention to detail",
+        "challenges": "May sometimes overlook emotional aspects of decisions",
+        "careers": "Data Scientist, Systems Analyst, Research Scientist, Financial Analyst",
+        "imagePath": "assets/images/career-analytical.webp"
+      },
+      "creative": {
+        "title": "The Creative Innovator",
+        "description": "You excel at thinking outside the box and generating original ideas. Your creative mind allows you to see unique connections and possibilities others might miss.",
+        "characteristics": [
+          "Strong imagination and ideation skills",
+          "Comfortable with ambiguity and experimentation",
+          "Ability to make unexpected connections",
+          "Preference for novel approaches",
+          "Visual or conceptual thinking style"
+        ],
+        "strengths": "Innovation, artistic expression, original thinking",
+        "challenges": "May sometimes struggle with highly structured environments",
+        "careers": "Graphic Designer, Content Creator, Marketing Specialist, Product Designer",
+        "imagePath": "assets/images/career-creative.webp"
+      },
+      "interpersonal": {
+        "title": "The People-Focused Communicator",
+        "description": "You have exceptional people skills and thrive in social environments. Your ability to understand, connect with, and influence others is your greatest strength.",
+        "characteristics": [
+          "Strong communication abilities",
+          "Natural empathy and emotional intelligence",
+          "Team-building and collaboration skills", 
+          "Conflict resolution aptitude",
+          "Leadership potential"
+        ],
+        "strengths": "Relationship building, teamwork, communication",
+        "challenges": "May sometimes prioritize people over tasks",
+        "careers": "Human Resources, Sales Representative, Public Relations, Counselor",
+        "imagePath": "assets/images/career-interpersonal.webp"
+      },
+      "practical": {
+        "title": "The Practical Implementer",
+        "description": "You excel at turning ideas into reality with a hands-on, practical approach. You're reliable, organized, and skilled at executing tasks efficiently.",
+        "characteristics": [
+          "Strong organizational abilities",
+          "Attention to practical details",
+          "Reliable execution of plans",
+          "Process-oriented thinking",
+          "Preference for tangible results"
+        ],
+        "strengths": "Organization, reliability, efficiency",
+        "challenges": "May sometimes resist untested innovation",
+        "careers": "Project Manager, Operations Specialist, Executive Assistant, Construction Manager",
+        "imagePath": "assets/images/career-practical.webp"
+      }
+    },
+    "questions": [
+      {
+        "question": "When working on a project, you prefer to:",
+        "options": [
+          "Research all aspects thoroughly before beginning",
+          "Brainstorm multiple unique approaches to the problem",
+          "Discuss ideas with team members to build consensus",
+          "Create a practical plan and start implementing it"
+        ],
+        "personalityPoints": [
+          { "analytical": 5, "creative": 2, "interpersonal": 1, "practical": 3 },
+          { "analytical": 2, "creative": 5, "interpersonal": 2, "practical": 1 },
+          { "analytical": 1, "creative": 2, "interpersonal": 5, "practical": 2 },
+          { "analytical": 3, "creative": 1, "interpersonal": 2, "practical": 5 }
+        ]
+      },
+      {
+        "question": "You feel most energized when:",
+        "options": [
+          "Solving a complex problem that requires deep thinking",
+          "Coming up with an innovative idea or design",
+          "Having meaningful conversations with colleagues",
+          "Completing tasks and seeing tangible results"
+        ],
+        "personalityPoints": [
+          { "analytical": 5, "creative": 2, "interpersonal": 1, "practical": 2 },
+          { "analytical": 2, "creative": 5, "interpersonal": 1, "practical": 1 },
+          { "analytical": 1, "creative": 1, "interpersonal": 5, "practical": 2 },
+          { "analytical": 2, "creative": 1, "interpersonal": 2, "practical": 5 }
+        ]
+      },
+      { "questions": [ { "question": "Which task at work excites you the most?", "options": [ "Conducting detailed research and analysis", "Inventing new solutions or products", "Engaging in meaningful discussions with peers", "Implementing practical solutions that deliver results" ], "personalityPoints": [ { "analytical": 5, "creative": 2, "interpersonal": 1, "practical": 2 }, { "analytical": 2, "creative": 5, "interpersonal": 1, "practical": 1 }, { "analytical": 1, "creative": 1, "interpersonal": 5, "practical": 2 }, { "analytical": 2, "creative": 1, "interpersonal": 2, "practical": 5 } ] }, { "question": "During your workday, what activity leaves you feeling most accomplished?", "options": [ "Breaking down complex data to uncover insights", "Brainstorming creative ideas for future projects", "Collaborating with colleagues on innovative strategies", "Completing tasks efficiently to achieve measurable outcomes" ], "personalityPoints": [ { "analytical": 5, "creative": 2, "interpersonal": 1, "practical": 2 }, { "analytical": 2, "creative": 5, "interpersonal": 1, "practical": 1 }, { "analytical": 1, "creative": 1, "interpersonal": 5, "practical": 2 }, { "analytical": 2, "creative": 1, "interpersonal": 2, "practical": 5 } ] }, { "question": "When tackling a work challenge, you tend to:", "options": [ "Apply logical reasoning to devise a solution", "Generate creative approaches that break the mold", "Discuss the issue with your team to gain insights", "Implement a practical plan to overcome the obstacle" ], "personalityPoints": [ { "analytical": 5, "creative": 2, "interpersonal": 1, "practical": 2 }, { "analytical": 2, "creative": 5, "interpersonal": 1, "practical": 1 }, { "analytical": 1, "creative": 1, "interpersonal": 5, "practical": 2 }, { "analytical": 2, "creative": 1, "interpersonal": 2, "practical": 5 } ] }, { "question": "Which professional role do you see yourself thriving in?", "options": [ "A role focused on data analysis and strategic planning", "A creative role in design or innovative development", "A position that emphasizes collaboration and mentorship", "A job centered on executing projects with tangible outcomes" ], "personalityPoints": [ { "analytical": 5, "creative": 2, "interpersonal": 1, "practical": 2 }, { "analytical": 2, "creative": 5, "interpersonal": 1, "practical": 1 }, { "analytical": 1, "creative": 1, "interpersonal": 5, "practical": 2 }, { "analytical": 2, "creative": 1, "interpersonal": 2, "practical": 5 } ] }, { "question": "In your ideal work setting, you value:", "options": [ "Opportunities to solve intricate problems", "A culture that champions innovative thinking", "A collaborative environment with open communication", "Clear objectives and the ability to see measurable results" ], "personalityPoints": [ { "analytical": 5, "creative": 2, "interpersonal": 1, "practical": 2 }, { "analytical": 2, "creative": 5, "interpersonal": 1, "practical": 1 }, { "analytical": 1, "creative": 1, "interpersonal": 5, "practical": 2 }, { "analytical": 2, "creative": 1, "interpersonal": 2, "practical": 5 } ] }, { "question": "Your productivity peaks when you are:", "options": [ "Immersed in analytical problem-solving tasks", "Brainstorming creative and unconventional ideas", "Engaging in deep, collaborative discussions", "Focusing on practical tasks that yield clear results" ], "personalityPoints": [ { "analytical": 5, "creative": 2, "interpersonal": 1, "practical": 2 }, { "analytical": 2, "creative": 5, "interpersonal": 1, "practical": 1 }, { "analytical": 1, "creative": 1, "interpersonal": 5, "practical": 2 }, { "analytical": 2, "creative": 1, "interpersonal": 2, "practical": 5 } ] }, { "question": "When receiving recognition at work, you prefer it to be based on:", "options": [ "Your analytical and problem-solving achievements", "Your creative contributions and innovative ideas", "Your ability to foster strong interpersonal connections", "Your effectiveness in executing tasks and delivering results" ], "personalityPoints": [ { "analytical": 5, "creative": 2, "interpersonal": 1, "practical": 2 }, { "analytical": 2, "creative": 5, "interpersonal": 1, "practical": 1 }, { "analytical": 1, "creative": 1, "interpersonal": 5, "practical": 2 }, { "analytical": 2, "creative": 1, "interpersonal": 2, "practical": 5 } ] }, { "question": "Which aspect of your career do you prioritize the most?", "options": [ "Engaging in deep analytical work and research", "Developing and implementing innovative ideas", "Building strong professional relationships", "Focusing on practical execution and achieving results" ], "personalityPoints": [ { "analytical": 5, "creative": 2, "interpersonal": 1, "practical": 2 }, { "analytical": 2, "creative": 5, "interpersonal": 1, "practical": 1 }, { "analytical": 1, "creative": 1, "interpersonal": 5, "practical": 2 }, { "analytical": 2, "creative": 1, "interpersonal": 2, "practical": 5 } ] } ] }
+    ]
+  }

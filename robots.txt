@@ -1,0 +1,10 @@
+User-agent: *
+Allow: /
+
+# Block internal/admin paths
+Disallow: /functions/
+Disallow: /node_modules/
+Disallow: /src/
+Disallow: /docs/
+
+Sitemap: https://iquizpro.com/sitemap.xml

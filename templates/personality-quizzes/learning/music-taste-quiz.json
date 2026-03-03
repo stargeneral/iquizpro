@@ -1,0 +1,164 @@
+{
+  "id": "music-taste",
+  "name": "Music Taste Profile",
+  "description": "What does your music taste say about you? Discover the genre and personality behind the songs you love.",
+  "icon": "fas fa-headphones",
+  "banner": "assets/images/music-taste.webp",
+  "category": "learning",
+  "personalityTypes": {
+    "rocker": {
+      "title": "The Rocker",
+      "description": "You're drawn to raw energy, guitar riffs and music that says something. Whether it's classic rock, alternative, metal or indie — you value authenticity above everything. You don't follow trends; you set them.",
+      "characteristics": ["Values authenticity and rawness", "Independent and self-assured", "Passionate about what you believe in", "Dislikes anything that feels manufactured", "Loyal to artists who've earned your respect"],
+      "strengths": "Your strong sense of identity and dislike of pretension make you refreshingly honest. People trust your opinion because you never fake it.",
+      "challenges": "You can sometimes be too quick to dismiss things as 'sellout' or 'mainstream'. Some things that are popular are genuinely good too.",
+      "imagePath": "assets/images/rocker-personality.webp"
+    },
+    "soulful": {
+      "title": "The Soulful Feeler",
+      "description": "You connect to music through emotion. R&B, soul, gospel, neo-soul — music that makes you feel things deeply is what speaks to you. You use music to process emotions and connect with others.",
+      "characteristics": ["Highly empathetic and emotionally intelligent", "Music moves you physically and spiritually", "Values lyrics that tell real stories", "Deeply loyal to artists who pour themselves into their work", "Uses music to navigate feelings"],
+      "strengths": "Your emotional depth means you form profound connections with both music and people. You pick up on what others miss.",
+      "challenges": "Your sensitivity can sometimes make the world feel too loud. Building emotional resilience — while keeping your depth — is your ongoing work.",
+      "imagePath": "assets/images/soulful-personality.webp"
+    },
+    "explorer": {
+      "title": "The Musical Explorer",
+      "description": "Genre labels mean nothing to you. You love jazz one day, Afrobeats the next, then stumble onto an obscure folk artist from the 1970s and declare it life-changing. You hear music everywhere and in everything.",
+      "characteristics": ["Endlessly curious and open-minded", "Discovers music no one else has heard of", "Cannot describe their taste in one word", "Loves the history and culture behind music", "Always searching for the next discovery"],
+      "strengths": "Your broad taste and curiosity make you the best person to make a playlist for any occasion. You bridge worlds others never meet.",
+      "challenges": "Your endless searching can make it hard to settle into one thing. Sometimes the best music is the one you already know and love.",
+      "imagePath": "assets/images/explorer-personality.webp"
+    },
+    "popstar": {
+      "title": "The Pop Enthusiast",
+      "description": "You love a hook, a drop and a song that lives in your head for a week. Pop, dance, EDM, hip-hop chart hits — you're here for all of it. You use music for fun, energy and social connection.",
+      "characteristics": ["Sociable and trend-aware", "Music is for dancing and sharing", "Knows every word to chart hits", "Uses music to boost mood and energy", "Unapologetically enjoys what's popular"],
+      "strengths": "Your love of music as a social experience means you bring people together. A playlist from you guarantees a great party.",
+      "challenges": "Diving deeper into artists you love — their albums, B-sides and stories — will unlock a whole new layer of the music you already enjoy.",
+      "imagePath": "assets/images/popstar-personality.webp"
+    }
+  },
+  "questions": [
+    {
+      "question": "A new song comes on in a shop. What's the first thing you do?",
+      "options": [
+        "Listen for the guitar tone and whether the production is authentic",
+        "Pay attention to the lyrics and what emotion they carry",
+        "Try to work out the artist, genre and what era it sounds like",
+        "Check if it has a good beat and whether you'd add it to your playlist"
+      ],
+      "personalityPoints": [
+        { "rocker": 5, "soulful": 1, "explorer": 2, "popstar": 1 },
+        { "rocker": 1, "soulful": 5, "explorer": 2, "popstar": 1 },
+        { "rocker": 2, "soulful": 1, "explorer": 5, "popstar": 1 },
+        { "rocker": 1, "soulful": 1, "explorer": 2, "popstar": 5 }
+      ]
+    },
+    {
+      "question": "Your ideal music listening experience is:",
+      "options": [
+        "Loud, full volume, feeling the bass in your chest at a live gig",
+        "Headphones in, alone, letting the music wash over you completely",
+        "Down a rabbit hole: one artist leads to another, then another",
+        "At a party or festival, dancing with people around you"
+      ],
+      "personalityPoints": [
+        { "rocker": 5, "soulful": 1, "explorer": 2, "popstar": 2 },
+        { "rocker": 1, "soulful": 5, "explorer": 2, "popstar": 1 },
+        { "rocker": 2, "soulful": 2, "explorer": 5, "popstar": 1 },
+        { "rocker": 1, "soulful": 1, "explorer": 1, "popstar": 5 }
+      ]
+    },
+    {
+      "question": "When a friend says your favourite artist has 'sold out', you:",
+      "options": [
+        "Completely agree — you already stopped listening when they changed",
+        "Disagree — artists are allowed to grow and evolve emotionally",
+        "Listen to their old and new work and form a considered opinion",
+        "Don't really care as long as the new stuff is still fun"
+      ],
+      "personalityPoints": [
+        { "rocker": 5, "soulful": 1, "explorer": 1, "popstar": 1 },
+        { "rocker": 1, "soulful": 5, "explorer": 2, "popstar": 1 },
+        { "rocker": 2, "soulful": 2, "explorer": 5, "popstar": 1 },
+        { "rocker": 1, "soulful": 1, "explorer": 2, "popstar": 5 }
+      ]
+    },
+    {
+      "question": "How do you most often discover new music?",
+      "options": [
+        "Word of mouth from people whose taste I trust completely",
+        "When I'm going through something and a song finds me",
+        "Deep dives into discographies, record labels and music history",
+        "Charts, Spotify Discover Weekly, TikTok, what's trending"
+      ],
+      "personalityPoints": [
+        { "rocker": 4, "soulful": 2, "explorer": 2, "popstar": 1 },
+        { "rocker": 1, "soulful": 5, "explorer": 2, "popstar": 1 },
+        { "rocker": 1, "soulful": 1, "explorer": 5, "popstar": 1 },
+        { "rocker": 1, "soulful": 1, "explorer": 2, "popstar": 5 }
+      ]
+    },
+    {
+      "question": "Your music library is best described as:",
+      "options": [
+        "A carefully curated collection of albums I know front to back",
+        "A deeply personal mix of songs that mark moments in my life",
+        "Eclectic — no two consecutive artists are from the same genre",
+        "Full of playlists for every mood, activity and occasion"
+      ],
+      "personalityPoints": [
+        { "rocker": 5, "soulful": 1, "explorer": 2, "popstar": 1 },
+        { "rocker": 1, "soulful": 5, "explorer": 1, "popstar": 2 },
+        { "rocker": 2, "soulful": 2, "explorer": 5, "popstar": 1 },
+        { "rocker": 1, "soulful": 1, "explorer": 2, "popstar": 5 }
+      ]
+    },
+    {
+      "question": "At karaoke, you pick:",
+      "options": [
+        "A classic rock anthem — Bohemian Rhapsody, Don't Stop Believin'",
+        "A slow soul ballad that lets you really feel every note",
+        "Something unexpected that nobody recognises but everyone loves",
+        "A guaranteed floor-filler — something everyone knows every word to"
+      ],
+      "personalityPoints": [
+        { "rocker": 5, "soulful": 1, "explorer": 1, "popstar": 2 },
+        { "rocker": 1, "soulful": 5, "explorer": 1, "popstar": 1 },
+        { "rocker": 2, "soulful": 1, "explorer": 5, "popstar": 1 },
+        { "rocker": 1, "soulful": 1, "explorer": 1, "popstar": 5 }
+      ]
+    },
+    {
+      "question": "What matters most in a great song?",
+      "options": [
+        "Energy and authenticity — it needs to feel real and raw",
+        "Emotional truth — it should make you feel something deep",
+        "Originality — something you've never heard done quite that way",
+        "A great hook and production — it should be impossible not to enjoy"
+      ],
+      "personalityPoints": [
+        { "rocker": 5, "soulful": 1, "explorer": 2, "popstar": 1 },
+        { "rocker": 1, "soulful": 5, "explorer": 2, "popstar": 1 },
+        { "rocker": 1, "soulful": 1, "explorer": 5, "popstar": 2 },
+        { "rocker": 1, "soulful": 1, "explorer": 2, "popstar": 5 }
+      ]
+    },
+    {
+      "question": "Someone asks for a playlist recommendation. You:",
+      "options": [
+        "Send them the five albums you think everyone should own",
+        "Ask what they're feeling and build around that emotion",
+        "Spend an hour curating the most interesting thematic journey",
+        "Share your party/workout/chill playlist — already perfect for any occasion"
+      ],
+      "personalityPoints": [
+        { "rocker": 5, "soulful": 1, "explorer": 2, "popstar": 1 },
+        { "rocker": 1, "soulful": 5, "explorer": 2, "popstar": 1 },
+        { "rocker": 1, "soulful": 1, "explorer": 5, "popstar": 2 },
+        { "rocker": 1, "soulful": 1, "explorer": 2, "popstar": 5 }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,164 @@
+{
+  "id": "stress-response",
+  "name": "Stress Response Style",
+  "description": "How do you handle pressure? Discover your natural stress response and what it reveals about you.",
+  "icon": "fas fa-brain",
+  "banner": "assets/images/stress-response.webp",
+  "category": "self-discovery",
+  "personalityTypes": {
+    "fighter": {
+      "title": "The Fighter",
+      "description": "Under pressure, you activate. You push harder, take charge and confront challenges head-on. Stress makes you sharper, not slower. You are at your best when the stakes are high and action is required immediately.",
+      "characteristics": ["Thrives under pressure", "Takes direct, decisive action", "Becomes more focused, not less", "Natural crisis leader", "Can become aggressive when overwhelmed"],
+      "strengths": "When everyone else freezes, you move. Your ability to take decisive action under fire makes you invaluable in high-stakes situations.",
+      "challenges": "Learn to recognise when aggression or over-control is making things worse. Not every problem responds to force — sometimes the best action is a pause.",
+      "imagePath": "assets/images/fighter-stress.webp"
+    },
+    "planner": {
+      "title": "The Planner",
+      "description": "When stress hits, you reach for structure. Lists, plans, research and systems calm your nervous system. You need to understand a problem fully before you can feel okay about it. Preparation is your coping mechanism.",
+      "characteristics": ["Calm and methodical under pressure", "Makes lists and breaks problems down", "Researches and analyses before acting", "Needs time to think before responding", "Can get stuck in analysis paralysis"],
+      "strengths": "Your thorough approach means you rarely make panicked decisions you regret. Your plans work because you've genuinely thought them through.",
+      "challenges": "Sometimes a good-enough decision now beats a perfect decision too late. Practice tolerating uncertainty — not every problem can be fully solved in advance.",
+      "imagePath": "assets/images/planner-stress.webp"
+    },
+    "connector": {
+      "title": "The Connector",
+      "description": "Stress sends you toward people. Talking it through, being heard, getting perspective from others — connection is how you process and recover. You're at your best when you don't face hard things alone.",
+      "characteristics": ["Seeks support from trusted people", "Processes emotions by talking them out", "Empathetic — also supports others when they're stressed", "Feels worse when isolated", "Strong social bonds are your resilience source"],
+      "strengths": "Your ability to lean on and build strong support networks means you rarely carry burdens alone. You also show others they don't have to either.",
+      "challenges": "Develop some tools for when your support network is unavailable. Building inner resilience alongside your social resilience will make you more robust.",
+      "imagePath": "assets/images/connector-stress.webp"
+    },
+    "withdrawer": {
+      "title": "The Withdrawer",
+      "description": "When the world gets too loud, you need to get quiet. Stress sends you inward — to solitude, reflection and recovery. You recharge by processing alone before you're ready to engage. You need space before you can act.",
+      "characteristics": ["Needs solitude to recover", "Internal processor — thinks before speaking", "Sensitive to overwhelm", "Appears calm on the surface but feels deeply inside", "Recharges through quiet and alone time"],
+      "strengths": "Your reflective nature means you rarely overreact or say things you regret. The clarity you find in solitude often produces the wisest responses.",
+      "challenges": "Withdrawal can look like avoidance to others. Communicating that you need time — not that you're shutting people out — will protect your relationships during hard periods.",
+      "imagePath": "assets/images/withdrawer-stress.webp"
+    }
+  },
+  "questions": [
+    {
+      "question": "Something unexpected goes wrong at work or home. Your first instinct is to:",
+      "options": [
+        "Jump into action — start fixing it immediately",
+        "Sit down and make a plan before doing anything",
+        "Call or message someone you trust to talk it through",
+        "Step away and find somewhere quiet to gather your thoughts"
+      ],
+      "personalityPoints": [
+        { "fighter": 5, "planner": 1, "connector": 1, "withdrawer": 1 },
+        { "fighter": 1, "planner": 5, "connector": 1, "withdrawer": 2 },
+        { "fighter": 1, "planner": 1, "connector": 5, "withdrawer": 1 },
+        { "fighter": 1, "planner": 2, "connector": 1, "withdrawer": 5 }
+      ]
+    },
+    {
+      "question": "Under pressure with a deadline, you tend to:",
+      "options": [
+        "Work faster and harder — pressure sharpens your focus",
+        "Break the task into steps and work through them systematically",
+        "Check in with teammates or colleagues more than usual",
+        "Work alone in a quiet space away from distractions"
+      ],
+      "personalityPoints": [
+        { "fighter": 5, "planner": 2, "connector": 1, "withdrawer": 1 },
+        { "fighter": 1, "planner": 5, "connector": 1, "withdrawer": 2 },
+        { "fighter": 1, "planner": 1, "connector": 5, "withdrawer": 1 },
+        { "fighter": 1, "planner": 2, "connector": 1, "withdrawer": 5 }
+      ]
+    },
+    {
+      "question": "After a very stressful day, what do you most need to recover?",
+      "options": [
+        "Physical activity — a run, gym session or something to burn it off",
+        "Time to review what happened and plan how to handle it better",
+        "An evening with friends or family — talking and being around people",
+        "Complete alone time — silence, no obligations, nobody needing anything"
+      ],
+      "personalityPoints": [
+        { "fighter": 5, "planner": 1, "connector": 1, "withdrawer": 1 },
+        { "fighter": 1, "planner": 5, "connector": 1, "withdrawer": 2 },
+        { "fighter": 1, "planner": 1, "connector": 5, "withdrawer": 1 },
+        { "fighter": 1, "planner": 1, "connector": 1, "withdrawer": 5 }
+      ]
+    },
+    {
+      "question": "When you're overwhelmed, people around you would most likely notice:",
+      "options": [
+        "You become more intense, direct or forceful than usual",
+        "You go very quiet and focused — head down, working through it",
+        "You reach out more — more messages, more check-ins, more conversations",
+        "You disappear — become harder to reach and need more space"
+      ],
+      "personalityPoints": [
+        { "fighter": 5, "planner": 2, "connector": 1, "withdrawer": 1 },
+        { "fighter": 2, "planner": 5, "connector": 1, "withdrawer": 2 },
+        { "fighter": 1, "planner": 1, "connector": 5, "withdrawer": 1 },
+        { "fighter": 1, "planner": 1, "connector": 1, "withdrawer": 5 }
+      ]
+    },
+    {
+      "question": "You get some unexpectedly bad news. Within the first hour, you:",
+      "options": [
+        "Start taking action on whatever you can control immediately",
+        "Research and gather as much information as possible",
+        "Want to talk to someone about it as soon as possible",
+        "Need to sit with it privately before you can talk to anyone"
+      ],
+      "personalityPoints": [
+        { "fighter": 5, "planner": 2, "connector": 1, "withdrawer": 1 },
+        { "fighter": 1, "planner": 5, "connector": 1, "withdrawer": 2 },
+        { "fighter": 1, "planner": 1, "connector": 5, "withdrawer": 1 },
+        { "fighter": 1, "planner": 1, "connector": 1, "withdrawer": 5 }
+      ]
+    },
+    {
+      "question": "Your main coping mechanism when life gets hard is:",
+      "options": [
+        "Channelling stress into productive work or physical energy",
+        "Organisation — sorting, cleaning, planning things you can control",
+        "Reaching out to your support network of trusted people",
+        "Creating space — cancelling non-essentials and protecting your energy"
+      ],
+      "personalityPoints": [
+        { "fighter": 5, "planner": 2, "connector": 1, "withdrawer": 1 },
+        { "fighter": 1, "planner": 5, "connector": 1, "withdrawer": 2 },
+        { "fighter": 1, "planner": 1, "connector": 5, "withdrawer": 1 },
+        { "fighter": 1, "planner": 2, "connector": 1, "withdrawer": 5 }
+      ]
+    },
+    {
+      "question": "Which statement best describes your stress pattern?",
+      "options": [
+        "I feel better once I'm doing something — inaction is unbearable",
+        "I feel better once I understand the situation and have a plan",
+        "I feel better once I've talked it through with someone I trust",
+        "I feel better once I've had time completely alone to reset"
+      ],
+      "personalityPoints": [
+        { "fighter": 5, "planner": 1, "connector": 1, "withdrawer": 1 },
+        { "fighter": 1, "planner": 5, "connector": 1, "withdrawer": 1 },
+        { "fighter": 1, "planner": 1, "connector": 5, "withdrawer": 1 },
+        { "fighter": 1, "planner": 1, "connector": 1, "withdrawer": 5 }
+      ]
+    },
+    {
+      "question": "In a crisis involving a group of people, you naturally:",
+      "options": [
+        "Step up, take charge and start directing action",
+        "Assess the situation carefully before suggesting a structured approach",
+        "Check on how everyone is feeling and make sure people are supported",
+        "Find a way to work independently on your part of the problem"
+      ],
+      "personalityPoints": [
+        { "fighter": 5, "planner": 1, "connector": 2, "withdrawer": 1 },
+        { "fighter": 1, "planner": 5, "connector": 1, "withdrawer": 2 },
+        { "fighter": 1, "planner": 1, "connector": 5, "withdrawer": 1 },
+        { "fighter": 1, "planner": 2, "connector": 1, "withdrawer": 5 }
+      ]
+    }
+  ]
+}

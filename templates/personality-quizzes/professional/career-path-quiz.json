@@ -1,0 +1,84 @@
+{
+    "id": "career-path-quiz",
+    "name": "Which Career Path Suits Your Personality?",
+    "description": "Discover professions that align with your natural strengths and work style",
+    "icon": "fas fa-briefcase",
+    "banner": "assets/images/career-banner.webp",
+    "category": "professional",
+    "personalityTypes": {
+      "innovator": {
+        "title": "The Visionary Creator",
+        "description": "You thrive in careers that allow you to imagine future possibilities and develop original concepts. Entrepreneurship, research, or creative fields let your innovative spirit flourish.",
+        "characteristics": [
+          "Enjoys developing new concepts",
+          "Comfortable with uncertainty",
+          "Seeks autonomy in work",
+          "Natural trend-spotter",
+          "Prefers variety over routine"
+        ],
+        "strengths": "Innovation, future-thinking, conceptualization, risk-taking",
+        "challenges": "May struggle with routine tasks or bureaucratic environments",
+        "imagePath": "assets/images/visionary-creator.webp"
+      },
+      "analyst": {
+        "title": "The Systematic Expert",
+        "description": "You excel in careers requiring deep analysis, precision, and specialized knowledge. Fields like data science, engineering, or law reward your logical approach and attention to detail.",
+        "characteristics": [
+          "Enjoys solving complex problems",
+          "Values expertise and mastery",
+          "Prefers structured environments",
+          "Strong critical thinking",
+          "Data-driven decision maker"
+        ],
+        "strengths": "Analysis, problem-solving, technical skills, precision",
+        "challenges": "May overanalyze or struggle with ambiguous situations",
+        "imagePath": "assets/images/systematic-expert.webp"
+      },
+      "connector": {
+        "title": "The Relationship Builder",
+        "description": "You shine in careers centered around human connection and collaboration. HR, counseling, sales, or education allow you to use your interpersonal skills to create value.",
+        "characteristics": [
+          "Reads people well",
+          "Enjoys teamwork",
+          "Natural mediator",
+          "Strong communicator",
+          "Service-oriented"
+        ],
+        "strengths": "Empathy, communication, teamwork, emotional intelligence",
+        "challenges": "May neglect own needs or struggle with conflict",
+        "imagePath": "assets/images/relationship-builder.webp"
+      },
+      "executor": {
+        "title": "The Practical Achiever",
+        "description": "You succeed in results-driven careers where you can implement plans effectively. Operations, healthcare, or skilled trades match your action-oriented approach.",
+        "characteristics": [
+          "Focuses on tangible outcomes",
+          "Hands-on learner",
+          "Strong work ethic",
+          "Likes clear metrics",
+          "Practical problem-solver"
+        ],
+        "strengths": "Execution, reliability, efficiency, pragmatism",
+        "challenges": "May resist theoretical discussions or rapid changes",
+        "imagePath": "assets/images/practical-achiever.webp"
+      }
+    },
+    "questions": [
+      {
+        "question": "Your ideal work environment has:",
+        "options": [
+          "Freedom to develop new ideas",
+          "Complex problems to solve",
+          "Lots of team interaction",
+          "Clear tasks and measurable results"
+        ],
+        "personalityPoints": [
+          { "innovator": 5, "analyst": 1, "connector": 2, "executor": 1 },
+          { "innovator": 1, "analyst": 5, "connector": 1, "executor": 2 },
+          { "innovator": 2, "analyst": 1, "connector": 5, "executor": 1 },
+          { "innovator": 1, "analyst": 2, "connector": 1, "executor": 5 }
+        ]
+      },
+      { "questions": [ { "question": "How do you prefer to approach a challenging project?", "options": [ "Brainstorm innovative ideas and creative solutions", "Analyze the challenge through data and logic", "Collaborate with your team to gather diverse perspectives", "Develop a step-by-step plan and execute it efficiently" ], "personalityPoints": [ { "innovator": 5, "analyst": 1, "connector": 2, "executor": 1 }, { "innovator": 1, "analyst": 5, "connector": 1, "executor": 2 }, { "innovator": 2, "analyst": 1, "connector": 5, "executor": 1 }, { "innovator": 1, "analyst": 2, "connector": 1, "executor": 5 } ] }, { "question": "Which aspect of your job is most fulfilling?", "options": [ "Creating breakthrough innovations", "Solving complex problems through analysis", "Building strong interpersonal connections at work", "Achieving clear, measurable results" ], "personalityPoints": [ { "innovator": 5, "analyst": 1, "connector": 2, "executor": 1 }, { "innovator": 1, "analyst": 5, "connector": 1, "executor": 2 }, { "innovator": 2, "analyst": 1, "connector": 5, "executor": 1 }, { "innovator": 1, "analyst": 2, "connector": 1, "executor": 5 } ] }, { "question": "What role do you naturally take on in a team?", "options": [ "The visionary who inspires creative thinking", "The strategist who dives into the details", "The connector who unites the team", "The executor who makes sure things get done" ], "personalityPoints": [ { "innovator": 5, "analyst": 1, "connector": 2, "executor": 1 }, { "innovator": 1, "analyst": 5, "connector": 1, "executor": 2 }, { "innovator": 2, "analyst": 1, "connector": 5, "executor": 1 }, { "innovator": 1, "analyst": 2, "connector": 1, "executor": 5 } ] }, { "question": "How do you measure success in your career?", "options": [ "By the originality of your ideas", "By the depth of your insights and analysis", "By the strength of your professional network", "By the efficiency and effectiveness of your projects" ], "personalityPoints": [ { "innovator": 5, "analyst": 1, "connector": 2, "executor": 1 }, { "innovator": 1, "analyst": 5, "connector": 1, "executor": 2 }, { "innovator": 2, "analyst": 1, "connector": 5, "executor": 1 }, { "innovator": 1, "analyst": 2, "connector": 1, "executor": 5 } ] }, { "question": "Which skill do you value most in your professional life?", "options": [ "Innovative thinking and creativity", "Analytical problem-solving", "Effective communication and networking", "Project management and execution" ], "personalityPoints": [ { "innovator": 5, "analyst": 1, "connector": 2, "executor": 1 }, { "innovator": 1, "analyst": 5, "connector": 1, "executor": 2 }, { "innovator": 2, "analyst": 1, "connector": 5, "executor": 1 }, { "innovator": 1, "analyst": 2, "connector": 1, "executor": 5 } ] }, { "question": "When faced with a work dilemma, you are most likely to:", "options": [ "Come up with out-of-the-box solutions", "Examine the problem with careful analysis", "Consult with colleagues to brainstorm ideas", "Implement a practical and structured solution" ], "personalityPoints": [ { "innovator": 5, "analyst": 1, "connector": 2, "executor": 1 }, { "innovator": 1, "analyst": 5, "connector": 1, "executor": 2 }, { "innovator": 2, "analyst": 1, "connector": 5, "executor": 1 }, { "innovator": 1, "analyst": 2, "connector": 1, "executor": 5 } ] }, { "question": "How would you best describe your work style?", "options": [ "Visionary and inventive", "Methodical and data-driven", "Collaborative and people-oriented", "Organized and results-focused" ], "personalityPoints": [ { "innovator": 5, "analyst": 1, "connector": 2, "executor": 1 }, { "innovator": 1, "analyst": 5, "connector": 1, "executor": 2 }, { "innovator": 2, "analyst": 1, "connector": 5, "executor": 1 }, { "innovator": 1, "analyst": 2, "connector": 1, "executor": 5 } ] }, { "question": "Which type of task energizes you the most?", "options": [ "Developing innovative strategies", "Conducting detailed research and analysis", "Engaging in teamwork and networking", "Executing well-defined projects efficiently" ], "personalityPoints": [ { "innovator": 5, "analyst": 1, "connector": 2, "executor": 1 }, { "innovator": 1, "analyst": 5, "connector": 1, "executor": 2 }, { "innovator": 2, "analyst": 1, "connector": 5, "executor": 1 }, { "innovator": 1, "analyst": 2, "connector": 1, "executor": 5 } ] }, { "question": "In a leadership role, your primary focus is on:", "options": [ "Driving innovation and fostering creativity", "Making data-backed decisions and solving problems", "Building strong team relationships and morale", "Ensuring that plans are executed with precision" ], "personalityPoints": [ { "innovator": 5, "analyst": 1, "connector": 2, "executor": 1 }, { "innovator": 1, "analyst": 5, "connector": 1, "executor": 2 }, { "innovator": 2, "analyst": 1, "connector": 5, "executor": 1 }, { "innovator": 1, "analyst": 2, "connector": 1, "executor": 5 } ] } ] }
+    ]
+  }

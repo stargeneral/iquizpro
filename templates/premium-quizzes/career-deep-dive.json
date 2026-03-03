@@ -1,0 +1,579 @@
+{
+  "id": "career-deep-dive",
+  "title": "Career Deep Dive Assessment",
+  "description": "Discover your ideal career path with our comprehensive assessment of your skills, values, and work preferences.",
+  "type": "premium",
+  "tier": "basic",
+  "category": "professional",
+  "tags": ["career", "professional", "assessment", "personality"],
+  "thumbnail": "../assets/images/default-personality.webp",
+  "estimatedTime": "10-15 minutes",
+  "questions": [
+    {
+      "id": "q1",
+      "text": "Which work environment do you find most energizing?",
+      "type": "single",
+      "options": [
+        {
+          "id": "q1a",
+          "text": "A structured environment with clear expectations and procedures",
+          "traits": { "structure": 3, "autonomy": 0, "collaboration": 1 }
+        },
+        {
+          "id": "q1b",
+          "text": "A flexible environment where I can determine my own approach",
+          "traits": { "structure": 0, "autonomy": 3, "innovation": 1 }
+        },
+        {
+          "id": "q1c",
+          "text": "A collaborative environment with team-based projects",
+          "traits": { "collaboration": 3, "communication": 1, "structure": 1 }
+        },
+        {
+          "id": "q1d",
+          "text": "A dynamic environment with varied tasks and challenges",
+          "traits": { "adaptability": 2, "innovation": 2, "autonomy": 1 }
+        }
+      ]
+    },
+    {
+      "id": "q2",
+      "text": "When solving complex problems, you typically:",
+      "type": "single",
+      "options": [
+        {
+          "id": "q2a",
+          "text": "Follow established methodologies and best practices",
+          "traits": { "analytical": 2, "structure": 2, "detail": 1 }
+        },
+        {
+          "id": "q2b",
+          "text": "Brainstorm creative solutions and novel approaches",
+          "traits": { "innovation": 3, "adaptability": 1, "analytical": 1 }
+        },
+        {
+          "id": "q2c",
+          "text": "Collaborate with others to gather diverse perspectives",
+          "traits": { "collaboration": 3, "communication": 2, "empathy": 1 }
+        },
+        {
+          "id": "q2d",
+          "text": "Break down the problem into manageable components",
+          "traits": { "analytical": 3, "detail": 2, "structure": 1 }
+        }
+      ]
+    },
+    {
+      "id": "q3",
+      "text": "Which of these work achievements would give you the most satisfaction?",
+      "type": "single",
+      "options": [
+        {
+          "id": "q3a",
+          "text": "Developing an innovative solution that transforms how things are done",
+          "traits": { "innovation": 3, "impact": 2, "autonomy": 1 }
+        },
+        {
+          "id": "q3b",
+          "text": "Being recognized as an expert in your specialized field",
+          "traits": { "expertise": 3, "detail": 2, "analytical": 1 }
+        },
+        {
+          "id": "q3c",
+          "text": "Successfully leading a team to achieve ambitious goals",
+          "traits": { "leadership": 3, "communication": 2, "impact": 1 }
+        },
+        {
+          "id": "q3d",
+          "text": "Creating something that positively impacts people's lives",
+          "traits": { "impact": 3, "empathy": 2, "purpose": 2 }
+        }
+      ]
+    },
+    {
+      "id": "q4",
+      "text": "When learning new skills, you prefer to:",
+      "type": "single",
+      "options": [
+        {
+          "id": "q4a",
+          "text": "Follow a structured course with clear progression",
+          "traits": { "structure": 3, "detail": 1, "expertise": 1 }
+        },
+        {
+          "id": "q4b",
+          "text": "Learn through hands-on experimentation and practice",
+          "traits": { "adaptability": 2, "autonomy": 2, "innovation": 1 }
+        },
+        {
+          "id": "q4c",
+          "text": "Collaborate with others in group learning environments",
+          "traits": { "collaboration": 3, "communication": 2, "adaptability": 1 }
+        },
+        {
+          "id": "q4d",
+          "text": "Deep dive into comprehensive resources and theory",
+          "traits": { "analytical": 3, "expertise": 2, "detail": 2 }
+        }
+      ]
+    },
+    {
+      "id": "q5",
+      "text": "Which of these values is most important to you in your career?",
+      "type": "single",
+      "options": [
+        {
+          "id": "q5a",
+          "text": "Work-life balance and personal wellbeing",
+          "traits": { "balance": 3, "autonomy": 1, "purpose": 1 }
+        },
+        {
+          "id": "q5b",
+          "text": "Financial security and stability",
+          "traits": { "stability": 3, "structure": 1, "balance": 1 }
+        },
+        {
+          "id": "q5c",
+          "text": "Making a positive impact on society",
+          "traits": { "purpose": 3, "impact": 3, "empathy": 1 }
+        },
+        {
+          "id": "q5d",
+          "text": "Continuous growth and professional development",
+          "traits": { "growth": 3, "expertise": 2, "adaptability": 1 }
+        }
+      ]
+    },
+    {
+      "id": "q6",
+      "text": "In a team setting, which role do you naturally gravitate toward?",
+      "type": "single",
+      "options": [
+        {
+          "id": "q6a",
+          "text": "The leader who provides direction and makes decisions",
+          "traits": { "leadership": 3, "communication": 2, "impact": 1 }
+        },
+        {
+          "id": "q6b",
+          "text": "The specialist who provides expert knowledge in a specific area",
+          "traits": { "expertise": 3, "detail": 2, "analytical": 1 }
+        },
+        {
+          "id": "q6c",
+          "text": "The innovator who generates creative ideas and solutions",
+          "traits": { "innovation": 3, "adaptability": 2, "autonomy": 1 }
+        },
+        {
+          "id": "q6d",
+          "text": "The mediator who ensures everyone's perspectives are heard",
+          "traits": { "empathy": 3, "communication": 2, "collaboration": 2 }
+        }
+      ]
+    },
+    {
+      "id": "q7",
+      "text": "How do you typically respond to unexpected changes at work?",
+      "type": "single",
+      "options": [
+        {
+          "id": "q7a",
+          "text": "Quickly adapt and look for new opportunities in the change",
+          "traits": { "adaptability": 3, "innovation": 2, "resilience": 1 }
+        },
+        {
+          "id": "q7b",
+          "text": "Analyze the implications before determining how to proceed",
+          "traits": { "analytical": 3, "detail": 2, "structure": 1 }
+        },
+        {
+          "id": "q7c",
+          "text": "Collaborate with colleagues to develop a collective response",
+          "traits": { "collaboration": 3, "communication": 2, "empathy": 1 }
+        },
+        {
+          "id": "q7d",
+          "text": "Rely on established protocols and procedures to guide your response",
+          "traits": { "structure": 3, "stability": 2, "detail": 1 }
+        }
+      ]
+    },
+    {
+      "id": "q8",
+      "text": "Which of these work activities energizes you the most?",
+      "type": "single",
+      "options": [
+        {
+          "id": "q8a",
+          "text": "Analyzing data and identifying patterns or insights",
+          "traits": { "analytical": 3, "detail": 2, "expertise": 1 }
+        },
+        {
+          "id": "q8b",
+          "text": "Creating and implementing innovative solutions",
+          "traits": { "innovation": 3, "impact": 2, "autonomy": 1 }
+        },
+        {
+          "id": "q8c",
+          "text": "Mentoring others and helping them develop",
+          "traits": { "leadership": 2, "empathy": 3, "communication": 2 }
+        },
+        {
+          "id": "q8d",
+          "text": "Organizing systems and processes for maximum efficiency",
+          "traits": { "structure": 3, "detail": 2, "analytical": 1 }
+        }
+      ]
+    },
+    {
+      "id": "q9",
+      "text": "When receiving feedback on your work, you prefer it to be:",
+      "type": "single",
+      "options": [
+        {
+          "id": "q9a",
+          "text": "Direct and straightforward, focusing on results",
+          "traits": { "impact": 2, "structure": 2, "resilience": 2 }
+        },
+        {
+          "id": "q9b",
+          "text": "Detailed and specific, with clear examples",
+          "traits": { "detail": 3, "structure": 2, "expertise": 1 }
+        },
+        {
+          "id": "q9c",
+          "text": "Balanced, highlighting both strengths and areas for improvement",
+          "traits": { "balance": 2, "growth": 2, "empathy": 1 }
+        },
+        {
+          "id": "q9d",
+          "text": "Focused on growth and development opportunities",
+          "traits": { "growth": 3, "adaptability": 2, "purpose": 1 }
+        }
+      ]
+    },
+    {
+      "id": "q10",
+      "text": "Which of these statements best describes your ideal career path?",
+      "type": "single",
+      "options": [
+        {
+          "id": "q10a",
+          "text": "Becoming a recognized expert in a specialized field",
+          "traits": { "expertise": 3, "detail": 2, "analytical": 1 }
+        },
+        {
+          "id": "q10b",
+          "text": "Advancing to leadership positions with increasing responsibility",
+          "traits": { "leadership": 3, "impact": 2, "communication": 1 }
+        },
+        {
+          "id": "q10c",
+          "text": "Building something innovative that disrupts the status quo",
+          "traits": { "innovation": 3, "autonomy": 2, "impact": 2 }
+        },
+        {
+          "id": "q10d",
+          "text": "Finding work that aligns with your personal values and purpose",
+          "traits": { "purpose": 3, "balance": 2, "empathy": 1 }
+        }
+      ]
+    },
+    {
+      "id": "q11",
+      "text": "When faced with a difficult decision at work, you typically:",
+      "type": "single",
+      "options": [
+        {
+          "id": "q11a",
+          "text": "Gather and analyze all available data before deciding",
+          "traits": { "analytical": 3, "detail": 2, "structure": 1 }
+        },
+        {
+          "id": "q11b",
+          "text": "Consider how the decision aligns with core values and principles",
+          "traits": { "purpose": 3, "empathy": 2, "balance": 1 }
+        },
+        {
+          "id": "q11c",
+          "text": "Consult with colleagues to get diverse perspectives",
+          "traits": { "collaboration": 3, "communication": 2, "empathy": 1 }
+        },
+        {
+          "id": "q11d",
+          "text": "Trust your intuition and experience to guide you",
+          "traits": { "autonomy": 3, "adaptability": 2, "resilience": 1 }
+        }
+      ]
+    },
+    {
+      "id": "q12",
+      "text": "Which of these work environments would be most challenging for you?",
+      "type": "single",
+      "options": [
+        {
+          "id": "q12a",
+          "text": "Highly structured with rigid rules and procedures",
+          "traits": { "autonomy": 3, "innovation": 2, "adaptability": 1 }
+        },
+        {
+          "id": "q12b",
+          "text": "Constantly changing with unclear expectations",
+          "traits": { "structure": 3, "stability": 2, "detail": 1 }
+        },
+        {
+          "id": "q12c",
+          "text": "Isolated with limited interaction with others",
+          "traits": { "collaboration": 3, "communication": 2, "empathy": 1 }
+        },
+        {
+          "id": "q12d",
+          "text": "Highly competitive with individual rather than team success",
+          "traits": { "collaboration": 2, "empathy": 2, "purpose": 1 }
+        }
+      ]
+    },
+    {
+      "id": "q13",
+      "text": "Which of these skills would you most like to develop further?",
+      "type": "single",
+      "options": [
+        {
+          "id": "q13a",
+          "text": "Strategic thinking and long-term planning",
+          "traits": { "leadership": 2, "analytical": 2, "impact": 2 }
+        },
+        {
+          "id": "q13b",
+          "text": "Creative problem-solving and innovation",
+          "traits": { "innovation": 3, "adaptability": 2, "autonomy": 1 }
+        },
+        {
+          "id": "q13c",
+          "text": "Interpersonal communication and relationship building",
+          "traits": { "communication": 3, "empathy": 2, "collaboration": 1 }
+        },
+        {
+          "id": "q13d",
+          "text": "Technical expertise in your specific field",
+          "traits": { "expertise": 3, "detail": 2, "analytical": 1 }
+        }
+      ]
+    },
+    {
+      "id": "q14",
+      "text": "How important is work-life balance in your career decisions?",
+      "type": "single",
+      "options": [
+        {
+          "id": "q14a",
+          "text": "Essential - I prioritize maintaining balance above career advancement",
+          "traits": { "balance": 3, "purpose": 2, "stability": 1 }
+        },
+        {
+          "id": "q14b",
+          "text": "Important - I seek roles that offer flexibility and reasonable hours",
+          "traits": { "balance": 2, "autonomy": 2, "stability": 1 }
+        },
+        {
+          "id": "q14c",
+          "text": "Somewhat important - I'm willing to sacrifice some balance for the right opportunity",
+          "traits": { "growth": 2, "impact": 2, "resilience": 1 }
+        },
+        {
+          "id": "q14d",
+          "text": "Less important - I'm focused on career growth and achievement right now",
+          "traits": { "impact": 3, "growth": 2, "expertise": 1 }
+        }
+      ]
+    },
+    {
+      "id": "q15",
+      "text": "Which of these statements best describes your approach to career planning?",
+      "type": "single",
+      "options": [
+        {
+          "id": "q15a",
+          "text": "I have a detailed plan with specific milestones and timelines",
+          "traits": { "structure": 3, "detail": 2, "stability": 1 }
+        },
+        {
+          "id": "q15b",
+          "text": "I focus on developing transferable skills that open multiple paths",
+          "traits": { "adaptability": 3, "growth": 2, "resilience": 1 }
+        },
+        {
+          "id": "q15c",
+          "text": "I prioritize following my passions and interests as they evolve",
+          "traits": { "purpose": 3, "autonomy": 2, "innovation": 1 }
+        },
+        {
+          "id": "q15d",
+          "text": "I take advantage of opportunities as they arise rather than planning ahead",
+          "traits": { "adaptability": 3, "autonomy": 2, "resilience": 1 }
+        }
+      ]
+    }
+  ],
+  "results": {
+    "type": "career_profile",
+    "profiles": [
+      {
+        "id": "analytical_specialist",
+        "title": "Analytical Specialist",
+        "description": "You thrive in roles that require deep expertise, analytical thinking, and attention to detail. You excel at solving complex problems through careful analysis and logical reasoning.",
+        "primaryTraits": ["analytical", "expertise", "detail"],
+        "careerPaths": [
+          "Data Scientist/Analyst",
+          "Research Specialist",
+          "Financial Analyst",
+          "Systems Analyst",
+          "Quality Assurance Specialist"
+        ],
+        "strengths": [
+          "Deep analytical thinking",
+          "Attention to detail",
+          "Specialized knowledge",
+          "Problem-solving abilities",
+          "Logical decision-making"
+        ],
+        "growthAreas": [
+          "Consider developing communication skills to better explain complex concepts",
+          "Look for opportunities to collaborate with diverse teams",
+          "Explore how your analytical skills can drive innovation"
+        ],
+        "workEnvironment": "You perform best in environments that value expertise and provide opportunities for deep focus. Look for roles that offer structured processes, clear expectations, and recognition for specialized knowledge."
+      },
+      {
+        "id": "innovative_creator",
+        "title": "Innovative Creator",
+        "description": "You excel in roles that allow you to generate new ideas, develop creative solutions, and challenge the status quo. You're driven by innovation and the freedom to explore new approaches.",
+        "primaryTraits": ["innovation", "autonomy", "adaptability"],
+        "careerPaths": [
+          "Product Designer/Developer",
+          "Creative Director",
+          "Entrepreneur",
+          "R&D Specialist",
+          "Strategic Consultant"
+        ],
+        "strengths": [
+          "Creative thinking",
+          "Adaptability to change",
+          "Independent problem-solving",
+          "Vision for new possibilities",
+          "Comfort with ambiguity"
+        ],
+        "growthAreas": [
+          "Work on translating innovative ideas into practical implementation",
+          "Develop project management skills to bring ideas to fruition",
+          "Practice communicating your vision effectively to gain support"
+        ],
+        "workEnvironment": "You thrive in flexible environments that encourage experimentation and value fresh perspectives. Look for organizations that embrace innovation, provide autonomy, and are open to new approaches."
+      },
+      {
+        "id": "collaborative_connector",
+        "title": "Collaborative Connector",
+        "description": "You excel in roles that involve bringing people together, facilitating communication, and building relationships. You're driven by collaboration and creating positive team dynamics.",
+        "primaryTraits": ["collaboration", "communication", "empathy"],
+        "careerPaths": [
+          "Team Lead/Manager",
+          "HR Professional",
+          "Customer Success Manager",
+          "Project Coordinator",
+          "Community Manager"
+        ],
+        "strengths": [
+          "Building relationships",
+          "Effective communication",
+          "Empathy and understanding",
+          "Team facilitation",
+          "Conflict resolution"
+        ],
+        "growthAreas": [
+          "Develop skills in providing constructive feedback",
+          "Practice making decisions that may not please everyone",
+          "Work on establishing boundaries in professional relationships"
+        ],
+        "workEnvironment": "You thrive in collaborative environments with strong team cultures. Look for organizations that value communication, emphasize teamwork, and create opportunities for meaningful connection."
+      },
+      {
+        "id": "strategic_leader",
+        "title": "Strategic Leader",
+        "description": "You excel in roles that involve guiding others, making strategic decisions, and driving impact. You're motivated by creating positive change and helping teams achieve ambitious goals.",
+        "primaryTraits": ["leadership", "impact", "communication"],
+        "careerPaths": [
+          "Executive/Director",
+          "Program Manager",
+          "Business Development Lead",
+          "Operations Manager",
+          "Team Lead"
+        ],
+        "strengths": [
+          "Strategic thinking",
+          "Decision-making abilities",
+          "Inspiring others",
+          "Driving results",
+          "Taking initiative"
+        ],
+        "growthAreas": [
+          "Focus on developing empathetic leadership skills",
+          "Practice delegating effectively",
+          "Work on balancing strategic vision with practical execution"
+        ],
+        "workEnvironment": "You thrive in environments that provide opportunities to lead, make meaningful decisions, and create impact. Look for organizations that value initiative, provide growth paths, and recognize leadership contributions."
+      },
+      {
+        "id": "structured_organizer",
+        "title": "Structured Organizer",
+        "description": "You excel in roles that involve creating order, implementing systems, and ensuring reliability. You're driven by efficiency, consistency, and creating stable processes.",
+        "primaryTraits": ["structure", "detail", "stability"],
+        "careerPaths": [
+          "Project Manager",
+          "Operations Specialist",
+          "Process Improvement Analyst",
+          "Executive Assistant",
+          "Logistics Coordinator"
+        ],
+        "strengths": [
+          "Organizational abilities",
+          "Attention to detail",
+          "Process development",
+          "Reliability and consistency",
+          "Practical problem-solving"
+        ],
+        "growthAreas": [
+          "Practice adapting when plans need to change",
+          "Explore how to balance structure with innovation",
+          "Develop comfort with ambiguity in evolving situations"
+        ],
+        "workEnvironment": "You thrive in well-structured environments with clear processes and expectations. Look for organizations that value reliability, provide clear guidelines, and appreciate systematic approaches."
+      },
+      {
+        "id": "purpose_driven_contributor",
+        "title": "Purpose-Driven Contributor",
+        "description": "You excel in roles that align with your values and allow you to make a positive difference. You're motivated by meaningful work that contributes to the greater good.",
+        "primaryTraits": ["purpose", "impact", "empathy"],
+        "careerPaths": [
+          "Nonprofit Professional",
+          "Corporate Social Responsibility Specialist",
+          "Healthcare Provider",
+          "Education Professional",
+          "Environmental Specialist"
+        ],
+        "strengths": [
+          "Value-driven decision making",
+          "Empathy and compassion",
+          "Commitment to positive impact",
+          "Authenticity",
+          "Resilience in meaningful work"
+        ],
+        "growthAreas": [
+          "Develop skills to measure and communicate your impact",
+          "Practice setting boundaries to prevent burnout",
+          "Explore how to balance idealism with practical constraints"
+        ],
+        "workEnvironment": "You thrive in environments with strong values and missions that align with your own. Look for organizations that prioritize purpose, demonstrate ethical practices, and create positive social impact."
+      }
+    ]
+  }
+}

@@ -1,0 +1,192 @@
+{
+  "id": "tv-character-quiz",
+  "name": "Which TV Show Character Are You?",
+  "description": "Discover which famous TV or movie character best matches your personality traits and tendencies",
+  "icon": "fas fa-tv",
+  "banner": "assets/images/tv-character-banner.webp",
+  "category": "self-discovery",
+  "personalityTypes": {
+      "strategicPlanner": {
+          "title": "The Strategic Planner",
+          "description": "You're analytical, detail-oriented, and always thinking ahead. Like your TV counterparts, you excel at anticipating problems and developing solutions before others even see the challenge coming.",
+          "characteristics": [
+              "Forward-thinking approach to challenges",
+              "Strong analytical abilities",
+              "Detail-oriented perspective",
+              "Preference for planning over improvisation",
+              "Methodical decision-making process"
+          ],
+          "strengths": "Strategic thinking, organization, foresight",
+          "challenges": "May sometimes overthink or miss spontaneous opportunities",
+          "exampleCharacters": "Tyrion Lannister (Game of Thrones), Sherlock Holmes, Lisa Simpson",
+          "imagePath": "assets/images/strategic-planner.webp"
+      },
+      "empatheticFriend": {
+          "title": "The Empathetic Friend",
+          "description": "You're caring, emotionally aware, and always there for others. Like your TV counterparts, you understand people's feelings and provide the support they need in difficult times.",
+          "characteristics": [
+              "Strong emotional intelligence",
+              "Supportive and nurturing nature",
+              "Ability to understand others' perspectives",
+              "Good listening skills",
+              "Preference for harmony in relationships"
+          ],
+          "strengths": "Emotional support, relationship building, conflict resolution",
+          "challenges": "May sometimes prioritize others' needs over your own",
+          "exampleCharacters": "Phoebe Buffay (Friends), Ted Lasso, Samwise Gamgee",
+          "imagePath": "assets/images/empathetic-friend.webp"
+      },
+      "boldAdventurer": {
+          "title": "The Bold Adventurer",
+          "description": "You're courageous, spontaneous, and always ready for excitement. Like your TV counterparts, you thrive on taking risks and exploring new possibilities.",
+          "characteristics": [
+              "Risk-taking nature",
+              "Spontaneous decision-making",
+              "Thrill-seeking attitude",
+              "Quick adaptation to new situations",
+              "Enthusiasm for the unknown"
+          ],
+          "strengths": "Courage, adaptability, enthusiasm",
+          "challenges": "May sometimes act without considering consequences",
+          "exampleCharacters": "Indiana Jones, Arya Stark, Jack Sparrow",
+          "imagePath": "assets/images/bold-adventurer.webp"
+      },
+      "principledLeader": {
+          "title": "The Principled Leader",
+          "description": "You're strong-willed, morally grounded, and natural at taking charge. Like your TV counterparts, you inspire others through your integrity and decisive actions.",
+          "characteristics": [
+              "Strong moral compass",
+              "Natural leadership qualities",
+              "Decisive in difficult situations",
+              "Commitment to doing what's right",
+              "Ability to inspire others"
+          ],
+          "strengths": "Leadership, integrity, decision-making",
+          "challenges": "May sometimes be inflexible or overly rigid",
+          "exampleCharacters": "Captain America, Daenerys Targaryen, Atticus Finch",
+          "imagePath": "assets/images/principled-leader.webp"
+      }
+  },
+  "questions": [
+      {
+          "question": "When facing a difficult situation, you typically:",
+          "options": [
+              "Analyze all possibilities before making a move",
+              "Check in with others to see how they're feeling",
+              "Jump in and figure it out as you go",
+              "Stick to your principles regardless of pressure"
+          ],
+          "personalityPoints": [
+              { "strategicPlanner": 5, "empatheticFriend": 1, "boldAdventurer": 2, "principledLeader": 3 },
+              { "strategicPlanner": 1, "empatheticFriend": 5, "boldAdventurer": 2, "principledLeader": 1 },
+              { "strategicPlanner": 1, "empatheticFriend": 2, "boldAdventurer": 5, "principledLeader": 1 },
+              { "strategicPlanner": 2, "empatheticFriend": 1, "boldAdventurer": 1, "principledLeader": 5 }
+          ]
+      },
+      {
+          "question": "When facing a challenge, you prefer to:",
+          "options": [
+              "Analyze the situation and devise a calculated plan",
+              "Lean on your close relationships and intuition",
+              "Take bold action and dive into adventure",
+              "Step up and lead with strong moral convictions"
+          ],
+          "personalityPoints": [
+              { "strategicPlanner": 5, "empatheticFriend": 1, "boldAdventurer": 2, "principledLeader": 3 },
+              { "strategicPlanner": 1, "empatheticFriend": 5, "boldAdventurer": 2, "principledLeader": 1 },
+              { "strategicPlanner": 1, "empatheticFriend": 2, "boldAdventurer": 5, "principledLeader": 1 },
+              { "strategicPlanner": 2, "empatheticFriend": 1, "boldAdventurer": 1, "principledLeader": 5 }
+          ]
+      },
+      {
+          "question": "Your ideal role in a team would be:",
+          "options": [
+              "The strategist who outlines the plan",
+              "The supportive friend who keeps morale high",
+              "The daring explorer who takes risks",
+              "The decisive leader who guides the group"
+          ],
+          "personalityPoints": [
+              { "strategicPlanner": 5, "empatheticFriend": 1, "boldAdventurer": 2, "principledLeader": 3 },
+              { "strategicPlanner": 1, "empatheticFriend": 5, "boldAdventurer": 2, "principledLeader": 1 },
+              { "strategicPlanner": 1, "empatheticFriend": 2, "boldAdventurer": 5, "principledLeader": 1 },
+              { "strategicPlanner": 2, "empatheticFriend": 1, "boldAdventurer": 1, "principledLeader": 5 }
+          ]
+      },
+      {
+          "question": "In a crisis, you are most likely to:",
+          "options": [
+              "Evaluate all options and create a tactical response",
+              "Offer emotional support and keep everyone calm",
+              "Charge into the unknown to find a solution",
+              "Take charge and make tough decisions immediately"
+          ],
+          "personalityPoints": [
+              { "strategicPlanner": 5, "empatheticFriend": 1, "boldAdventurer": 2, "principledLeader": 3 },
+              { "strategicPlanner": 1, "empatheticFriend": 5, "boldAdventurer": 2, "principledLeader": 1 },
+              { "strategicPlanner": 1, "empatheticFriend": 2, "boldAdventurer": 5, "principledLeader": 1 },
+              { "strategicPlanner": 2, "empatheticFriend": 1, "boldAdventurer": 1, "principledLeader": 5 }
+          ]
+      },
+      {
+          "question": "Which quality do you value most in a friend?",
+          "options": [
+              "Intellectual foresight and planning",
+              "Empathy and genuine care",
+              "Courage and spontaneity",
+              "Integrity and leadership"
+          ],
+          "personalityPoints": [
+              { "strategicPlanner": 5, "empatheticFriend": 1, "boldAdventurer": 2, "principledLeader": 3 },
+              { "strategicPlanner": 1, "empatheticFriend": 5, "boldAdventurer": 2, "principledLeader": 1 },
+              { "strategicPlanner": 1, "empatheticFriend": 2, "boldAdventurer": 5, "principledLeader": 1 },
+              { "strategicPlanner": 2, "empatheticFriend": 1, "boldAdventurer": 1, "principledLeader": 5 }
+          ]
+      },
+      {
+          "question": "When making decisions, you rely most on:",
+          "options": [
+              "Careful analysis and strategic thinking",
+              "Listening to your heart and those around you",
+              "Gut instincts and a willingness to take risks",
+              "A strong set of values and principles"
+          ],
+          "personalityPoints": [
+              { "strategicPlanner": 5, "empatheticFriend": 1, "boldAdventurer": 2, "principledLeader": 3 },
+              { "strategicPlanner": 1, "empatheticFriend": 5, "boldAdventurer": 2, "principledLeader": 1 },
+              { "strategicPlanner": 1, "empatheticFriend": 2, "boldAdventurer": 5, "principledLeader": 1 },
+              { "strategicPlanner": 2, "empatheticFriend": 1, "boldAdventurer": 1, "principledLeader": 5 }
+          ]
+      },
+      {
+          "question": "How do you react when plans change unexpectedly?",
+          "options": [
+              "Quickly rework your strategy to adapt",
+              "Support others and maintain a calm demeanor",
+              "See it as an opportunity for a new adventure",
+              "Take decisive action to steer things back on course"
+          ],
+          "personalityPoints": [
+              { "strategicPlanner": 5, "empatheticFriend": 1, "boldAdventurer": 2, "principledLeader": 3 },
+              { "strategicPlanner": 1, "empatheticFriend": 5, "boldAdventurer": 2, "principledLeader": 1 },
+              { "strategicPlanner": 1, "empatheticFriend": 2, "boldAdventurer": 5, "principledLeader": 1 },
+              { "strategicPlanner": 2, "empatheticFriend": 1, "boldAdventurer": 1, "principledLeader": 5 }
+          ]
+      },
+      {
+          "question": "Which setting sounds most appealing to you?",
+          "options": [
+              "A high-stakes strategy game among brilliant minds",
+              "A heartfelt gathering of close friends and family",
+              "An adventurous journey into uncharted territories",
+              "A leadership summit focused on making a positive impact"
+          ],
+          "personalityPoints": [
+              { "strategicPlanner": 5, "empatheticFriend": 1, "boldAdventurer": 2, "principledLeader": 3 },
+              { "strategicPlanner": 1, "empatheticFriend": 5, "boldAdventurer": 2, "principledLeader": 1 },
+              { "strategicPlanner": 1, "empatheticFriend": 2, "boldAdventurer": 5, "principledLeader": 1 },
+              { "strategicPlanner": 2, "empatheticFriend": 1, "boldAdventurer": 1, "principledLeader": 5 }
+          ]
+      }
+  ]
+}

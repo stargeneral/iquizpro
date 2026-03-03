@@ -1,0 +1,197 @@
+{
+    "id": "city-personality-quiz",
+    "name": "Which City Should You Live In?",
+    "description": "Discover the urban environment that best matches your personality and lifestyle",
+    "icon": "fas fa-city",
+    "banner": "assets/images/city-banner.webp",
+    "category": "lifestyle",
+    "personalityTypes": {
+      "cosmopolitan": {
+        "title": "The Cosmopolitan",
+        "description": "You thrive in vibrant, global cities that offer endless cultural experiences, diverse populations, and round-the-clock energy. Large metropolitan areas with world-class amenities and international connections suit your dynamic personality perfectly.",
+        "characteristics": [
+          "Enjoys cultural diversity and international connections",
+          "Appreciates fine dining and high-end shopping",
+          "Values career opportunities and networking",
+          "Likes being at the center of innovation and trends",
+          "Comfortable with fast-paced environments"
+        ],
+        "strengths": "Adaptability, cultural awareness, networking, sophistication",
+        "challenges": "May feel overwhelmed by constant stimulation or miss nature connections",
+        "imagePath": "assets/images/cosmopolitan-city.webp"
+      },
+      "creative": {
+        "title": "The Artistic Soul",
+        "description": "You belong in cities with thriving arts scenes, creative communities, and unconventional energy. Places that celebrate individuality, support the arts, and maintain a balance between urban energy and quirky charm will make you feel most at home.",
+        "characteristics": [
+          "Values artistic expression and creative communities",
+          "Appreciates local character over chain establishments",
+          "Enjoys street art, live music, and indie culture",
+          "Prefers walkable neighborhoods with personality",
+          "Seeks authenticity in urban experiences"
+        ],
+        "strengths": "Creativity, individuality, appreciation for arts, community building",
+        "challenges": "May struggle with overly commercialized or conservative environments",
+        "imagePath": "assets/images/creative-city.webp"
+      },
+      "outdoorsy": {
+        "title": "The Nature-Urban Hybrid",
+        "description": "You need a city that offers easy access to nature while still providing urban amenities. Places with abundant parks, outdoor recreation, and environmental consciousness will satisfy your dual need for city life and natural connection.",
+        "characteristics": [
+          "Prioritizes access to nature and outdoor activities",
+          "Values environmental sustainability",
+          "Prefers active transportation options",
+          "Enjoys farmer's markets and local food scenes",
+          "Seeks work-life balance and healthy living"
+        ],
+        "strengths": "Environmental consciousness, active lifestyle, balance-seeking, health awareness",
+        "challenges": "May feel constrained in dense urban environments without green spaces",
+        "imagePath": "assets/images/outdoorsy-city.webp"
+      },
+      "traditional": {
+        "title": "The Classic Urbanite",
+        "description": "You appreciate cities with rich history, established institutions, and traditional charm. Places that maintain their heritage while offering modern comforts provide the perfect blend of stability and sophistication for your personality.",
+        "characteristics": [
+          "Values historical preservation and tradition",
+          "Appreciates classical architecture and museums",
+          "Enjoys established cultural institutions",
+          "Prefers predictable rhythms and seasons",
+          "Seeks quality over trendiness"
+        ],
+        "strengths": "Appreciation for history, cultural depth, consistency, refinement",
+        "challenges": "May resist rapid change or overly modern environments",
+        "imagePath": "assets/images/traditional-city.webp"
+      }
+    },
+    "questions": [
+      {
+        "question": "Your ideal Saturday involves:",
+        "options": [
+          "Brunch at a trendy spot, then high-end shopping",
+          "Exploring a new art exhibit or indie music venue",
+          "Hiking nearby trails or biking through parks",
+          "Visiting a museum or historical landmark"
+        ],
+        "personalityPoints": [
+          { "cosmopolitan": 5, "creative": 2, "outdoorsy": 1, "traditional": 1 },
+          { "cosmopolitan": 2, "creative": 5, "outdoorsy": 1, "traditional": 1 },
+          { "cosmopolitan": 1, "creative": 1, "outdoorsy": 5, "traditional": 2 },
+          { "cosmopolitan": 1, "creative": 2, "outdoorsy": 1, "traditional": 5 }
+        ]
+      },
+      {
+        "question": "What's most important in your neighborhood?",
+        "options": [
+          "Proximity to business districts and luxury amenities",
+          "Local art galleries and unique small businesses",
+          "Parks and access to outdoor recreation",
+          "Historical character and established community"
+        ],
+        "personalityPoints": [
+          { "cosmopolitan": 5, "creative": 1, "outdoorsy": 1, "traditional": 2 },
+          { "cosmopolitan": 1, "creative": 5, "outdoorsy": 2, "traditional": 1 },
+          { "cosmopolitan": 1, "creative": 2, "outdoorsy": 5, "traditional": 1 },
+          { "cosmopolitan": 2, "creative": 1, "outdoorsy": 1, "traditional": 5 }
+        ]
+      },
+     { "question": "What's your ideal vacation destination?",
+     "options": [ 
+      "A bustling city with cultural landmarks",
+       "A quaint town with local art scenes",
+        "A scenic countryside retreat with nature trails",
+         "A historic city with centuries-old traditions"
+          ], 
+        "personalityPoints": [ 
+          { "cosmopolitan": 5, "creative": 2, "outdoorsy": 1, "traditional": 1 }, 
+          { "cosmopolitan": 2, "creative": 5, "outdoorsy": 1, "traditional": 1 }, 
+          { "cosmopolitan": 1, "creative": 1, "outdoorsy": 5, "traditional": 2 }, 
+          { "cosmopolitan": 1, "creative": 2, "outdoorsy": 1, "traditional": 5 }
+         ]
+          },
+          
+          { "question": "What type of cuisine do you prefer for a special dinner?",
+           "options": [
+         "Modern fusion with innovative presentations",
+         "Classic gourmet dishes with a twist",
+         "Comfort food with a hearty home-cooked feel",
+         "Traditional recipes passed down through generations" 
+         ],
+          "personalityPoints": [ 
+          { "cosmopolitan": 5, "creative": 2, "outdoorsy": 1, "traditional": 1 },
+           { "cosmopolitan": 2, "creative": 5, "outdoorsy": 1, "traditional": 1 },
+           { "cosmopolitan": 1, "creative": 1, "outdoorsy": 5, "traditional": 2 },
+           { "cosmopolitan": 1, "creative": 2, "outdoorsy": 1, "traditional": 5 }
+            ] 
+            }, 
+          { "question": "Which type of music event appeals to you the most?",
+           "options": [
+           "A large international music festival with multiple genres",
+           "An indie concert in a small, intimate venue",
+           "An outdoor summer music event in a park",
+           "A classical music performance in a historic theater"
+           ], 
+           "personalityPoints": [ 
+          { "cosmopolitan": 5, "creative": 2, "outdoorsy": 1, "traditional": 1 },
+         { "cosmopolitan": 2, "creative": 5, "outdoorsy": 1, "traditional": 1 },
+         { "cosmopolitan": 1, "creative": 1, "outdoorsy": 5, "traditional": 2 },
+         { "cosmopolitan": 1, "creative": 2, "outdoorsy": 1, "traditional": 5 } 
+         ] 
+         }, 
+         { "question": "How do you prefer to spend your evenings?",
+         "options": [ 
+        "Dining at a chic, trendy restaurant in the city",
+       "Attending a live performance or art show",
+       "Hosting a casual barbecue with friends outdoors",
+       "Enjoying a quiet night at home with a classic film"
+        ], 
+        "personalityPoints": [ 
+        { "cosmopolitan": 5, "creative": 2, "outdoorsy": 1, "traditional": 1 },
+       { "cosmopolitan": 2, "creative": 5, "outdoorsy": 1, "traditional": 1 },
+       { "cosmopolitan": 1, "creative": 1, "outdoorsy": 5, "traditional": 2 },
+       { "cosmopolitan": 1, "creative": 2, "outdoorsy": 1, "traditional": 5 } 
+       ] 
+       }, 
+       { "question": "What's your preferred method of relaxation?",
+        "options": [ 
+        "Getting a spa treatment in a luxury setting",
+       "Creating art or writing in a cozy studio",
+       "Taking a long walk in nature or going for a hike",
+       "Reading a book in a quiet, traditional library"
+        ], 
+        "personalityPoints": [
+         { "cosmopolitan": 5, "creative": 1, "outdoorsy": 1, "traditional": 2 },
+         { "cosmopolitan": 1, "creative": 5, "outdoorsy": 1, "traditional": 1 },
+         { "cosmopolitan": 1, "creative": 1, "outdoorsy": 5, "traditional": 2 },
+         { "cosmopolitan": 1, "creative": 2, "outdoorsy": 1, "traditional": 5 } 
+         ] 
+         }, 
+         { "question": "How do you choose what to wear on a special occasion?",
+          "options": [ 
+          "I opt for modern, trendsetting outfits that stand out",
+         "I love quirky, creative styles that express my individuality", 
+         "I choose comfortable yet stylish pieces suitable for outdoor events",
+          "I lean towards classic, timeless attire" 
+          ], 
+          "personalityPoints": [ 
+          { "cosmopolitan": 5, "creative": 2, "outdoorsy": 1, "traditional": 1 },
+         { "cosmopolitan": 1, "creative": 5, "outdoorsy": 1, "traditional": 1 },
+          { "cosmopolitan": 1, "creative": 1, "outdoorsy": 5, "traditional": 2 },
+           { "cosmopolitan": 1, "creative": 2, "outdoorsy": 1, "traditional": 5 }
+            ] 
+            }, 
+          { "question": "Which activity best reflects your weekend leisure pursuit?",
+           "options": [
+           "Exploring the latest upscale dining spots in the city",
+           "Attending art exhibitions or creative workshops",
+           "Spending the day camping, hiking, or exploring nature",
+           "Participating in community events with historical significance"
+            ], 
+            "personalityPoints": [
+           { "cosmopolitan": 5, "creative": 2, "outdoorsy": 1, "traditional": 1 },
+           { "cosmopolitan": 1, "creative": 5, "outdoorsy": 1, "traditional": 1 }, 
+          { "cosmopolitan": 1, "creative": 1, "outdoorsy": 5, "traditional": 2 },
+         { "cosmopolitan": 2, "creative": 1, "outdoorsy": 1, "traditional": 5 } 
+         ] 
+         }
+    ]
+  }

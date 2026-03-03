@@ -1,0 +1,7 @@
+/* This is a placeholder image file for the iQuizPros application */
+/* In a real implementation, this would be a JPEG image */
+/* Image: Aries Zodiac Sign */
+
+This text represents a placeholder for an Aries zodiac sign image.
+The actual image would show the Aries symbol and visual representation.
+This file is part of the zodiac personality quiz assets.

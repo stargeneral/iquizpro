@@ -1,0 +1,373 @@
+{
+    "id": "zodiac-sign-quiz",
+    "name": "Discover Your True Zodiac Sign",
+    "description": "Your birth date may say one thing, but your personality reveals your true cosmic alignment",
+    "icon": "fas fa-star",
+    "category": "image-quizzes",
+    "banner": "assets/images/zodiac/zodiac-banner.webp",
+    "isImageQuiz": true,
+    "personalityTypes": {
+      "aries": {
+        "title": "Aries - The Fire Pioneer",
+        "description": "Your true zodiac alignment is with Aries, the first sign of the zodiac. You embody the pioneering spirit of the ram – bold, courageous, and always ready to take the initiative. You thrive on challenges and possess natural leadership qualities that inspire others. Your direct approach and enthusiasm make you excellent at starting new projects, though you may sometimes need to practice patience to follow through to completion.",
+        "characteristics": [
+          "Natural leadership abilities",
+          "Courageous and adventurous",
+          "Energetic and passionate",
+          "Direct and straightforward",
+          "Independent spirit"
+        ],
+        "strengths": "Courage, determination, confidence",
+        "challenges": "May sometimes act without thinking through consequences",
+        "imagePath": "assets/images/zodiac/aries-result.webp"
+      },
+      "taurus": {
+        "title": "Taurus - The Earth Cultivator",
+        "description": "Your true zodiac alignment is with Taurus, the steadfast bull of the zodiac. You embody stability, persistence, and appreciation for life's sensual pleasures. You build your life carefully and methodically, creating beauty and comfort around you. With unmatched determination, you pursue your goals with patience and persistence, rarely giving up once you've set your mind on something.",
+        "characteristics": [
+          "Reliable and dependable",
+          "Patient and determined",
+          "Appreciative of beauty and comfort",
+          "Practical and grounded",
+          "Loyal and devoted"
+        ],
+        "strengths": "Persistence, reliability, sensual awareness",
+        "challenges": "May sometimes be resistant to necessary change",
+        "imagePath": "assets/images/zodiac/taurus-result.webp"
+      },
+      "gemini": {
+        "title": "Gemini - The Air Communicator",
+        "description": "Your true zodiac alignment is with Gemini, the zodiac's versatile twins. You possess a naturally curious mind and excellent communication skills. You're adaptable, quick-witted, and able to see multiple perspectives simultaneously. Your versatile nature allows you to thrive in changing circumstances, and your intellectual approach to life keeps you constantly learning and evolving.",
+        "characteristics": [
+          "Excellent communication skills",
+          "Intellectually curious",
+          "Adaptable to new situations",
+          "Socially versatile",
+          "Quick-thinking and witty"
+        ],
+        "strengths": "Versatility, communication, intellectual analysis",
+        "challenges": "May sometimes scatter energy in too many directions",
+        "imagePath": "assets/images/zodiac/gemini-result.webp"
+      },
+      "cancer": {
+        "title": "Cancer - The Water Nurturer",
+        "description": "Your true zodiac alignment is with Cancer, the nurturing crab of the zodiac. You possess incredible emotional intelligence and intuition, with a natural ability to sense others' needs. Your protective nature makes you a loyal friend and family member who creates safe spaces for loved ones. You connect deeply with your home and heritage, valuing emotional security above all else.",
+        "characteristics": [
+          "Deeply intuitive and empathetic",
+          "Protective of loved ones",
+          "Emotionally intelligent",
+          "Connection to home and heritage",
+          "Nurturing caregiver"
+        ],
+        "strengths": "Emotional depth, protective instincts, intuition",
+        "challenges": "May sometimes retreat into shell when feeling vulnerable",
+        "imagePath": "assets/images/zodiac/cancer-result.webp"
+      },
+      "leo": {
+        "title": "Leo - The Fire Sovereign",
+        "description": "Your true zodiac alignment is with Leo, the magnificent lion of the zodiac. You possess natural charisma, creativity, and leadership abilities that draw others to you. With a generous heart and warm spirit, you bring light and vitality to those around you. Your courage and self-confidence help you pursue your passions boldly, often inspiring others along the way.",
+        "characteristics": [
+          "Natural charisma and presence",
+          "Creative self-expression",
+          "Generous and warm-hearted",
+          "Confident and courageous",
+          "Loyal and protective"
+        ],
+        "strengths": "Creativity, leadership, generosity",
+        "challenges": "May sometimes seek approval or recognition too eagerly",
+        "imagePath": "assets/images/zodiac/leo-result.webp"
+      },
+      "virgo": {
+        "title": "Virgo - The Earth Analyst",
+        "description": "Your true zodiac alignment is with Virgo, the discerning analyst of the zodiac. You possess a methodical mind and exceptional attention to detail that allows you to see what others miss. Your practical approach to problem-solving and dedication to improvement makes you invaluable in any situation requiring precision. You show care through acts of service, always working to make things better.",
+        "characteristics": [
+          "Analytical and detail-oriented",
+          "Practical problem-solver",
+          "Dedication to improvement",
+          "Methodical approach",
+          "Service-oriented"
+        ],
+        "strengths": "Analysis, practicality, attention to detail",
+        "challenges": "May sometimes be overly critical of self and others",
+        "imagePath": "assets/images/zodiac/virgo-result.webp"
+      },
+      "libra": {
+        "title": "Libra - The Air Harmonizer",
+        "description": "Your true zodiac alignment is with Libra, the balanced scales of the zodiac. You naturally seek harmony and fairness in all situations, with a refined aesthetic sense and diplomatic approach to relationships. You excel at seeing multiple perspectives and finding common ground between opposing viewpoints. Your charm and social grace make you a sought-after companion who brings balance to any environment.",
+        "characteristics": [
+          "Natural diplomat and mediator",
+          "Aesthetic appreciation",
+          "Fair-minded and objective",
+          "Relationship-oriented",
+          "Charming and socially graceful"
+        ],
+        "strengths": "Diplomacy, aesthetic sense, relationship building",
+        "challenges": "May sometimes avoid necessary conflict to maintain peace",
+        "imagePath": "assets/images/zodiac/libra-result.webp"
+      },
+      "scorpio": {
+        "title": "Scorpio - The Water Transformer",
+        "description": "Your true zodiac alignment is with Scorpio, the intense scorpion of the zodiac. You possess profound emotional depth and transformational power, with the ability to see beneath the surface of people and situations. Your resourcefulness and determination allow you to overcome virtually any obstacle. You form deep, loyal bonds and value authentic connections above superficial relationships.",
+        "characteristics": [
+          "Emotionally intense and passionate",
+          "Perceptive and investigative",
+          "Resourceful and determined",
+          "Transformational power",
+          "Loyal and protective"
+        ],
+        "strengths": "Emotional depth, perception, resilience",
+        "challenges": "May sometimes hold onto emotional wounds or resentments",
+        "imagePath": "assets/images/zodiac/scorpio-result.webp"
+      },
+      "sagittarius": {
+        "title": "Sagittarius - The Fire Explorer",
+        "description": "Your true zodiac alignment is with Sagittarius, the visionary archer of the zodiac. You possess a natural love of freedom, adventure, and philosophical exploration. Your optimistic outlook and honest approach to life inspire those around you to expand their horizons. You're constantly seeking truth and meaning, often through travel, education, or spiritual pursuits that broaden your perspective.",
+        "characteristics": [
+          "Optimistic and enthusiastic",
+          "Freedom-loving explorer",
+          "Philosophical thinker",
+          "Direct and honest communication",
+          "Lifelong learner"
+        ],
+        "strengths": "Optimism, honesty, expansive vision",
+        "challenges": "May sometimes be blunt or overcommit to too many pursuits",
+        "imagePath": "assets/images/zodiac/sagittarius-result.webp"
+      },
+      "capricorn": {
+        "title": "Capricorn - The Earth Builder",
+        "description": "Your true zodiac alignment is with Capricorn, the ambitious mountain goat of the zodiac. You possess exceptional discipline, responsibility, and strategic thinking abilities. Your practical approach to achievement allows you to climb to heights others find impossible. You value integrity, structure, and long-term planning, with a natural talent for building systems that stand the test of time.",
+        "characteristics": [
+          "Disciplined and responsible",
+          "Ambitious goal-setter",
+          "Strategic long-term planner",
+          "Practical and grounded",
+          "Strong sense of integrity"
+        ],
+        "strengths": "Discipline, strategy, responsibility",
+        "challenges": "May sometimes work too hard without enjoying the journey",
+        "imagePath": "assets/images/zodiac/capricorn-result.webp"
+      },
+      "aquarius": {
+        "title": "Aquarius - The Air Innovator",
+        "description": "Your true zodiac alignment is with Aquarius, the visionary water-bearer of the zodiac. You possess a uniquely innovative mind and humanitarian spirit, often seeing possibilities others can't yet imagine. Your independent thinking and objectivity allow you to develop solutions that break new ground. You value authenticity and intellectual freedom, often championing causes that improve collective well-being.",
+        "characteristics": [
+          "Innovative and forward-thinking",
+          "Independent and objective",
+          "Humanitarian values",
+          "Original perspectives",
+          "Community-oriented"
+        ],
+        "strengths": "Innovation, objectivity, humanitarianism",
+        "challenges": "May sometimes seem emotionally detached or unconventional",
+        "imagePath": "assets/images/zodiac/aquarius-result.webp"
+      },
+      "pisces": {
+        "title": "Pisces - The Water Mystic",
+        "description": "Your true zodiac alignment is with Pisces, the intuitive fish of the zodiac. You possess exceptional empathy and imagination, with a natural ability to transcend boundaries and connect with universal energies. Your compassionate nature and creative gifts allow you to express what others can only feel. You often sense the invisible threads that connect all things, moving through life with gentle, flowing adaptability.",
+        "characteristics": [
+          "Intuitive and psychically sensitive",
+          "Imaginative and creative",
+          "Compassionate and empathetic",
+          "Spiritually connected",
+          "Adaptable and flowing"
+        ],
+        "strengths": "Compassion, intuition, creativity",
+        "challenges": "May sometimes absorb others' emotions or avoid practical realities",
+        "imagePath": "assets/images/zodiac/pisces-result.webp"
+      }
+    },
+    "questions": [
+      {
+        "question": "What is your true zodiac sign? Click the symbol you feel most drawn to:",
+        "isImageSelection": true,
+        "options": [
+          { "text": "Aries", "image": "assets/images/zodiac/aries.webp", "value": "aries" },
+          { "text": "Taurus", "image": "assets/images/zodiac/taurus.webp", "value": "taurus" },
+          { "text": "Gemini", "image": "assets/images/zodiac/gemini.webp", "value": "gemini" },
+          { "text": "Cancer", "image": "assets/images/zodiac/cancer.webp", "value": "cancer" },
+          { "text": "Leo", "image": "assets/images/zodiac/leo.webp", "value": "leo" },
+          { "text": "Virgo", "image": "assets/images/zodiac/virgo.webp", "value": "virgo" },
+          { "text": "Libra", "image": "assets/images/zodiac/libra.webp", "value": "libra" },
+          { "text": "Scorpio", "image": "assets/images/zodiac/scorpio.webp", "value": "scorpio" },
+          { "text": "Sagittarius", "image": "assets/images/zodiac/sagittarius.webp", "value": "sagittarius" },
+          { "text": "Capricorn", "image": "assets/images/zodiac/capricorn.webp", "value": "capricorn" },
+          { "text": "Aquarius", "image": "assets/images/zodiac/aquarius.webp", "value": "aquarius" },
+          { "text": "Pisces", "image": "assets/images/zodiac/pisces.webp", "value": "pisces" }
+        ],
+        "personalityPoints": [
+          { "aries": 10 },
+          { "taurus": 10 },
+          { "gemini": 10 },
+          { "cancer": 10 },
+          { "leo": 10 },
+          { "virgo": 10 },
+          { "libra": 10 },
+          { "scorpio": 10 },
+          { "sagittarius": 10 },
+          { "capricorn": 10 },
+          { "aquarius": 10 },
+          { "pisces": 10 }
+        ]
+      },
+      {
+        "question": "Which celestial body represents your inner energy?",
+        "isImageSelection": true,
+        "options": [
+          { "text": "Mars (Action)", "image": "assets/images/zodiac/mars.webp", "value": "aries" },
+          { "text": "Venus (Love)", "image": "assets/images/zodiac/venus.webp", "value": "taurus" },
+          { "text": "Mercury (Communication)", "image": "assets/images/zodiac/mercury.webp", "value": "gemini" },
+          { "text": "Moon (Emotion)", "image": "assets/images/zodiac/moon.webp", "value": "cancer" },
+          { "text": "Sun (Vitality)", "image": "assets/images/zodiac/sun.webp", "value": "leo" },
+          { "text": "Mercury (Analysis)", "image": "assets/images/zodiac/mercury2.webp", "value": "virgo" },
+          { "text": "Venus (Balance)", "image": "assets/images/zodiac/venus2.webp", "value": "libra" },
+          { "text": "Pluto (Transformation)", "image": "assets/images/zodiac/pluto.webp", "value": "scorpio" },
+          { "text": "Jupiter (Expansion)", "image": "assets/images/zodiac/jupiter.webp", "value": "sagittarius" },
+          { "text": "Saturn (Structure)", "image": "assets/images/zodiac/saturn.webp", "value": "capricorn" },
+          { "text": "Uranus (Innovation)", "image": "assets/images/zodiac/uranus.webp", "value": "aquarius" },
+          { "text": "Neptune (Dreams)", "image": "assets/images/zodiac/neptune.webp", "value": "pisces" }
+        ],
+        "personalityPoints": [
+          { "aries": 10 },
+          { "taurus": 10 },
+          { "gemini": 10 },
+          { "cancer": 10 },
+          { "leo": 10 },
+          { "virgo": 10 },
+          { "libra": 10 },
+          { "scorpio": 10 },
+          { "sagittarius": 10 },
+          { "capricorn": 10 },
+          { "aquarius": 10 },
+          { "pisces": 10 }
+        ]
+      },
+      {
+        "question": "Which element resonates with your true nature?",
+        "isImageSelection": true,
+        "options": [
+          { "text": "Fire (Dynamic)", "image": "assets/images/zodiac/fire1.webp", "value": "aries" },
+          { "text": "Earth (Stable)", "image": "assets/images/zodiac/earth1.webp", "value": "taurus" },
+          { "text": "Air (Mental)", "image": "assets/images/zodiac/air1.webp", "value": "gemini" },
+          { "text": "Water (Emotional)", "image": "assets/images/zodiac/water1.webp", "value": "cancer" },
+          { "text": "Fire (Creative)", "image": "assets/images/zodiac/fire2.webp", "value": "leo" },
+          { "text": "Earth (Precise)", "image": "assets/images/zodiac/earth2.webp", "value": "virgo" },
+          { "text": "Air (Balanced)", "image": "assets/images/zodiac/air2.webp", "value": "libra" },
+          { "text": "Water (Deep)", "image": "assets/images/zodiac/water2.webp", "value": "scorpio" },
+          { "text": "Fire (Expansive)", "image": "assets/images/zodiac/fire3.webp", "value": "sagittarius" },
+          { "text": "Earth (Structured)", "image": "assets/images/zodiac/earth3.webp", "value": "capricorn" },
+          { "text": "Air (Innovative)", "image": "assets/images/zodiac/air3.webp", "value": "aquarius" },
+          { "text": "Water (Flowing)", "image": "assets/images/zodiac/water3.webp", "value": "pisces" }
+        ],
+        "personalityPoints": [
+          { "aries": 10 },
+          { "taurus": 10 },
+          { "gemini": 10 },
+          { "cancer": 10 },
+          { "leo": 10 },
+          { "virgo": 10 },
+          { "libra": 10 },
+          { "scorpio": 10 },
+          { "sagittarius": 10 },
+          { "capricorn": 10 },
+          { "aquarius": 10 },
+          { "pisces": 10 }
+        ]
+      },
+      {
+        "question": "Choose the landscape that calls to your soul:",
+        "isImageSelection": true,
+        "options": [
+          { "text": "Mountain Peak", "image": "assets/images/zodiac/mountain.webp", "value": "aries" },
+          { "text": "Fertile Valley", "image": "assets/images/zodiac/valley.webp", "value": "taurus" },
+          { "text": "Windy Heights", "image": "assets/images/zodiac/wind.webp", "value": "gemini" },
+          { "text": "Coastal Shore", "image": "assets/images/zodiac/coast.webp", "value": "cancer" },
+          { "text": "Sunlit Savanna", "image": "assets/images/zodiac/savanna.webp", "value": "leo" },
+          { "text": "Organized Garden", "image": "assets/images/zodiac/garden.webp", "value": "virgo" },
+          { "text": "Open Sky", "image": "assets/images/zodiac/sky.webp", "value": "libra" },
+          { "text": "Deep Cave", "image": "assets/images/zodiac/cave.webp", "value": "scorpio" },
+          { "text": "Distant Horizon", "image": "assets/images/zodiac/horizon.webp", "value": "sagittarius" },
+          { "text": "Ancient Mountain", "image": "assets/images/zodiac/ancient.webp", "value": "capricorn" },
+          { "text": "Lightning Storm", "image": "assets/images/zodiac/lightning.webp", "value": "aquarius" },
+          { "text": "Misty Lake", "image": "assets/images/zodiac/lake.webp", "value": "pisces" }
+        ],
+        "personalityPoints": [
+          { "aries": 10 },
+          { "taurus": 10 },
+          { "gemini": 10 },
+          { "cancer": 10 },
+          { "leo": 10 },
+          { "virgo": 10 },
+          { "libra": 10 },
+          { "scorpio": 10 },
+          { "sagittarius": 10 },
+          { "capricorn": 10 },
+          { "aquarius": 10 },
+          { "pisces": 10 }
+        ]
+      },
+      {
+        "question": "Select the color palette that resonates with your energy:",
+        "isImageSelection": true,
+        "options": [
+          { "text": "Bold Red", "image": "assets/images/zodiac/red.webp", "value": "aries" },
+          { "text": "Earthy Green", "image": "assets/images/zodiac/green.webp", "value": "taurus" },
+          { "text": "Bright Yellow", "image": "assets/images/zodiac/yellow.webp", "value": "gemini" },
+          { "text": "Silver Blue", "image": "assets/images/zodiac/silver.webp", "value": "cancer" },
+          { "text": "Royal Gold", "image": "assets/images/zodiac/gold.webp", "value": "leo" },
+          { "text": "Muted Tans", "image": "assets/images/zodiac/tan.webp", "value": "virgo" },
+          { "text": "Pastel Pink", "image": "assets/images/zodiac/pink.webp", "value": "libra" },
+          { "text": "Deep Crimson", "image": "assets/images/zodiac/crimson.webp", "value": "scorpio" },
+          { "text": "Vibrant Purple", "image": "assets/images/zodiac/purple.webp", "value": "sagittarius" },
+          { "text": "Classic Black", "image": "assets/images/zodiac/black.webp", "value": "capricorn" },
+          { "text": "Electric Blue", "image": "assets/images/zodiac/electric.webp", "value": "aquarius" },
+          { "text": "Seafoam Green", "image": "assets/images/zodiac/seafoam.webp", "value": "pisces" }
+        ],
+        "personalityPoints": [
+          { "aries": 10 },
+          { "taurus": 10 },
+          { "gemini": 10 },
+          { "cancer": 10 },
+          { "leo": 10 },
+          { "virgo": 10 },
+          { "libra": 10 },
+          { "scorpio": 10 },
+          { "sagittarius": 10 },
+          { "capricorn": 10 },
+          { "aquarius": 10 },
+          { "pisces": 10 }
+        ]
+      },
+      {
+        "question": "Which quality best describes your approach to life?",
+        "isImageSelection": true,
+        "options": [
+          { "text": "Initiating", "image": "assets/images/zodiac/initiating1.webp", "value": "aries" },
+          { "text": "Sustaining", "image": "assets/images/zodiac/sustaining1.webp", "value": "taurus" },
+          { "text": "Versatile", "image": "assets/images/zodiac/versatile1.webp", "value": "gemini" },
+          { "text": "Nurturing", "image": "assets/images/zodiac/nurturing1.webp", "value": "cancer" },
+          { "text": "Expressive", "image": "assets/images/zodiac/expressive.webp", "value": "leo" },
+          { "text": "Analytical", "image": "assets/images/zodiac/analytical.webp", "value": "virgo" },
+          { "text": "Harmonizing", "image": "assets/images/zodiac/harmonizing.webp", "value": "libra" },
+          { "text": "Intense", "image": "assets/images/zodiac/intense.webp", "value": "scorpio" },
+          { "text": "Exploring", "image": "assets/images/zodiac/exploring.webp", "value": "sagittarius" },
+          { "text": "Ambitious", "image": "assets/images/zodiac/ambitious.webp", "value": "capricorn" },
+          { "text": "Innovative", "image": "assets/images/zodiac/innovative.webp", "value": "aquarius" },
+          { "text": "Compassionate", "image": "assets/images/zodiac/compassionate.webp", "value": "pisces" }
+        ],
+        "personalityPoints": [
+          { "aries": 10 },
+          { "taurus": 10 },
+          { "gemini": 10 },
+          { "cancer": 10 },
+          { "leo": 10 },
+          { "virgo": 10 },
+          { "libra": 10 },
+          { "scorpio": 10 },
+          { "sagittarius": 10 },
+          { "capricorn": 10 },
+          { "aquarius": 10 },
+          { "pisces": 10 }
+        ]
+      }
+    ]
+  }

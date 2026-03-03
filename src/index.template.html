@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- PWA -->
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#25d366">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="iQuizPros">
+  <link rel="apple-touch-icon" href="/assets/icons/icon-192.png">
+
+  <!-- Content Security Policy -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google-analytics.com https://www.gstatic.com https://*.googleapis.com https://cdn.jsdelivr.net https://cdnjs.cloudflare.com https://js.stripe.com; connect-src 'self' https://firebase*.googleapis.com https://identitytoolkit.googleapis.com https://securetoken.googleapis.com https://www.google-analytics.com https://region1.analytics.google.com https://stats.g.doubleclick.net https://www.google.co.uk https://cdn.jsdelivr.net https://www.gstatic.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com data:; img-src 'self' data: https://www.google-analytics.com https://www.google.co.uk; frame-src https://accounts.google.com https://www.youtube.com; worker-src 'self' blob:;">
+
+  <!-- SEO: Page Title & Meta -->
+  <title>iQuizPros - Free Online Quizzes &amp; Personality Tests</title>
+  <meta name="description" content="Take fun personality quizzes, knowledge challenges, and trivia tests. Discover your personality type, test your knowledge, and share results with friends.">
+  <meta name="robots" content="index, follow">
+
+  <!-- SEO: Canonical URL -->
+  <link rel="canonical" href="https://iquizpro.com/">
+
+  <!-- SEO: Open Graph (Facebook, WhatsApp, LinkedIn) -->
+  <meta property="og:title" content="iQuizPros - Free Online Quizzes &amp; Personality Tests">
+  <meta property="og:description" content="Take fun personality quizzes and knowledge challenges. Discover your personality type and share your results.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://iquizpro.com/">
+  <meta property="og:image" content="https://iquizpro.com/assets/images/personality-banner.webp">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:site_name" content="iQuizPros">
+  <meta property="og:locale" content="en_GB">
+
+  <!-- SEO: Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@iquizpros">
+  <meta name="twitter:title" content="iQuizPros - Free Online Quizzes &amp; Personality Tests">
+  <meta name="twitter:description" content="Take fun personality quizzes and knowledge challenges. Discover your personality type.">
+  <meta name="twitter:image" content="https://iquizpro.com/assets/images/personality-banner.webp">
+
+  <!-- SEO: JSON-LD Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "iQuizPros",
+    "url": "https://iquizpro.com",
+    "description": "Free online personality quizzes and knowledge tests",
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": "https://iquizpro.com/?quiz={quiz_id}",
+      "query-input": "required name=quiz_id"
+    }
+  }
+  </script>
+
+  <!-- Google Analytics (GA4) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-0QZSJ62FJV"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-0QZSJ62FJV');
+  </script>
+
+  <!-- Fonts (CDN — stays external for caching) -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome (CDN — stays external) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer">
+
+  <!-- NOTE: App CSS (css/base.css, theme.css, etc.) is injected here by webpack (MiniCssExtractPlugin) -->
+
+  <!-- Font Awesome load verification + emergency fallback -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      setTimeout(function() {
+        var testIcon = document.createElement('i');
+        testIcon.className = 'fas fa-check';
+        document.body.appendChild(testIcon);
+        var computedStyle = window.getComputedStyle(testIcon);
+        var fontFamily = computedStyle.getPropertyValue('font-family');
+        if (!fontFamily.includes('Font Awesome') && !fontFamily.includes('FontAwesome')) {
+          console.warn('Font Awesome not loaded correctly, adding emergency fallback');
+          var fallbackLink = document.createElement('link');
+          fallbackLink.rel = 'stylesheet';
+          fallbackLink.href = 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css';
+          document.head.appendChild(fallbackLink);
+          var iconStyle = document.createElement('style');
+          iconStyle.textContent = [
+            '.fas.fa-arrow-left:before,.fas.fa-chevron-left:before{content:"←"}',
+            '.fas.fa-brain:before{content:"🧠"}.fas.fa-flask:before{content:"🧪"}',
+            '.fas.fa-landmark:before{content:"🏛️"}.fas.fa-globe-americas:before{content:"🌎"}',
+            '.fas.fa-film:before{content:"🎬"}.fas.fa-user:before{content:"👤"}',
+            '.fas.fa-user-check:before{content:"✓👤"}.fas.fa-briefcase:before{content:"💼"}',
+            '.fas.fa-heart:before{content:"❤️"}.fas.fa-lightbulb:before{content:"💡"}',
+            '.fas.fa-map-marker-alt:before{content:"📍"}.fas.fa-images:before{content:"🖼️"}',
+            '.fas.fa-star:before{content:"⭐"}.fas.fa-crown:before{content:"👑"}',
+            '.fab.fa-whatsapp:before{content:"📱"}.fas.fa-redo:before{content:"🔄"}',
+            '.fab.fa-facebook:before{content:"F"}.fab.fa-twitter:before{content:"T"}',
+            '.fab.fa-instagram:before{content:"I"}'
+          ].join('');
+          document.head.appendChild(iconStyle);
+        }
+        document.body.removeChild(testIcon);
+      }, 1000);
+    });
+  </script>
+
+  <!-- External JS libraries (stay as CDN — Firebase SDK must load before app bundle) -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.4.0/dist/confetti.browser.min.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-app-compat.js"></script>
+  <script async src="https://www.gstatic.com/firebasejs/9.6.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-database-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-functions-compat.js"></script>
+
+  <!-- Live Presenter & Audience bundles are loaded only on their own pages (live-presenter.html, live-audience.html) -->
+
+  <link rel="icon" href="/favicon.ico">
+</head>
+<body>
+
+  <!-- Phase 10.6: Embed mode — add class early to suppress layout flash -->
+  <script>
+    (function(){var p=new URLSearchParams(location.search);if(p.get('embed')==='1'&&p.get('quizId')){document.body.classList.add('embed-mode');}})();
+  </script>
+
+  <!-- Skip to main content (accessibility — keyboard users) -->
+  <a href="#main-content" class="skip-nav-link">Skip to main content</a>
+
+  <!-- Offline banner — hidden by default; JS shows it on 'offline' event -->
+  <div id="offline-banner" role="status" aria-live="polite" style="display:none;position:fixed;top:0;left:0;right:0;z-index:9999;background:#1a1a1a;color:#fff;font-size:.9rem;text-align:center;padding:.6rem 1rem;">
+    📵 You're offline — some features may be unavailable
+  </div>
+
+  <!-- Toast notification container -->
+  <div class="toast-container"></div>
+
+  <!-- ── Quiz Screen 1: Topic Selection ───────────────────────────────────── -->
+  <main id="main-content" aria-label="Quiz Application">
+
+  <div id="topic-selection-screen" class="quiz-container">
+    <!-- Skeleton placeholder shown until ui-manager replaces content -->
+    <div class="skeleton skeleton-card" style="height:180px;margin-bottom:24px;"></div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:12px;margin-bottom:24px;">
+      <div class="skeleton skeleton-card"></div>
+      <div class="skeleton skeleton-card"></div>
+      <div class="skeleton skeleton-card"></div>
+      <div class="skeleton skeleton-card"></div>
+    </div>
+    <div class="skeleton skeleton-text medium"></div>
+    <div class="skeleton skeleton-text short" style="margin-top:8px;"></div>
+  </div>
+
+  <!-- ── Quiz Screen 2: Category Selection (Personality sub-categories) ───── -->
+  <div id="category-selection-screen" class="quiz-container" style="display: none;">
+    <div class="quiz-header category-header">
+      <button id="back-to-topics-from-categories" class="back-button">
+        <i class="fas fa-arrow-left"></i> Back
+      </button>
+      <div class="quiz-topic-info">Personality Quiz Categories</div>
+    </div>
+    <div id="category-grid-container"></div>
+  </div>
+
+  <!-- ── Quiz Screen 3: Main Quiz Container ───────────────────────────────── -->
+  <div class="quiz-container" id="main-quiz-container" style="display: none;">
+    <div class="quiz-header">
+      <button id="back-to-topics" class="back-button">
+        <i class="fas fa-arrow-left"></i> Topics
+      </button>
+      <div class="quiz-topic-info" id="current-topic-info">Quiz</div>
+    </div>
+
+    <div class="progress-container">
+      <div class="progress-bar">
+        <div class="progress" id="progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"></div>
+      </div>
+    </div>
+
+    <div id="question-container"></div>
+
+    <!-- Loading state -->
+    <div id="loading">
+      <div class="spinner"></div>
+      <h2 id="loading-message">🔍 Loading Your Quiz...</h2>
+      <div class="loading-step">🧠 Analyzing your preferences...</div>
+      <div class="loading-step">📊 Preparing questions...</div>
+      <div class="loading-step">✨ Almost ready...</div>
+    </div>
+
+    <!-- Pre-result (locked — share to unlock) -->
+    <div id="pre-result" style="display: none;">
+      <div id="locked-result">
+        <div class="lock-icon">🔒</div>
+        <h2>Yay! Congratulations!</h2>
+        <p>We have calculated your result</p>
+        <div class="share-instructions">
+          <strong>Your results are ready:</strong>
+          <ol>
+            <li>Share this quiz with friends (Click the WhatsApp Button)</li>
+            <li>After sharing, you'll see your final results</li>
+          </ol>
+        </div>
+        <div class="progress-container share-progress">
+          <p>Share with friends to see your results</p>
+          <div class="progress-bar share-bar">
+            <div class="progress" id="share-progress" style="width: 33%"></div>
+          </div>
+        </div>
+      </div>
+      <button class="share-btn" id="whatsapp-share-first">
+        <i class="fab fa-whatsapp"></i> Share on WhatsApp
+      </button>
+    </div>
+
+    <!-- Final result -->
+    <div id="final-result" style="display: none;">
+      <div class="result-badge" id="result-badge">🏆</div>
+      <h2>Your Score: <span id="result-score">0</span>/<span id="total-questions">0</span></h2>
+      <div class="result-message" id="result-message"></div>
+      <div id="share-container">
+        <button class="share-btn" id="whatsapp-share-again">
+          <i class="fab fa-whatsapp"></i> Challenge Friends
+        </button>
+      </div>
+      <button class="share-btn secondary" id="try-again">
+        <i class="fas fa-redo"></i> Try Again
+      </button>
+    </div>
+  </div><!-- /#main-quiz-container -->
+
+  </main><!-- /#main-content -->
+
+  <!-- ── Mobile Bottom Navigation Bar ──────────────────────────────────────── -->
+  <nav class="bottom-nav" id="bottom-nav" aria-label="Main navigation">
+    <a href="/" class="bottom-nav-item" id="bnav-home" aria-label="Home">
+      <i class="fas fa-home"></i>
+      <span>Home</span>
+    </a>
+    <a href="/#knowledge-section" class="bottom-nav-item" id="bnav-quizzes" aria-label="Quizzes">
+      <i class="fas fa-brain"></i>
+      <span>Quizzes</span>
+    </a>
+    <a href="/dashboard.html" class="bottom-nav-item" id="bnav-dashboard" aria-label="Dashboard">
+      <i class="fas fa-chart-bar"></i>
+      <span>Dashboard</span>
+    </a>
+    <a href="/premium.html" class="bottom-nav-item" id="bnav-premium" aria-label="Premium">
+      <i class="fas fa-crown"></i>
+      <span>Premium</span>
+    </a>
+  </nav>
+
+  <!-- Emergency CSS fallback: applies basic styles if CSS bundle fails to load -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      setTimeout(function() {
+        var topicCards = document.querySelectorAll('.topic-card');
+        if (topicCards.length > 0) {
+          var style = window.getComputedStyle(topicCards[0]);
+          if (style.backgroundColor === 'rgba(0, 0, 0, 0)' || style.backgroundColor === 'transparent') {
+            console.warn('Emergency styles being applied - CSS bundle may not have loaded');
+            var emergencyStyles = document.createElement('style');
+            emergencyStyles.textContent = [
+              '.topic-card{padding:15px;background-color:#f5f5f5;border-radius:8px;margin:10px;cursor:pointer;transition:all .3s;text-align:center}',
+              '.topic-card:hover{transform:translateY(-5px);background-color:#fff;box-shadow:0 5px 15px rgba(0,0,0,.1)}',
+              '.topic-icon{font-size:24px;color:#25d366;margin-bottom:10px}',
+              '.option{padding:15px;background-color:#f5f5f5;border:1px solid #ddd;border-radius:8px;margin-bottom:10px;cursor:pointer}',
+              '.option:hover{background-color:#eee}',
+              '.back-button{background-color:#f5f5f5;border:1px solid #ddd;padding:8px 15px;border-radius:5px;cursor:pointer}'
+            ].join('');
+            document.head.appendChild(emergencyStyles);
+          }
+        }
+      }, 1500);
+    });
+  </script>
+
+  <!-- Force Font Awesome icons to display (handles timing/rendering quirks) -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      function checkAndFixIcons() {
+        var iconElements = document.querySelectorAll('.fas, .fab, .far, .fa');
+        iconElements.forEach(function(icon) {
+          icon.style.display = 'none';
+          void icon.offsetHeight;
+          icon.style.display = '';
+          setTimeout(function() {
+            var style = window.getComputedStyle(icon, ':before');
+            if (!style.content || style.content === 'none' || style.content === '""') {
+              icon.classList.add('icon-fallback-needed');
+              var classes = Array.from(icon.classList);
+              var fallbackText = '•';
+              if (classes.includes('fa-arrow-left'))      fallbackText = '←';
+              else if (classes.includes('fa-brain'))       fallbackText = '🧠';
+              else if (classes.includes('fa-flask'))       fallbackText = '🧪';
+              else if (classes.includes('fa-landmark'))    fallbackText = '🏛️';
+              else if (classes.includes('fa-globe-americas')) fallbackText = '🌎';
+              else if (classes.includes('fa-film'))        fallbackText = '🎬';
+              else if (classes.includes('fa-user'))        fallbackText = '👤';
+              else if (classes.includes('fa-star'))        fallbackText = '⭐';
+              else if (classes.includes('fa-crown'))       fallbackText = '👑';
+              else if (classes.includes('fa-whatsapp'))    fallbackText = '📱';
+              else if (classes.includes('fa-redo'))        fallbackText = '🔄';
+              icon.textContent = fallbackText;
+            }
+          }, 100);
+        });
+      }
+      setTimeout(checkAndFixIcons, 500);
+      window.addEventListener('load', function() { setTimeout(checkAndFixIcons, 1000); });
+    });
+  </script>
+
+  <!-- Initialize footer when DOM is ready -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      if (window.QuizProsFooter && typeof window.QuizProsFooter.initializeFullFooter === 'function') {
+        window.QuizProsFooter.initializeFullFooter();
+      }
+    });
+  </script>
+
+  <!-- Stripe.js (payment — loads last, not needed until checkout) -->
+  <script src="https://js.stripe.com/v3/"></script>
+
+</body>
+</html>

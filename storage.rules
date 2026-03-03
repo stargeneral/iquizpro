@@ -1,0 +1,22 @@
+rules_version = '2';
+
+service firebase.storage {
+  match /b/{bucket}/o {
+
+    // -------------------------------------------------------------------------
+    // iQuizPros Storage Rules — Phase 8
+    //
+    // Current status: Firebase Storage is not used for user-uploaded content.
+    // All media assets (images, sounds, fonts) are deployed as static files
+    // via Firebase Hosting and are NOT stored in Cloud Storage.
+    //
+    // If user avatars or custom quiz images are added in a future phase,
+    // add rules restricting uploads to users/{uid}/ prefix here.
+    //
+    // Default: deny all reads and writes to prevent any unintended access.
+    // -------------------------------------------------------------------------
+    match /{allPaths=**} {
+      allow read, write: if false;
+    }
+  }
+}

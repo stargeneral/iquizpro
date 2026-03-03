@@ -1,0 +1,6 @@
+/* This is a placeholder sound file for the iQuizPros application */
+/* In a real implementation, this would be an MP3 or WAV audio file */
+/* Sound: Correct Answer */
+
+This text represents a placeholder for a correct answer sound effect.
+The actual file would contain a short, positive sound that plays when a user answers correctly.

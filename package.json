@@ -1,0 +1,65 @@
+{
+  "name": "iquizpros",
+  "version": "2.0.0",
+  "description": "Interactive quiz platform with live Mentimeter-style presentation features",
+  "private": true,
+  "scripts": {
+    "start": "webpack serve --mode development --config webpack.config.js",
+    "build": "webpack --mode production --config webpack.config.js",
+    "build:dev": "webpack --mode development --config webpack.config.js",
+    "serve": "firebase serve --only hosting",
+    "deploy": "npm run build && firebase deploy --only hosting",
+    "deploy:preview": "npm run build && firebase hosting:channel:deploy preview",
+    "deploy:staging": "npm run build && firebase hosting:channel:deploy staging",
+    "test": "jest --testPathPattern=tests/unit",
+    "test:e2e": "playwright test"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.24.0",
+    "@babel/preset-env": "^7.24.0",
+    "@playwright/test": "^1.58.2",
+    "babel-jest": "^29.7.0",
+    "copy-webpack-plugin": "^11.0.0",
+    "css-loader": "^6.8.1",
+    "css-minimizer-webpack-plugin": "^5.0.1",
+    "firebase-tools": "^13.0.0",
+    "html-webpack-plugin": "^5.5.4",
+    "jest": "^29.7.0",
+    "jest-environment-jsdom": "^29.7.0",
+    "mini-css-extract-plugin": "^2.7.6",
+    "terser-webpack-plugin": "^5.3.10",
+    "webpack": "^5.89.0",
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^4.15.1"
+  },
+  "jest": {
+    "testEnvironment": "jsdom",
+    "transform": {
+      "^.+\\.js$": "babel-jest"
+    },
+    "testMatch": [
+      "**/tests/unit/**/*.test.js"
+    ]
+  },
+  "babel": {
+    "presets": [
+      [
+        "@babel/preset-env",
+        {
+          "targets": {
+            "node": "current"
+          }
+        }
+      ]
+    ]
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "keywords": [
+    "quiz",
+    "firebase",
+    "interactive"
+  ],
+  "license": "UNLICENSED"
+}

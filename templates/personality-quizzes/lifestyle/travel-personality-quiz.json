@@ -1,0 +1,164 @@
+{
+  "id": "travel-personality",
+  "name": "Travel Personality",
+  "description": "Where in the world should you go next? Find out your ideal travel style and destination!",
+  "icon": "fas fa-plane",
+  "banner": "assets/images/travel-personality.webp",
+  "category": "lifestyle",
+  "personalityTypes": {
+    "adventurer": {
+      "title": "The Adventurer",
+      "description": "You crave adrenaline, wide open spaces and experiences that push your limits. Trekking through rainforests, bungee jumping or navigating unmarked trails — you're all in. The beaten path is just a starting point for you.",
+      "characteristics": ["Thrives on challenge and novelty", "Comfortable with the unexpected", "Energised by physical activity", "Drawn to remote and wild places", "Stories to tell for a lifetime"],
+      "strengths": "Your fearlessness and adaptability mean you get the most authentic, transformative travel experiences. You go where others won't.",
+      "challenges": "Planning and logistics can frustrate you. Learning to balance spontaneity with a basic safety net will make your adventures even richer.",
+      "imagePath": "assets/images/adventurer-personality.webp"
+    },
+    "culturalist": {
+      "title": "The Culture Seeker",
+      "description": "Museums, ancient ruins, local festivals and traditional cuisine are your idea of paradise. You travel to understand people, history and the richness of human civilisation. Every trip is a masterclass in the world.",
+      "characteristics": ["Intellectual and curious", "Appreciates art, history and architecture", "Loves local food and markets", "Prefers depth over speed", "Journals and photographs everything"],
+      "strengths": "You return home genuinely transformed, with deep knowledge and meaningful connections that casual tourists never find.",
+      "challenges": "You can get overwhelmed trying to see everything. Prioritise a few experiences and allow yourself to sit still and soak it in.",
+      "imagePath": "assets/images/culturalist-personality.webp"
+    },
+    "relaxer": {
+      "title": "The Sun & Soul Relaxer",
+      "description": "Beach, pool, cocktail in hand. You travel to recharge, disconnect and savour pure relaxation. Lazy mornings, long lunches and stunning sunsets are your perfect itinerary. You've earned it.",
+      "characteristics": ["Values rest and rejuvenation", "Drawn to warm climates and beautiful scenery", "Enjoys good food and comfort", "Happy with a slow pace", "Returns home genuinely refreshed"],
+      "strengths": "You know that rest is productive. Your holidays actually restore your energy and you come back ready to conquer the world.",
+      "challenges": "You might miss some incredible local experiences by staying in the resort. Even one local excursion can elevate a relaxing trip.",
+      "imagePath": "assets/images/relaxer-personality.webp"
+    },
+    "socialiser": {
+      "title": "The Social Explorer",
+      "description": "You travel for the people. Whether it's hostel common rooms, guided group tours or solo trips where you somehow make 20 friends by day two — connection is your currency. You leave with friends all over the world.",
+      "characteristics": ["Energised by meeting new people", "Loves group activities and shared experiences", "Great at breaking the ice", "Flexible and easy-going", "Collects connections everywhere"],
+      "strengths": "Your openness and warmth mean locals and fellow travellers open doors for you that no guidebook can find.",
+      "challenges": "Make sure to carve out moments for solo reflection. Some of travel's best insights arrive in quiet.",
+      "imagePath": "assets/images/socialiser-personality.webp"
+    }
+  },
+  "questions": [
+    {
+      "question": "When you're booking a holiday, what excites you most?",
+      "options": [
+        "Finding a wild hike or extreme activity",
+        "Choosing museums, galleries and local history to explore",
+        "Picking the resort with the best pool and beach",
+        "Seeing which friends might join or who I'll meet"
+      ],
+      "personalityPoints": [
+        { "adventurer": 5, "culturalist": 1, "relaxer": 1, "socialiser": 2 },
+        { "adventurer": 1, "culturalist": 5, "relaxer": 1, "socialiser": 2 },
+        { "adventurer": 1, "culturalist": 1, "relaxer": 5, "socialiser": 2 },
+        { "adventurer": 2, "culturalist": 1, "relaxer": 1, "socialiser": 5 }
+      ]
+    },
+    {
+      "question": "Your ideal accommodation is:",
+      "options": [
+        "A tent under the stars or a remote mountain hut",
+        "A boutique guesthouse in a historic city centre",
+        "An all-inclusive resort with sea views",
+        "A lively hostel with a social bar and shared spaces"
+      ],
+      "personalityPoints": [
+        { "adventurer": 5, "culturalist": 2, "relaxer": 1, "socialiser": 1 },
+        { "adventurer": 1, "culturalist": 5, "relaxer": 2, "socialiser": 1 },
+        { "adventurer": 1, "culturalist": 1, "relaxer": 5, "socialiser": 2 },
+        { "adventurer": 1, "culturalist": 1, "relaxer": 2, "socialiser": 5 }
+      ]
+    },
+    {
+      "question": "What does a perfect travel day look like?",
+      "options": [
+        "White-water rafting in the morning, jungle trek in the afternoon",
+        "Morning at a local market, afternoon in a museum, evening at a heritage restaurant",
+        "Sleep in, beach until sunset, dinner at a beachside restaurant",
+        "Morning coffee with new friends, group day trip, dinner party back at the hostel"
+      ],
+      "personalityPoints": [
+        { "adventurer": 5, "culturalist": 1, "relaxer": 1, "socialiser": 1 },
+        { "adventurer": 1, "culturalist": 5, "relaxer": 1, "socialiser": 2 },
+        { "adventurer": 1, "culturalist": 1, "relaxer": 5, "socialiser": 2 },
+        { "adventurer": 2, "culturalist": 1, "relaxer": 1, "socialiser": 5 }
+      ]
+    },
+    {
+      "question": "Which destination most appeals to you?",
+      "options": [
+        "Patagonia, Himalayas or Iceland",
+        "Rome, Kyoto or Istanbul",
+        "Maldives, Bali or the Amalfi Coast",
+        "Barcelona, Bangkok or Buenos Aires"
+      ],
+      "personalityPoints": [
+        { "adventurer": 5, "culturalist": 1, "relaxer": 1, "socialiser": 1 },
+        { "adventurer": 1, "culturalist": 5, "relaxer": 1, "socialiser": 1 },
+        { "adventurer": 1, "culturalist": 1, "relaxer": 5, "socialiser": 2 },
+        { "adventurer": 2, "culturalist": 2, "relaxer": 2, "socialiser": 5 }
+      ]
+    },
+    {
+      "question": "When you arrive somewhere new, you immediately:",
+      "options": [
+        "Ask a local about the nearest trail, cliff dive or hidden adventure",
+        "Head to the old town and start exploring the streets",
+        "Check into the hotel, order room service and decompress",
+        "Download a meetup app and see who's around tonight"
+      ],
+      "personalityPoints": [
+        { "adventurer": 5, "culturalist": 1, "relaxer": 1, "socialiser": 1 },
+        { "adventurer": 1, "culturalist": 5, "relaxer": 1, "socialiser": 2 },
+        { "adventurer": 1, "culturalist": 1, "relaxer": 5, "socialiser": 1 },
+        { "adventurer": 1, "culturalist": 1, "relaxer": 1, "socialiser": 5 }
+      ]
+    },
+    {
+      "question": "Your travel souvenir of choice is:",
+      "options": [
+        "A scar, a patch on your backpack or a wild story",
+        "A handmade craft, a book or a piece of local art",
+        "A new swimsuit you bought by the pool",
+        "A friend's contact saved in your phone"
+      ],
+      "personalityPoints": [
+        { "adventurer": 5, "culturalist": 1, "relaxer": 1, "socialiser": 2 },
+        { "adventurer": 1, "culturalist": 5, "relaxer": 1, "socialiser": 1 },
+        { "adventurer": 1, "culturalist": 1, "relaxer": 5, "socialiser": 1 },
+        { "adventurer": 2, "culturalist": 1, "relaxer": 1, "socialiser": 5 }
+      ]
+    },
+    {
+      "question": "On a long-haul flight, you are most likely found:",
+      "options": [
+        "Planning your next spontaneous detour on Google Maps",
+        "Reading a history or travel book about your destination",
+        "Sleeping with a neck pillow, fully reclined",
+        "Chatting to the person next to you and swapping travel tips"
+      ],
+      "personalityPoints": [
+        { "adventurer": 4, "culturalist": 2, "relaxer": 1, "socialiser": 2 },
+        { "adventurer": 1, "culturalist": 5, "relaxer": 1, "socialiser": 1 },
+        { "adventurer": 1, "culturalist": 1, "relaxer": 5, "socialiser": 1 },
+        { "adventurer": 1, "culturalist": 1, "relaxer": 2, "socialiser": 5 }
+      ]
+    },
+    {
+      "question": "What would ruin a holiday for you most?",
+      "options": [
+        "Being stuck in a resort with nothing adventurous to do",
+        "Having no time to visit cultural sites or local landmarks",
+        "Bad weather stopping you relaxing on the beach",
+        "Travelling alone with nobody to share experiences with"
+      ],
+      "personalityPoints": [
+        { "adventurer": 5, "culturalist": 1, "relaxer": 1, "socialiser": 1 },
+        { "adventurer": 1, "culturalist": 5, "relaxer": 1, "socialiser": 1 },
+        { "adventurer": 1, "culturalist": 1, "relaxer": 5, "socialiser": 1 },
+        { "adventurer": 1, "culturalist": 1, "relaxer": 1, "socialiser": 5 }
+      ]
+    }
+  ]
+}

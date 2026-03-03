@@ -1,0 +1,1016 @@
+/* 
+ * Layout CSS for IQuizPros
+ * Contains styles for page layout, grid systems, and structural elements
+ */
+
+/* Main Layout Container */
+.quiz-container {
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Header Section */
+.quiz-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #eee;
+}
+
+.back-button {
+  background-color: #f8f8f8;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 10px 15px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.03);
+}
+
+.back-button:hover {
+  background-color: #f0f0f0;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+}
+
+.back-button:active {
+  transform: translateY(0);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.back-button i {
+  font-size: 0.85rem;
+  color: #555;
+  transition: transform 0.2s ease;
+}
+
+.back-button:hover i {
+  transform: translateX(-3px);
+}
+
+.quiz-topic-info {
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: #25d366;
+}
+
+/* Premium User Badge */
+.premium-user-badge {
+  display: flex;
+  align-items: center;
+  background: linear-gradient(135deg, #ffd700, #ffa500);
+  color: #212529;
+  padding: 5px 10px;
+  border-radius: 50px;
+  font-weight: 600;
+  font-size: 0.85rem;
+  margin-left: 10px;
+}
+
+.premium-user-badge i {
+  margin-right: 5px;
+}
+
+/* Question Display */
+.question-banner {
+  background: linear-gradient(135deg, #25d366, #1da851);
+  color: white;
+  padding: 20px 15px;
+  text-align: center;
+  border-radius: 12px;
+  margin-bottom: 20px;
+  font-weight: bold;
+  font-size: 1.3rem;
+  position: relative;
+  z-index: 1;
+  box-shadow: 0 5px 15px rgba(37, 211, 102, 0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.question-banner:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(37, 211, 102, 0.25);
+}
+
+.question-banner p {
+  margin: 0;
+  padding: 10px;
+  line-height: 1.5;
+}
+
+.question-number {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #666;
+  margin-bottom: 12px;
+  text-align: center;
+  letter-spacing: 0.5px;
+}
+
+/* Options Layout */
+.options {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.option {
+  padding: 16px;
+  background-color: #f8f8f8;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: left;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.03);
+  position: relative;
+  overflow: hidden;
+  min-height: 44px; /* WCAG 2.5.5 touch target */
+  display: flex;
+  align-items: center;
+}
+
+.option:hover {
+  background-color: #f0f0f0;
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+}
+
+.option.selected {
+  background-color: #25d366;
+  color: white;
+  border-color: #1da851;
+  box-shadow: 0 5px 15px rgba(37, 211, 102, 0.2);
+}
+
+.option.correct {
+  background-color: #4caf50;
+  color: white;
+  border-color: #388e3c;
+  box-shadow: 0 5px 15px rgba(76, 175, 80, 0.2);
+}
+
+.option.incorrect {
+  background-color: #f44336;
+  color: white;
+  border-color: #d32f2f;
+  box-shadow: 0 5px 15px rgba(244, 67, 54, 0.2);
+}
+
+.option::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background-color: transparent;
+  transition: background-color 0.3s ease;
+}
+
+.option:hover::before {
+  background-color: #25d366;
+}
+
+.option.selected::before,
+.option.correct::before {
+  background-color: #1da851;
+}
+
+.option.incorrect::before {
+  background-color: #d32f2f;
+}
+
+/* Explanation / Fun Fact banner shown after answer selection */
+.explanation-banner {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  margin-top: 1rem;
+  padding: 0.75rem 1rem;
+  background: #f0faf5;
+  border-left: 4px solid #25d366;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  color: #1a5c3a;
+  line-height: 1.4;
+  animation: fadeInUp 0.3s ease;
+}
+
+.explanation-banner .explanation-icon {
+  font-size: 1.1rem;
+  flex-shrink: 0;
+  margin-top: 0.05rem;
+}
+
+.explanation-banner .explanation-text {
+  flex: 1;
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+body.dark-mode .explanation-banner {
+  background: #1a2e25;
+  color: #a8f0c8;
+  border-left-color: #25d366;
+}
+
+/* Footer Section */
+.quiz-footer {
+  margin-top: 30px;
+  padding-top: 15px;
+  border-top: 1px solid #eee;
+}
+
+.footer-content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.footer-columns {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.footer-column {
+  flex: 1;
+  min-width: 200px;
+}
+
+.footer-column h4 {
+  font-size: 1rem;
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.footer-menu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-menu li {
+  margin-bottom: 8px;
+}
+
+.footer-menu a {
+  font-size: 0.9rem;
+  color: #25d366;
+  text-decoration: none;
+  transition: all 0.2s;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.footer-menu a:hover {
+  color: #128c7e;
+  text-decoration: underline;
+}
+
+.footer-menu.social-links a i {
+  width: 20px;
+  text-align: center;
+}
+
+.premium-link {
+  color: #ffc107;
+}
+
+.premium-link:hover {
+  color: #e0a800;
+}
+
+.footer-bottom {
+  display: flex;
+  justify-content: center;
+  padding-top: 15px;
+  border-top: 1px solid #eee;
+}
+
+.copyright {
+  font-size: 0.9rem;
+  color: #777;
+}
+
+.footer-links {
+  display: flex;
+  gap: 15px;
+}
+
+.footer-link {
+  font-size: 0.9rem;
+  color: #25d366;
+  text-decoration: none;
+  transition: all 0.2s;
+}
+
+.footer-link:hover {
+  color: #128c7e;
+  text-decoration: underline;
+}
+
+/* Loading Screen */
+#loading {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  text-align: center;
+}
+
+.loading-step {
+  margin: 10px 0;
+  opacity: 0;
+  animation: fade-in 0.5s forwards;
+}
+
+.loading-step:nth-child(2) {
+  animation-delay: 0.5s;
+}
+.loading-step:nth-child(3) {
+  animation-delay: 1s;
+}
+.loading-step:nth-child(4) {
+  animation-delay: 1.5s;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Result Screens */
+#pre-result,
+#final-result {
+  display: none;
+  text-align: center;
+  padding: 20px;
+}
+
+#locked-result {
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.lock-icon {
+  font-size: 3rem;
+  margin-bottom: 10px;
+}
+
+.share-instructions {
+  text-align: left;
+  margin: 20px 0;
+  padding: 15px;
+  background-color: #f0f0f0;
+  border-radius: 8px;
+}
+
+.share-instructions ol {
+  padding-left: 20px;
+}
+
+.share-instructions li {
+  margin-bottom: 10px;
+}
+
+.share-bar {
+  margin: 20px 0;
+}
+
+/* Share Button */
+.share-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 14px;
+  margin: 15px 0;
+  background: linear-gradient(135deg, #25d366, #128c7e);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(37, 211, 102, 0.2);
+  gap: 10px;
+}
+
+.share-btn i {
+  font-size: 1.2rem;
+}
+
+.share-btn:hover {
+  background: linear-gradient(135deg, #1da851, #0d7060);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 15px rgba(37, 211, 102, 0.3);
+}
+
+.share-btn:active {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 5px rgba(37, 211, 102, 0.2);
+}
+
+.share-btn.secondary {
+  background: linear-gradient(135deg, #6c757d, #5a6268);
+  box-shadow: 0 4px 10px rgba(108, 117, 125, 0.2);
+}
+
+.share-btn.secondary:hover {
+  background: linear-gradient(135deg, #5a6268, #495057);
+  box-shadow: 0 6px 15px rgba(108, 117, 125, 0.3);
+}
+
+/* Results */
+.result-badge {
+  font-size: 4rem;
+  margin-bottom: 10px;
+}
+
+.result-message {
+  margin: 20px 0;
+  padding: 15px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+}
+
+/* Topic Selection Styles */
+#topic-selection-screen {
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 20px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+}
+
+.topics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.topic-card {
+  padding: 20px;
+  background: #f9f9f9;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s;
+  text-align: center;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(0, 0, 0, 0.03);
+}
+
+.topic-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+  background: #ffffff;
+}
+
+.topic-icon {
+  font-size: 2.8rem;
+  margin-bottom: 15px;
+  color: #25d366;
+  transition: transform 0.3s ease;
+}
+
+.topic-card:hover .topic-icon {
+  transform: scale(1.1);
+}
+
+/* Uganda Topic - Special styling with Pearl of Africa colors */
+.topic-card[data-topic="uganda"] .topic-icon {
+  color: #FFD700; /* Gold color representing Uganda's sunshine */
+  background: linear-gradient(135deg, #000000 0%, #D90000 50%, #FCDC04 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.topic-card[data-topic="uganda"]:hover {
+  border-left: 4px solid #D90000; /* Red from Uganda flag */
+  background: linear-gradient(to right, #fff8e1, #ffffff);
+}
+
+/* Category Selection Screen */
+.categories-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.category-card {
+  padding: 20px;
+  background: #f9f9f9;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s;
+  text-align: center;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(0, 0, 0, 0.03);
+}
+
+.category-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+  background: #ffffff;
+}
+
+.category-icon {
+  font-size: 2.8rem;
+  margin-bottom: 15px;
+  transition: transform 0.3s ease;
+}
+
+.category-card:hover .category-icon {
+  transform: scale(1.1);
+}
+
+.category-card h3 {
+  margin-bottom: 10px;
+  font-size: 1.4rem;
+}
+
+.category-card p {
+  color: #666;
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+.category-header {
+  margin-bottom: 25px;
+}
+
+/* Image Selection Grid */
+.image-selection-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 15px;
+  margin: 20px 0;
+}
+
+.image-option {
+  position: relative;
+  cursor: pointer;
+  border-radius: 8px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+  aspect-ratio: 1;
+}
+
+.image-option:hover {
+  transform: translateY(-5px) scale(1.03);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+  z-index: 2;
+}
+
+.image-option:active {
+  transform: scale(0.98);
+}
+
+.image-option img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.image-number {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  width: 25px;
+  height: 25px;
+  background: rgba(0,0,0,0.7);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 0.9rem;
+}
+
+.image-caption {
+  padding: 8px 4px;
+  text-align: center;
+  background: rgba(0,0,0,0.7);
+  color: white;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  font-size: 0.9rem;
+}
+
+/* Premium Result Features */
+.premium-result-feature {
+  background-color: #f8f9fa;
+  border-radius: 10px;
+  padding: 20px;
+  margin: 20px 0;
+  border-left: 4px solid #ffc107;
+}
+
+.premium-result-feature h4 {
+  color: #212529;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.premium-result-feature h4 i {
+  color: #ffc107;
+}
+
+.premium-feature-locked {
+  position: relative;
+  filter: blur(3px);
+  pointer-events: none;
+  user-select: none;
+}
+
+.premium-lock-message {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(0, 0, 0, 0.7);
+  color: white;
+  padding: 10px 20px;
+  border-radius: 50px;
+  font-weight: bold;
+  filter: blur(0);
+  z-index: 2;
+}
+
+/* Detailed Analysis */
+.detailed-analysis {
+  text-align: left;
+}
+
+.analysis-section {
+  margin-bottom: 20px;
+}
+
+.analysis-section h5 {
+  font-size: 1.1rem;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.performance-chart {
+  margin: 15px 0;
+}
+
+.performance-bar {
+  height: 20px;
+  background-color: #e9ecef;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.performance-fill {
+  height: 100%;
+  background-color: #25d366;
+  border-radius: 10px;
+}
+
+/* Personality Profile Layout */
+.personality-profile {
+  padding: 20px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.personality-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.personality-image {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #25d366;
+  margin: 15px 0;
+}
+
+.personality-description {
+  font-size: 16px;
+  line-height: 1.6;
+  margin-bottom: 25px;
+  text-align: center;
+}
+
+/* Personality quiz result screen (rendered by quiz-renderer.js) */
+.personality-result {
+  text-align: center;
+  padding: 10px 5px;
+}
+
+.personality-image-container {
+  display: flex;
+  justify-content: center;
+  margin: 15px 0;
+}
+
+.personality-traits {
+  margin: 20px 0;
+  text-align: left;
+}
+
+.personality-traits h3 {
+  text-align: center;
+  color: #25d366;
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.personality-traits ul {
+  list-style: disc;
+  padding-left: 30px;
+  margin: 0;
+}
+
+.personality-traits ul li {
+  padding: 4px 0;
+  color: #444;
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+.personality-strengths-challenges {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+  margin-top: 20px;
+  text-align: left;
+}
+
+.personality-strengths-challenges .strengths,
+.personality-strengths-challenges .challenges {
+  background: #f0faf5;
+  border-radius: 8px;
+  padding: 12px 15px;
+}
+
+.personality-strengths-challenges h3 {
+  color: #25d366;
+  font-size: 15px;
+  margin-bottom: 8px;
+}
+
+.personality-strengths-challenges p {
+  font-size: 14px;
+  color: #555;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.personality-chart {
+  margin-bottom: 30px;
+}
+
+.personality-details {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.personality-secondary {
+  margin-top: 30px;
+}
+
+.secondary-traits {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+}
+
+/* Zodiac and Spirit Animal Results */
+.zodiac-result, .spirit-animal-result {
+  padding: 30px;
+  border-radius: 15px;
+  margin-top: 20px;
+  color: white;
+}
+
+.zodiac-result {
+  background: linear-gradient(to bottom, #0a1a3a, #000);
+}
+
+.spirit-animal-result {
+  background: linear-gradient(to bottom, #1a2a3a, #0a1a2a);
+}
+
+.zodiac-header, .spirit-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.zodiac-sign-image, .spirit-image {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin: 20px auto;
+  display: block;
+}
+
+.zodiac-traits, .spirit-traits {
+  margin: 25px 0;
+}
+
+.zodiac-traits ul, .spirit-traits ul {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+  padding-left: 0;
+}
+
+.zodiac-traits li, .spirit-traits li {
+  background: rgba(255,255,255,0.1);
+  padding: 10px;
+  border-radius: 5px;
+  list-style-type: none;
+}
+
+/* Quiz Sections on Topic Selection Screen */
+.quiz-section {
+  margin-bottom: 40px;
+}
+
+.quiz-section h3 {
+  font-size: 24px;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.personality-section {
+  background-color: #f0faf5;
+  padding: 20px;
+  border-radius: 10px;
+  border-left: 4px solid #25d366;
+}
+
+.personality-section h3 {
+  color: #25d366;
+}
+
+/* Personality Quiz Topic Cards */
+.personality-topic-card {
+  background: #e8faf0;
+  border-left: 4px solid #25d366;
+  transition: all 0.3s;
+}
+
+.personality-topic-card:hover {
+  background-color: #d4f5e9;
+}
+
+.personality-topic-card .topic-icon {
+  color: #25d366;
+}
+
+.topic-description {
+  font-size: 0.9rem;
+  margin-top: 8px;
+  color: #666;
+  line-height: 1.4;
+}
+
+/* Copyright Text */
+.copyright-text {
+  text-align: center;
+  margin-top: 30px;
+  padding-top: 15px;
+  border-top: 1px solid #eee;
+}
+
+.copyright-text p {
+  font-size: 0.9rem;
+  color: #777;
+}
+
+/* Responsive Layout Adjustments */
+@media (min-width: 576px) {
+  .footer-content {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+  
+  .personality-details {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  
+  .secondary-traits {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .zodiac-traits ul, .spirit-traits ul {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 768px) {
+  .image-selection-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  
+  .zodiac-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media (max-width: 575px) {
+  .quiz-container {
+    padding: 15px;
+    margin: 10px;
+  }
+
+  #quiz-title {
+    font-size: 1.5rem;
+  }
+
+  .option {
+    padding: 12px;
+    min-height: 44px; /* WCAG 2.5.5 touch target */
+  }
+
+  .quiz-header {
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+  }
+
+  .quiz-topic-info {
+    font-size: 1rem;
+  }
+  
+  .top-banner {
+    flex-direction: column;
+    gap: 10px;
+    text-align: center;
+    padding: 12px 10px;
+  }
+  
+  .banner-content {
+    justify-content: center;
+  }
+  
+  .banner-action {
+    margin-left: 0;
+    width: 100%;
+  }
+  
+  .banner-button {
+    width: 100%;
+    padding: 10px;
+  }
+  
+  .personality-grid .topic-card {
+    min-height: 130px;
+  }
+  
+  .image-selection-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}

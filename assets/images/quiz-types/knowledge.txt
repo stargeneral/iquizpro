@@ -1,0 +1,6 @@
+/* This is a placeholder image file for the iQuizPros application */
+/* In a real implementation, this would be a PNG or JPG image */
+/* Image: Knowledge Quiz Type */
+
+This text represents a placeholder for a knowledge quiz type image.
+The actual image would show an icon or illustration representing knowledge quizzes.

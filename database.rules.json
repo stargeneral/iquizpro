@@ -1,0 +1,105 @@
+{
+  "rules": {
+    // -------------------------------------------------------------------------
+    // Live presenter sessions — Phase 8 security review (no rule changes needed)
+    //
+    // Structure:
+    //   sessions/{sessionCode}/
+    //     createdAt        — unix timestamp (ms); required by cleanupExpiredSessions CF
+    //     presenterId      — Firebase Auth UID of the presenter
+    //     status           — "active" | "ended"
+    //     currentSlide     — integer
+    //     resultsVisible   — boolean (show/hide results to audience)
+    //     locked           — boolean (lock/unlock audience responses)
+    //     questions/{idx}/ — question data including type, text, options
+    //       timer          — seconds (null = no limit)
+    //       timerStartedAt — ServerValue.TIMESTAMP (server clock for sync)
+    //       closedAt       — server timestamp when question locked
+    //     participants/{uid}/
+    //       nickname       — display name chosen on join (1–20 chars)
+    //       score          — cumulative score (timed questions only, >= 0)
+    //       connectedAt    — timestamp
+    //     responses/{uid}_{slideIdx} — one response per participant per question
+    //
+    // Cloud Function note:
+    //   cleanupExpiredSessions uses the Firebase Admin SDK which bypasses these
+    //   rules entirely.  It has full read/write access to all sessions.
+    //   The createdAt field is required for the cleanup function to work correctly.
+    //
+    // Rate-limiting note:
+    //   RTDB rules cannot enforce per-user rate limits.  Abuse prevention for
+    //   response spam should be implemented at the application layer.
+    // -------------------------------------------------------------------------
+    "sessions": {
+      "$sessionCode": {
+        // Everyone can read session metadata (audience needs to join without auth)
+        ".read": true,
+
+        // Only authenticated users can create a session; only the presenter can update it
+        ".write": "auth != null && (!data.exists() || data.child('presenterId').val() === auth.uid)",
+
+        "questions": {
+          // Presenter can write questions; everyone reads
+          "$qIndex": {
+            ".read": true,
+            ".write": "auth != null && data.parent().parent().child('presenterId').val() === auth.uid"
+          }
+        },
+
+        "participants": {
+          // Presenter can read all participants; each participant can read their own entry
+          ".read": "auth != null && data.parent().child('presenterId').val() === auth.uid",
+          "$uid": {
+            ".read": "$uid === auth.uid || data.parent().parent().child('presenterId').val() === auth.uid",
+            // Anyone can write their own participant record (audience may be unauthenticated)
+            ".write": true,
+            "nickname": {
+              // Nickname must be a non-empty string, max 20 chars (enforced in UI too)
+              ".validate": "newData.isString() && newData.val().length >= 1 && newData.val().length <= 20"
+            },
+            "score": {
+              // Cumulative score must be a non-negative number
+              ".validate": "newData.isNumber() && newData.val() >= 0"
+            }
+          }
+        },
+
+        "responses": {
+          // Presenter reads all responses; each participant writes to their own slot
+          ".read": "auth != null && data.parent().child('presenterId').val() === auth.uid",
+          "$responseKey": {
+            ".read": true,
+            // No-overwrite after submission; presenter can delete if needed
+            ".write": "!data.exists() || data.parent().parent().child('presenterId').val() === auth.uid",
+            ".validate": "newData.hasChildren(['slideIndex', 'value', 'submittedAt'])"
+          }
+        },
+
+        // Phase 9: Q&A — audience members (possibly unauthenticated) can push questions
+        "qa": {
+          ".read": "auth != null && data.parent().child('presenterId').val() === auth.uid",
+          "$qaKey": {
+            ".read": true,
+            // Anyone can push a new question (no-overwrite); only presenter can delete
+            ".write": "!data.exists() || data.parent().parent().child('presenterId').val() === auth.uid",
+            ".validate": "newData.hasChildren(['text', 'nickname', 'ts']) && newData.child('text').isString() && newData.child('text').val().length >= 1 && newData.child('text').val().length <= 120",
+            // Phase 10.1: Upvotes — anyone can cast a vote (write-once, no retract)
+            "votes": {
+              "$voterId": {
+                ".read": true,
+                ".write": "!data.exists()",
+                ".validate": "newData.val() === true"
+              }
+            }
+          }
+        },
+
+        // Phase 9: lastReaction — presenter broadcasts emoji to all audience members
+        "lastReaction": {
+          ".read": true,
+          ".write": "auth != null && data.parent().child('presenterId').val() === auth.uid"
+        }
+      }
+    }
+  }
+}

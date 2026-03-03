@@ -1,0 +1,2267 @@
+/* Global Styles */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Open Sans", sans-serif;
+  background-color: #f0f2f5;
+  color: #333;
+  line-height: 1.6;
+  /* Critical mobile fixes */
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0.1);
+  -webkit-touch-callout: none;
+  touch-action: manipulation; /* Improve touch responsiveness */
+}
+
+/* Ensure all clickable elements are touchable on mobile */
+a, button, .option, .topic-card, .category-card, .image-option {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: rgba(37, 211, 102, 0.2);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 700;
+  color: #222;
+}
+
+/* Layout & Container */
+.quiz-container {
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Quiz Title */
+#quiz-title {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 2rem;
+  color: #25d366;
+}
+
+/* Header Section */
+.quiz-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #eee;
+}
+
+.back-button {
+  background-color: #f5f5f5;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 8px 12px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.back-button:hover {
+  background-color: #e9e9e9;
+  transform: translateY(-2px);
+}
+
+.back-button i {
+  font-size: 0.8rem;
+}
+
+.quiz-topic-info {
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: #25d366;
+}
+
+/* Progress Bar */
+.progress-container {
+  margin-bottom: 30px;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 10px;
+  background-color: #e0e0e0;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.progress {
+  height: 100%;
+  background-color: #25d366;
+  transition: width 0.3s ease;
+}
+
+/* Question Styles - Updated for new design but using original color scheme */
+.question-banner {
+  background-color: #25d366;
+  color: white;
+  padding: 15px 10px;
+  text-align: center;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  font-weight: bold;
+  font-size: 1.3rem;
+  position: relative;
+  z-index: 1;
+}
+
+.question-banner p {
+  margin: 0;
+  padding: 10px;
+}
+
+/* Question Number - smaller indicator */
+.question-number {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #777;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+/* Ad Container styling */
+.ad-container {
+  margin: 15px 0;
+  width: 100%;
+}
+
+.ad-block {
+  background-color: #f0f0f0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px;
+  height: 90px;
+  position: relative;
+}
+
+.ad-block:before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  border: 1px dashed #aaa;
+  border-radius: 5px;
+  pointer-events: none;
+}
+
+/* Options - Updated layout but with original colors */
+.options {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 15px;
+}
+
+.option {
+  padding: 15px;
+  background-color: #f5f5f5;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: left;
+}
+
+.option:hover {
+  background-color: #e9e9e9;
+  transform: translateY(-2px);
+}
+
+.option.selected {
+  background-color: #25d366;
+  color: white;
+  border-color: #1da851;
+}
+
+.option.correct {
+  background-color: #4caf50;
+  color: white;
+  border-color: #388e3c;
+}
+
+.option.incorrect {
+  background-color: #f44336;
+  color: white;
+  border-color: #d32f2f;
+}
+
+/* Footer Section */
+.quiz-footer {
+  margin-top: 30px;
+  padding-top: 15px;
+  border-top: 1px solid #eee;
+}
+
+.footer-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.copyright {
+  font-size: 0.9rem;
+  color: #777;
+}
+
+.footer-links {
+  display: flex;
+  gap: 15px;
+}
+
+.footer-link {
+  font-size: 0.9rem;
+  color: #25d366;
+  text-decoration: none;
+  transition: all 0.2s;
+}
+
+.footer-link:hover {
+  color: #128c7e;
+  text-decoration: underline;
+}
+
+/* Loading Screen */
+#loading {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  text-align: center;
+}
+
+.spinner {
+  width: 50px;
+  height: 50px;
+  border: 5px solid #f3f3f3;
+  border-top: 5px solid #25d366;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 20px;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.loading-step {
+  margin: 10px 0;
+  opacity: 0;
+  animation: fade-in 0.5s forwards;
+}
+
+.loading-step:nth-child(2) {
+  animation-delay: 0.5s;
+}
+.loading-step:nth-child(3) {
+  animation-delay: 1s;
+}
+.loading-step:nth-child(4) {
+  animation-delay: 1.5s;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Result Screens */
+#pre-result,
+#final-result {
+  display: none;
+  text-align: center;
+  padding: 20px;
+}
+
+#locked-result {
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.lock-icon {
+  font-size: 3rem;
+  margin-bottom: 10px;
+}
+
+.share-instructions {
+  text-align: left;
+  margin: 20px 0;
+  padding: 15px;
+  background-color: #f0f0f0;
+  border-radius: 8px;
+}
+
+.share-instructions ol {
+  padding-left: 20px;
+}
+
+.share-instructions li {
+  margin-bottom: 10px;
+}
+
+.share-bar {
+  margin: 20px 0;
+}
+
+/* Share Button */
+.share-btn {
+  display: block;
+  width: 100%;
+  padding: 12px;
+  margin: 15px 0;
+  background-color: #25d366;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.share-btn:hover {
+  background-color: #128c7e;
+  transform: translateY(-2px);
+}
+
+.share-btn.secondary {
+  background-color: #6c757d;
+}
+
+.share-btn.secondary:hover {
+  background-color: #5a6268;
+}
+
+/* Results */
+.result-badge {
+  font-size: 4rem;
+  margin-bottom: 10px;
+}
+
+.result-message {
+  margin: 20px 0;
+  padding: 15px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+}
+
+/* Celebration */
+#celebration {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  z-index: 1000;
+  color: white;
+  text-align: center;
+  padding-top: 20%;
+}
+
+#confetti-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+
+/* Personality Quiz Styles */
+.traits-container {
+  margin: 20px 0;
+}
+
+.trait {
+  margin-bottom: 15px;
+}
+
+.trait-label {
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+.trait-bar-container {
+  height: 20px;
+  background-color: #f0f0f0;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.trait-bar {
+  height: 100%;
+  background-color: #25d366;
+  transition: width 0.5s ease;
+}
+
+.trait-percentage {
+  text-align: right;
+  font-size: 0.9rem;
+  color: #777;
+  margin-top: 2px;
+}
+
+/* Team Selector */
+#team-selector {
+  margin: 20px 0;
+  text-align: center;
+}
+
+#team-selector button {
+  padding: 10px 15px;
+  margin: 0 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: transform 0.2s;
+}
+
+#team-selector button:hover {
+  transform: translateY(-2px);
+}
+
+/* Live Feed */
+.live-feed {
+  max-height: 150px;
+  overflow-y: auto;
+  margin-bottom: 20px;
+  padding: 10px;
+  background-color: #f9f9f9;
+  border-radius: 5px;
+  display: none;
+}
+
+.live-feed-item {
+  margin-bottom: 5px;
+  padding: 5px;
+  border-radius: 3px;
+  font-size: 0.9rem;
+}
+
+.streak-counter {
+  text-align: center;
+  font-weight: 600;
+  color: #ff9800;
+  margin-bottom: 10px;
+  display: none;
+}
+
+/* Timer Bonus */
+.timer-bonus {
+  margin: 15px 0;
+  padding: 10px;
+  background-color: #f9f9f9;
+  border-radius: 5px;
+  font-weight: 600;
+  display: none;
+}
+
+.bonus-badge {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+  display: none;
+}
+
+/* Topic Selection Styles */
+#topic-selection-screen {
+  max-width: 600px;
+  margin: 20px auto;
+  padding: 20px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.topics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.topic-card {
+  padding: 15px;
+  background: #f9f9f9;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s;
+  text-align: center;
+}
+
+.topic-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.topic-icon {
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+  color: #25d366;
+}
+
+/* Responsive Design */
+@media (min-width: 576px) {
+  .footer-content {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+}
+
+@media (max-width: 575px) {
+  .quiz-container {
+    padding: 15px;
+    margin: 10px;
+  }
+
+  #quiz-title {
+    font-size: 1.5rem;
+  }
+
+  .option {
+    padding: 12px;
+  }
+
+  .quiz-header {
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+  }
+
+  .quiz-topic-info {
+    font-size: 1rem;
+  }
+}
+
+/* Personality quiz specific styles - Added for personality quiz functionality */
+
+/* Question and option styling */
+.personality-question {
+  background-color: #25d366 !important; /* Different color for personality questions */
+}
+
+.personality-option {
+  border-left: 4px solid #25d366;
+}
+
+.personality-option:hover {
+  background-color: #e8faf0;
+}
+
+/* Result preview styling */
+.personality-result-preview {
+  text-align: center;
+  padding: 20px;
+}
+
+.personality-result-preview h2 {
+  font-size: 28px;
+  color: #25d366;
+  margin: 10px 0;
+}
+
+.personality-result-preview h3 {
+  font-size: 18px;
+  color: #555;
+  margin-bottom: 10px;
+}
+
+/* Detailed profile styling */
+.personality-profile {
+  padding: 20px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.personality-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.personality-header h2 {
+  font-size: 28px;
+  color: #25d366;
+  margin-bottom: 15px;
+}
+
+.personality-image {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #25d366;
+}
+
+.personality-description {
+  font-size: 16px;
+  line-height: 1.6;
+  margin-bottom: 25px;
+  text-align: center;
+}
+
+/* Chart styling */
+.personality-chart {
+  margin-bottom: 30px;
+}
+
+.personality-chart h3 {
+  text-align: center;
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.chart-container {
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  padding: 15px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.personality-bars {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.chart-row {
+  display: flex;
+  align-items: center;
+}
+
+.type-label {
+  width: 80px;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.bar-container {
+  flex-grow: 1;
+  height: 25px;
+  background-color: #e9ecef;
+  border-radius: 4px;
+  position: relative;
+  overflow: hidden;
+}
+
+.bar-fill {
+  height: 100%;
+  border-radius: 4px;
+  transition: width 1s ease-in-out;
+}
+
+.percentage {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-weight: bold;
+  color: #212529;
+  font-size: 14px;
+}
+
+/* Personality details section */
+.personality-details {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+@media (min-width: 768px) {
+  .personality-details {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.details-section {
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  padding: 15px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.details-section h4 {
+  color: #25d366;
+  margin-bottom: 10px;
+  font-size: 18px;
+}
+
+.details-section ul {
+  padding-left: 20px;
+}
+
+.details-section li {
+  margin-bottom: 5px;
+}
+
+/* Secondary traits section */
+.personality-secondary {
+  margin-top: 30px;
+}
+
+.personality-secondary h3 {
+  text-align: center;
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.secondary-traits {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+}
+
+@media (min-width: 768px) {
+  .secondary-traits {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.secondary-trait {
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  padding: 15px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.secondary-trait h4 {
+  color: #333;
+  margin-bottom: 10px;
+  font-size: 16px;
+}
+
+/* Share buttons in personality results */
+#share-personality,
+#try-another-quiz {
+  display: block;
+  width: 100%;
+  max-width: 300px;
+  margin: 15px auto;
+  padding: 12px;
+  border-radius: 50px;
+  background-color: #25d366; /* Match your app's green */
+  color: white;
+  font-weight: bold;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+  text-align: center;
+  transition: background-color 0.3s;
+}
+
+#try-another-quiz {
+  background-color: #25d366;
+}
+
+#share-personality:hover {
+  background-color: #1ea754;
+}
+
+#try-another-quiz:hover {
+  background-color: #128c7e;
+}
+/* Add these styles to your styles.css file */
+
+.personality-ad {
+  padding: 0;
+  height: auto;
+  overflow: hidden;
+  background-color: transparent;
+  border: none;
+  margin-bottom: 20px; /* Add margin for better spacing */
+}
+
+.ad-block.personality-ad:before {
+  display: none;
+  content: none;
+  border: none;
+}
+
+.banner-iframe {
+  width: 100%;
+  height: 120px; /* Increased base height */
+  border: none;
+  overflow: hidden;
+  border-radius: 8px; /* Rounded corners */
+}
+
+/* Override any default ad block styling */
+.ad-block.personality-ad {
+  height: auto;
+  background-color: transparent;
+  display: block;
+  border: none;
+}
+
+/* Responsive adjustments for the banner iframe */
+@media (max-width: 576px) {
+  .banner-iframe {
+    height: 150px; /* Taller on mobile */
+  }
+  
+  .ad-container:first-child {
+    margin-top: 10px; /* Add space at top on mobile */
+  }
+}
+
+@media (max-width: 400px) {
+  .banner-iframe {
+    height: 180px; /* Even taller on small phones */
+  }
+}
+/* Quiz Sections on Topic Selection Screen */
+.quiz-section {
+  margin-bottom: 40px;
+}
+
+.quiz-section h3 {
+  font-size: 24px;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.personality-section {
+  background-color: #f0faf5;
+  padding: 20px;
+  border-radius: 10px;
+  border-left: 4px solid #25d366;
+}
+
+.personality-section h3 {
+  color: #25d366;
+}
+
+/* Personality Quiz Topic Cards */
+.personality-topic-card {
+  background: #e8faf0;
+  border-left: 4px solid #25d366;
+  transition: all 0.3s;
+}
+
+.personality-topic-card:hover {
+  background-color: #d4f5e9;
+}
+
+.personality-topic-card .topic-icon {
+  color: #25d366;
+}
+
+.topic-description {
+  font-size: 0.9rem;
+  margin-top: 8px;
+  color: #666;
+  line-height: 1.4;
+}
+
+/* Make personality grid look better on small screens */
+@media (max-width: 767px) {
+  .personality-grid .topic-card {
+    min-height: 130px;
+  }
+}
+
+/* Career-specific styling */
+#career-quiz.personality-question {
+  background-color: #4a69bd !important;
+}
+
+.career-option {
+  border-left: 4px solid #4a69bd;
+}
+
+.career-option:hover {
+  background-color: #e6f0ff;
+}
+
+/* Relationship quiz styling */
+#relationship-quiz.personality-question {
+  background-color: #eb4d4b !important;
+}
+
+.relationship-option {
+  border-left: 4px solid #eb4d4b;
+}
+
+.relationship-option:hover {
+  background-color: #ffeded;
+}
+
+/* Learning style quiz styling */
+#learning-style-quiz.personality-question {
+  background-color: #6ab04c !important;
+}
+
+.learning-style-option {
+  border-left: 4px solid #6ab04c;
+}
+
+.learning-style-option:hover {
+  background-color: #f0ffe6;
+}
+
+/* Leadership quiz styling */
+#leadership-quiz.personality-question {
+  background-color: #f0932b !important;
+}
+
+.leadership-option {
+  border-left: 4px solid #f0932b;
+}
+
+.leadership-option:hover {
+  background-color: #fff6e6;
+}
+/* Category Selection Screen */
+.categories-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.category-card {
+  padding: 20px;
+  background: #f9f9f9;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s;
+  text-align: center;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.category-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+
+.category-icon {
+  font-size: 2.8rem;
+  margin-bottom: 15px;
+}
+
+.category-card h3 {
+  margin-bottom: 10px;
+  font-size: 1.4rem;
+}
+
+.category-card p {
+  color: #666;
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+.category-header {
+  margin-bottom: 25px;
+}
+/* Image Selection Grid */
+.image-selection-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 15px;
+  margin: 20px 0;
+}
+
+.image-option {
+  position: relative;
+  cursor: pointer;
+  border-radius: 8px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+  aspect-ratio: 1;
+}
+
+.image-option:hover {
+  transform: translateY(-5px) scale(1.03);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+  z-index: 2;
+}
+
+.image-option:active {
+  transform: scale(0.98);
+}
+
+.image-option img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.image-number {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  width: 25px;
+  height: 25px;
+  background: rgba(0,0,0,0.7);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 0.9rem;
+}
+
+.image-caption {
+  padding: 8px 4px;
+  text-align: center;
+  background: rgba(0,0,0,0.7);
+  color: white;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  font-size: 0.9rem;
+}
+
+/* Spirit Animal Result Styling */
+.spirit-animal-result {
+  background: linear-gradient(to bottom, #1a2a3a, #0a1a2a);
+  color: white;
+  padding: 30px;
+  border-radius: 15px;
+  margin-top: 20px;
+}
+
+.spirit-header {
+  text-align: center;
+}
+
+.spirit-reveal {
+  margin: 25px 0;
+  animation: fadeIn 1.5s ease;
+}
+
+.spirit-image {
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid white;
+  margin: 20px auto;
+  display: block;
+  box-shadow: 0 0 30px rgba(255,255,255,0.3);
+}
+
+.spirit-quote {
+  font-style: italic;
+  text-align: center;
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+  color: #8ecae6;
+}
+
+.spirit-traits ul {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+  margin-top: 15px;
+  padding-left: 0;
+}
+
+@media (min-width: 768px) {
+  .spirit-traits ul {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.spirit-traits li {
+  background: rgba(255,255,255,0.1);
+  padding: 10px;
+  border-radius: 5px;
+  list-style-type: none;
+}
+
+.spirit-guidance {
+  margin-top: 30px;
+  padding: 20px;
+  background: rgba(255,255,255,0.05);
+  border-radius: 10px;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+  .image-selection-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 768px) {
+  .image-selection-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+/* Image quiz category styling */
+.image-quizzes-card {
+  background-color: #e6f2ff;
+  border-left: 4px solid #3d85c6;
+}
+
+.image-quizzes-card:hover {
+  background-color: #d4e8ff;
+}
+
+.image-quizzes-card .topic-icon {
+  color: #3d85c6;
+}
+/* Test Ad Styling */
+.test-ad {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  padding: 0 10px;
+  color: white;
+  text-align: left;
+  border-radius: 5px;
+}
+
+.premium-ad {
+  background: linear-gradient(135deg, #3498db, #1abc9c);
+}
+
+.creator-ad {
+  background: linear-gradient(135deg, #e74c3c, #f39c12);
+}
+
+.ad-icon {
+  font-size: 28px;
+  margin-right: 15px;
+}
+
+.ad-content {
+  flex-grow: 1;
+}
+
+.ad-content h3 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.ad-content p {
+  margin: 0;
+  font-size: 12px;
+  opacity: 0.9;
+}
+
+.ad-button {
+  background-color: #ffffff;
+  color: inherit;
+  border: none;
+  border-radius: 4px;
+  padding: 5px 12px;
+  font-weight: bold;
+  font-size: 14px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.premium-ad .ad-button {
+  color: #2980b9;
+}
+
+.creator-ad .ad-button {
+  color: #e74c3c;
+}
+
+.ad-button:hover {
+  background-color: #f0f0f0;
+}
+/* Clickable ad styling */
+.ad-link {
+  display: block;
+  width: 100%;
+  height: 100%;
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+}
+
+.ad-link:hover .test-ad {
+  opacity: 0.95;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.test-ad {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  padding: 0 10px;
+  color: white;
+  text-align: left;
+  border-radius: 5px;
+  transition: all 0.2s ease;
+}
+
+/* Other ad styles remain the same */
+/* top banner styling */
+/* Countdown Banner Styles */
+.top-banner {
+  width: 100%;
+  margin: 0 0 20px 0;
+  padding: 12px 15px;
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: white;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
+}
+
+.countdown-banner {
+  background: linear-gradient(to right, #1a237e, #3949ab);
+}
+
+.banner-content {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.banner-icon {
+  font-size: 24px;
+}
+
+.banner-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.banner-label {
+  font-size: 12px;
+  opacity: 0.9;
+}
+
+.banner-message {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.banner-action {
+  margin-left: 10px;
+}
+
+.banner-button {
+  background-color: white;
+  color: #3949ab;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 12px;
+  font-size: 13px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.banner-button:hover {
+  background-color: #f5f5f5;
+  transform: translateY(-2px);
+}
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 480px) {
+  .top-banner {
+    flex-direction: column;
+    gap: 10px;
+    text-align: center;
+    padding: 12px 10px;
+  }
+  
+  .banner-content {
+    justify-content: center;
+  }
+  
+  .banner-action {
+    margin-left: 0;
+    width: 100%;
+  }
+  
+  .banner-button {
+    width: 100%;
+    padding: 10px;
+  }
+}
+/* Zodiac Quiz Specific Styles */
+
+/* Special layout for zodiac wheel question */
+.zodiac-special-layout {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.zodiac-title-top, 
+.zodiac-title-bottom {
+  font-size: 28px;
+  font-weight: bold;
+  text-align: center;
+  color: white;
+  background-color: black;
+  padding: 10px 20px;
+  width: 100%;
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.zodiac-wheel-container {
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.zodiac-wheel {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.zodiac-subtitle {
+  font-size: 18px;
+  font-weight: 500;
+  color: #333;
+  margin: 15px 0 25px;
+  text-align: center;
+}
+
+/* Zodiac grid styling */
+.zodiac-grid {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+@media (min-width: 768px) {
+  .zodiac-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.zodiac-option {
+  transition: transform 0.3s, box-shadow 0.3s;
+  border: 3px solid transparent;
+}
+
+.zodiac-option:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  border-color: #3d85c6;
+}
+
+/* Zodiac question banner */
+.zodiac-question {
+  background-color: #1a237e !important;
+  background-image: linear-gradient(135deg, #1a237e, #3949ab);
+  border: none;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Zodiac result styling */
+.zodiac-result {
+  background: linear-gradient(to bottom, #0a1a3a, #000);
+  color: white;
+  padding: 30px;
+  border-radius: 15px;
+  margin-top: 20px;
+  position: relative;
+  overflow: hidden;
+}
+
+.zodiac-result::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url('/assets/images/zodiac/stars-bg.jpeg');
+  background-size: cover;
+  opacity: 0.2;
+  z-index: 0;
+}
+
+.zodiac-result-content {
+  position: relative;
+  z-index: 1;
+}
+
+.zodiac-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.zodiac-sign-image {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #3d85c6;
+  margin: 20px auto;
+  display: block;
+  box-shadow: 0 0 30px rgba(61, 133, 198, 0.5);
+}
+
+.zodiac-traits {
+  margin: 25px 0;
+}
+
+.zodiac-traits h3 {
+  color: #3d85c6;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.zodiac-traits ul {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+  padding-left: 0;
+}
+
+@media (min-width: 768px) {
+  .zodiac-traits ul {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.zodiac-traits li {
+  background: rgba(61, 133, 198, 0.1);
+  padding: 10px;
+  border-radius: 5px;
+  list-style-type: none;
+  border-left: 3px solid #3d85c6;
+}
+
+/* Zodiac-specific share button */
+#share-zodiac {
+  background: linear-gradient(135deg, #1a237e, #3949ab);
+  color: white;
+  border: none;
+  border-radius: 50px;
+  font-weight: bold;
+  padding: 12px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin: 25px auto;
+  cursor: pointer;
+  max-width: 300px;
+  width: 100%;
+  transition: all 0.3s ease;
+}
+
+#share-zodiac:hover {
+  background: linear-gradient(135deg, #0d1642, #2d3a8c);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Ad space between zodiac sections */
+.zodiac-ad-space {
+  margin: 30px 0;
+  padding: 15px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  text-align: center;
+  font-style: italic;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/* Custom styling for the image selection in zodiac quiz */
+.image-option.zodiac-option .image-caption {
+  background: linear-gradient(to top, #000, rgba(0,0,0,0.7));
+  padding: 8px 4px;
+  font-weight: bold;
+}
+/* Add these CSS rules to your styles.css file */
+
+/* Stabilize the zodiac wheel container with fixed dimensions */
+.zodiac-wheel-container {
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+  position: relative;
+  height: auto;
+  aspect-ratio: 1 / 1; /* Maintain square aspect ratio */
+  overflow: hidden; /* Prevent content from causing layout shifts */
+}
+
+.zodiac-wheel {
+  width: 100%;
+  height: 100%;
+  object-fit: contain; /* Ensure image fits container without distortion */
+  display: block;
+  position: relative; /* Stabilize position */
+}
+
+/* Fix the layout for the zodiac special layout to prevent shifts */
+.zodiac-special-layout {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 30px;
+  position: relative; /* Add positioning context */
+  overflow: hidden; /* Prevent content overflow from shifting layout */
+}
+
+/* Add stability to the titles */
+.zodiac-title-top, 
+.zodiac-title-bottom {
+  width: 100%;
+  text-align: center;
+  position: relative;
+  z-index: 2; /* Ensure titles are above other content */
+  margin: 0; /* Remove margin to prevent shifts */
+  padding: 10px 20px;
+  box-sizing: border-box; /* Include padding in width calculation */
+}
+
+/* Make sure image options have fixed dimensions to prevent layout shifts */
+.image-option.zodiac-option {
+  aspect-ratio: 1 / 1; /* Keep square aspect ratio */
+  height: auto;
+  position: relative;
+  transform: none; /* Remove any transforms that might be causing issues */
+  transition: transform 0.3s; /* Only transform on hover */
+}
+
+.image-option.zodiac-option:hover {
+  transform: scale(1.05); /* Apply transform only on hover */
+}
+
+.image-option.zodiac-option img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Cover the container */
+  transition: none; /* Remove transitions that might cause shaking */
+}
+
+/* Stabilize the grid layout */
+.image-selection-grid.zodiac-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 15px;
+  margin: 20px 0;
+  position: relative;
+  width: 100%;
+}
+
+/* Prevent any animations during loading */
+#main-quiz-container.loading * {
+  animation: none !important;
+  transition: none !important;
+}
+.zodiac-wheel-container {
+  min-height: 300px;
+  background-color: #f0f0f0; /* Light gray background */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Add this to show something when image is missing */
+.zodiac-wheel-container:empty::before {
+  content: "⭐ Zodiac Wheel ⭐";
+  font-size: 24px;
+  color: #333;
+}
+/* Authentication Styles for IQuizPros */
+
+/* Auth Modals */
+.auth-modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  align-items: center;
+  justify-content: center;
+}
+
+.auth-modal-content {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  max-width: 400px;
+  max-height: 90vh;
+  overflow-y: auto;
+  animation: modal-appear 0.3s ease-out;
+}
+
+@keyframes modal-appear {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.auth-modal-header {
+  padding: 15px 20px;
+  border-bottom: 1px solid #eee;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.auth-modal-header h2 {
+  margin: 0;
+  color: #333;
+  font-size: 1.5rem;
+}
+
+.auth-modal-close {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #999;
+  transition: color 0.2s;
+}
+
+.auth-modal-close:hover {
+  color: #555;
+}
+
+.auth-modal-body {
+  padding: 20px;
+}
+
+.auth-modal-footer {
+  padding: 15px 20px;
+  border-top: 1px solid #eee;
+  text-align: center;
+}
+
+.auth-modal-footer p {
+  margin: 5px 0;
+  color: #666;
+}
+
+.auth-modal-footer a {
+  color: #25d366;
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.2s;
+}
+
+.auth-modal-footer a:hover {
+  color: #1da851;
+  text-decoration: underline;
+}
+
+/* Auth Form */
+.auth-form {
+  width: 100%;
+}
+
+.auth-form-group {
+  margin-bottom: 15px;
+}
+
+.auth-form-group label {
+  display: block;
+  margin-bottom: 5px;
+  color: #555;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.auth-form-group input {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 1rem;
+  transition: border-color 0.2s;
+}
+
+.auth-form-group input:focus {
+  border-color: #25d366;
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(37, 211, 102, 0.2);
+}
+
+.auth-form-actions {
+  margin-top: 20px;
+}
+
+.auth-button {
+  width: 100%;
+  padding: 12px;
+  background-color: #25d366;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.auth-button:hover {
+  background-color: #1da851;
+}
+
+.auth-button:disabled {
+  background-color: #8ae0ac;
+  cursor: not-allowed;
+}
+
+/* Social Buttons */
+.auth-separator {
+  margin: 20px 0;
+  text-align: center;
+  position: relative;
+}
+
+.auth-separator::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background-color: #eee;
+  z-index: 1;
+}
+
+.auth-separator span {
+  position: relative;
+  z-index: 2;
+  background-color: white;
+  padding: 0 10px;
+  color: #777;
+  font-size: 0.9rem;
+}
+
+.auth-social-buttons {
+  margin-top: 15px;
+}
+
+.auth-social-button {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background-color: white;
+  color: #555;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s, border-color 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.auth-social-button i {
+  margin-right: 10px;
+  font-size: 1.2rem;
+}
+
+.google-button {
+  border-color: #4285f4;
+  color: #4285f4;
+}
+
+.google-button:hover {
+  background-color: #f3f8fe;
+}
+
+.google-button i {
+  color: #4285f4;
+}
+
+/* Error and Success Messages */
+.auth-error, .auth-success {
+  padding: 10px;
+  margin-bottom: 15px;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  display: none;
+}
+
+.auth-error {
+  background-color: #fff2f0;
+  border: 1px solid #ffccc7;
+  color: #f5222d;
+}
+
+.auth-success {
+  background-color: #f6ffed;
+  border: 1px solid #b7eb8f;
+  color: #52c41a;
+}
+
+/* Header Auth Buttons and User Profile */
+.auth-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.sign-in-button, .sign-up-button {
+  padding: 8px 16px;
+  border-radius: 4px;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.sign-in-button {
+  background-color: transparent;
+  color: #25d366;
+  border: 1px solid #25d366;
+}
+
+.sign-in-button:hover {
+  background-color: #f0fcf5;
+}
+
+.sign-up-button {
+  background-color: #25d366;
+  color: white;
+  border: 1px solid #25d366;
+}
+
+.sign-up-button:hover {
+  background-color: #1da851;
+}
+
+/* User Profile */
+.user-profile {
+  position: relative;
+}
+
+.user-profile-dropdown {
+  position: relative;
+}
+
+.user-profile-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  padding: 6px 10px;
+  border-radius: 4px;
+  transition: background-color 0.2s;
+}
+
+.user-profile-info:hover {
+  background-color: #f0f0f0;
+}
+
+.user-profile-image {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.user-profile-name {
+  font-weight: 600;
+  color: #333;
+  max-width: 150px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.user-profile-menu {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  width: 200px;
+  background-color: white;
+  border-radius: 4px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  margin-top: 5px;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+  transition: opacity 0.2s, transform 0.2s, visibility 0.2s;
+  z-index: 100;
+}
+
+.user-profile-menu.show {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.user-profile-menu-item {
+  padding: 10px 15px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.user-profile-menu-item:hover {
+  background-color: #f5f5f5;
+}
+
+.user-profile-menu-item i {
+  color: #666;
+  width: 16px;
+  text-align: center;
+}
+
+/* Topic Lock Indicator */
+.topic-lock {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 30px;
+  height: 30px;
+  background-color: rgba(0, 0, 0, 0.6);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 14px;
+  z-index: 10;
+}
+
+/* Responsive adjustments */
+@media (max-width: 480px) {
+  .auth-modal-content {
+    width: 90%;
+  }
+  
+  .user-profile-name {
+    max-width: 100px;
+  }
+}
+/* Authentication Styles for IQuizPros */
+
+/* Auth Modals */
+.auth-modal-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s, visibility 0.3s;
+  pointer-events: none; /* Critical: Don't block clicks when hidden */
+}
+
+.auth-modal-container.visible {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto; /* Allow clicks only when visible */
+}
+
+.auth-modal-container.closing {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none; /* Don't block clicks when closing */
+}
+
+.auth-modal-content {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  max-width: 400px;
+  max-height: 90vh;
+  overflow-y: auto;
+  transform: translateY(-20px);
+  transition: transform 0.3s;
+  position: relative;
+}
+
+.auth-modal-container.visible .auth-modal-content {
+  transform: translateY(0);
+}
+
+.auth-modal-header {
+  padding: 15px 20px;
+  border-bottom: 1px solid #eee;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.auth-modal-header h2 {
+  margin: 0;
+  color: #333;
+  font-size: 1.5rem;
+}
+
+.auth-modal-close {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #999;
+  transition: color 0.2s;
+}
+
+.auth-modal-close:hover {
+  color: #555;
+}
+
+.auth-modal-body {
+  padding: 20px;
+}
+
+.auth-modal-footer {
+  padding: 15px 20px;
+  border-top: 1px solid #eee;
+  text-align: center;
+}
+
+.auth-modal-footer p {
+  margin: 5px 0;
+  color: #666;
+}
+
+.auth-modal-footer a {
+  color: #25d366;
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.2s;
+}
+
+.auth-modal-footer a:hover {
+  color: #1da851;
+  text-decoration: underline;
+}
+
+/* Auth Form */
+.auth-form {
+  width: 100%;
+}
+
+.auth-form-group {
+  margin-bottom: 15px;
+}
+
+.auth-form-group label {
+  display: block;
+  margin-bottom: 5px;
+  color: #555;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.auth-form-group input {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 1rem;
+  transition: border-color 0.2s;
+}
+
+.auth-form-group input:focus {
+  border-color: #25d366;
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(37, 211, 102, 0.2);
+}
+
+.auth-form-actions {
+  margin-top: 20px;
+}
+
+.auth-button {
+  width: 100%;
+  padding: 12px;
+  background-color: #25d366;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.auth-button:hover {
+  background-color: #1da851;
+}
+
+.auth-button:disabled {
+  background-color: #8ae0ac;
+  cursor: not-allowed;
+}
+
+/* Social Buttons */
+.auth-separator {
+  margin: 20px 0;
+  text-align: center;
+  position: relative;
+}
+
+.auth-separator::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background-color: #eee;
+  z-index: 1;
+}
+
+.auth-separator span {
+  position: relative;
+  z-index: 2;
+  background-color: white;
+  padding: 0 10px;
+  color: #777;
+  font-size: 0.9rem;
+}
+
+.auth-social-buttons {
+  margin-top: 15px;
+}
+
+.auth-social-button {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background-color: white;
+  color: #555;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s, border-color 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+.auth-social-button i {
+  margin-right: 10px;
+  font-size: 1.2rem;
+}
+
+.google-button {
+  border-color: #4285f4;
+  color: #4285f4;
+}
+
+.google-button:hover {
+  background-color: #f3f8fe;
+}
+
+.google-button i {
+  color: #4285f4;
+}
+
+/* Error and Success Messages */
+.auth-error, .auth-success {
+  padding: 10px;
+  margin-bottom: 15px;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  display: none;
+}
+
+.auth-error {
+  background-color: #fff2f0;
+  border: 1px solid #ffccc7;
+  color: #f5222d;
+}
+
+.auth-success {
+  background-color: #f6ffed;
+  border: 1px solid #b7eb8f;
+  color: #52c41a;
+}
+
+/* Topic Lock Indicator */
+.topic-lock {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 30px;
+  height: 30px;
+  background-color: rgba(0, 0, 0, 0.6);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 14px;
+  z-index: 10;
+}
+
+.topic-card {
+  position: relative;
+}
+
+/* Responsive adjustments */
+@media (max-width: 480px) {
+  .auth-modal-content {
+    width: 90%;
+  }
+}

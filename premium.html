@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pricing Plans - iQuizPros</title>
+    <meta name="description" content="Choose your iQuizPros plan — from free casual quizzing to Pro-level AI generation and enterprise solutions.">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+    <!-- Firebase SDKs (needed to check auth state for Payment Link redirect) -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-firestore-compat.js"></script>
+
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f8f9fa;
+        }
+
+        /* ── Header ── */
+        header {
+            background: linear-gradient(135deg, #25d366 0%, #128c7e 100%);
+            color: white;
+            padding: 1rem 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+        }
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo a { color: white; text-decoration: none; font-size: 1.5rem; font-weight: 700; }
+        .nav-menu { display: flex; list-style: none; gap: 2rem; }
+        .nav-menu a { color: rgba(255,255,255,0.9); text-decoration: none; transition: opacity .2s; }
+        .nav-menu a:hover { opacity: 0.75; }
+
+        /* ── Payment notification banners ── */
+        .payment-banner {
+            display: none;
+            padding: 1rem 2rem;
+            text-align: center;
+            font-weight: 500;
+            font-size: 1.05rem;
+        }
+        .payment-banner.success { background: #d4edda; color: #155724; border-bottom: 2px solid #c3e6cb; }
+        .payment-banner.cancelled { background: #fff3cd; color: #856404; border-bottom: 2px solid #ffeeba; }
+        .payment-banner.visible { display: block; }
+
+        /* ── Hero ── */
+        .hero {
+            background: linear-gradient(135deg, #25d366 0%, #128c7e 100%);
+            color: white;
+            padding: 4rem 0 5rem;
+            text-align: center;
+        }
+        .hero h1 { font-size: 2.6rem; margin-bottom: 1rem; }
+        .hero p { font-size: 1.15rem; opacity: 0.9; max-width: 580px; margin: 0 auto; }
+
+        /* ── Pricing ── */
+        .pricing { padding: 0 0 4rem; margin-top: -3rem; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.25rem;
+        }
+        @media (max-width: 1100px) {
+            .pricing-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 600px) {
+            .pricing-grid { grid-template-columns: 1fr; }
+        }
+
+        .pricing-card {
+            background: white;
+            border-radius: 14px;
+            padding: 2rem 1.6rem;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            text-align: center;
+            transition: transform .25s, box-shadow .25s;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+        .pricing-card:hover { transform: translateY(-6px); box-shadow: 0 10px 30px rgba(0,0,0,0.13); }
+
+        .pricing-card.featured {
+            border: 3px solid #25d366;
+            transform: scale(1.03);
+        }
+        .pricing-card.featured:hover { transform: scale(1.03) translateY(-6px); }
+
+        .featured-badge {
+            position: absolute;
+            top: -14px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, #25d366, #128c7e);
+            color: white;
+            padding: .4rem 1.2rem;
+            border-radius: 20px;
+            font-size: .82rem;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .tier-icon { font-size: 2rem; margin-bottom: .75rem; }
+        .pricing-card h3 { font-size: 1.3rem; color: #25d366; margin-bottom: .5rem; }
+        .price { font-size: 2.4rem; font-weight: 700; color: #222; margin: .75rem 0; }
+        .price span { font-size: .95rem; color: #888; font-weight: 400; }
+        .price-custom { font-size: 1.6rem; font-weight: 700; color: #25d366; margin: .75rem 0; }
+
+        .features-list {
+            list-style: none;
+            margin: 1.25rem 0;
+            text-align: left;
+            flex: 1;
+        }
+        .features-list li {
+            padding: .4rem 0;
+            display: flex;
+            align-items: flex-start;
+            gap: .55rem;
+            font-size: .93rem;
+        }
+        .features-list li i.fa-check { color: #28a745; flex-shrink: 0; margin-top: 3px; }
+        .features-list li i.fa-times  { color: #dc3545; flex-shrink: 0; margin-top: 3px; }
+
+        .btn {
+            display: inline-block;
+            width: 100%;
+            padding: .8rem 1.5rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: .97rem;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            transition: all .2s;
+            margin-top: .5rem;
+        }
+        .btn-primary { background: linear-gradient(135deg, #25d366, #128c7e); color: white; }
+        .btn-primary:hover { opacity: .9; }
+        .btn-secondary { background: white; color: #25d366; border: 2px solid #25d366; }
+        .btn-secondary:hover { background: #25d366; color: white; }
+        .btn-outline { background: transparent; color: #888; border: 2px solid #ddd; }
+        .btn-outline:hover { border-color: #25d366; color: #25d366; }
+        .btn-enterprise { background: #2c3e50; color: white; }
+        .btn-enterprise:hover { background: #1a252f; }
+
+        .btn:disabled, .btn.loading {
+            opacity: .6;
+            cursor: not-allowed;
+            pointer-events: none;
+        }
+
+        /* ── Auth notice ── */
+        .auth-notice {
+            display: none;
+            background: #e8f4fd;
+            border: 1px solid #bee5eb;
+            border-radius: 8px;
+            padding: .75rem 1rem;
+            margin-top: .75rem;
+            font-size: .88rem;
+            color: #0c5460;
+        }
+        .auth-notice a { color: #0056b3; font-weight: 600; text-decoration: none; }
+
+        /* ── Feature comparison table ── */
+        .comparison { padding: 4rem 0; background: white; }
+        .section-header { text-align: center; margin-bottom: 2.5rem; }
+        .section-header h2 { font-size: 2rem; color: #333; }
+        .section-header p { color: #777; margin-top: .5rem; }
+
+        .comparison-table-wrap {
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            overflow-x: auto;
+        }
+        .comparison-table-wrap table { width: 100%; border-collapse: collapse; min-width: 620px; }
+        .comparison-table-wrap th,
+        .comparison-table-wrap td { padding: .9rem 1rem; text-align: center; border-bottom: 1px solid #f0f0f0; }
+        .comparison-table-wrap th { background: linear-gradient(135deg, #25d366, #128c7e); color: white; font-weight: 600; }
+        .comparison-table-wrap td:first-child { text-align: left; font-weight: 500; }
+        .comparison-table-wrap tr:last-child td { border-bottom: none; }
+        .comparison-table-wrap tr:hover td { background: #fafafa; }
+        .check { color: #28a745; font-size: 1.1rem; }
+        .cross { color: #dc3545; font-size: 1.1rem; }
+        .partial { color: #25d366; font-size: .9rem; font-weight: 500; }
+
+        /* ── FAQ ── */
+        .faq { padding: 4rem 0; background: #f8f9fa; }
+        .faq-item {
+            background: white;
+            border-radius: 10px;
+            padding: 1.4rem 1.6rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+        .faq-question { font-weight: 600; color: #25d366; margin-bottom: .4rem; }
+        .faq-answer { color: #555; }
+
+        /* ── Footer ── */
+        footer { background: #2c3e50; color: white; padding: 2rem 0; text-align: center; }
+        .footer-links { list-style: none; display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap; margin-bottom: 1rem; }
+        .footer-links a { color: rgba(255,255,255,0.8); text-decoration: none; }
+        .footer-links a:hover { color: white; }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2rem; }
+            .pricing-card.featured { transform: scale(1); }
+            .pricing-card.featured:hover { transform: translateY(-6px); }
+            .nav-menu { gap: 1rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Payment result banners -->
+    <div id="payment-success-banner" class="payment-banner success">
+        <i class="fas fa-check-circle"></i> Payment successful! Your subscription is now active. Welcome aboard!
+    </div>
+    <div id="payment-cancelled-banner" class="payment-banner cancelled">
+        <i class="fas fa-info-circle"></i> Payment was cancelled. No charge was made. You can upgrade any time below.
+    </div>
+
+    <header>
+        <div class="header-container">
+            <div class="logo"><a href="/">iQuizPros</a></div>
+            <ul class="nav-menu">
+                <li><a href="/">Home</a></li>
+                <li><a href="/premium.html">Pricing</a></li>
+                <li><a href="/#contact">Contact</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <h1>Simple, Transparent Pricing</h1>
+            <p>From casual quizzer to enterprise team — find the plan that grows with you</p>
+        </div>
+    </section>
+
+    <section class="pricing">
+        <div class="container">
+            <div class="pricing-grid">
+
+                <!-- Basic (Free) -->
+                <div class="pricing-card">
+                    <div class="tier-icon">🎯</div>
+                    <h3>Basic</h3>
+                    <div class="price">$0<span>/month</span></div>
+                    <ul class="features-list">
+                        <li><i class="fas fa-check"></i> All standard personality quizzes</li>
+                        <li><i class="fas fa-check"></i> 5 AI quiz generations per month</li>
+                        <li><i class="fas fa-check"></i> Social sharing</li>
+                        <li><i class="fas fa-check"></i> Basic results</li>
+                        <li><i class="fas fa-times"></i> Premium quizzes</li>
+                        <li><i class="fas fa-times"></i> Quiz history &amp; trends</li>
+                        <li><i class="fas fa-times"></i> Ad-free experience</li>
+                    </ul>
+                    <a href="/" class="btn btn-outline">Get Started Free</a>
+                </div>
+
+                <!-- Premium (Most Popular) -->
+                <div class="pricing-card featured">
+                    <div class="featured-badge">⭐ Most Popular</div>
+                    <div class="tier-icon">👑</div>
+                    <h3>Premium</h3>
+                    <div class="price">$12.99<span>/month</span></div>
+                    <ul class="features-list">
+                        <li><i class="fas fa-check"></i> Everything in Basic</li>
+                        <li><i class="fas fa-check"></i> All premium quizzes (Career, EQ)</li>
+                        <li><i class="fas fa-check"></i> 100 AI quiz generations/month</li>
+                        <li><i class="fas fa-check"></i> Detailed personality analysis</li>
+                        <li><i class="fas fa-check"></i> Quiz history &amp; score trends</li>
+                        <li><i class="fas fa-check"></i> Ad-free experience</li>
+                        <li><i class="fas fa-check"></i> Priority support</li>
+                    </ul>
+                    <button class="btn btn-primary" id="btn-subscribe-premium" onclick="handleSubscribe('premium')">
+                        Get Premium
+                    </button>
+                    <div id="auth-notice-premium" class="auth-notice">
+                        <a href="/">Sign in</a> to your account first, then come back to subscribe.
+                    </div>
+                </div>
+
+                <!-- Pro -->
+                <div class="pricing-card">
+                    <div class="tier-icon">🚀</div>
+                    <h3>Pro</h3>
+                    <div class="price">$29.99<span>/month</span></div>
+                    <ul class="features-list">
+                        <li><i class="fas fa-check"></i> Everything in Premium</li>
+                        <li><i class="fas fa-check"></i> 500 AI quiz generations/month</li>
+                        <li><i class="fas fa-check"></i> Advanced analytics</li>
+                        <li><i class="fas fa-check"></i> Lead generation tools</li>
+                        <li><i class="fas fa-check"></i> Custom branding &amp; embedding</li>
+                        <li><i class="fas fa-check"></i> Priority onboarding</li>
+                    </ul>
+                    <button class="btn btn-secondary" id="btn-subscribe-pro" onclick="handleSubscribe('pro')">
+                        Get Pro
+                    </button>
+                    <div id="auth-notice-pro" class="auth-notice">
+                        <a href="/">Sign in</a> to your account first, then come back to subscribe.
+                    </div>
+                </div>
+
+                <!-- Enterprise -->
+                <div class="pricing-card">
+                    <div class="tier-icon">🏢</div>
+                    <h3>Enterprise</h3>
+                    <div class="price-custom">Custom</div>
+                    <ul class="features-list">
+                        <li><i class="fas fa-check"></i> Custom AI generation volume</li>
+                        <li><i class="fas fa-check"></i> White-labeling &amp; API access</li>
+                        <li><i class="fas fa-check"></i> Dedicated account manager</li>
+                        <li><i class="fas fa-check"></i> Team management features</li>
+                        <li><i class="fas fa-check"></i> Advanced security &amp; compliance</li>
+                        <li><i class="fas fa-check"></i> SLA &amp; custom integrations</li>
+                    </ul>
+                    <a href="mailto:hello@iquizpro.com?subject=Enterprise%20Enquiry" class="btn btn-enterprise">
+                        Contact Us
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Feature comparison table -->
+    <section class="comparison">
+        <div class="container">
+            <div class="section-header">
+                <h2>Feature Comparison</h2>
+                <p>See exactly what's included in every plan</p>
+            </div>
+            <div class="comparison-table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th style="text-align:left">Feature</th>
+                            <th>Basic</th>
+                            <th>Premium</th>
+                            <th>Pro</th>
+                            <th>Enterprise</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Standard personality quizzes</td>
+                            <td><i class="fas fa-check check"></i></td>
+                            <td><i class="fas fa-check check"></i></td>
+                            <td><i class="fas fa-check check"></i></td>
+                            <td><i class="fas fa-check check"></i></td>
+                        </tr>
+                        <tr>
+                            <td>Premium quizzes (Career, EQ)</td>
+                            <td><i class="fas fa-times cross"></i></td>
+                            <td><i class="fas fa-check check"></i></td>
+                            <td><i class="fas fa-check check"></i></td>
+                            <td><i class="fas fa-check check"></i></td>
+                        </tr>
+                        <tr>
+                            <td>AI quiz generations / month</td>
+                            <td class="partial">5</td>
+                            <td class="partial">100</td>
+                            <td class="partial">500</td>
+                            <td class="partial">Custom</td>
+                        </tr>
+                        <tr>
+                            <td>Quiz history &amp; score trends</td>
+                            <td><i class="fas fa-times cross"></i></td>
+                            <td><i class="fas fa-check check"></i></td>
+                            <td><i class="fas fa-check check"></i></td>
+                            <td><i class="fas fa-check check"></i></td>
+                        </tr>
+                        <tr>
+                            <td>Detailed personality analysis</td>
+                            <td><i class="fas fa-times cross"></i></td>
+                            <td><i class="fas fa-check check"></i></td>
+                            <td><i class="fas fa-check check"></i></td>
+                            <td><i class="fas fa-check check"></i></td>
+                        </tr>
+                        <tr>
+                            <td>Ad-free experience</td>
+                            <td><i class="fas fa-times cross"></i></td>
+                            <td><i class="fas fa-check check"></i></td>
+                            <td><i class="fas fa-check check"></i></td>
+                            <td><i class="fas fa-check check"></i></td>
+                        </tr>
+                        <tr>
+                            <td>Advanced analytics &amp; lead gen</td>
+                            <td><i class="fas fa-times cross"></i></td>
+                            <td><i class="fas fa-times cross"></i></td>
+                            <td><i class="fas fa-check check"></i></td>
+                            <td><i class="fas fa-check check"></i></td>
+                        </tr>
+                        <tr>
+                            <td>Custom branding &amp; embedding</td>
+                            <td><i class="fas fa-times cross"></i></td>
+                            <td><i class="fas fa-times cross"></i></td>
+                            <td><i class="fas fa-check check"></i></td>
+                            <td><i class="fas fa-check check"></i></td>
+                        </tr>
+                        <tr>
+                            <td>White-labeling &amp; API access</td>
+                            <td><i class="fas fa-times cross"></i></td>
+                            <td><i class="fas fa-times cross"></i></td>
+                            <td><i class="fas fa-times cross"></i></td>
+                            <td><i class="fas fa-check check"></i></td>
+                        </tr>
+                        <tr>
+                            <td>Dedicated account manager</td>
+                            <td><i class="fas fa-times cross"></i></td>
+                            <td><i class="fas fa-times cross"></i></td>
+                            <td><i class="fas fa-times cross"></i></td>
+                            <td><i class="fas fa-check check"></i></td>
+                        </tr>
+                        <tr>
+                            <td>Priority support</td>
+                            <td><i class="fas fa-times cross"></i></td>
+                            <td><i class="fas fa-check check"></i></td>
+                            <td><i class="fas fa-check check"></i></td>
+                            <td><i class="fas fa-check check"></i></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="faq">
+        <div class="container">
+            <div class="section-header">
+                <h2>Frequently Asked Questions</h2>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">Can I cancel at any time?</div>
+                <div class="faq-answer">Yes. You can cancel your subscription at any time from your account dashboard. You'll keep access until the end of your billing period with no further charges.</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">What payment methods do you accept?</div>
+                <div class="faq-answer">All major credit and debit cards (Visa, Mastercard, Amex) via Stripe — a secure, industry-standard payment processor. We never store your card details.</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">Can I upgrade from Premium to Pro?</div>
+                <div class="faq-answer">Yes. Contact us and we'll handle the plan change. Automated plan switching via the customer portal is coming soon.</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">What happens to unused AI generations?</div>
+                <div class="faq-answer">Unused generations reset at the start of each billing month — they do not roll over. This keeps costs predictable for everyone.</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">Is there a free trial?</div>
+                <div class="faq-answer">Our Basic plan is free forever with 5 AI quiz generations per month — no credit card required. We also offer a 30-day money-back guarantee on all paid plans.</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">Do you offer discounts for schools or non-profits?</div>
+                <div class="faq-answer">Yes — contact us at <a href="mailto:hello@iquizpro.com">hello@iquizpro.com</a> to discuss educational and non-profit pricing.</div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <ul class="footer-links">
+                <li><a href="/">Home</a></li>
+                <li><a href="/premium.html">Pricing</a></li>
+                <li><a href="/privacy-policy.html">Privacy</a></li>
+                <li><a href="/terms.html">Terms</a></li>
+            </ul>
+            <p>&copy; 2026 iQuizPros. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // ── Firebase init (same config as main app) ──
+        const firebaseConfig = {
+            apiKey: "AIzaSyCRs_kyp7U8sRGDInIY11ds2N85oT1U1zg",
+            authDomain: "quizpros.firebaseapp.com",
+            projectId: "quizpros",
+            storageBucket: "quizpros.firebasestorage.app",
+            messagingSenderId: "684284511365",
+            appId: "1:684284511365:web:9cb2919960c3f54d5595ec"
+        };
+        if (!firebase.apps.length) {
+            firebase.initializeApp(firebaseConfig);
+        }
+
+        // ── Stripe Payment Link URLs ──
+        // IMPORTANT: These links must be updated in Stripe Dashboard to reflect new pricing:
+        //   premium → create a new Payment Link for $12.99/month product
+        //   pro     → create a new Payment Link for $29.99/month product
+        // Add metadata: { tier: "premium" } or { tier: "pro" } to each product
+        const PAYMENT_LINKS = {
+            premium: 'https://buy.stripe.com/test_6oUbJ2aMGdfu9lT6Bx8g002',
+            pro:     'https://buy.stripe.com/test_6oU28s8Eyb7mfKh6Bx8g003'
+        };
+
+        // ── Handle payment result URL params ──
+        (function checkPaymentResult() {
+            const params = new URLSearchParams(window.location.search);
+            if (params.get('payment') === 'success') {
+                document.getElementById('payment-success-banner').classList.add('visible');
+                window.history.replaceState({}, document.title, '/premium.html');
+            } else if (params.get('payment') === 'cancelled') {
+                document.getElementById('payment-cancelled-banner').classList.add('visible');
+                window.history.replaceState({}, document.title, '/premium.html');
+            }
+        })();
+
+        // ── Subscription handler ──
+        function handleSubscribe(tier) {
+            const btn    = document.getElementById('btn-subscribe-' + tier);
+            const notice = document.getElementById('auth-notice-' + tier);
+            const labels = { premium: 'Get Premium', pro: 'Get Pro' };
+
+            const user = firebase.auth().currentUser;
+
+            if (!user) {
+                btn.disabled = true;
+                btn.textContent = 'Checking sign-in…';
+                const unsubscribe = firebase.auth().onAuthStateChanged(function(resolvedUser) {
+                    unsubscribe();
+                    btn.disabled = false;
+                    btn.textContent = labels[tier] || 'Subscribe';
+                    if (!resolvedUser) {
+                        if (notice) notice.style.display = 'block';
+                        return;
+                    }
+                    _doRedirect(tier, resolvedUser, btn, notice);
+                });
+                return;
+            }
+
+            if (notice) notice.style.display = 'none';
+            _doRedirect(tier, user, btn, notice);
+        }
+
+        function _doRedirect(tier, user, btn, notice) {
+            const paymentLink = PAYMENT_LINKS[tier];
+            if (!paymentLink) return;
+
+            const url = new URL(paymentLink);
+            url.searchParams.set('client_reference_id', user.uid);
+            if (user.email) {
+                url.searchParams.set('prefilled_email', user.email);
+            }
+
+            btn.textContent = 'Redirecting to Stripe…';
+            btn.classList.add('loading');
+            window.location.href = url.toString();
+        }
+    </script>
+</body>
+</html>

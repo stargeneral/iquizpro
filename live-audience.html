@@ -1,0 +1,761 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Live Audience - iQuizPros</title><script src="https://www.gstatic.com/firebasejs/9.20.0/firebase-app-compat.js"></script><script src="https://www.gstatic.com/firebasejs/9.20.0/firebase-auth-compat.js"></script><script src="https://www.gstatic.com/firebasejs/9.20.0/firebase-firestore-compat.js"></script><script src="https://www.gstatic.com/firebasejs/9.20.0/firebase-database-compat.js"></script><script defer="defer" src="/js/runtime.6fdec4f4d8bfa2f8d22e.js"></script><script defer="defer" src="/js/vendors.de788a87b9bb3625350b.js"></script><script defer="defer" src="/js/vendor.409035b1c3be45e43278.js"></script><script defer="defer" src="/js/live-audience.31a46b5cdf8fe0b3ca6d.js"></script></head><body class="audience-view"><div id="join-screen" class="screen active"><div class="join-container"><div class="logo-section"><h1 class="app-title">iQuizPros</h1><p class="tagline">Join the Live Quiz</p></div><div class="join-form"><div class="form-group"><label for="access-code-input">Enter Access Code</label> <input type="text" id="access-code-input" class="code-input" placeholder="ABC123" maxlength="6" autocomplete="off"></div><div class="form-group"><label for="nickname-input">Your Nickname</label> <input type="text" id="nickname-input" class="nickname-input" placeholder="Enter your name" maxlength="20"></div><button id="join-btn" class="btn btn-primary btn-lg">Join Session</button><div id="join-error" class="error-message" style="display: none;"></div></div></div></div><div id="waiting-screen" class="screen"><div class="waiting-container"><div class="waiting-animation"><div class="spinner"></div></div><h2>Waiting for Quiz to Start...</h2><p class="participant-info"><span id="waiting-nickname"></span> • <span id="waiting-participant-count">0</span> participants</p></div></div><div id="question-screen" class="screen"><div class="question-container"><div id="progress-container" class="progress-container"><div class="progress-bar-wrapper"><div id="progress-bar" class="progress-bar"></div></div><div id="progress-text" class="progress-text">Question 1 of 20</div></div><div id="stats-bar" class="stats-bar"><div class="stat-item"><span class="stat-label">Score</span> <span id="score-display" class="stat-value">0</span></div><div class="stat-item"><span class="stat-label">Streak</span> <span id="streak-display" class="stat-value">0 🔥</span></div><div class="stat-item"><span class="stat-label">Accuracy</span> <span id="accuracy-display" class="stat-value">0%</span></div></div><div class="question-header"><h2 id="question-text" class="question-text">Question will appear here</h2></div><div id="options-container" class="options-container"></div><div id="question-feedback" class="question-feedback" style="display: none;"></div></div></div><div id="results-screen" class="screen"><div class="results-container"><div class="results-header"><h2>Quiz Complete!</h2><div class="final-score"><span class="score-label">Your Score</span> <span id="final-score" class="score-value">0</span> <span class="score-total">/ <span id="total-points">0</span></span></div></div><div class="results-stats"><div class="stat-card"><div class="stat-icon">🎯</div><div class="stat-info"><span class="stat-label">Accuracy</span> <span id="final-accuracy" class="stat-value">0%</span></div></div><div class="stat-card"><div class="stat-icon">🔥</div><div class="stat-info"><span class="stat-label">Best Streak</span> <span id="final-streak" class="stat-value">0</span></div></div><div class="stat-card"><div class="stat-icon">⚡</div><div class="stat-info"><span class="stat-label">Avg Speed</span> <span id="avg-speed" class="stat-value">0s</span></div></div></div><div class="results-actions"><button id="view-leaderboard-btn" class="btn btn-primary">View Leaderboard</button></div></div></div><div id="loading-overlay" class="loading-overlay" style="display: none;"><div class="loading-content"><div class="spinner"></div><p class="loading-message">Loading...</p></div></div>
+
+<!-- ── Nickname Overlay (A.1 – Phase 7) ───────────────────────────────────────
+     Full-screen overlay shown on first join when no iqp_nickname in localStorage.
+──────────────────────────────────────────────────────────────────────────────-->
+<div id="ext-nickname-overlay" style="display:none;position:fixed;inset:0;background:linear-gradient(135deg,#25d366,#128c7e);z-index:9200;align-items:center;justify-content:center;padding:2rem;font-family:system-ui,sans-serif;">
+  <div style="background:#fff;border-radius:16px;padding:2rem;max-width:340px;width:100%;text-align:center;box-shadow:0 8px 32px rgba(0,0,0,.2);">
+    <div style="font-size:2.5rem;margin-bottom:.75rem;">👤</div>
+    <h2 style="color:#128c7e;margin:0 0 .5rem;font-size:1.4rem;">What's your name?</h2>
+    <p style="color:#777;font-size:.9rem;margin:0 0 1.25rem;">Enter a nickname to join the game</p>
+    <input id="ext-nick-input" type="text" maxlength="20" placeholder="Enter your nickname"
+      style="width:100%;padding:.8rem 1rem;font-size:1rem;border:2px solid #e0e0e0;border-radius:10px;
+      outline:none;margin-bottom:.75rem;box-sizing:border-box;text-align:center;">
+    <button id="ext-nick-submit"
+      style="width:100%;padding:.9rem;font-size:1rem;font-weight:700;border:none;border-radius:10px;
+      background:linear-gradient(135deg,#25d366,#128c7e);color:#fff;cursor:pointer;">
+      Join Game
+    </button>
+    <div id="ext-nick-error" style="color:#c62828;font-size:.85rem;margin-top:.5rem;display:none;"></div>
+  </div>
+</div>
+
+<!-- ── iQuizPros Extension Layer v7.0 ─────────────────────────────────────────
+     Handles new question types (word cloud, rating scale, true/false) and
+     countdown timer. Phase 7 adds: nickname input overlay (A.1), between-question
+     mini-leaderboard (A.2), nickname truncation fix.
+     Does NOT modify the pre-built live-audience bundle.
+──────────────────────────────────────────────────────────────────────────────-->
+<div id="ext-overlay" style="display:none;position:fixed;inset:0;background:#f0f2f5;z-index:9000;
+  font-family:system-ui,sans-serif;overflow-y:auto;padding:1.5rem;">
+  <!-- Timer bar -->
+  <div id="ext-timer-wrap" style="display:none;background:#fff;border-radius:10px;padding:.75rem 1rem;
+    margin-bottom:1rem;box-shadow:0 2px 8px rgba(0,0,0,.08);">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.4rem;">
+      <span style="font-size:.85rem;color:#555;">Time remaining</span>
+      <span id="ext-timer-val" style="font-weight:700;font-size:1.1rem;color:#25d366;">--</span>
+    </div>
+    <div style="background:#e0e0e0;border-radius:4px;height:6px;">
+      <div id="ext-timer-bar" style="height:6px;border-radius:4px;background:#25d366;
+        transition:width .5s linear;width:100%;"></div>
+    </div>
+  </div>
+
+  <!-- Question text -->
+  <div style="background:#fff;border-radius:12px;padding:1.25rem 1.5rem;margin-bottom:1rem;
+    box-shadow:0 2px 8px rgba(0,0,0,.08);">
+    <div id="ext-question-text" style="font-size:1.15rem;font-weight:600;line-height:1.5;"></div>
+  </div>
+
+  <!-- Response area — swapped per question type -->
+  <div id="ext-response-area"></div>
+
+  <!-- Submitted confirmation -->
+  <div id="ext-submitted-msg" style="display:none;text-align:center;padding:2rem;
+    background:#fff;border-radius:12px;box-shadow:0 2px 8px rgba(0,0,0,.08);">
+    <div style="font-size:2.5rem;margin-bottom:.5rem;">✅</div>
+    <div style="font-size:1.1rem;font-weight:600;color:#25d366;">Response submitted!</div>
+    <div style="color:#777;font-size:.9rem;margin-top:.3rem;">Waiting for next question…</div>
+  </div>
+</div>
+
+<style>
+/* Extension layer styles */
+.ext-tf-btn {
+  display:block; width:100%; padding:1.2rem; margin-bottom:.75rem; font-size:1.15rem;
+  font-weight:600; border:2px solid #e0e0e0; border-radius:12px; background:#fff;
+  cursor:pointer; transition:background .15s,border-color .15s; text-align:center;
+}
+.ext-tf-btn:hover { background:#f0faf5; border-color:#25d366; }
+.ext-tf-btn.selected { background:#25d366; border-color:#25d366; color:#fff; }
+
+.ext-rating-btn {
+  width:48px; height:48px; border:2px solid #e0e0e0; border-radius:50%; background:#fff;
+  font-size:1rem; font-weight:700; cursor:pointer; transition:background .15s,border-color .15s;
+  margin:.25rem;
+}
+.ext-rating-btn:hover { background:#f0faf5; border-color:#25d366; }
+.ext-rating-btn.selected { background:#25d366; border-color:#25d366; color:#fff; }
+
+#ext-wc-input {
+  width:100%; padding:.8rem 1rem; font-size:1rem; border:2px solid #e0e0e0; border-radius:10px;
+  outline:none; margin-bottom:.75rem;
+}
+#ext-wc-input:focus { border-color:#25d366; }
+.ext-submit-btn {
+  display:block; width:100%; padding:.9rem; font-size:1rem; font-weight:600; border:none;
+  border-radius:10px; background:linear-gradient(135deg,#25d366,#128c7e); color:#fff;
+  cursor:pointer; transition:opacity .15s;
+}
+.ext-submit-btn:disabled { opacity:.5; cursor:not-allowed; }
+
+/* Phase 9: Floating emoji reaction animation */
+@keyframes iqp-emoji-float {
+  0%   { opacity:1; transform:translateX(-50%) translateY(0)     scale(1);   }
+  60%  { opacity:1; transform:translateX(-50%) translateY(-80px)  scale(1.4); }
+  100% { opacity:0; transform:translateX(-50%) translateY(-140px) scale(1.6); }
+}
+</style>
+
+<script>
+(function() {
+  'use strict';
+
+  // ── Config ─────────────────────────────────────────────────────────────────
+  var FIREBASE_CONFIG = {
+    apiKey:            "AIzaSyCRs_kyp7U8sRGDInIY11ds2N85oT1U1zg",
+    authDomain:        "quizpros.firebaseapp.com",
+    databaseURL:       "https://quizpros-default-rtdb.europe-west1.firebasedatabase.app",
+    projectId:         "quizpros",
+    storageBucket:     "quizpros.firebasestorage.app",
+    messagingSenderId: "684284511365",
+    appId:             "1:684284511365:web:9cb2919960c3f54d5595ec"
+  };
+
+  // ── State ──────────────────────────────────────────────────────────────────
+  var db, sessionCode, participantKey, currentSlideIdx = -1, timerInterval = null;
+  var isLocked = false;
+  var serverTimeOffset = 0;   // RTDB server-time offset for accurate timer sync (Phase 6.2)
+  var currentTimerTotal = 0;  // Total seconds for current timed question (Phase 6.1)
+  var currentTimerEndTime = 0; // End time in server-ms for current question (Phase 6.1)
+
+  // ── Init ───────────────────────────────────────────────────────────────────
+  function init() {
+    // Re-use the existing Firebase app if already initialised
+    try {
+      db = firebase.app().database();
+    } catch (e) {
+      if (!firebase.apps.length) firebase.initializeApp(FIREBASE_CONFIG);
+      else firebase.initializeApp(FIREBASE_CONFIG, 'ext');
+      db = firebase.app('ext').database();
+    }
+
+    // Sync RTDB server-time offset for accurate multi-device timers (Phase 6.2)
+    syncServerOffset();
+
+    // Wait for the pre-built bundle to establish the session code
+    // It stores it on window after joining; poll until available
+    waitForSession();
+  }
+
+  function waitForSession() {
+    var attempts = 0;
+    var poll = setInterval(function() {
+      attempts++;
+      // The pre-built bundle exposes the code via the DOM
+      var codeEl = document.getElementById('waiting-nickname') || document.getElementById('access-code-input');
+      var code = window._extSessionCode || (codeEl && codeEl.dataset && codeEl.dataset.sessionCode);
+
+      // Try reading from URL params as fallback (audience join stores code in localStorage)
+      if (!code) {
+        try { code = localStorage.getItem('iqp_session_code'); } catch(e){}
+      }
+
+      if (code) {
+        clearInterval(poll);
+        sessionCode = code;
+        participantKey = localStorage.getItem('iqp_participant_key') || ('anon_' + Math.random().toString(36).slice(2,8));
+        localStorage.setItem('iqp_participant_key', participantKey);
+        // A.1: Show nickname overlay for first-time visitors; skip if already stored
+        var storedNick = null;
+        try { storedNick = localStorage.getItem('iqp_nickname'); } catch(e) {}
+        if (!storedNick) {
+          showNicknameOverlay(); // Overlay will call writeNickname() + watchSession() on submit
+        } else {
+          writeNickname(); // Returning user: write stored nickname to RTDB
+          watchSession();
+        }
+      }
+      if (attempts > 120) clearInterval(poll); // 1 min timeout
+    }, 500);
+  }
+
+  // ── Nickname overlay (A.1 – Phase 7) ──────────────────────────────────────
+  function showNicknameOverlay() {
+    var overlay = document.getElementById('ext-nickname-overlay');
+    if (!overlay) { writeNickname(); watchSession(); return; } // Graceful fallback
+    overlay.style.display = 'flex';
+    var input   = document.getElementById('ext-nick-input');
+    var btn     = document.getElementById('ext-nick-submit');
+    var errEl   = document.getElementById('ext-nick-error');
+
+    function submit() {
+      var nick = input.value.trim().slice(0, 20);
+      if (!nick) {
+        errEl.textContent = 'Please enter a nickname (1–20 characters).';
+        errEl.style.display = 'block';
+        return;
+      }
+      errEl.style.display = 'none';
+      try { localStorage.setItem('iqp_nickname', nick); } catch(e) {}
+      overlay.style.display = 'none';
+      // Write directly to RTDB (already truncated to ≤20 chars)
+      db.ref('sessions/' + sessionCode + '/participants/' + participantKey + '/nickname')
+        .set(nick)
+        .catch(function(err) { console.warn('ext: could not write nickname', err); });
+      watchSession();
+    }
+
+    btn.addEventListener('click', submit);
+    input.addEventListener('keydown', function(e) { if (e.key === 'Enter') submit(); });
+    input.addEventListener('focus',   function()  { input.style.borderColor = '#25d366'; });
+    input.addEventListener('blur',    function()  { input.style.borderColor = '#e0e0e0'; });
+    setTimeout(function() { input.focus(); }, 100);
+  }
+
+  // ── XSS-safe string escaping (used in leaderboard) ────────────────────────
+  function escNick(str) {
+    return String(str || '').replace(/[&<>"']/g, function(c) {
+      return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];
+    });
+  }
+
+  function watchSession() {
+    var ref = db.ref('sessions/' + sessionCode + '/currentSlide');
+    ref.on('value', function(snap) {
+      var slideIdx = snap.val();
+      if (slideIdx === null || slideIdx === undefined) return;
+      if (slideIdx === currentSlideIdx) return;
+      var prev = currentSlideIdx;
+      currentSlideIdx = slideIdx;
+      // Show waiting screen between questions (not on first question)
+      if (prev >= 0) {
+        showWaitingBetweenQuestions(function() { loadSlide(slideIdx); });
+      } else {
+        loadSlide(slideIdx);
+      }
+    });
+
+    // Phase 9: Watch emoji reactions broadcast by presenter
+    db.ref('sessions/' + sessionCode + '/lastReaction').on('value', function(snap) {
+      var reaction = snap.val();
+      if (reaction && reaction.emoji) showEmojiReaction(reaction.emoji);
+    });
+
+    // Watch locked state
+    db.ref('sessions/' + sessionCode + '/locked').on('value', function(snap) {
+      isLocked = !!snap.val();
+      var submitBtns = document.querySelectorAll('.ext-tf-btn, .ext-rating-btn, .ext-submit-btn, #ext-wc-submit, #ext-oe-submit');
+      submitBtns.forEach(function(btn) {
+        btn.disabled = isLocked;
+        btn.style.opacity = isLocked ? '0.5' : '1';
+      });
+      // Show a lock banner if locked
+      var lockBanner = document.getElementById('ext-lock-banner');
+      if (isLocked) {
+        if (!lockBanner) {
+          lockBanner = document.createElement('div');
+          lockBanner.id = 'ext-lock-banner';
+          lockBanner.style.cssText = 'background:#c62828;color:#fff;text-align:center;padding:.6rem;font-size:.9rem;font-weight:600;border-radius:8px;margin-bottom:.75rem;';
+          lockBanner.textContent = '🔒 Responses locked by presenter';
+          var overlay = document.getElementById('ext-overlay');
+          if (overlay) overlay.insertBefore(lockBanner, overlay.firstChild);
+        }
+      } else {
+        if (lockBanner) lockBanner.remove();
+      }
+    });
+  }
+
+  // ── Waiting screen between questions ───────────────────────────────────────
+  function showWaitingBetweenQuestions(callback) {
+    var waitEl = document.getElementById('ext-between-q');
+    if (!waitEl) {
+      waitEl = document.createElement('div');
+      waitEl.id = 'ext-between-q';
+      waitEl.style.cssText = [
+        'display:none;position:fixed;inset:0;',
+        'background:linear-gradient(135deg,#25d366,#128c7e);',
+        'z-index:9100;flex-direction:column;align-items:center;',
+        'justify-content:center;color:#fff;font-family:system-ui,sans-serif;'
+      ].join('');
+      waitEl.innerHTML = [
+        '<div style="font-size:3rem;margin-bottom:1rem;animation:pulse 0.6s infinite alternate">⏭️</div>',
+        '<div style="font-size:1.5rem;font-weight:700;margin-bottom:.5rem">Next Question</div>',
+        '<div style="font-size:1rem;opacity:0.85">Get ready…</div>',
+        '<style>@keyframes pulse{from{transform:scale(1)}to{transform:scale(1.2)}}</style>'
+      ].join('');
+      document.body.appendChild(waitEl);
+    }
+    waitEl.style.display = 'flex';
+    setTimeout(function() {
+      waitEl.style.display = 'none';
+      callback();
+    }, 1200);
+  }
+
+  function loadSlide(idx) {
+    db.ref('sessions/' + sessionCode + '/questions/' + idx).once('value', function(snap) {
+      var q = snap.val();
+      if (!q) return;
+      var type = q.type || 'multiple-choice';
+
+      // Only activate extension for non-multiple-choice types
+      if (type === 'multiple-choice' || !type) {
+        hideExtension();
+        return;
+      }
+
+      showExtension(q, idx, type);
+    });
+  }
+
+  // ── UI helpers ─────────────────────────────────────────────────────────────
+  function showExtension(q, slideIdx, type) {
+    var overlay = document.getElementById('ext-overlay');
+    overlay.style.display = 'block';
+    document.getElementById('ext-submitted-msg').style.display = 'none';
+    document.getElementById('ext-question-text').textContent = q.question || q.text || '';
+    document.getElementById('ext-response-area').innerHTML = '';
+
+    stopTimer();
+    // Capture timer data for score calculation (Phase 6.1)
+    if (q.timer && !q.closedAt) {
+      currentTimerTotal = q.timer;
+      var tStartMs = q.timerStartedAt ? Number(q.timerStartedAt) : (Date.now() + serverTimeOffset);
+      currentTimerEndTime = tStartMs + q.timer * 1000; // end time in server-ms
+      startTimer(q.timer, q.timerStartedAt);
+    } else {
+      currentTimerTotal = 0;
+      currentTimerEndTime = 0;
+      document.getElementById('ext-timer-wrap').style.display = 'none';
+    }
+
+    if (type === 'true-false')  renderTrueFalse(slideIdx);
+    else if (type === 'rating')     renderRating(q.ratingScale || 5, slideIdx);
+    else if (type === 'word-cloud') renderWordCloud(slideIdx);
+    else if (type === 'open-ended') renderOpenEnded(slideIdx);
+    else if (type === 'ranking')    renderRanking();
+    else if (type === 'q-and-a')    renderQandA(slideIdx);
+  }
+
+  function hideExtension() {
+    document.getElementById('ext-overlay').style.display = 'none';
+    stopTimer();
+  }
+
+  // ── True / False ───────────────────────────────────────────────────────────
+  function renderTrueFalse(slideIdx) {
+    var area = document.getElementById('ext-response-area');
+    area.innerHTML =
+      '<button class="ext-tf-btn" data-val="true">✅ True</button>' +
+      '<button class="ext-tf-btn" data-val="false">❌ False</button>';
+    area.querySelectorAll('.ext-tf-btn').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        area.querySelectorAll('.ext-tf-btn').forEach(function(b) { b.classList.remove('selected'); });
+        btn.classList.add('selected');
+        submitResponse(slideIdx, btn.dataset.val);
+      });
+    });
+  }
+
+  // ── Rating Scale ───────────────────────────────────────────────────────────
+  function renderRating(scale, slideIdx) {
+    var area = document.getElementById('ext-response-area');
+    var html = '<div style="text-align:center;margin-bottom:.75rem;color:#777;font-size:.9rem;">Tap a number</div>' +
+               '<div style="display:flex;flex-wrap:wrap;justify-content:center;">';
+    for (var i = 1; i <= scale; i++) {
+      html += '<button class="ext-rating-btn" data-val="' + i + '">' + i + '</button>';
+    }
+    html += '</div>';
+    area.innerHTML = html;
+    area.querySelectorAll('.ext-rating-btn').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        area.querySelectorAll('.ext-rating-btn').forEach(function(b) { b.classList.remove('selected'); });
+        btn.classList.add('selected');
+        submitResponse(slideIdx, parseInt(btn.dataset.val, 10));
+      });
+    });
+  }
+
+  // ── Word Cloud ─────────────────────────────────────────────────────────────
+  function renderWordCloud(slideIdx) {
+    var area = document.getElementById('ext-response-area');
+    area.innerHTML =
+      '<div style="background:#fff;border-radius:12px;padding:1.25rem;box-shadow:0 2px 8px rgba(0,0,0,.08);">' +
+      '<label style="display:block;margin-bottom:.5rem;font-size:.9rem;color:#555;">Your response (max 20 chars)</label>' +
+      '<input id="ext-wc-input" type="text" maxlength="20" placeholder="Type a word or phrase…">' +
+      '<button class="ext-submit-btn" id="ext-wc-submit">Submit</button></div>';
+    var input = document.getElementById('ext-wc-input');
+    var submitBtn = document.getElementById('ext-wc-submit');
+    submitBtn.addEventListener('click', function() {
+      var val = input.value.trim();
+      if (!val) return;
+      submitBtn.disabled = true;
+      submitResponse(slideIdx, val);
+    });
+    input.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') submitBtn.click();
+    });
+  }
+
+  // ── Open Ended ─────────────────────────────────────────────────────────────
+  function renderOpenEnded(slideIdx) {
+    var area = document.getElementById('ext-response-area');
+    area.innerHTML = [
+      '<div style="background:#fff;border-radius:12px;padding:1.25rem;box-shadow:0 2px 8px rgba(0,0,0,.08);">',
+      '<label style="display:block;margin-bottom:.5rem;font-size:.9rem;color:#555;">Your answer</label>',
+      '<textarea id="ext-oe-input" rows="3" maxlength="200" placeholder="Type your answer here…" ',
+      'style="width:100%;padding:.75rem 1rem;font-size:.95rem;border:2px solid #e0e0e0;border-radius:10px;',
+      'outline:none;resize:vertical;margin-bottom:.75rem;font-family:inherit;box-sizing:border-box;"></textarea>',
+      '<button class="ext-submit-btn" id="ext-oe-submit">Submit Answer</button>',
+      '</div>'
+    ].join('');
+    var input = document.getElementById('ext-oe-input');
+    var submitBtn = document.getElementById('ext-oe-submit');
+    input.addEventListener('focus', function() { input.style.borderColor = '#25d366'; });
+    input.addEventListener('blur',  function() { input.style.borderColor = '#e0e0e0'; });
+    submitBtn.addEventListener('click', function() {
+      var val = input.value.trim();
+      if (!val || isLocked) return;
+      submitBtn.disabled = true;
+      submitResponse(slideIdx, val);
+    });
+  }
+
+  // ── Ranking Display (Phase 9) ──────────────────────────────────────────────
+  // Shows current participant scores — no submission, display only.
+  function renderRanking() {
+    var area = document.getElementById('ext-response-area');
+    area.innerHTML = '<div style="text-align:center;padding:1rem;color:#555;font-size:.9rem;">Loading rankings…</div>';
+    if (!sessionCode) return;
+    db.ref('sessions/' + sessionCode + '/participants').once('value', function(snap) {
+      var participants = snap.val();
+      if (!participants) {
+        area.innerHTML = '<div style="text-align:center;padding:2rem;color:#777;">No scores yet.</div>';
+        return;
+      }
+      var sorted = Object.keys(participants).map(function(k) {
+        var p = participants[k];
+        return { nickname: p.nickname || ('Player_' + k.slice(-4)), score: p.score || 0, key: k };
+      }).sort(function(a, b) { return b.score - a.score; });
+
+      var medals = ['🥇','🥈','🥉'];
+      var html = '<div style="background:#fff;border-radius:12px;padding:1rem;box-shadow:0 2px 8px rgba(0,0,0,.08);">' +
+        '<div style="font-weight:700;color:#128c7e;font-size:1rem;text-align:center;margin-bottom:.75rem;' +
+        'padding-bottom:.5rem;border-bottom:2px solid #f0f0f0;">🏅 Current Rankings</div>';
+      sorted.slice(0, 10).forEach(function(entry, idx) {
+        var isMe  = entry.key === participantKey;
+        var medal = medals[idx] !== undefined ? medals[idx] : (idx + 1) + '.';
+        html += '<div style="display:flex;align-items:center;padding:.5rem .25rem;' +
+          (idx > 0 ? 'border-top:1px solid #f4f4f4;' : '') +
+          (isMe  ? 'background:#f0fdf4;border-radius:8px;' : '') + '">' +
+          '<div style="width:2rem;text-align:center;font-size:1rem;">' + medal + '</div>' +
+          '<div style="flex:1;margin-left:.5rem;font-weight:' + (isMe ? '700' : '500') + ';' +
+            'color:' + (isMe ? '#128c7e' : '#1a1a1a') + ';font-size:.9rem;">' +
+            escNick(entry.nickname) + (isMe ? ' (you)' : '') + '</div>' +
+          '<div style="font-weight:700;color:#25d366;font-size:.9rem;">' + entry.score + ' pts</div>' +
+          '</div>';
+      });
+      if (sorted.length === 0) {
+        html += '<div style="text-align:center;color:#777;padding:1rem;">No scores yet.</div>';
+      }
+      html += '</div>';
+      area.innerHTML = html;
+    });
+  }
+
+  // ── Q&A (Phase 9 + 10.1 upvoting) ────────────────────────────────────────
+  // Audience submits text questions; can upvote others' questions.
+  var _qaListener = null;
+  function renderQandA(slideIdx) {
+    var area = document.getElementById('ext-response-area');
+    // Get or generate a stable voter/submitter ID (10.1)
+    var voterId = participantKey;
+    if (!voterId) {
+      try {
+        voterId = localStorage.getItem('iqp_anon_id');
+        if (!voterId) { voterId = 'anon_' + Math.random().toString(36).slice(2, 10); localStorage.setItem('iqp_anon_id', voterId); }
+      } catch(e) { voterId = 'anon_' + Date.now(); }
+    }
+
+    area.innerHTML = [
+      '<div style="background:#fff;border-radius:12px;padding:1.25rem;box-shadow:0 2px 8px rgba(0,0,0,.08);margin-bottom:.75rem;">',
+      '<label style="display:block;margin-bottom:.5rem;font-size:.9rem;color:#555;font-weight:600;">Ask the presenter a question</label>',
+      '<input id="ext-qa-input" type="text" maxlength="120" placeholder="Type your question…"',
+      ' style="width:100%;padding:.8rem 1rem;font-size:1rem;border:2px solid #e0e0e0;border-radius:10px;',
+      'outline:none;margin-bottom:.75rem;box-sizing:border-box;">',
+      '<button class="ext-submit-btn" id="ext-qa-submit">Submit Question</button>',
+      '</div>',
+      '<div id="ext-qa-list-audience" style="max-height:280px;overflow-y:auto;"></div>'
+    ].join('');
+
+    var input     = document.getElementById('ext-qa-input');
+    var submitBtn = document.getElementById('ext-qa-submit');
+    var listEl    = document.getElementById('ext-qa-list-audience');
+
+    input.addEventListener('focus', function() { input.style.borderColor = '#25d366'; });
+    input.addEventListener('blur',  function() { input.style.borderColor = '#e0e0e0'; });
+    submitBtn.addEventListener('click', function() {
+      var val = input.value.trim();
+      if (!val || isLocked) return;
+      submitBtn.disabled = true;
+      var nick = null;
+      try { nick = localStorage.getItem('iqp_nickname'); } catch(e) {}
+      db.ref('sessions/' + sessionCode + '/qa').push({
+        text:     val,
+        nickname: nick || 'Anonymous',
+        ts:       Date.now()
+      }).then(function() {
+        showSubmitted(0); // Q&A earns no score points
+      }).catch(function(err) {
+        submitBtn.disabled = false;
+        console.error('ext: qa submit failed', err);
+      });
+    });
+    input.addEventListener('keydown', function(e) { if (e.key === 'Enter') submitBtn.click(); });
+    setTimeout(function() { if (input) input.focus(); }, 100);
+
+    // 10.1: Live list of questions with upvote buttons
+    if (_qaListener) {
+      try { db.ref('sessions/' + sessionCode + '/qa').off('value', _qaListener); } catch(e) {}
+    }
+    _qaListener = db.ref('sessions/' + sessionCode + '/qa').on('value', function(snap) {
+      var questions = snap.val();
+      if (!questions || Object.keys(questions).length === 0) {
+        listEl.innerHTML = '<p style="text-align:center;color:#aaa;font-size:.85rem;padding:.5rem;">No questions yet — be the first!</p>';
+        return;
+      }
+      var entries = [];
+      Object.keys(questions).forEach(function(key) {
+        var q = questions[key];
+        var votes = q.votes ? Object.keys(q.votes).length : 0;
+        var iVoted = q.votes && q.votes[voterId] === true;
+        entries.push({ key: key, text: q.text, nickname: q.nickname, votes: votes, iVoted: iVoted });
+      });
+      entries.sort(function(a, b) { return b.votes - a.votes; });
+      var html = '<div style="background:#fff;border-radius:12px;padding:.5rem;box-shadow:0 2px 8px rgba(0,0,0,.06);">';
+      entries.forEach(function(e, idx) {
+        html += '<div style="display:flex;align-items:center;gap:.5rem;padding:.6rem .5rem;' + (idx > 0 ? 'border-top:1px solid #f4f4f4;' : '') + '">' +
+          '<div style="flex:1;min-width:0;">' +
+            '<div style="font-size:.9rem;color:#1a1a1a;font-weight:600;">' + escNick(e.text) + '</div>' +
+            '<div style="font-size:.75rem;color:#aaa;">— ' + escNick(e.nickname || 'Anonymous') + '</div>' +
+          '</div>' +
+          '<button data-qa-key="' + e.key + '" class="ext-upvote-btn" ' +
+            (e.iVoted ? 'disabled ' : '') +
+            'style="background:' + (e.iVoted ? '#e8faf0' : '#fff') + ';border:2px solid ' + (e.iVoted ? '#25d366' : '#e0e0e0') + ';' +
+            'border-radius:8px;padding:.3rem .6rem;cursor:' + (e.iVoted ? 'default' : 'pointer') + ';font-size:.85rem;display:flex;align-items:center;gap:.25rem;flex-shrink:0;">' +
+            '👍 <span style="font-weight:700;color:#25d366;">' + e.votes + '</span>' +
+          '</button>' +
+          '</div>';
+      });
+      html += '</div>';
+      listEl.innerHTML = html;
+
+      // Attach vote handlers
+      listEl.querySelectorAll('.ext-upvote-btn:not([disabled])').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          var key = btn.getAttribute('data-qa-key');
+          btn.disabled = true;
+          db.ref('sessions/' + sessionCode + '/qa/' + key + '/votes/' + voterId).set(true)
+            .catch(function(err) { console.error('ext: vote failed', err); btn.disabled = false; });
+        });
+      });
+    });
+  }
+
+  // ── Emoji reaction display (Phase 9) ──────────────────────────────────────
+  // Animates a floating emoji when the presenter broadcasts a reaction.
+  function showEmojiReaction(emoji) {
+    var el = document.createElement('div');
+    el.textContent = emoji;
+    el.style.cssText = [
+      'position:fixed;bottom:30%;left:50%;transform:translateX(-50%);',
+      'font-size:3.5rem;z-index:9900;pointer-events:none;',
+      'animation:iqp-emoji-float 2s ease-out forwards;'
+    ].join('');
+    document.body.appendChild(el);
+    setTimeout(function() { if (el.parentElement) el.remove(); }, 2100);
+  }
+
+  // ── Submit response to RTDB ────────────────────────────────────────────────
+  function submitResponse(slideIdx, value) {
+    // Compute score delta for timed questions (Phase 6.1)
+    // Any timely response earns speed-based points (0–100)
+    var scoreDelta = 0;
+    if (currentTimerTotal > 0 && currentTimerEndTime > 0) {
+      var serverNow = Date.now() + serverTimeOffset;
+      var remaining = Math.max(0, (currentTimerEndTime - serverNow) / 1000);
+      if (remaining > 0) {
+        scoreDelta = Math.floor((remaining / currentTimerTotal) * 100);
+      }
+    }
+
+    var responseKey = participantKey + '_' + slideIdx;
+    var ref = db.ref('sessions/' + sessionCode + '/responses/' + responseKey);
+    ref.set({
+      slideIndex:  slideIdx,
+      value:       value,
+      submittedAt: Date.now(),
+      scoreDelta:  scoreDelta
+    }).then(function() {
+      if (scoreDelta > 0) recordScore(slideIdx, scoreDelta);
+      showSubmitted(scoreDelta);
+    }).catch(function(err) {
+      console.error('ext: submitResponse failed', err);
+      // Show error inline
+      var area = document.getElementById('ext-response-area');
+      if (area) {
+        var errDiv = document.createElement('div');
+        errDiv.style.cssText = 'color:#c62828;text-align:center;padding:.5rem;font-size:.9rem;';
+        errDiv.textContent = 'Could not submit. Please try again.';
+        area.appendChild(errDiv);
+      }
+    });
+  }
+
+  // ── Record score in RTDB (Phase 6.1) ───────────────────────────────────────
+  function recordScore(slideIdx, delta) {
+    var participantRef = db.ref('sessions/' + sessionCode + '/participants/' + participantKey);
+    // Store per-question delta for debugging / future per-question leaderboard
+    participantRef.child('scoreDelta_' + slideIdx).set(delta);
+    // Increment cumulative score atomically
+    participantRef.child('score').transaction(function(current) {
+      return (current || 0) + delta;
+    }).catch(function(err) { console.warn('ext: could not update score', err); });
+  }
+
+  function showSubmitted(scoreDelta) {
+    document.getElementById('ext-response-area').innerHTML = '';
+    var msgEl = document.getElementById('ext-submitted-msg');
+    msgEl.style.display = 'block';
+    // Show score awarded when positive (Phase 6.1)
+    var scoreNote = document.getElementById('ext-score-note');
+    if (!scoreNote) {
+      scoreNote = document.createElement('div');
+      scoreNote.id = 'ext-score-note';
+      scoreNote.style.cssText = 'margin-top:.5rem;font-size:1.05rem;font-weight:700;color:#128c7e;';
+      msgEl.appendChild(scoreNote);
+    }
+    scoreNote.textContent = (scoreDelta > 0) ? '+' + scoreDelta + ' points! ⚡' : '';
+    stopTimer();
+    // A.2: Show mini-leaderboard 800ms after submission (timed questions only)
+    if (currentTimerTotal > 0) {
+      setTimeout(showMinileaderboard, 800);
+    }
+  }
+
+  // ── Between-question mini-leaderboard (A.2 – Phase 7) ────────────────────
+  function showMinileaderboard() {
+    if (!sessionCode) return;
+    db.ref('sessions/' + sessionCode + '/participants').once('value', function(snap) {
+      var participants = snap.val();
+      if (!participants) return;
+
+      var sorted = Object.keys(participants)
+        .map(function(k) { return participants[k]; })
+        .filter(function(p) { return p && p.nickname; })
+        .sort(function(a, b) { return (b.score || 0) - (a.score || 0); })
+        .slice(0, 5);
+
+      if (sorted.length === 0) return;
+
+      // Remove any previous mini-leaderboard
+      var existing = document.getElementById('ext-mini-leaderboard');
+      if (existing) existing.remove();
+
+      var panel = document.createElement('div');
+      panel.id = 'ext-mini-leaderboard';
+      panel.style.cssText = 'margin-top:1rem;background:#fff;border-radius:12px;padding:1rem;box-shadow:0 2px 8px rgba(0,0,0,.08);';
+
+      var medals = ['🥇','🥈','🥉','4️⃣','5️⃣'];
+      var html = '<div style="font-weight:700;color:#128c7e;margin-bottom:.6rem;text-align:center;font-size:.95rem;">🏆 Top Players</div>';
+      sorted.forEach(function(p, i) {
+        html += '<div style="display:flex;justify-content:space-between;align-items:center;padding:.3rem 0;' +
+          (i < sorted.length - 1 ? 'border-bottom:1px solid #f0f0f0;' : '') +
+          'font-size:.88rem;">' +
+          '<span>' + medals[i] + ' ' + escNick(p.nickname) + '</span>' +
+          '<span style="font-weight:700;color:#25d366;">' + (p.score || 0) + '</span>' +
+          '</div>';
+      });
+      panel.innerHTML = html;
+
+      var msgEl = document.getElementById('ext-submitted-msg');
+      if (msgEl) msgEl.appendChild(panel);
+
+      // Auto-dismiss after 3 seconds or when next slide arrives
+      setTimeout(function() { if (panel.parentElement) panel.remove(); }, 3000);
+    });
+  }
+
+  // ── Countdown timer ────────────────────────────────────────────────────────
+  function startTimer(totalSeconds, startedAtMs) {
+    var wrap = document.getElementById('ext-timer-wrap');
+    var valEl = document.getElementById('ext-timer-val');
+    var barEl = document.getElementById('ext-timer-bar');
+    wrap.style.display = 'block';
+
+    // Phase 6.2: Use RTDB server timestamp for accurate multi-device sync.
+    // startedAtMs is now a server timestamp written by the presenter via
+    // firebase.database.ServerValue.TIMESTAMP. Convert using serverTimeOffset:
+    //   serverTime ≈ Date.now() + serverTimeOffset
+    var serverStart = startedAtMs ? Number(startedAtMs) : (Date.now() + serverTimeOffset);
+    var endTime = serverStart + totalSeconds * 1000; // end time in server-ms
+
+    timerInterval = setInterval(function() {
+      var serverNow = Date.now() + serverTimeOffset;
+      var remaining = Math.max(0, Math.ceil((endTime - serverNow) / 1000));
+      valEl.textContent = remaining + 's';
+      barEl.style.width = Math.round((remaining / totalSeconds) * 100) + '%';
+      barEl.style.background = remaining <= 5 ? '#c62828' : '#25d366';
+
+      if (remaining <= 0) {
+        stopTimer();
+        // Lock UI — hide response area, show "Time's up"
+        document.getElementById('ext-response-area').innerHTML =
+          '<div style="text-align:center;padding:2rem;font-size:1.1rem;color:#c62828;font-weight:600;">⏰ Time\'s up!</div>';
+      }
+    }, 500);
+  }
+
+  function stopTimer() {
+    if (timerInterval) { clearInterval(timerInterval); timerInterval = null; }
+  }
+
+  // ── Server time offset sync (Phase 6.2) ────────────────────────────────────
+  // Reads RTDB's .info/serverTimeOffset so all timing is relative to server clock.
+  // serverTime ≈ Date.now() + serverTimeOffset
+  function syncServerOffset() {
+    db.ref('.info/serverTimeOffset').on('value', function(snap) {
+      serverTimeOffset = snap.val() || 0;
+    });
+  }
+
+  // ── Write nickname to RTDB participants (Phase 6.1) ────────────────────────
+  // Reads nickname from localStorage (set by pre-built bundle) or DOM elements,
+  // then writes to sessions/{code}/participants/{key}/nickname
+  function writeNickname() {
+    var nick = null;
+    try { nick = localStorage.getItem('iqp_nickname'); } catch(e) {}
+    if (!nick) {
+      var waitEl = document.getElementById('waiting-nickname');
+      if (waitEl && waitEl.textContent && waitEl.textContent.trim()) {
+        nick = waitEl.textContent.trim();
+      }
+    }
+    if (!nick) {
+      var inputEl = document.getElementById('nickname-input');
+      if (inputEl && inputEl.value && inputEl.value.trim()) {
+        nick = inputEl.value.trim();
+      }
+    }
+    if (!nick) nick = 'Player_' + participantKey.slice(-4);
+    nick = nick.slice(0, 20); // Truncate to ≤20 chars (fixes RTDB validate rule rejection)
+    try { localStorage.setItem('iqp_nickname', nick); } catch(e) {}
+    db.ref('sessions/' + sessionCode + '/participants/' + participantKey + '/nickname')
+      .set(nick)
+      .catch(function(err) { console.warn('ext: could not write nickname', err); });
+  }
+
+  // ── Start ──────────────────────────────────────────────────────────────────
+  // Delay init so Firebase SDKs and the pre-built bundle have time to load
+  document.addEventListener('DOMContentLoaded', function() {
+    setTimeout(init, 1500);
+  });
+
+  // Expose for debugging
+  window._iqpAudienceExt = { getState: function() { return { sessionCode: sessionCode, currentSlideIdx: currentSlideIdx, serverTimeOffset: serverTimeOffset }; } };
+})();
+</script>
+
+</body></html>

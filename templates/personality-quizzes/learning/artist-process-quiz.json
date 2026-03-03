@@ -1,0 +1,84 @@
+{
+    "id": "artist-process-quiz",
+    "name": "Which Artist's Creative Process Matches Yours?",
+    "description": "Discover which legendary artist's approach to creativity aligns with your natural process",
+    "icon": "fas fa-palette",
+    "banner": "assets/images/artist-process-banner.webp",
+    "category": "learning",
+    "personalityTypes": {
+      "picasso": {
+        "title": "The Radical Re-inventor",
+        "description": "Like Picasso, you thrive on constant reinvention and challenging conventions. Your creative process involves breaking rules, experimenting with forms, and going through distinct 'periods' of different styles.",
+        "characteristics": [
+          "Frequently changes creative approaches",
+          "Willing to destroy to create anew",
+          "Works in series exploring concepts",
+          "Values originality over technique",
+          "Seeks to express rather than represent"
+        ],
+        "strengths": "Innovation, courage, expressiveness, conceptual thinking",
+        "challenges": "May struggle with finishing or perfecting individual works",
+        "imagePath": "assets/images/picasso-style.webp"
+      },
+      "da-vinci": {
+        "title": "The Interdisciplinary Scientist",
+        "description": "Like Leonardo da Vinci, your creativity bridges art and science. You approach projects with intense curiosity, detailed observation, and a desire to understand underlying principles through experimentation.",
+        "characteristics": [
+          "Maintains detailed notebooks/sketches",
+          "Studies nature and science for inspiration",
+          "Works slowly with many revisions",
+          "Leaves projects unfinished to pursue new ideas",
+          "Sees connections between disciplines"
+        ],
+        "strengths": "Curiosity, observation, technical mastery, holistic thinking",
+        "challenges": "May struggle with completion due to endless curiosity",
+        "imagePath": "assets/images/davinci-style.webp"
+      },
+      "o-keeffe": {
+        "title": "The Focused Poet",
+        "description": "Like Georgia O'Keeffe, you work with intense focus on specific subjects, exploring them deeply over time. Your creativity comes from sustained attention and finding universal meaning in particular forms.",
+        "characteristics": [
+          "Develops deep expertise in focused areas",
+          "Finds the extraordinary in ordinary subjects",
+          "Works in series exploring variations",
+          "Values simplicity and essential forms",
+          "Creates through sustained observation"
+        ],
+        "strengths": "Focus, depth, poetic vision, simplification",
+        "challenges": "May be perceived as limited in scope",
+        "imagePath": "assets/images/okeeffe-style.webp"
+      },
+      "pollock": {
+        "title": "The Intuitive Force",
+        "description": "Like Jackson Pollock, your creative process is physical, intuitive, and spontaneous. You work best when tapping into subconscious energy, embracing chance, and creating through action rather than pre-planning.",
+        "characteristics": [
+          "Works physically and gesturally",
+          "Embraces happy accidents",
+          "Creates through doing rather than planning",
+          "Values energy and process over product",
+          "Taps into subconscious inspiration"
+        ],
+        "strengths": "Energy, intuition, spontaneity, physical expression",
+        "challenges": "May struggle with structured projects requiring planning",
+        "imagePath": "assets/images/pollock-style.webp"
+      }
+    },
+    "questions": [
+      {
+        "question": "Your approach to learning new skills is to:",
+        "options": [
+          "Break all the rules and find your own way",
+          "Study the underlying principles deeply",
+          "Focus intensely on perfecting fundamentals",
+          "Dive in and learn through physical practice"
+        ],
+        "personalityPoints": [
+          { "picasso": 5, "da-vinci": 2, "o-keeffe": 1, "pollock": 1 },
+          { "picasso": 1, "da-vinci": 5, "o-keeffe": 2, "pollock": 1 },
+          { "picasso": 1, "da-vinci": 2, "o-keeffe": 5, "pollock": 1 },
+          { "picasso": 1, "da-vinci": 1, "o-keeffe": 1, "pollock": 5 }
+        ]
+      },
+      { "questions": [ { "question": "How do you typically start a new creative project?", "options": [ "I jump in with bold, innovative strokes, breaking traditional boundaries", "I plan meticulously, sketching out ideas with precision and scientific observation", "I let natural inspirations flow, drawing on organic shapes and vibrant colors", "I embrace chaos and spontaneity, letting emotions guide every brushstroke" ], "personalityPoints": [ { "picasso": 5, "da-vinci": 2, "o-keeffe": 1, "pollock": 1 }, { "picasso": 1, "da-vinci": 5, "o-keeffe": 2, "pollock": 1 }, { "picasso": 1, "da-vinci": 2, "o-keeffe": 5, "pollock": 1 }, { "picasso": 1, "da-vinci": 1, "o-keeffe": 1, "pollock": 5 } ] }, { "question": "When working on a masterpiece, what motivates you the most?", "options": [ "The desire to challenge conventions and explore abstract forms", "The pursuit of technical mastery and innovative techniques", "A deep connection with nature and its inherent beauty", "The thrill of expressive freedom and dynamic energy" ], "personalityPoints": [ { "picasso": 5, "da-vinci": 2, "o-keeffe": 1, "pollock": 1 }, { "picasso": 1, "da-vinci": 5, "o-keeffe": 2, "pollock": 1 }, { "picasso": 1, "da-vinci": 2, "o-keeffe": 5, "pollock": 1 }, { "picasso": 1, "da-vinci": 1, "o-keeffe": 1, "pollock": 5 } ] }, { "question": "How do you view the role of tradition in your art?", "options": [ "I believe in reinventing traditional forms to create something new", "I honor classical methods but enhance them with scientific insights", "I draw inspiration from nature, transcending traditional boundaries", "I reject strict rules and embrace a completely free, spontaneous style" ], "personalityPoints": [ { "picasso": 5, "da-vinci": 2, "o-keeffe": 1, "pollock": 1 }, { "picasso": 1, "da-vinci": 5, "o-keeffe": 2, "pollock": 1 }, { "picasso": 1, "da-vinci": 2, "o-keeffe": 5, "pollock": 1 }, { "picasso": 1, "da-vinci": 1, "o-keeffe": 1, "pollock": 5 } ] }, { "question": "What is your creative process like?", "options": [ "A bold, experimental approach where I deconstruct and rebuild art", "A systematic process that involves detailed research and planning", "A meditative, organic process influenced by nature’s forms", "An impulsive, intuitive process where accidents become art" ], "personalityPoints": [ { "picasso": 5, "da-vinci": 2, "o-keeffe": 1, "pollock": 1 }, { "picasso": 1, "da-vinci": 5, "o-keeffe": 2, "pollock": 1 }, { "picasso": 1, "da-vinci": 2, "o-keeffe": 5, "pollock": 1 }, { "picasso": 1, "da-vinci": 1, "o-keeffe": 1, "pollock": 5 } ] }, { "question": "How do you handle creative blocks?", "options": [ "I break the mold by trying unconventional techniques", "I analyze my process and refine my approach with precision", "I step away into nature to find inspiration in its simplicity", "I let go and allow randomness to guide my creativity" ], "personalityPoints": [ { "picasso": 5, "da-vinci": 2, "o-keeffe": 1, "pollock": 1 }, { "picasso": 1, "da-vinci": 5, "o-keeffe": 2, "pollock": 1 }, { "picasso": 1, "da-vinci": 2, "o-keeffe": 5, "pollock": 1 }, { "picasso": 1, "da-vinci": 1, "o-keeffe": 1, "pollock": 5 } ] }, { "question": "What role does experimentation play in your work?", "options": [ "It’s fundamental; I love pushing boundaries and redefining art", "I experiment within a structured framework to innovate effectively", "Experimentation flows naturally from my connection to the world", "I thrive on spontaneity and the unpredictability of creative accidents" ], "personalityPoints": [ { "picasso": 5, "da-vinci": 2, "o-keeffe": 1, "pollock": 1 }, { "picasso": 1, "da-vinci": 5, "o-keeffe": 2, "pollock": 1 }, { "picasso": 1, "da-vinci": 2, "o-keeffe": 5, "pollock": 1 }, { "picasso": 1, "da-vinci": 1, "o-keeffe": 1, "pollock": 5 } ] }, { "question": "How do you decide on the medium for your art?", "options": [ "I choose media that allow for bold expression and abstraction", "I select materials that offer precision and versatility for detailed work", "I opt for natural, earthy materials that resonate with organic forms", "I prefer unconventional mediums that let me express raw emotion" ], "personalityPoints": [ { "picasso": 5, "da-vinci": 2, "o-keeffe": 1, "pollock": 1 }, { "picasso": 1, "da-vinci": 5, "o-keeffe": 2, "pollock": 1 }, { "picasso": 1, "da-vinci": 2, "o-keeffe": 5, "pollock": 1 }, { "picasso": 1, "da-vinci": 1, "o-keeffe": 1, "pollock": 5 } ] }, { "question": "Which best describes your creative workspace?", "options": [ "A dynamic, ever-changing studio full of abstract inspiration", "A meticulously organized space filled with sketches and technical drawings", "A serene, light-filled room that draws heavily from nature", "A vibrant, chaotic environment where creativity flows freely" ], "personalityPoints": [ { "picasso": 5, "da-vinci": 2, "o-keeffe": 1, "pollock": 1 }, { "picasso": 1, "da-vinci": 5, "o-keeffe": 2, "pollock": 1 }, { "picasso": 1, "da-vinci": 2, "o-keeffe": 5, "pollock": 1 }, { "picasso": 1, "da-vinci": 1, "o-keeffe": 1, "pollock": 5 } ] }, { "question": "How do you view the relationship between emotion and technique in art?", "options": [ "Emotion drives me to break conventions and express the abstract", "Technique is crucial as it translates my ideas into tangible masterpieces", "A balance between emotion and nature shapes my creative vision", "I rely on raw emotion to fuel an instinctive, unrestrained process" ], "personalityPoints": [ { "picasso": 5, "da-vinci": 2, "o-keeffe": 1, "pollock": 1 }, { "picasso": 1, "da-vinci": 5, "o-keeffe": 2, "pollock": 1 }, { "picasso": 1, "da-vinci": 2, "o-keeffe": 5, "pollock": 1 }, { "picasso": 1, "da-vinci": 1, "o-keeffe": 1, "pollock": 5 } ] } ] }
+    ]
+  }

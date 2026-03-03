@@ -1,0 +1,164 @@
+{
+  "id": "work-life-balance",
+  "name": "Work-Life Balance",
+  "description": "How do you balance work, rest and the rest of life? Discover your balance style and what it means for your wellbeing.",
+  "icon": "fas fa-balance-scale",
+  "banner": "assets/images/work-life-balance.webp",
+  "category": "professional",
+  "personalityTypes": {
+    "achiever": {
+      "title": "The Driven Achiever",
+      "description": "Work is central to how you define yourself and your sense of worth. You're ambitious, goal-driven and often find it hard to switch off. You need to be conscious of protecting your health and relationships — your success means nothing without them.",
+      "characteristics": ["Highly ambitious and goal-oriented", "Work is a source of identity and pride", "Often the first in and last out", "Struggles to fully disconnect", "Sets high standards for themselves and others"],
+      "strengths": "Your drive and commitment produce exceptional results. You inspire others with your work ethic and often achieve things others only dream of.",
+      "challenges": "Burnout is your greatest risk. Schedule rest the way you schedule meetings — non-negotiably. Your best work comes from a mind that has been allowed to rest.",
+      "imagePath": "assets/images/achiever-balance.webp"
+    },
+    "integrator": {
+      "title": "The Integrator",
+      "description": "You don't separate work and life into separate boxes — you blend them fluidly. Work can happen in the evening; personal calls can happen at lunchtime. You value flexibility above rigid boundaries and find this works well for you.",
+      "characteristics": ["Flexible and adaptable approach", "Doesn't see work and life as opposites", "Comfortable with fluidity and context-switching", "Values autonomy over rigid schedules", "Works best in flexible environments"],
+      "strengths": "Your adaptability means you rarely feel trapped by either work or personal obligations. You move between both worlds with ease.",
+      "challenges": "Without any boundaries, everything can bleed into everything. Identify non-negotiable personal times that work doesn't enter — even integrators need some firm ground.",
+      "imagePath": "assets/images/integrator-balance.webp"
+    },
+    "separator": {
+      "title": "The Clear Separator",
+      "description": "When work ends, it ends. You have firm, clear boundaries between work and personal life and you protect them fiercely. Once you close the laptop, you're fully present in your personal life — and you wouldn't have it any other way.",
+      "characteristics": ["Firm boundaries between work and personal time", "Excellent at fully switching off", "Protective of personal time", "Reliable and predictable schedule", "Values presence and compartmentalisation"],
+      "strengths": "Your ability to truly switch off means you show up fully rested and focused when you do work. People in your personal life get all of you — not the leftover version.",
+      "challenges": "In fast-moving or high-demand environments, rigid boundaries can create friction. Build some flexibility for genuine emergencies without letting it become the norm.",
+      "imagePath": "assets/images/separator-balance.webp"
+    },
+    "recharger": {
+      "title": "The Recharger",
+      "description": "You know that your energy is your most valuable professional resource. You actively invest in rest, hobbies, sleep and relationships — not as luxuries but as the foundations of your best performance. You work sustainably.",
+      "characteristics": ["Treats rest as a professional skill", "Invests deliberately in recovery", "Understands the connection between wellbeing and performance", "Consistent, sustainable energy levels", "Sets an example for healthy working"],
+      "strengths": "Your sustainable approach means you avoid the boom-and-bust cycle that burns out high achievers. You consistently show up at a high level because you protect your foundations.",
+      "challenges": "Sometimes you may be too quick to step back when a short, intense push is genuinely needed. Not all high-effort periods are burnout in the making.",
+      "imagePath": "assets/images/recharger-balance.webp"
+    }
+  },
+  "questions": [
+    {
+      "question": "On a typical weekday evening, you are most likely:",
+      "options": [
+        "Still working — or at least checking messages and emails",
+        "Moving between work tasks and personal things as needed",
+        "Completely offline — the laptop is closed and the phone is on silent",
+        "Doing something specifically to rest and recharge for tomorrow"
+      ],
+      "personalityPoints": [
+        { "achiever": 5, "integrator": 1, "separator": 1, "recharger": 1 },
+        { "achiever": 1, "integrator": 5, "separator": 1, "recharger": 2 },
+        { "achiever": 1, "integrator": 1, "separator": 5, "recharger": 2 },
+        { "achiever": 1, "integrator": 2, "separator": 2, "recharger": 5 }
+      ]
+    },
+    {
+      "question": "How do you feel about working outside of official hours?",
+      "options": [
+        "It's normal — important work doesn't follow a schedule",
+        "Fine when necessary — flexibility works both ways",
+        "I avoid it as much as possible — those hours belong to me",
+        "I occasionally do it, but I make sure to compensate with rest"
+      ],
+      "personalityPoints": [
+        { "achiever": 5, "integrator": 2, "separator": 1, "recharger": 1 },
+        { "achiever": 2, "integrator": 5, "separator": 1, "recharger": 2 },
+        { "achiever": 1, "integrator": 1, "separator": 5, "recharger": 2 },
+        { "achiever": 1, "integrator": 2, "separator": 2, "recharger": 5 }
+      ]
+    },
+    {
+      "question": "You're on holiday. A non-urgent but important work email arrives. You:",
+      "options": [
+        "Reply — you can't fully relax knowing it's unanswered",
+        "Quickly check and decide whether it needs a response now",
+        "Ignore it — it can wait until you're back; that was the arrangement",
+        "Note it for your return but make no contact until the holiday is over"
+      ],
+      "personalityPoints": [
+        { "achiever": 5, "integrator": 2, "separator": 1, "recharger": 1 },
+        { "achiever": 2, "integrator": 5, "separator": 1, "recharger": 2 },
+        { "achiever": 1, "integrator": 1, "separator": 5, "recharger": 2 },
+        { "achiever": 1, "integrator": 2, "separator": 3, "recharger": 5 }
+      ]
+    },
+    {
+      "question": "How much of your identity is tied to your work or career?",
+      "options": [
+        "A lot — what I do is a core part of who I am",
+        "Some — it's important but not my whole identity",
+        "Not much — I work to live, I don't live to work",
+        "I care about doing good work, but I define myself by how I live, not what I do"
+      ],
+      "personalityPoints": [
+        { "achiever": 5, "integrator": 2, "separator": 1, "recharger": 1 },
+        { "achiever": 2, "integrator": 5, "separator": 2, "recharger": 2 },
+        { "achiever": 1, "integrator": 1, "separator": 5, "recharger": 2 },
+        { "achiever": 1, "integrator": 2, "separator": 2, "recharger": 5 }
+      ]
+    },
+    {
+      "question": "Your approach to sleep and rest is:",
+      "options": [
+        "Sleep is what happens when work is done — it's not always a priority",
+        "I try to get good sleep but sometimes work bleeds into late nights",
+        "I protect my sleep and evening wind-down time firmly",
+        "Sleep and recovery are non-negotiable foundations for performing well"
+      ],
+      "personalityPoints": [
+        { "achiever": 5, "integrator": 2, "separator": 1, "recharger": 1 },
+        { "achiever": 2, "integrator": 5, "separator": 1, "recharger": 2 },
+        { "achiever": 1, "integrator": 1, "separator": 5, "recharger": 2 },
+        { "achiever": 1, "integrator": 1, "separator": 2, "recharger": 5 }
+      ]
+    },
+    {
+      "question": "When you're not at work, the people in your personal life would say:",
+      "options": [
+        "You're often distracted or still mentally at work",
+        "You're present most of the time but sometimes drift back to work",
+        "You switch off completely — work doesn't come home with you",
+        "You're fully present and actively protective of personal time"
+      ],
+      "personalityPoints": [
+        { "achiever": 5, "integrator": 2, "separator": 1, "recharger": 1 },
+        { "achiever": 2, "integrator": 5, "separator": 2, "recharger": 2 },
+        { "achiever": 1, "integrator": 1, "separator": 5, "recharger": 2 },
+        { "achiever": 1, "integrator": 2, "separator": 2, "recharger": 5 }
+      ]
+    },
+    {
+      "question": "What best describes your relationship with hobbies and personal interests?",
+      "options": [
+        "I have them but they often get squeezed out by work",
+        "I fit them in around work — on good weeks, it works well",
+        "I guard my personal time for them — they happen every week",
+        "They're a core part of how I maintain my energy and performance"
+      ],
+      "personalityPoints": [
+        { "achiever": 5, "integrator": 2, "separator": 1, "recharger": 1 },
+        { "achiever": 2, "integrator": 5, "separator": 2, "recharger": 2 },
+        { "achiever": 1, "integrator": 1, "separator": 5, "recharger": 2 },
+        { "achiever": 1, "integrator": 1, "separator": 2, "recharger": 5 }
+      ]
+    },
+    {
+      "question": "If you could redesign how you work, you'd choose:",
+      "options": [
+        "More autonomy to work as hard as I want without constraints",
+        "Total flexibility to blend work and life however suits each day",
+        "Strict, predictable working hours with protected personal time",
+        "A culture that genuinely values sustainable performance over hustle"
+      ],
+      "personalityPoints": [
+        { "achiever": 5, "integrator": 1, "separator": 1, "recharger": 1 },
+        { "achiever": 1, "integrator": 5, "separator": 1, "recharger": 2 },
+        { "achiever": 1, "integrator": 1, "separator": 5, "recharger": 2 },
+        { "achiever": 1, "integrator": 2, "separator": 2, "recharger": 5 }
+      ]
+    }
+  ]
+}

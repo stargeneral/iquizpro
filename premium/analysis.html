@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>IQuizPros Premium Analysis</title>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-0QZSJ62FJV"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-0QZSJ62FJV');
+    </script>
+    <!-- Fonts and Styles -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Open+Sans&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+    <link rel="stylesheet" href="../css/base.css" />
+    <link rel="stylesheet" href="../css/components.css" />
+    <link rel="stylesheet" href="../css/layout.css" />
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../styles.css?v=1.2" />
+    
+    <!-- Chart.js for visualizations -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <!-- Main app script and modules -->
+    <script src="../js/config.js"></script>
+    <script src="../js/utils/utils.js"></script>
+    <script src="../js/utils/storage.js"></script>
+    <script src="../js/utils/api.js"></script>
+    <script src="../js/utils/feature-flags.js"></script>
+    <script src="../js/components/header.js"></script>
+    <script src="../js/components/footer.js"></script>
+    <script src="../js/components/premium-badge.js"></script>
+    <script src="../js/modules/analytics.js"></script>
+    <script src="../js/modules/cookie-consent.js"></script>
+    <script src="../js/modules/premium.js"></script>
+    <script src="../js/modules/ui-manager.js"></script>
+    <script src="../js/modules/user-manager.js"></script>
+  </head>
+  <body>
+    <div class="quiz-container">
+      <!-- Header Section -->
+      <div class="quiz-header">
+        <a href="dashboard.html" class="back-button"><i class="fas fa-arrow-left"></i> Back to Dashboard</a>
+        <div class="quiz-topic-info">Advanced Analysis</div>
+        <div id="premium-badge-container"></div>
+      </div>
+      
+      <!-- Analysis Welcome Section -->
+      <div class="analysis-welcome">
+        <h1>Your Personalized Analysis</h1>
+        <p>Gain deeper insights into your quiz results with our advanced analysis tools.</p>
+      </div>
+      
+      <!-- Analysis Overview Section -->
+      <div class="analysis-section">
+        <h2>Analysis Overview</h2>
+        <p>Based on your quiz history, we've compiled personalized insights and trends.</p>
+        
+        <div class="analysis-overview-card">
+          <div class="overview-stats">
+            <div class="stat-item">
+              <div class="stat-value" id="total-quizzes">0</div>
+              <div class="stat-label">Quizzes Completed</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-value" id="avg-score">0%</div>
+              <div class="stat-label">Average Score</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-value" id="strongest-area">-</div>
+              <div class="stat-label">Strongest Area</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-value" id="growth-area">-</div>
+              <div class="stat-label">Growth Area</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Performance Trends Section -->
+      <div class="analysis-section">
+        <h2>Performance Trends</h2>
+        <p>Track how your quiz performance has changed over time.</p>
+        
+        <div class="analysis-chart-container">
+          <canvas id="performance-chart"></canvas>
+        </div>
+        
+        <div class="analysis-insights">
+          <h3>Key Insights</h3>
+          <ul id="performance-insights">
+            <li>Complete more quizzes to see performance trends over time.</li>
+          </ul>
+        </div>
+      </div>
+      
+      <!-- Personality Profile Section -->
+      <div class="analysis-section">
+        <h2>Personality Profile</h2>
+        <p>A comprehensive view of your personality traits based on all your quiz results.</p>
+        
+        <div class="analysis-chart-container">
+          <canvas id="personality-chart"></canvas>
+        </div>
+        
+        <div class="personality-traits">
+          <h3>Your Key Traits</h3>
+          <div class="traits-grid" id="traits-grid">
+            <!-- Traits will be dynamically added here -->
+          </div>
+        </div>
+      </div>
+      
+      <!-- Career Insights Section -->
+      <div class="analysis-section">
+        <h2>Career Insights</h2>
+        <p>Personalized career recommendations based on your personality profile and skills.</p>
+        
+        <div class="career-matches">
+          <h3>Top Career Matches</h3>
+          <div class="career-matches-list" id="career-matches-list">
+            <!-- Career matches will be dynamically added here -->
+          </div>
+        </div>
+        
+        <div class="career-insights">
+          <h3>Professional Development Recommendations</h3>
+          <ul id="career-insights">
+            <!-- Career insights will be dynamically added here -->
+          </ul>
+        </div>
+      </div>
+      
+      <!-- Comparative Analysis Section -->
+      <div class="analysis-section">
+        <h2>Comparative Analysis</h2>
+        <p>See how your results compare to others who have taken the same quizzes.</p>
+        
+        <div class="analysis-chart-container">
+          <canvas id="comparative-chart"></canvas>
+        </div>
+        
+        <div class="comparative-insights">
+          <h3>Comparative Insights</h3>
+          <ul id="comparative-insights">
+            <!-- Comparative insights will be dynamically added here -->
+          </ul>
+        </div>
+      </div>
+      
+      <!-- Download Report Section -->
+      <div class="analysis-section">
+        <h2>Download Full Report</h2>
+        <p>Get a comprehensive PDF report of all your analysis and insights.</p>
+        
+        <div class="download-options">
+          <button class="btn btn-primary" id="download-report-btn">
+            <i class="fas fa-file-download"></i> Download Full Analysis Report
+          </button>
+          <button class="btn btn-outline" id="download-summary-btn">
+            <i class="fas fa-file-alt"></i> Download Summary Report
+          </button>
+        </div>
+      </div>
+      
+      <!-- No Data State (initially hidden) -->
+      <div class="no-data-state" id="no-data-state" style="display: none;">
+        <div class="empty-icon"><i class="fas fa-chart-line"></i></div>
+        <h2>No Quiz Data Available</h2>
+        <p>Complete some quizzes to see your personalized analysis and insights.</p>
+        <a href="dashboard.html" class="btn btn-primary">Go to Premium Quizzes</a>
+      </div>
+      
+      <!-- Footer Section -->
+      <div class="quiz-footer">
+        <div class="footer-content">
+          <div class="copyright">© 2025 IQuizPros</div>
+          <div class="footer-links">
+            <a href="../privacy-policy.html" class="footer-link">Privacy Policy</a>
+            <a href="../terms-of-use.html" class="footer-link">Terms of Use</a>
+            <a href="../contact-page.html" class="footer-link">Contact</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        // Initialize analytics
+        if (window.QuizProsAnalytics) {
+          QuizProsAnalytics.trackPageView('Premium Analysis', '/premium/analysis.html');
+        }
+        
+        // Check if user has premium plus access
+        if (window.QuizProsPremium && window.QuizProsPremium.hasPremiumAccess('plus')) {
+          // Add premium badge to header
+          const badgeContainer = document.getElementById('premium-badge-container');
+          if (badgeContainer && window.QuizProsPremiumBadge) {
+            const badge = window.QuizProsPremiumBadge.createBadge('plus');
+            badgeContainer.appendChild(badge);
+          }
+          
+          // Load quiz data and generate analysis
+          loadQuizData();
+        } else {
+          // Redirect to premium landing page if not premium plus
+          window.location.href = 'dashboard.html';
+        }
+        
+        // Set up download buttons
+        const downloadReportBtn = document.getElementById('download-report-btn');
+        if (downloadReportBtn) {
+          downloadReportBtn.addEventListener('click', function() {
+            // In a real implementation, this would generate and download a PDF report
+            alert('Full report download functionality would be implemented here.');
+            
+            // Track event
+            if (window.QuizProsAnalytics) {
+              window.QuizProsAnalytics.trackEvent(
+                'Premium',
+                'DownloadFullReport',
+                'Analysis Page'
+              );
+            }
+          });
+        }
+        
+        const downloadSummaryBtn = document.getElementById('download-summary-btn');
+        if (downloadSummaryBtn) {
+          downloadSummaryBtn.addEventListener('click', function() {
+            // In a real implementation, this would generate and download a PDF summary
+            alert('Summary report download functionality would be implemented here.');
+            
+            // Track event
+            if (window.QuizProsAnalytics) {
+              window.QuizProsAnalytics.trackEvent(
+                'Premium',
+                'DownloadSummaryReport',
+                'Analysis Page'
+              );
+            }
+          });
+        }
+      });
+      
+      /**
+       * Load quiz data and generate analysis
+       */
+      function loadQuizData() {
+        if (!window.QuizProsStorage) return;
+        
+        const quizResults = window.QuizProsStorage.getQuizResults();
+        
+        if (quizResults && quizResults.length > 0) {
+          // Show analysis sections and hide no data state
+          document.querySelectorAll('.analysis-section').forEach(section => {
+            section.style.display = 'block';
+          });
+          document.getElementById('no-data-state').style.display = 'none';
+          
+          // Update overview stats
+          updateOverviewStats(quizResults);
+          
+          // Generate charts and insights
+          generatePerformanceChart(quizResults);
+          generatePersonalityChart(quizResults);
+          generateCareerInsights(quizResults);
+          generateComparativeAnalysis(quizResults);
+        } else {
+          // Hide analysis sections and show no data state
+          document.querySelectorAll('.analysis-section').forEach(section => {
+            section.style.display = 'none';
+          });
+          document.getElementById('no-data-state').style.display = 'block';
+        }
+      }
+      
+      /**
+       * Update overview statistics
+       * @param {Array} quizResults - Array of quiz results
+       */
+      function updateOverviewStats(quizResults) {
+        // Update total quizzes
+        const totalQuizzesElement = document.getElementById('total-quizzes');
+        if (totalQuizzesElement) {
+          totalQuizzesElement.textContent = quizResults.length;
+        }
+        
+        // Calculate average score (for knowledge quizzes)
+        const knowledgeQuizzes = quizResults.filter(result => 
+          result.data.score !== undefined && result.data.totalQuestions !== undefined
+        );
+        
+        const avgScoreElement = document.getElementById('avg-score');
+        if (avgScoreElement && knowledgeQuizzes.length > 0) {
+          const totalScore = knowledgeQuizzes.reduce((sum, quiz) => 
+            sum + (quiz.data.score / quiz.data.totalQuestions), 0
+          );
+          const avgScore = (totalScore / knowledgeQuizzes.length) * 100;
+          avgScoreElement.textContent = `${Math.round(avgScore)}%`;
+        } else if (avgScoreElement) {
+          avgScoreElement.textContent = 'N/A';
+        }
+        
+        // Determine strongest and growth areas (simplified example)
+        // In a real implementation, this would analyze traits across all quizzes
+        const strongestAreaElement = document.getElementById('strongest-area');
+        const growthAreaElement = document.getElementById('growth-area');
+        
+        if (quizResults.length > 0) {
+          // Example: just use the most recent quiz for demonstration
+          const latestQuiz = quizResults.sort((a, b) => 
+            new Date(b.timestamp) - new Date(a.timestamp)
+          )[0];
+          
+          if (latestQuiz.data.type === 'personality' && latestQuiz.data.traits) {
+            // Find highest and lowest traits
+            const traits = Object.entries(latestQuiz.data.traits || {});
+            if (traits.length > 0) {
+              traits.sort((a, b) => b[1] - a[1]);
+              
+              if (strongestAreaElement) {
+                strongestAreaElement.textContent = traits[0][0].replace('_', ' ');
+              }
+              
+              if (growthAreaElement) {
+                growthAreaElement.textContent = traits[traits.length - 1][0].replace('_', ' ');
+              }
+            }
+          } else {
+            // Default values if no trait data
+            if (strongestAreaElement) strongestAreaElement.textContent = 'N/A';
+            if (growthAreaElement) growthAreaElement.textContent = 'N/A';
+          }
+        }
+      }
+      
+      /**
+       * Generate performance chart
+       * @param {Array} quizResults - Array of quiz results
+       */
+      function generatePerformanceChart(quizResults) {
+        const ctx = document.getElementById('performance-chart');
+        if (!ctx) return;
+        
+        // Filter for knowledge quizzes with scores
+        const knowledgeQuizzes = quizResults.filter(result => 
+          result.data.score !== undefined && result.data.totalQuestions !== undefined
+        );
+        
+        // Sort by date
+        knowledgeQuizzes.sort((a, b) => new Date(a.timestamp) - new Date(b.timestamp));
+        
+        if (knowledgeQuizzes.length > 0) {
+          // Prepare data for chart
+          const labels = knowledgeQuizzes.map(quiz => 
+            window.QuizProsUtils.formatDate(quiz.timestamp, 'MM/DD')
+          );
+          
+          const scores = knowledgeQuizzes.map(quiz => 
+            (quiz.data.score / quiz.data.totalQuestions) * 100
+          );
+          
+          // Create chart
+          new Chart(ctx, {
+            type: 'line',
+            data: {
+              labels: labels,
+              datasets: [{
+                label: 'Quiz Score (%)',
+                data: scores,
+                borderColor: '#25d366',
+                backgroundColor: 'rgba(37, 211, 102, 0.1)',
+                tension: 0.3,
+                fill: true
+              }]
+            },
+            options: {
+              responsive: true,
+              plugins: {
+                title: {
+                  display: true,
+                  text: 'Quiz Performance Over Time'
+                },
+                tooltip: {
+                  callbacks: {
+                    label: function(context) {
+                      return `Score: ${context.raw.toFixed(1)}%`;
+                    }
+                  }
+                }
+              },
+              scales: {
+                y: {
+                  beginAtZero: true,
+                  max: 100,
+                  title: {
+                    display: true,
+                    text: 'Score (%)'
+                  }
+                },
+                x: {
+                  title: {
+                    display: true,
+                    text: 'Date'
+                  }
+                }
+              }
+            }
+          });
+          
+          // Generate insights
+          const insightsList = document.getElementById('performance-insights');
+          if (insightsList) {
+            insightsList.innerHTML = '';
+            
+            // Calculate trend
+            if (knowledgeQuizzes.length >= 3) {
+              const firstThird = knowledgeQuizzes.slice(0, Math.floor(knowledgeQuizzes.length / 3));
+              const lastThird = knowledgeQuizzes.slice(-Math.floor(knowledgeQuizzes.length / 3));
+              
+              const firstAvg = firstThird.reduce((sum, quiz) => 
+                sum + (quiz.data.score / quiz.data.totalQuestions), 0
+              ) / firstThird.length;
+              
+              const lastAvg = lastThird.reduce((sum, quiz) => 
+                sum + (quiz.data.score / quiz.data.totalQuestions), 0
+              ) / lastThird.length;
+              
+              const percentChange = ((lastAvg - firstAvg) / firstAvg) * 100;
+              
+              if (percentChange > 5) {
+                insightsList.innerHTML += `<li>Your quiz performance has improved by ${Math.round(percentChange)}% over time.</li>`;
+              } else if (percentChange < -5) {
+                insightsList.innerHTML += `<li>Your quiz performance has decreased by ${Math.round(Math.abs(percentChange))}% over time.</li>`;
+              } else {
+                insightsList.innerHTML += `<li>Your quiz performance has remained relatively stable over time.</li>`;
+              }
+            }
+            
+            // Add general insights
+            insightsList.innerHTML += `<li>Your highest score was ${Math.round(Math.max(...scores))}%.</li>`;
+            insightsList.innerHTML += `<li>Your average score across all quizzes is ${Math.round(scores.reduce((a, b) => a + b, 0) / scores.length)}%.</li>`;
+          }
+        } else {
+          // No knowledge quizzes with scores
+          ctx.parentNode.innerHTML = '<p>Complete knowledge quizzes to see performance trends.</p>';
+        }
+      }
+      
+      /**
+       * Generate personality chart
+       * @param {Array} quizResults - Array of quiz results
+       */
+      function generatePersonalityChart(quizResults) {
+        const ctx = document.getElementById('personality-chart');
+        if (!ctx) return;
+        
+        // Filter for personality quizzes with traits
+        const personalityQuizzes = quizResults.filter(result => 
+          result.data.type === 'personality' && result.data.traits
+        );
+        
+        if (personalityQuizzes.length > 0) {
+          // Aggregate traits across all personality quizzes
+          const traitScores = {};
+          
+          personalityQuizzes.forEach(quiz => {
+            const traits = quiz.data.traits || {};
+            Object.entries(traits).forEach(([trait, score]) => {
+              if (!traitScores[trait]) {
+                traitScores[trait] = 0;
+              }
+              traitScores[trait] += score;
+            });
+          });
+          
+          // Normalize trait scores
+          Object.keys(traitScores).forEach(trait => {
+            traitScores[trait] = traitScores[trait] / personalityQuizzes.length;
+          });
+          
+          // Sort traits by score (descending)
+          const sortedTraits = Object.entries(traitScores)
+            .sort((a, b) => b[1] - a[1])
+            .slice(0, 8); // Take top 8 traits
+          
+          // Prepare data for chart
+          const labels = sortedTraits.map(([trait]) => 
+            trait.replace('_', ' ').replace(/\b\w/g, l => l.toUpperCase())
+          );
+          
+          const scores = sortedTraits.map(([, score]) => score);
+          
+          // Create chart
+          new Chart(ctx, {
+            type: 'radar',
+            data: {
+              labels: labels,
+              datasets: [{
+                label: 'Trait Strength',
+                data: scores,
+                backgroundColor: 'rgba(125, 91, 166, 0.2)',
+                borderColor: 'rgba(125, 91, 166, 1)',
+                pointBackgroundColor: 'rgba(125, 91, 166, 1)',
+                pointBorderColor: '#fff',
+                pointHoverBackgroundColor: '#fff',
+                pointHoverBorderColor: 'rgba(125, 91, 166, 1)'
+              }]
+            },
+            options: {
+              responsive: true,
+              plugins: {
+                title: {
+                  display: true,
+                  text: 'Your Personality Trait Profile'
+                }
+              },
+              scales: {
+                r: {
+                  angleLines: {
+                    display: true
+                  },
+                  suggestedMin: 0,
+                  suggestedMax: 5
+                }
+              }
+            }
+          });
+          
+          // Populate traits grid
+          const traitsGrid = document.getElementById('traits-grid');
+          if (traitsGrid) {
+            traitsGrid.innerHTML = '';
+            
+            sortedTraits.slice(0, 6).forEach(([trait, score]) => {
+              const traitCard = document.createElement('div');
+              traitCard.className = 'trait-card';
+              
+              const traitName = trait.replace('_', ' ').replace(/\b\w/g, l => l.toUpperCase());
+              
+              traitCard.innerHTML = `
+                <h4>${traitName}</h4>
+                <div class="trait-score">
+                  <div class="trait-bar">
+                    <div class="trait-fill" style="width: ${(score / 5) * 100}%"></div>
+                  </div>
+                  <span class="trait-value">${score.toFixed(1)}/5</span>
+                </div>
+              `;
+              
+              traitsGrid.appendChild(traitCard);
+            });
+          }
+        } else {
+          // No personality quizzes with traits
+          ctx.parentNode.innerHTML = '<p>Complete personality quizzes to see your trait profile.</p>';
+          
+          const traitsGrid = document.getElementById('traits-grid');
+          if (traitsGrid) {
+            traitsGrid.innerHTML = '<p>Complete personality quizzes to see your key traits.</p>';
+          }
+        }
+      }
+      
+      /**
+       * Generate career insights
+       * @param {Array} quizResults - Array of quiz results
+       */
+      function generateCareerInsights(quizResults) {
+        // Filter for career-related quizzes
+        const careerQuizzes = quizResults.filter(result => 
+          result.quizId.includes('career') || 
+          (result.data.category && result.data.category.includes('professional'))
+        );
+        
+        const careerMatchesList = document.getElementById('career-matches-list');
+        const careerInsightsList = document.getElementById('career-insights');
+        
+        if (careerQuizzes.length > 0) {
+          // Example career matches based on latest career quiz
+          // In a real implementation, this would analyze traits across all quizzes
+          const latestCareerQuiz = careerQuizzes.sort((a, b) => 
+            new Date(b.timestamp) - new Date(a.timestamp)
+          )[0];
+          
+          if (careerMatchesList) {
+            careerMatchesList.innerHTML = '';
+            
+            // Example career matches (would be based on actual quiz results in real implementation)
+            const careerMatches = [
+              {
+                title: 'Data Analyst',
+                match: 92,
+                description: 'Your analytical skills and attention to detail make you well-suited for data analysis roles.'
+              },
+              {
+                title: 'UX Researcher',
+                match: 88,
+                description: 'Your empathy and analytical thinking would be valuable in understanding user needs and behaviors.'
+              },
+              {
+                title: 'Project Manager',
+                match: 85,
+                description: 'Your organizational skills and communication abilities align well with project management roles.'
+              }
+            ];
+            
+            careerMatches.forEach(career => {
+              const careerCard = document.createElement('div');
+              careerCard.className = 'career-match-card';
+              
+              careerCard.innerHTML = `
+                <div class="career-match-header">
+                  <h4>${career.title}</h4>
+                  <span class="match-percentage">${career.match}% Match</span>
+                </div>
+                <p>${career.description}</p>
+              `;
+              
+              careerMatchesList.appendChild(careerCard);
+            });
+          }
+          
+          if (careerInsightsList) {
+            careerInsightsList.innerHTML = '';
+            
+            // Example career insights (would be based on actual quiz results in real implementation)
+            const careerInsights = [
+              'Consider roles that allow you to leverage your analytical thinking and problem-solving abilities.',
+              'Your attention to detail would be valuable in fields requiring precision and thoroughness.',
+              'Look for opportunities that provide a balance of independent work and collaborative projects.',
+              'Consider developing your leadership skills to expand your career options in the future.'
+            ];
+            
+            careerInsights.forEach(insight => {
+              const li = document.createElement('li');
+              li.textContent = insight;
+              careerInsightsList.appendChild(li);
+            });
+          }
+        } else {
+          // No career-related quizzes
+          if (careerMatchesList) {
+            careerMatchesList.innerHTML = '<p>Complete career-related quizzes to see your top career matches.</p>';
+          }
+          
+          if (careerInsightsList) {
+            careerInsightsList.innerHTML = '<li>Complete career-related quizzes to receive personalized professional development recommendations.</li>';
+          }
+        }
+      }
+      
+      /**
+       * Generate comparative analysis
+       * @param {Array} quizResults - Array of quiz results
+       */
+      function generateComparativeAnalysis(quizResults) {
+        const ctx = document.getElementById('comparative-chart');
+        if (!ctx) return;
+        
+        if (quizResults.length > 0) {
+          // Example comparative data (would be from actual user population in real implementation)
+          const comparativeData = {
+            'analytical': { user: 4.2, average: 3.5 },
+            'creative': { user: 3.8, average: 3.2 },
+            'collaborative': { user: 3.5, average: 3.7 },
+            'detail_oriented': { user: 4.5, average: 3.3 },
+            'adaptable': { user: 3.2, average: 3.4 }
+          };
+          
+          // Prepare data for chart
+          const labels = Object.keys(comparativeData).map(trait => 
+            trait.replace('_', ' ').replace(/\b\w/g, l => l.toUpperCase())
+          );
+          
+          const userData = Object.values(comparativeData).map(data => data.user);
+          const averageData = Object.values(comparativeData).map(data => data.average);
+          
+          // Create chart
+          new Chart(ctx, {
+            type: 'bar',
+            data: {
+              labels: labels,
+              datasets: [
+                {
+                  label: 'Your Score',
+                  data: userData,
+                  backgroundColor: 'rgba(37, 211, 102, 0.7)',
+                  borderColor: 'rgba(37, 211, 102, 1)',
+                  borderWidth: 1
+                },
+                {
+                  label: 'Average User',
+                  data: averageData,
+                  backgroundColor: 'rgba(125, 91, 166, 0.7)',
+                  borderColor: 'rgba(125, 91, 166, 1)',
+                  borderWidth: 1
+                }
+              ]
+            },
+            options: {
+              responsive: true,
+              plugins: {
+                title: {
+                  display: true,
+                  text: 'How You Compare to Other Users'
+                }
+              },
+              scales: {
+                y: {
+                  beginAtZero: true,
+                  max: 5,
+                  title: {
+                    display: true,
+                    text: 'Score (out of 5)'
+                  }
+                },
+                x: {
+                  title: {
+                    display: true,
+                    text: 'Trait'
+                  }
+                }
+              }
+            }
+          });
+          
+          // Generate comparative insights
+          const insightsList = document.getElementById('comparative-insights');
+          if (insightsList) {
+            insightsList.innerHTML = '';
+            
+            // Find traits where user scores significantly higher or lower than average
+            const significantDifferences = Object.entries(comparativeData)
+              .filter(([, data]) => Math.abs(data.user - data.average) >= 0.5)
+              .sort((a, b) => Math.abs(b[1].user - b[1].average) - Math.abs(a[1].user - a[1].average));
+            
+            significantDifferences.forEach(([trait, data]) => {
+              const traitName = trait.replace('_', ' ').replace(/\b\w/g, l => l.toUpperCase());
+              const difference = data.user - data.average;
+              
+              const li = document.createElement('li');
+              
+              if (difference > 0) {
+                li.textContent = `You scored ${difference.toFixed(1)} points higher than average in ${traitName}.`;
+              } else {
+                li.textContent = `You scored ${Math.abs(difference).toFixed(1)} points lower than average in ${traitName}.`;
+              }
+              
+              insightsList.appendChild(li);
+            });
+            
+            // Add general insight
+            const li = document.createElement('li');
+            li.textContent = 'Your most distinctive traits compared to other users are ' + 
+              significantDifferences.slice(0, 2).map(([trait]) => 
+                trait.replace('_', ' ').replace(/\b\w/g, l => l.toUpperCase())
+              ).join(' and ') + '.';
+            insightsList.appendChild(li);
+          }
+        } else {
+          // No quiz results
+          ctx.parentNode.innerHTML = '<p>Complete quizzes to see how you compare to other users.</p>';
+          
+          const insightsList = document.getElementById('comparative-insights');
+          if (insightsList) {
+            insightsList.innerHTML = '<li>Complete quizzes to receive comparative insights.</li>';
+          }
+        }
+      }
+    </script>
+  </body>
+</html>

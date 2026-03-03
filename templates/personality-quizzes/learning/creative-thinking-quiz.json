@@ -1,0 +1,99 @@
+{
+    "id": "creative-thinking-quiz",
+    "name": "What's Your Creative Thinking Style?",
+    "description": "Discover how your mind naturally approaches creative challenges and problem-solving",
+    "icon": "fas fa-lightbulb",
+    "banner": "assets/images/creative-thinking-banner.webp",
+    "category": "learning",
+    "personalityTypes": {
+      "innovator": {
+        "title": "The Boundary Breaker",
+        "description": "You excel at radical innovation and thinking outside conventional frameworks. Your creativity shines when challenging existing paradigms and developing completely original concepts that change how people see the world.",
+        "characteristics": [
+          "Constantly questions assumptions and norms",
+          "Generates unconventional, groundbreaking ideas",
+          "Comfortable with ambiguity and uncertainty",
+          "Seeks to transform rather than improve",
+          "Often ahead of current trends"
+        ],
+        "strengths": "Originality, visionary thinking, paradigm-shifting, future-oriented",
+        "challenges": "May struggle with practical implementation or incremental progress",
+        "imagePath": "assets/images/boundary-breaker.webp"
+      },
+      "synthesizer": {
+        "title": "The Connection Maker",
+        "description": "Your creativity flows from combining existing ideas in novel ways. You spot patterns and relationships others miss, creating value through unexpected combinations and interdisciplinary thinking.",
+        "characteristics": [
+          "Excels at making unexpected connections",
+          "Draws from diverse knowledge areas",
+          "Sees patterns and relationships easily",
+          "Good at analogical thinking",
+          "Bridges different perspectives"
+        ],
+        "strengths": "Integration, interdisciplinary thinking, pattern recognition, adaptability",
+        "challenges": "May sometimes force connections that aren't meaningful",
+        "imagePath": "assets/images/connection-maker.webp"
+      },
+      "refiner": {
+        "title": "The Master Craftsman",
+        "description": "Your creative genius lies in perfecting and improving existing ideas. You take good concepts and elevate them through meticulous attention to detail, execution quality, and incremental enhancements.",
+        "characteristics": [
+          "Focuses on quality of execution",
+          "Patient with iterative improvement",
+          "Strong attention to craft details",
+          "Values mastery and expertise",
+          "Seeks elegant solutions"
+        ],
+        "strengths": "Execution, craftsmanship, attention to detail, quality focus",
+        "challenges": "May hesitate to share unfinished work or pursue radical changes",
+        "imagePath": "assets/images/master-craftsman.webp"
+      },
+      "improviser": {
+        "title": "The Spontaneous Creator",
+        "description": "You thrive on immediacy and spontaneity in your creative process. Your best ideas emerge in the moment, responding to immediate constraints and opportunities with flexible, adaptive thinking.",
+        "characteristics": [
+          "Thinks well on your feet",
+          "Enjoys constraints as creative fuel",
+          "Comfortable with public creation",
+          "Learns best by doing",
+          "Adapts quickly to new information"
+        ],
+        "strengths": "Adaptability, spontaneity, performance under pressure, quick thinking",
+        "challenges": "May struggle with long-term projects requiring sustained focus",
+        "imagePath": "assets/images/spontaneous-creator.webp"
+      }
+    },
+    "questions": [
+      {
+        "question": "When starting a creative project, you typically:",
+        "options": [
+          "Challenge all the basic assumptions first",
+          "Look for inspiration from unrelated fields",
+          "Study excellent examples to understand standards",
+          "Dive right in and figure it out as you go"
+        ],
+        "personalityPoints": [
+          { "innovator": 5, "synthesizer": 2, "refiner": 1, "improviser": 1 },
+          { "innovator": 2, "synthesizer": 5, "refiner": 1, "improviser": 1 },
+          { "innovator": 1, "synthesizer": 1, "refiner": 5, "improviser": 2 },
+          { "innovator": 1, "synthesizer": 2, "refiner": 1, "improviser": 5 }
+        ]
+      },
+      {
+        "question": "Your ideal creative environment is:",
+        "options": [
+          "Somewhere with no rules or limitations",
+          "Surrounded by diverse stimuli and references",
+          "A well-organized, high-quality workspace",
+          "Anywhere - you can create in chaotic situations"
+        ],
+        "personalityPoints": [
+          { "innovator": 5, "synthesizer": 1, "refiner": 1, "improviser": 2 },
+          { "innovator": 1, "synthesizer": 5, "refiner": 1, "improviser": 2 },
+          { "innovator": 1, "synthesizer": 1, "refiner": 5, "improviser": 1 },
+          { "innovator": 2, "synthesizer": 2, "refiner": 1, "improviser": 5 }
+        ]
+      },
+      { "questions": [ { "question": "When faced with a complex problem, what is your first step?", "options": [ "Brainstorm innovative ideas without boundaries", "Connect different concepts to form a cohesive solution", "Analyze the details and meticulously plan a solution", "Experiment with various approaches spontaneously" ], "personalityPoints": [ { "innovator": 5, "synthesizer": 1, "refiner": 1, "improviser": 2 }, { "innovator": 1, "synthesizer": 5, "refiner": 1, "improviser": 2 }, { "innovator": 1, "synthesizer": 1, "refiner": 5, "improviser": 1 }, { "innovator": 2, "synthesizer": 2, "refiner": 1, "improviser": 5 } ] }, { "question": "How do you typically generate new ideas?", "options": [ "I often think outside the box and challenge the status quo", "I blend concepts from various sources to create something new", "I focus on improving and perfecting existing ideas", "I trust my instincts and improvise solutions in the moment" ], "personalityPoints": [ { "innovator": 5, "synthesizer": 1, "refiner": 1, "improviser": 2 }, { "innovator": 1, "synthesizer": 5, "refiner": 1, "improviser": 2 }, { "innovator": 1, "synthesizer": 1, "refiner": 5, "improviser": 1 }, { "innovator": 2, "synthesizer": 2, "refiner": 1, "improviser": 5 } ] }, { "question": "What best describes your creative process?", "options": [ "I start with a burst of original, unconventional ideas", "I gather diverse inputs and merge them into a unified vision", "I focus on refining every detail to perfect the idea", "I dive in, adapting and modifying my approach as I go" ], "personalityPoints": [ { "innovator": 5, "synthesizer": 1, "refiner": 1, "improviser": 2 }, { "innovator": 1, "synthesizer": 5, "refiner": 1, "improviser": 2 }, { "innovator": 1, "synthesizer": 1, "refiner": 5, "improviser": 1 }, { "innovator": 2, "synthesizer": 2, "refiner": 1, "improviser": 5 } ] }, { "question": "When planning a project, which approach resonates with you most?", "options": [ "Innovating from scratch with a fresh perspective", "Synthesizing various ideas into a coherent plan", "Meticulously refining every aspect before starting", "Jumping into action and adapting as challenges arise" ], "personalityPoints": [ { "innovator": 5, "synthesizer": 1, "refiner": 1, "improviser": 2 }, { "innovator": 1, "synthesizer": 5, "refiner": 1, "improviser": 2 }, { "innovator": 1, "synthesizer": 1, "refiner": 5, "improviser": 1 }, { "innovator": 2, "synthesizer": 2, "refiner": 1, "improviser": 5 } ] }, { "question": "How do you tackle unexpected challenges in a project?", "options": [ "By generating unconventional solutions on the spot", "By integrating unforeseen ideas into my plan", "By methodically analyzing and refining my strategy", "By improvising quickly to adapt to the situation" ], "personalityPoints": [ { "innovator": 5, "synthesizer": 1, "refiner": 1, "improviser": 2 }, { "innovator": 1, "synthesizer": 5, "refiner": 1, "improviser": 2 }, { "innovator": 1, "synthesizer": 1, "refiner": 5, "improviser": 1 }, { "innovator": 2, "synthesizer": 2, "refiner": 1, "improviser": 5 } ] }, { "question": "Which statement best reflects your view on creativity?", "options": [ "Creativity is about breaking new ground and exploring the unknown", "It’s about connecting disparate ideas into a unified whole", "It involves refining concepts until they are perfectly realized", "It thrives on spontaneity and the freedom to experiment" ], "personalityPoints": [ { "innovator": 5, "synthesizer": 1, "refiner": 1, "improviser": 2 }, { "innovator": 1, "synthesizer": 5, "refiner": 1, "improviser": 2 }, { "innovator": 1, "synthesizer": 1, "refiner": 5, "improviser": 1 }, { "innovator": 2, "synthesizer": 2, "refiner": 1, "improviser": 5 } ] }, { "question": "How do you approach brainstorming sessions?", "options": [ "I lead with radical, groundbreaking concepts", "I facilitate the merging of various ideas", "I concentrate on perfecting details through careful thought", "I let ideas flow freely and adjust them as we discuss" ], "personalityPoints": [ { "innovator": 5, "synthesizer": 1, "refiner": 1, "improviser": 2 }, { "innovator": 1, "synthesizer": 5, "refiner": 1, "improviser": 2 }, { "innovator": 1, "synthesizer": 1, "refiner": 5, "improviser": 1 }, { "innovator": 2, "synthesizer": 2, "refiner": 1, "improviser": 5 } ] } ] }
+    ]
+  }

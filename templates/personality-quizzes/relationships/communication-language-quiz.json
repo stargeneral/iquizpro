@@ -1,0 +1,173 @@
+{
+    "id": "communication-language-quiz",
+    "name": "What's Your Communication Love Language?",
+    "description": "Discover how you prefer to give and receive emotional communication",
+    "icon": "fas fa-comments",
+    "banner": "assets/images/communication-banner.webp",
+    "category": "relationships",
+    "personalityTypes": {
+      "verbal-affirmer": {
+        "title": "Verbal Affirmer",
+        "description": "You thrive on words of affirmation and express yourself through language. Heartfelt compliments, encouraging words, and verbal appreciation mean the world to you in relationships.",
+        "characteristics": [
+          "Values spoken/written praise",
+          "Expresses affection verbally",
+          "Notices and comments on positives",
+          "Enjoys deep conversations",
+          "Sensitive to tone of voice"
+        ],
+        "strengths": "Expressive, encouraging, articulate, emotionally communicative",
+        "challenges": "May sometimes over-rely on verbal validation",
+        "imagePath": "assets/images/verbal-affirmer.webp"
+      },
+      "quality-timer": {
+        "title": "Quality Timer",
+        "description": "You value undivided attention and express love through presence. For you, meaningful connection happens when you're fully engaged with someone without distractions.",
+        "characteristics": [
+          "Prioritizes focused attention",
+          "Values meaningful eye contact",
+          "Notices when others are distracted",
+          "Creates special moments together",
+          "Appreciates active listening"
+        ],
+        "strengths": "Present, attentive, good listener, creates meaningful moments",
+        "challenges": "May feel hurt by distractions during conversations",
+        "imagePath": "assets/images/quality-timer.webp"
+      },
+      "gift-giver": {
+        "title": "Gift Giver",
+        "description": "You notice details and express affection through thoughtful offerings. For you, carefully chosen gifts symbolize care and remembrance in relationships.",
+        "characteristics": [
+          "Notices small details about others",
+          "Expresses care through gifts",
+          "Remembers special occasions",
+          "Values symbolic presents",
+          "Appreciates thoughtful gestures"
+        ],
+        "strengths": "Thoughtful, observant, generous, sentimental",
+        "challenges": "May sometimes equate gift value with relationship value",
+        "imagePath": "assets/images/gift-giver.webp"
+      },
+      "service-provider": {
+        "title": "Service Provider",
+        "description": "You show love through practical support and helpful actions. For you, actions truly speak louder than words when it comes to expressing care.",
+        "characteristics": [
+          "Shows care through helpful acts",
+          "Notices practical needs",
+          "Prefers doing over saying",
+          "Values reliability in others",
+          "Appreciates when others help"
+        ],
+        "strengths": "Reliable, practical, helpful, action-oriented",
+        "challenges": "May sometimes overlook verbal expressions of affection",
+        "imagePath": "assets/images/service-provider.webp"
+      }
+    },
+    "questions": [
+      {
+        "question": "You feel most loved when someone:",
+        "options": [
+          "Tells you how much they appreciate you",
+          "Spends quality time with just you",
+          "Gives you a meaningful gift",
+          "Does something helpful for you"
+        ],
+        "personalityPoints": [
+          { "verbal-affirmer": 5, "quality-timer": 1, "gift-giver": 2, "service-provider": 1 },
+          { "verbal-affirmer": 1, "quality-timer": 5, "gift-giver": 1, "service-provider": 2 },
+          { "verbal-affirmer": 2, "quality-timer": 1, "gift-giver": 5, "service-provider": 1 },
+          { "verbal-affirmer": 1, "quality-timer": 2, "gift-giver": 1, "service-provider": 5 }
+        ]
+      },
+      {
+        "question": "Your preferred way to show affection is:",
+        "options": [
+          "Telling them how much they mean to you",
+          "Spending one-on-one time together",
+          "Giving them thoughtful presents",
+          "Doing practical things to help them"
+        ],
+        "personalityPoints": [
+          { "verbal-affirmer": 5, "quality-timer": 1, "gift-giver": 2, "service-provider": 1 },
+          { "verbal-affirmer": 1, "quality-timer": 5, "gift-giver": 1, "service-provider": 2 },
+          { "verbal-affirmer": 2, "quality-timer": 1, "gift-giver": 5, "service-provider": 1 },
+          { "verbal-affirmer": 1, "quality-timer": 2, "gift-giver": 1, "service-provider": 5 }
+        ]
+      },
+      {
+        "question": "In relationships, you're most likely to:",
+        "options": [
+          "Write heartfelt notes or texts",
+          "Plan special activities just for two",
+          "Remember important dates with gifts",
+          "Show up to help when needed"
+        ],
+        "personalityPoints": [
+          { "verbal-affirmer": 5, "quality-timer": 1, "gift-giver": 2, "service-provider": 1 },
+          { "verbal-affirmer": 1, "quality-timer": 5, "gift-giver": 1, "service-provider": 2 },
+          { "verbal-affirmer": 2, "quality-timer": 1, "gift-giver": 5, "service-provider": 1 },
+          { "verbal-affirmer": 1, "quality-timer": 2, "gift-giver": 1, "service-provider": 5 }
+        ]
+      },
+      {
+        "question": "You feel hurt when:",
+        "options": [
+          "Someone doesn't acknowledge your efforts verbally",
+          "Your partner is distracted during your time together",
+          "Special occasions pass without recognition",
+          "People don't follow through on promises to help"
+        ],
+        "personalityPoints": [
+          { "verbal-affirmer": 5, "quality-timer": 1, "gift-giver": 2, "service-provider": 1 },
+          { "verbal-affirmer": 1, "quality-timer": 5, "gift-giver": 1, "service-provider": 2 },
+          { "verbal-affirmer": 2, "quality-timer": 1, "gift-giver": 5, "service-provider": 1 },
+          { "verbal-affirmer": 1, "quality-timer": 2, "gift-giver": 1, "service-provider": 5 }
+        ]
+      },
+      {
+        "question": "Your ideal date would involve:",
+        "options": [
+          "Deep conversation over coffee",
+          "An activity where you focus just on each other",
+          "Exchanging meaningful gifts",
+          "Working on a project together"
+        ],
+        "personalityPoints": [
+          { "verbal-affirmer": 5, "quality-timer": 1, "gift-giver": 2, "service-provider": 1 },
+          { "verbal-affirmer": 1, "quality-timer": 5, "gift-giver": 1, "service-provider": 2 },
+          { "verbal-affirmer": 2, "quality-timer": 1, "gift-giver": 5, "service-provider": 1 },
+          { "verbal-affirmer": 1, "quality-timer": 2, "gift-giver": 1, "service-provider": 5 }
+        ]
+      },
+      {
+        "question": "You most appreciate when friends:",
+        "options": [
+          "Tell you how much they value you",
+          "Give you their full attention when together",
+          "Remember your birthday with a special gift",
+          "Help you move or with other big tasks"
+        ],
+        "personalityPoints": [
+          { "verbal-affirmer": 5, "quality-timer": 1, "gift-giver": 2, "service-provider": 1 },
+          { "verbal-affirmer": 1, "quality-timer": 5, "gift-giver": 1, "service-provider": 2 },
+          { "verbal-affirmer": 2, "quality-timer": 1, "gift-giver": 5, "service-provider": 1 },
+          { "verbal-affirmer": 1, "quality-timer": 2, "gift-giver": 1, "service-provider": 5 }
+        ]
+      },
+      {
+        "question": "Your love language is most about:",
+        "options": [
+          "Hearing words of affirmation",
+          "Receiving undivided attention",
+          "Getting thoughtful presents",
+          "Seeing helpful actions"
+        ],
+        "personalityPoints": [
+          { "verbal-affirmer": 5, "quality-timer": 1, "gift-giver": 2, "service-provider": 1 },
+          { "verbal-affirmer": 1, "quality-timer": 5, "gift-giver": 1, "service-provider": 2 },
+          { "verbal-affirmer": 2, "quality-timer": 1, "gift-giver": 5, "service-provider": 1 },
+          { "verbal-affirmer": 1, "quality-timer": 2, "gift-giver": 1, "service-provider": 5 }
+        ]
+      }
+    ]
+  }

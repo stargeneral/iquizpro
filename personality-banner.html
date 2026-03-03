@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personality Banner</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            /* Increased base height */
+            height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: transparent;
+        }
+        .banner-container {
+            width: 100%;
+            /* Increased base height */
+            height: 120px;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 0 10px;
+        }
+        .banner-image {
+            width: 100%;
+            height: auto;
+            /* Increased max height */
+            max-height: 120px;
+            /* Changed to cover for better mobile appearance */
+            object-fit: cover;
+            display: block;
+            border-radius: 8px;
+        }
+        
+        /* Add responsive breakpoints */
+        @media (max-width: 576px) {
+            body {
+                height: 150px;
+            }
+            .banner-container {
+                height: 150px;
+            }
+            .banner-image {
+                max-height: 150px;
+            }
+        }
+        
+        /* Even larger on very small screens */
+        @media (max-width: 400px) {
+            body {
+                height: 180px;
+            }
+            .banner-container {
+                height: 180px;
+            }
+            .banner-image {
+                max-height: 180px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="banner-container">
+        <!-- Try each of these paths one by one to see which works -->
+        <img src="assets/images/personality-banner3.jpg" class="banner-image" alt="Discover Your True Personality!">
+        
+        <!-- If above doesn't work, try these alternatives -->
+        <!-- <img src="/assets/images/personality-banner.jpeg" class="banner-image" alt="Discover Your True Personality!"> -->
+        <!-- <img src="../assets/images/personality-banner.jpeg" class="banner-image" alt="Discover Your True Personality!"> -->
+    </div>
+    
+    <script>
+        // For debugging - shows error message if image fails to load
+        document.querySelector('.banner-image').onerror = function() {
+            document.body.innerHTML = '<div style="color: red; padding: 10px;">Image failed to load. Path tried: ' + this.src + '</div>';
+        };
+    </script>
+</body>
+</html>

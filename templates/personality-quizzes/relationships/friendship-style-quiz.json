@@ -1,0 +1,84 @@
+{
+    "id": "friendship-style-quiz",
+    "name": "What's Your Friendship Style?",
+    "description": "Discover how you naturally form and maintain platonic relationships",
+    "icon": "fas fa-user-friends",
+    "banner": "assets/images/friendship-banner.webp",
+    "category": "relationships",
+    "personalityTypes": {
+      "companion": {
+        "title": "The Loyal Confidant",
+        "description": "You form deep, lasting friendships built on mutual trust and emotional support. Your friends know they can always count on you through life's ups and downs.",
+        "characteristics": [
+          "Prefers few close friends",
+          "Excellent listener",
+          "Remembers important details",
+          "Values depth over breadth",
+          "Natural counselor"
+        ],
+        "strengths": "Loyalty, emotional support, dependability, deep connection",
+        "challenges": "May take on others' emotional burdens",
+        "imagePath": "assets/images/loyal-confidant.webp"
+      },
+      "adventurer": {
+        "title": "The Fun Catalyst",
+        "description": "You're the friend who brings energy and spontaneity to relationships. Your friendships are built on shared experiences, adventures, and creating memorable moments.",
+        "characteristics": [
+          "Likes group activities",
+          "Initiates social plans",
+          "Brings positive energy",
+          "Connects through shared experiences",
+          "Lives in the moment"
+        ],
+        "strengths": "Spontaneity, fun, social energy, creating joy",
+        "challenges": "May avoid serious emotional conversations",
+        "imagePath": "assets/images/fun-catalyst.webp"
+      },
+      "connector": {
+        "title": "The Social Networker",
+        "description": "You maintain a wide circle of diverse friendships and enjoy bringing people together. Your strength is creating community and facilitating connections between others.",
+        "characteristics": [
+          "Knows people in many circles",
+          "Natural matchmaker",
+          "Enjoys hosting gatherings",
+          "Remembers personal stories",
+          "Good at introductions"
+        ],
+        "strengths": "Networking, inclusivity, community-building, social awareness",
+        "challenges": "May struggle with deep one-on-one intimacy",
+        "imagePath": "assets/images/social-networker.webp"
+      },
+      "independent": {
+        "title": "The Low-Maintenance Friend",
+        "description": "You value friendships that allow for autonomy and don't require constant contact. Your friends appreciate your authenticity and lack of social pressure.",
+        "characteristics": [
+          "Comfortable with long gaps",
+          "No expectations for reciprocity",
+          "Honest and authentic",
+          "Sets clear boundaries",
+          "Quality time over quantity"
+        ],
+        "strengths": "Authenticity, respect for autonomy, no drama, reliability",
+        "challenges": "May be perceived as distant or uninterested",
+        "imagePath": "assets/images/low-maintenance-friend.webp"
+      }
+    },
+    "questions": [
+      {
+        "question": "Your ideal friend hangout involves:",
+        "options": [
+          "Deep one-on-one conversation",
+          "An exciting group activity",
+          "A dinner party with diverse people",
+          "Occasional meaningful catch-ups"
+        ],
+        "personalityPoints": [
+          { "companion": 5, "adventurer": 1, "connector": 2, "independent": 1 },
+          { "companion": 1, "adventurer": 5, "connector": 2, "independent": 1 },
+          { "companion": 2, "adventurer": 2, "connector": 5, "independent": 1 },
+          { "companion": 1, "adventurer": 1, "connector": 2, "independent": 5 }
+        ]
+      },
+      { "questions": [ { "question": "How do you prefer to meet new people?", "options": [ "At large parties and bustling social events", "In small, intimate gatherings with meaningful conversation", "During spontaneous adventures and unexpected encounters", "Through structured group activities and clubs" ], "personalityPoints": [ { "companion": 5, "adventurer": 1, "connector": 2, "independent": 1 }, { "companion": 1, "adventurer": 5, "connector": 2, "independent": 1 }, { "companion": 2, "adventurer": 2, "connector": 5, "independent": 1 }, { "companion": 1, "adventurer": 1, "connector": 2, "independent": 5 } ] }, { "question": "What kind of friend do you aspire to be?", "options": [ "The energetic connector who lights up every room", "A trusted confidant who listens deeply", "The adventurous spirit who brings excitement", "A reliable supporter who's always there" ], "personalityPoints": [ { "companion": 5, "adventurer": 1, "connector": 2, "independent": 1 }, { "companion": 1, "adventurer": 5, "connector": 2, "independent": 1 }, { "companion": 2, "adventurer": 2, "connector": 5, "independent": 1 }, { "companion": 1, "adventurer": 1, "connector": 2, "independent": 5 } ] }, { "question": "How do you usually resolve conflicts among friends?", "options": [ "By initiating group discussions to clear the air", "By having a one-on-one, heart-to-heart conversation", "By suggesting an impromptu outing to lighten the mood", "By stepping in as a calm and steady mediator" ], "personalityPoints": [ { "companion": 5, "adventurer": 1, "connector": 2, "independent": 1 }, { "companion": 1, "adventurer": 5, "connector": 2, "independent": 1 }, { "companion": 2, "adventurer": 2, "connector": 5, "independent": 1 }, { "companion": 1, "adventurer": 1, "connector": 2, "independent": 5 } ] }, { "question": "What's your ideal way to celebrate a friend's success?", "options": [ "Throwing a big party or social bash", "Sharing a quiet moment with personal congratulations", "Taking them on an unexpected adventure", "Offering steady support with a heartfelt toast" ], "personalityPoints": [ { "companion": 5, "adventurer": 1, "connector": 2, "independent": 1 }, { "companion": 1, "adventurer": 5, "connector": 2, "independent": 1 }, { "companion": 2, "adventurer": 2, "connector": 5, "independent": 1 }, { "companion": 1, "adventurer": 1, "connector": 2, "independent": 5 } ] }, { "question": "How do you keep in touch with your friends?", "options": [ "By constantly engaging on social media and attending events", "Through regular, in-depth conversations", "Via spontaneous meet-ups and surprise visits", "By maintaining a steady, reliable check-in routine" ], "personalityPoints": [ { "companion": 5, "adventurer": 1, "connector": 2, "independent": 1 }, { "companion": 1, "adventurer": 5, "connector": 2, "independent": 1 }, { "companion": 2, "adventurer": 2, "connector": 5, "independent": 1 }, { "companion": 1, "adventurer": 1, "connector": 2, "independent": 5 } ] }, { "question": "What activities do you most enjoy with your friends?", "options": [ "Attending lively social events and parties", "Having deep conversations over coffee", "Embarking on unplanned adventures", "Meeting regularly for a dependable catch-up" ], "personalityPoints": [ { "companion": 5, "adventurer": 1, "connector": 2, "independent": 1 }, { "companion": 1, "adventurer": 5, "connector": 2, "independent": 1 }, { "companion": 2, "adventurer": 2, "connector": 5, "independent": 1 }, { "companion": 1, "adventurer": 1, "connector": 2, "independent": 5 } ] }, { "question": "When making plans with friends, you prefer:", "options": [ "Energetic, impromptu meet-ups at popular spots", "Cozy gatherings where everyone shares deeply", "Unexpected adventures that break the routine", "Regular, well-organized get-togethers you can count on" ], "personalityPoints": [ { "companion": 5, "adventurer": 1, "connector": 2, "independent": 1 }, { "companion": 1, "adventurer": 5, "connector": 2, "independent": 1 }, { "companion": 2, "adventurer": 2, "connector": 5, "independent": 1 }, { "companion": 1, "adventurer": 1, "connector": 2, "independent": 5 } ] }, { "question": "How do you show appreciation for your friends?", "options": [ "By celebrating them publicly with big gestures", "By offering heartfelt compliments in private", "By surprising them with spontaneous outings", "By consistently being there with practical help" ], "personalityPoints": [ { "companion": 5, "adventurer": 1, "connector": 2, "independent": 1 }, { "companion": 1, "adventurer": 5, "connector": 2, "independent": 1 }, { "companion": 2, "adventurer": 2, "connector": 5, "independent": 1 }, { "companion": 1, "adventurer": 1, "connector": 2, "independent": 5 } ] }, { "question": "When a friend is struggling, you tend to:", "options": [ "Organize a social outing to lift their spirits", "Sit down for a deep, personal conversation", "Invite them on an unexpected, fun adventure", "Offer steady, unwavering support and guidance" ], "personalityPoints": [ { "companion": 5, "adventurer": 1, "connector": 2, "independent": 1 }, { "companion": 1, "adventurer": 5, "connector": 2, "independent": 1 }, { "companion": 2, "adventurer": 2, "connector": 5, "independent": 1 }, { "companion": 1, "adventurer": 1, "connector": 2, "independent": 5 } ] }, { "question": "What do you value most in your friendships?", "options": [ "The excitement of a vibrant social circle", "Deep emotional connections and trust", "The thrill of unexpected adventures", "Loyalty, reliability, and consistent support" ], "personalityPoints": [ { "companion": 5, "adventurer": 1, "connector": 2, "independent": 1 }, { "companion": 1, "adventurer": 5, "connector": 2, "independent": 1 }, { "companion": 2, "adventurer": 2, "connector": 5, "independent": 1 }, { "companion": 1, "adventurer": 1, "connector": 2, "independent": 5 } ] } ] }
+    ]
+  }

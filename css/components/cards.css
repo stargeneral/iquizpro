@@ -1,0 +1,95 @@
+/* ── Card Components ────────────────────────────────────────────────────────
+   Reusable card styles for topic cards, result cards, and dashboard cards.
+   ─────────────────────────────────────────────────────────────────────────── */
+
+.card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 1.25rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  transition: box-shadow 0.2s ease, transform 0.15s ease;
+}
+
+.card:hover {
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Interactive card (clickable) */
+.card-interactive {
+  cursor: pointer;
+}
+
+.card-interactive:hover {
+  transform: translateY(-2px);
+}
+
+.card-interactive:focus-visible {
+  outline: 3px solid var(--primary-color, #25d366);
+  outline-offset: 2px;
+}
+
+.card-interactive:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+/* Card with brand accent border */
+.card-accent {
+  border-left: 4px solid var(--primary-color, #25d366);
+}
+
+/* Card header */
+.card-header {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--primary-dark, #128c7e);
+  margin-bottom: 0.75rem;
+}
+
+/* Card body */
+.card-body {
+  color: #444;
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+/* Card footer */
+.card-footer {
+  margin-top: 1rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid #f0f0f0;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+/* Score card — used in leaderboard / results */
+.card-score {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  background: #f8f8f8;
+}
+
+.card-score-value {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--primary-color, #25d366);
+}
+
+/* Dark mode */
+@media (prefers-color-scheme: dark) {
+  body:not(.light-mode-forced) .card {
+    background: #1e1e1e;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  }
+  body:not(.light-mode-forced) .card-body { color: #ccc; }
+  body:not(.light-mode-forced) .card-footer { border-top-color: #333; }
+  body:not(.light-mode-forced) .card-score { background: #2a2a2a; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card, .card-interactive { transition: none; }
+}

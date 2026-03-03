@@ -1,0 +1,511 @@
+{
+  "id": "emotional-intelligence",
+  "title": "Emotional Intelligence Assessment",
+  "description": "Discover your emotional intelligence strengths and growth areas with our comprehensive assessment of self-awareness, empathy, and emotional management.",
+  "type": "premium",
+  "tier": "basic",
+  "category": "self-discovery",
+  "tags": ["emotional intelligence", "EQ", "self-awareness", "empathy", "relationships"],
+  "thumbnail": "../assets/images/default-personality.webp",
+  "estimatedTime": "10-15 minutes",
+  "questions": [
+    {
+      "id": "q1",
+      "text": "When you experience strong emotions, how aware are you of what triggered them?",
+      "type": "single",
+      "options": [
+        {
+          "id": "q1a",
+          "text": "I can almost always identify the specific trigger",
+          "traits": { "self_awareness": 3, "emotional_recognition": 2 }
+        },
+        {
+          "id": "q1b",
+          "text": "I can usually identify the trigger after some reflection",
+          "traits": { "self_awareness": 2, "emotional_recognition": 1 }
+        },
+        {
+          "id": "q1c",
+          "text": "I sometimes struggle to identify what triggered my emotions",
+          "traits": { "self_awareness": 1, "emotional_recognition": 0 }
+        },
+        {
+          "id": "q1d",
+          "text": "I often find it difficult to connect my emotions to specific triggers",
+          "traits": { "self_awareness": 0, "emotional_recognition": 0 }
+        }
+      ]
+    },
+    {
+      "id": "q2",
+      "text": "How do you typically respond when someone shares difficult emotions with you?",
+      "type": "single",
+      "options": [
+        {
+          "id": "q2a",
+          "text": "I listen attentively and try to understand their perspective before responding",
+          "traits": { "empathy": 3, "social_awareness": 2, "relationship_management": 1 }
+        },
+        {
+          "id": "q2b",
+          "text": "I immediately offer advice or solutions to help them feel better",
+          "traits": { "empathy": 1, "social_awareness": 1, "relationship_management": 1 }
+        },
+        {
+          "id": "q2c",
+          "text": "I share similar experiences I've had to show I understand",
+          "traits": { "empathy": 2, "social_awareness": 1, "relationship_management": 1 }
+        },
+        {
+          "id": "q2d",
+          "text": "I acknowledge their feelings but try to shift to a more positive topic",
+          "traits": { "empathy": 1, "social_awareness": 0, "relationship_management": 0 }
+        }
+      ]
+    },
+    {
+      "id": "q3",
+      "text": "When you're feeling stressed or overwhelmed, what do you typically do?",
+      "type": "single",
+      "options": [
+        {
+          "id": "q3a",
+          "text": "I use specific strategies I've developed to manage my stress effectively",
+          "traits": { "self_management": 3, "emotional_regulation": 3, "resilience": 2 }
+        },
+        {
+          "id": "q3b",
+          "text": "I try to push through and focus on what needs to be done",
+          "traits": { "self_management": 1, "emotional_regulation": 0, "resilience": 1 }
+        },
+        {
+          "id": "q3c",
+          "text": "I take a break and return when I'm feeling more balanced",
+          "traits": { "self_management": 2, "emotional_regulation": 2, "resilience": 1 }
+        },
+        {
+          "id": "q3d",
+          "text": "I often feel overwhelmed by my stress and struggle to manage it",
+          "traits": { "self_management": 0, "emotional_regulation": 0, "resilience": 0 }
+        }
+      ]
+    },
+    {
+      "id": "q4",
+      "text": "How accurately can you predict how your actions will affect others' emotions?",
+      "type": "single",
+      "options": [
+        {
+          "id": "q4a",
+          "text": "I can usually anticipate how others will feel in response to my actions",
+          "traits": { "social_awareness": 3, "empathy": 2, "relationship_management": 1 }
+        },
+        {
+          "id": "q4b",
+          "text": "I'm sometimes surprised by how others respond emotionally to my actions",
+          "traits": { "social_awareness": 1, "empathy": 1, "relationship_management": 1 }
+        },
+        {
+          "id": "q4c",
+          "text": "I consider others' feelings but don't always predict them accurately",
+          "traits": { "social_awareness": 2, "empathy": 1, "relationship_management": 1 }
+        },
+        {
+          "id": "q4d",
+          "text": "I find it challenging to anticipate others' emotional reactions",
+          "traits": { "social_awareness": 0, "empathy": 0, "relationship_management": 0 }
+        }
+      ]
+    },
+    {
+      "id": "q5",
+      "text": "When you receive critical feedback, how do you typically respond?",
+      "type": "single",
+      "options": [
+        {
+          "id": "q5a",
+          "text": "I listen openly, manage my emotional reaction, and consider how to grow from it",
+          "traits": { "emotional_regulation": 3, "self_awareness": 2, "growth_mindset": 3 }
+        },
+        {
+          "id": "q5b",
+          "text": "I initially feel defensive but later reflect on the feedback more objectively",
+          "traits": { "emotional_regulation": 1, "self_awareness": 1, "growth_mindset": 2 }
+        },
+        {
+          "id": "q5c",
+          "text": "I focus on explaining my perspective or justifying my actions",
+          "traits": { "emotional_regulation": 0, "self_awareness": 1, "growth_mindset": 0 }
+        },
+        {
+          "id": "q5d",
+          "text": "I find it difficult to separate the feedback from feelings of personal criticism",
+          "traits": { "emotional_regulation": 0, "self_awareness": 0, "growth_mindset": 0 }
+        }
+      ]
+    },
+    {
+      "id": "q6",
+      "text": "How well can you recognize when your mood is affecting your behavior or decisions?",
+      "type": "single",
+      "options": [
+        {
+          "id": "q6a",
+          "text": "I'm highly aware of how my emotions influence my actions and decisions",
+          "traits": { "self_awareness": 3, "emotional_recognition": 3, "self_management": 1 }
+        },
+        {
+          "id": "q6b",
+          "text": "I usually notice the connection after I've reacted",
+          "traits": { "self_awareness": 2, "emotional_recognition": 1, "self_management": 0 }
+        },
+        {
+          "id": "q6c",
+          "text": "I sometimes recognize the pattern but often in hindsight",
+          "traits": { "self_awareness": 1, "emotional_recognition": 1, "self_management": 0 }
+        },
+        {
+          "id": "q6d",
+          "text": "I rarely make the connection between my mood and my behavior",
+          "traits": { "self_awareness": 0, "emotional_recognition": 0, "self_management": 0 }
+        }
+      ]
+    },
+    {
+      "id": "q7",
+      "text": "When there's conflict in a relationship, how do you typically approach it?",
+      "type": "single",
+      "options": [
+        {
+          "id": "q7a",
+          "text": "I address it directly while being mindful of both perspectives",
+          "traits": { "relationship_management": 3, "communication": 3, "empathy": 2 }
+        },
+        {
+          "id": "q7b",
+          "text": "I try to avoid the conflict and hope it resolves itself",
+          "traits": { "relationship_management": 0, "communication": 0, "emotional_regulation": 1 }
+        },
+        {
+          "id": "q7c",
+          "text": "I focus on finding a solution that addresses the practical issues",
+          "traits": { "relationship_management": 2, "communication": 1, "empathy": 0 }
+        },
+        {
+          "id": "q7d",
+          "text": "I express my feelings and perspective clearly and directly",
+          "traits": { "relationship_management": 1, "communication": 2, "self_awareness": 2 }
+        }
+      ]
+    },
+    {
+      "id": "q8",
+      "text": "How well can you adapt your communication style based on who you're talking to?",
+      "type": "single",
+      "options": [
+        {
+          "id": "q8a",
+          "text": "I naturally adjust my approach based on the person and context",
+          "traits": { "social_awareness": 3, "communication": 3, "adaptability": 2 }
+        },
+        {
+          "id": "q8b",
+          "text": "I can adapt my style when I make a conscious effort to do so",
+          "traits": { "social_awareness": 2, "communication": 2, "adaptability": 1 }
+        },
+        {
+          "id": "q8c",
+          "text": "I tend to communicate in my preferred style regardless of the audience",
+          "traits": { "social_awareness": 0, "communication": 1, "adaptability": 0 }
+        },
+        {
+          "id": "q8d",
+          "text": "I sometimes try to adapt but find it challenging to shift my approach",
+          "traits": { "social_awareness": 1, "communication": 1, "adaptability": 1 }
+        }
+      ]
+    },
+    {
+      "id": "q9",
+      "text": "How do you respond when your plans or expectations are disrupted?",
+      "type": "single",
+      "options": [
+        {
+          "id": "q9a",
+          "text": "I quickly adjust and look for alternative approaches",
+          "traits": { "adaptability": 3, "emotional_regulation": 2, "resilience": 2 }
+        },
+        {
+          "id": "q9b",
+          "text": "I feel frustrated initially but then work on adapting",
+          "traits": { "adaptability": 2, "emotional_regulation": 1, "resilience": 1 }
+        },
+        {
+          "id": "q9c",
+          "text": "I find it difficult to let go of my original plan",
+          "traits": { "adaptability": 0, "emotional_regulation": 0, "resilience": 0 }
+        },
+        {
+          "id": "q9d",
+          "text": "I try to get things back on track according to the original plan",
+          "traits": { "adaptability": 1, "emotional_regulation": 1, "resilience": 1 }
+        }
+      ]
+    },
+    {
+      "id": "q10",
+      "text": "How accurately can you identify emotions in others based on their non-verbal cues?",
+      "type": "single",
+      "options": [
+        {
+          "id": "q10a",
+          "text": "I'm highly attuned to subtle expressions, tone, and body language",
+          "traits": { "empathy": 3, "social_awareness": 3, "emotional_recognition": 2 }
+        },
+        {
+          "id": "q10b",
+          "text": "I can usually recognize obvious emotional signals but might miss subtler ones",
+          "traits": { "empathy": 2, "social_awareness": 1, "emotional_recognition": 1 }
+        },
+        {
+          "id": "q10c",
+          "text": "I sometimes misinterpret non-verbal cues",
+          "traits": { "empathy": 1, "social_awareness": 1, "emotional_recognition": 0 }
+        },
+        {
+          "id": "q10d",
+          "text": "I focus more on what people say than their non-verbal communication",
+          "traits": { "empathy": 0, "social_awareness": 0, "emotional_recognition": 1 }
+        }
+      ]
+    },
+    {
+      "id": "q11",
+      "text": "When you're feeling a difficult emotion, how well can you express it to others?",
+      "type": "single",
+      "options": [
+        {
+          "id": "q11a",
+          "text": "I can articulate my feelings clearly and appropriately",
+          "traits": { "communication": 3, "self_awareness": 3, "emotional_recognition": 2 }
+        },
+        {
+          "id": "q11b",
+          "text": "I try to express my feelings but sometimes struggle to find the right words",
+          "traits": { "communication": 1, "self_awareness": 2, "emotional_recognition": 1 }
+        },
+        {
+          "id": "q11c",
+          "text": "I tend to keep difficult emotions to myself",
+          "traits": { "communication": 0, "self_awareness": 1, "emotional_regulation": 1 }
+        },
+        {
+          "id": "q11d",
+          "text": "I often express difficult emotions in ways that later I wish I hadn't",
+          "traits": { "communication": 0, "self_awareness": 1, "emotional_regulation": 0 }
+        }
+      ]
+    },
+    {
+      "id": "q12",
+      "text": "How do you typically respond to someone who is visibly upset or angry?",
+      "type": "single",
+      "options": [
+        {
+          "id": "q12a",
+          "text": "I stay calm and try to understand their perspective without taking it personally",
+          "traits": { "emotional_regulation": 3, "empathy": 3, "social_awareness": 2 }
+        },
+        {
+          "id": "q12b",
+          "text": "I feel uncomfortable and try to calm them down or fix the situation",
+          "traits": { "emotional_regulation": 1, "empathy": 1, "social_awareness": 1 }
+        },
+        {
+          "id": "q12c",
+          "text": "I tend to mirror their emotional state and become upset myself",
+          "traits": { "emotional_regulation": 0, "empathy": 2, "social_awareness": 0 }
+        },
+        {
+          "id": "q12d",
+          "text": "I give them space until they've calmed down",
+          "traits": { "emotional_regulation": 2, "empathy": 1, "social_awareness": 1 }
+        }
+      ]
+    },
+    {
+      "id": "q13",
+      "text": "How well do you maintain motivation and focus when facing setbacks?",
+      "type": "single",
+      "options": [
+        {
+          "id": "q13a",
+          "text": "I see setbacks as learning opportunities and maintain my commitment",
+          "traits": { "resilience": 3, "growth_mindset": 3, "self_management": 2 }
+        },
+        {
+          "id": "q13b",
+          "text": "I sometimes get discouraged but eventually regain my motivation",
+          "traits": { "resilience": 2, "growth_mindset": 1, "self_management": 1 }
+        },
+        {
+          "id": "q13c",
+          "text": "I often find it difficult to maintain motivation after significant setbacks",
+          "traits": { "resilience": 0, "growth_mindset": 0, "self_management": 1 }
+        },
+        {
+          "id": "q13d",
+          "text": "I push through setbacks by focusing on the end goal",
+          "traits": { "resilience": 2, "growth_mindset": 1, "self_management": 2 }
+        }
+      ]
+    },
+    {
+      "id": "q14",
+      "text": "How do you respond when someone has a perspective that strongly differs from yours?",
+      "type": "single",
+      "options": [
+        {
+          "id": "q14a",
+          "text": "I'm genuinely curious and try to understand their viewpoint",
+          "traits": { "empathy": 3, "social_awareness": 2, "growth_mindset": 2 }
+        },
+        {
+          "id": "q14b",
+          "text": "I listen but focus on explaining why my perspective is valid",
+          "traits": { "empathy": 1, "social_awareness": 1, "growth_mindset": 0 }
+        },
+        {
+          "id": "q14c",
+          "text": "I find it challenging to engage with viewpoints that contradict mine",
+          "traits": { "empathy": 0, "social_awareness": 0, "growth_mindset": 0 }
+        },
+        {
+          "id": "q14d",
+          "text": "I try to find common ground while acknowledging differences",
+          "traits": { "empathy": 2, "social_awareness": 2, "relationship_management": 3 }
+        }
+      ]
+    },
+    {
+      "id": "q15",
+      "text": "How aware are you of how your emotions affect your physical state (tension, energy, etc.)?",
+      "type": "single",
+      "options": [
+        {
+          "id": "q15a",
+          "text": "I notice physical signs of emotions quickly and can respond accordingly",
+          "traits": { "self_awareness": 3, "emotional_recognition": 3, "self_management": 2 }
+        },
+        {
+          "id": "q15b",
+          "text": "I usually notice physical manifestations after they've become significant",
+          "traits": { "self_awareness": 1, "emotional_recognition": 2, "self_management": 1 }
+        },
+        {
+          "id": "q15c",
+          "text": "I sometimes recognize the connection in hindsight",
+          "traits": { "self_awareness": 1, "emotional_recognition": 1, "self_management": 0 }
+        },
+        {
+          "id": "q15d",
+          "text": "I rarely connect my physical state to my emotions",
+          "traits": { "self_awareness": 0, "emotional_recognition": 0, "self_management": 0 }
+        }
+      ]
+    }
+  ],
+  "results": {
+    "type": "eq_profile",
+    "dimensions": [
+      {
+        "id": "self_awareness",
+        "name": "Self-Awareness",
+        "description": "The ability to recognize and understand your own emotions, strengths, weaknesses, values, and impact on others.",
+        "highDescription": "You have a strong ability to recognize and understand your emotions, triggers, and patterns. This self-knowledge forms the foundation for other emotional intelligence skills.",
+        "mediumDescription": "You have a moderate level of self-awareness. You recognize many of your emotional patterns, but there may be blind spots or situations where emotions catch you by surprise.",
+        "lowDescription": "You may find it challenging to identify your emotions in the moment or understand what triggers them. Developing greater self-awareness would strengthen your overall emotional intelligence."
+      },
+      {
+        "id": "self_management",
+        "name": "Self-Management",
+        "description": "The ability to manage your emotions, especially in stressful situations, and maintain positive behavior despite challenges.",
+        "highDescription": "You excel at managing your emotions effectively, even in challenging situations. You can regulate your responses and maintain focus on your goals despite emotional triggers.",
+        "mediumDescription": "You have developed some strategies for managing your emotions, but may still struggle in particularly stressful or triggering situations.",
+        "lowDescription": "You may find it difficult to manage strong emotions when they arise, which can impact your decisions and interactions. Developing emotional regulation strategies would be beneficial."
+      },
+      {
+        "id": "social_awareness",
+        "name": "Social Awareness",
+        "description": "The ability to accurately pick up on emotions in other people and understand what is really going on with them.",
+        "highDescription": "You have a strong ability to recognize others' emotions and understand social dynamics. You pick up on subtle cues and can adapt your approach accordingly.",
+        "mediumDescription": "You notice obvious emotional signals in others but might miss more subtle cues. You have a general awareness of social dynamics in familiar contexts.",
+        "lowDescription": "You may find it challenging to read others' emotions or understand group dynamics. Developing greater attention to others' verbal and non-verbal cues would enhance your interactions."
+      },
+      {
+        "id": "relationship_management",
+        "name": "Relationship Management",
+        "description": "The ability to develop and maintain good relationships, communicate clearly, inspire and influence others, work well in a team, and manage conflict.",
+        "highDescription": "You excel at building and maintaining positive relationships. You communicate effectively, navigate conflicts constructively, and create positive interactions with others.",
+        "mediumDescription": "You have developed some effective relationship skills but may still find certain interpersonal situations challenging. You generally maintain positive connections with others.",
+        "lowDescription": "You may experience challenges in building or maintaining relationships. Developing skills in communication, conflict resolution, and empathetic connection would enhance your interactions."
+      },
+      {
+        "id": "empathy",
+        "name": "Empathy",
+        "description": "The ability to understand and share the feelings of another person, seeing situations from their perspective.",
+        "highDescription": "You have a strong capacity for understanding others' perspectives and emotional experiences. You naturally consider how others might feel and adapt your approach accordingly.",
+        "mediumDescription": "You show empathy in many situations but may sometimes prioritize your own perspective or solutions over fully understanding others' experiences.",
+        "lowDescription": "You may find it challenging to see situations from others' perspectives or connect with their emotional experiences. Developing greater curiosity about others' viewpoints would enhance your interactions."
+      },
+      {
+        "id": "emotional_recognition",
+        "name": "Emotional Recognition",
+        "description": "The ability to identify and name different emotions in yourself and others.",
+        "highDescription": "You have a nuanced emotional vocabulary and can identify subtle differences between similar emotions. This helps you respond appropriately to your own and others' feelings.",
+        "mediumDescription": "You can recognize basic emotions but might struggle with more complex or mixed emotional states. Expanding your emotional vocabulary could enhance your understanding.",
+        "lowDescription": "You may find it difficult to identify specific emotions beyond general positive or negative states. Developing a more nuanced understanding of emotions would enhance your emotional intelligence."
+      },
+      {
+        "id": "emotional_regulation",
+        "name": "Emotional Regulation",
+        "description": "The ability to influence which emotions you have, when you have them, and how you experience and express them.",
+        "highDescription": "You have effective strategies for managing your emotional responses, even in challenging situations. You can calm yourself when upset and shift your emotional state when needed.",
+        "mediumDescription": "You have some strategies for emotional regulation but may still be overwhelmed by particularly strong emotions. You're developing greater control over your emotional responses.",
+        "lowDescription": "You may find your emotions significantly influence your behavior before you can manage them. Developing specific regulation strategies would help you respond rather than react."
+      },
+      {
+        "id": "adaptability",
+        "name": "Adaptability",
+        "description": "The ability to adjust your thoughts, behaviors, and approaches in response to changing situations.",
+        "highDescription": "You navigate change with flexibility and openness. You can adjust your approach based on new information and thrive in dynamic environments.",
+        "mediumDescription": "You can adapt to changes with some effort. While you prefer stability, you're able to adjust when necessary.",
+        "lowDescription": "You may find changes in plans or expectations particularly challenging. Developing greater comfort with uncertainty would enhance your resilience and effectiveness."
+      },
+      {
+        "id": "resilience",
+        "name": "Resilience",
+        "description": "The ability to recover from setbacks, adapt to change, and keep going in the face of adversity.",
+        "highDescription": "You bounce back effectively from challenges and maintain perspective during difficult times. You see setbacks as temporary and find ways to learn and grow from them.",
+        "mediumDescription": "You can recover from setbacks but may need time to regain your footing. You're developing strategies to maintain motivation through challenges.",
+        "lowDescription": "You may find setbacks particularly discouraging or struggle to maintain motivation when facing obstacles. Building specific resilience strategies would support your well-being and effectiveness."
+      },
+      {
+        "id": "growth_mindset",
+        "name": "Growth Mindset",
+        "description": "The belief that abilities can be developed through dedication and hard work, creating a love of learning and resilience.",
+        "highDescription": "You approach challenges as opportunities to learn and grow. You see feedback as valuable information and believe in your capacity to develop new abilities.",
+        "mediumDescription": "You show a growth mindset in some areas but may have fixed beliefs about certain abilities. You're open to growth but may sometimes avoid challenges where you don't feel confident.",
+        "lowDescription": "You may tend to see abilities as fixed rather than developable. Cultivating a belief in your capacity to grow through effort would enhance your resilience and learning."
+      },
+      {
+        "id": "communication",
+        "name": "Communication",
+        "description": "The ability to express thoughts and feelings clearly and listen effectively to others.",
+        "highDescription": "You express yourself clearly and listen attentively to others. You can adapt your communication style to different situations and effectively convey both thoughts and feelings.",
+        "mediumDescription": "You have developed some effective communication skills but may still find certain conversations challenging. You're working on balancing expression with listening.",
+        "lowDescription": "You may sometimes struggle to express yourself clearly or listen fully to others. Developing specific communication skills would enhance your relationships and effectiveness."
+      }
+    ]
+  }
+}

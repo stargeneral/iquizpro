@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz - iQuizPros</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/main.css">
+</head>
+<body>
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <a href="/">iQuizPros</a>
+            </div>
+            <div class="quiz-progress-container">
+                <div class="quiz-progress-bar">
+                    <div class="quiz-progress-fill" style="width: 0%"></div>
+                </div>
+                <div class="quiz-progress-text">Question 0 of 0</div>
+            </div>
+            <button class="exit-quiz-button">
+                <i class="fas fa-times"></i> Exit Quiz
+            </button>
+        </div>
+    </header>
+
+    <main class="quiz-container">
+        <div id="quiz-content" class="quiz-content">
+            <!-- Quiz content will be dynamically loaded here -->
+            <div class="loading">
+                <div class="spinner"></div>
+                <p>Loading quiz...</p>
+            </div>
+        </div>
+    </main>
+
+    <!-- Toast Container -->
+    <div class="toast-container" id="toast-container"></div>
+
+    <!-- Exit Confirmation Modal -->
+    <div class="modal" id="exit-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Exit Quiz?</h2>
+                <button class="close-button">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to exit? Your progress will be lost.</p>
+                <div class="modal-actions">
+                    <button class="btn btn-secondary" id="cancel-exit">Continue Quiz</button>
+                    <button class="btn btn-primary" id="confirm-exit">Exit Quiz</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Initialize app config -->
+    <script>
+        window.appConfig = {
+            logging: {
+                logLevel: 'debug',
+                enableRemoteLogging: false,
+                logToConsole: true,
+                includeTimestamp: true
+            },
+            quiz: {
+                defaultTimePerQuestion: 30,
+                showCorrectAnswers: true,
+                shuffleQuestions: true,
+                shuffleOptions: true
+            }
+        };
+    </script>
+
+    <!-- Quiz initialization script -->
+    <script src="/js/quiz-init.js"></script>
+</body>
+</html>

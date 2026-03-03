@@ -1,0 +1,713 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Live Presenter - iQuizPros</title><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer"><script src="https://www.gstatic.com/firebasejs/9.20.0/firebase-app-compat.js"></script><script src="https://www.gstatic.com/firebasejs/9.20.0/firebase-auth-compat.js"></script><script src="https://www.gstatic.com/firebasejs/9.20.0/firebase-firestore-compat.js"></script><script src="https://www.gstatic.com/firebasejs/9.20.0/firebase-storage-compat.js"></script><script src="https://www.gstatic.com/firebasejs/9.20.0/firebase-functions-compat.js"></script><script defer="defer" src="/js/runtime.6fdec4f4d8bfa2f8d22e.js"></script><script defer="defer" src="/js/vendors.de788a87b9bb3625350b.js"></script><script defer="defer" src="/js/vendor.409035b1c3be45e43278.js"></script><script defer="defer" src="/js/live-presenter.e6fc5f16770ec082babb.js"></script><style>#connection-status{top:105px!important}</style>
+<style>
+/* ── Extension: New Question Type Panel ── */
+#ext-qtype-panel {
+  display:none; position:fixed; bottom:0; left:0; right:0; z-index:8000;
+  background:#fff; border-top:2px solid #25d366; padding:1rem 1.25rem;
+  box-shadow:0 -4px 16px rgba(0,0,0,.12); font-family:system-ui,sans-serif;
+}
+#ext-qtype-panel h4 { margin:0 0 .6rem; font-size:.9rem; color:#555; text-transform:uppercase; letter-spacing:.05em; }
+.ext-qtype-row { display:flex; flex-wrap:wrap; gap:.5rem; margin-bottom:.75rem; }
+.ext-qtype-btn {
+  padding:.45rem .9rem; border:2px solid #e0e0e0; border-radius:8px; background:#fff;
+  font-size:.85rem; font-weight:600; cursor:pointer; transition:background .15s,border-color .15s;
+}
+.ext-qtype-btn:hover { background:#f0faf5; border-color:#25d366; }
+.ext-qtype-btn.active { background:#25d366; border-color:#25d366; color:#fff; }
+#ext-timer-config { display:none; align-items:center; gap:.5rem; margin-top:.25rem; }
+#ext-timer-config label { font-size:.85rem; color:#555; }
+#ext-timer-seconds { width:70px; padding:.35rem .5rem; border:1px solid #ccc; border-radius:6px; font-size:.9rem; }
+#ext-rating-config { display:none; align-items:center; gap:.5rem; margin-top:.25rem; }
+#ext-rating-config label { font-size:.85rem; color:#555; }
+#ext-rating-scale { width:70px; padding:.35rem .5rem; border:1px solid #ccc; border-radius:6px; font-size:.9rem; }
+.ext-save-type-btn {
+  display:block; width:100%; padding:.6rem; background:linear-gradient(135deg,#25d366,#128c7e);
+  color:#fff; border:none; border-radius:8px; font-size:.9rem; font-weight:600; cursor:pointer;
+  margin-top:.5rem;
+}
+.ext-save-type-btn:disabled { opacity:.5; cursor:not-allowed; }
+#ext-panel-toggle {
+  position:fixed; bottom:1rem; right:1rem; z-index:8001; width:48px; height:48px; border-radius:50%;
+  background:#25d366; color:#fff; border:none; font-size:1.2rem; cursor:pointer;
+  box-shadow:0 4px 12px rgba(0,0,0,.2);
+}
+#ext-leaderboard-btn {
+  position:fixed; bottom:1rem; right:4.75rem; z-index:8001; width:48px; height:48px; border-radius:50%;
+  background:#128c7e; color:#fff; border:none; font-size:1.2rem; cursor:pointer;
+  box-shadow:0 4px 12px rgba(0,0,0,.2);
+}
+#ext-leaderboard-overlay {
+  display:none; position:fixed; inset:0; background:rgba(0,0,0,.65); z-index:9500;
+  align-items:center; justify-content:center; font-family:system-ui,sans-serif;
+}
+/* Phase 9: Q&A button, emoji buttons */
+#ext-qa-btn {
+  position:fixed; bottom:1rem; right:8.5rem; z-index:8001; width:48px; height:48px; border-radius:50%;
+  background:#25d366; color:#fff; border:none; font-size:1.2rem; cursor:pointer;
+  box-shadow:0 4px 12px rgba(0,0,0,.2);
+}
+#ext-emoji-toggle-btn {
+  position:fixed; bottom:1rem; right:12.25rem; z-index:8001; width:48px; height:48px; border-radius:50%;
+  background:#128c7e; color:#fff; border:none; font-size:1.2rem; cursor:pointer;
+  box-shadow:0 4px 12px rgba(0,0,0,.2);
+}
+#ext-emoji-bar {
+  position:fixed; bottom:4.5rem; right:12.25rem; z-index:8001; display:none;
+  flex-direction:column; gap:.4rem; align-items:center;
+}
+.ext-emoji-react-btn {
+  width:44px; height:44px; border-radius:50%; border:none;
+  background:linear-gradient(135deg,#25d366,#128c7e); color:#fff; font-size:1.3rem;
+  cursor:pointer; box-shadow:0 3px 10px rgba(0,0,0,.2); transition:transform .1s;
+}
+.ext-emoji-react-btn:hover { transform:scale(1.2); }
+#ext-qa-overlay {
+  display:none; position:fixed; inset:0; background:rgba(0,0,0,.65); z-index:9500;
+  align-items:center; justify-content:center; font-family:system-ui,sans-serif;
+}
+/* 11.4: Share QR button */
+#ext-share-qr-btn {
+  position:fixed; bottom:1rem; right:16rem; z-index:8001; width:48px; height:48px; border-radius:50%;
+  background:#25d366; color:#fff; border:none; font-size:1.2rem; cursor:pointer;
+  box-shadow:0 4px 12px rgba(0,0,0,.2);
+}
+/* 11.4: Share QR fullscreen overlay */
+#ext-share-qr-overlay {
+  display:none; position:fixed; inset:0; background:#000; z-index:99999;
+  flex-direction:column; align-items:center; justify-content:center;
+  font-family:system-ui,sans-serif;
+}
+</style>
+</head><body class="presenter-view"><header class="presenter-header"><div class="header-left"><h1 class="app-title"><span class="logo-text">iQuizPros</span> <span class="live-badge">LIVE</span></h1><div class="session-info"><span class="session-code">Code: <strong id="session-code-display">------</strong></span> <button id="copy-code-btn" class="btn-icon" title="Copy code">📋</button></div></div><div class="header-center"><div class="participant-counter"><span class="icon">👥</span> <span id="participant-count">0</span> <span class="label">participants</span></div></div><div class="header-right"><button id="header-burger-menu" class="header-burger-menu" aria-label="Menu"><i class="fas fa-bars"></i></button> <button id="show-qr-btn" class="btn btn-secondary">QR</button> <button id="end-session-btn" class="btn btn-danger">End</button></div></header><div id="compact-header-menu" class="compact-header-menu"><button class="compact-menu-close" id="compact-menu-close">&times;</button><div class="compact-menu-item"><h4>Session Code</h4><div class="value" id="compact-session-code">------</div></div><div class="compact-menu-item"><h4>Participants</h4><div class="value" id="compact-participant-count">0</div></div></div><div id="compact-header-overlay" class="compact-header-overlay"></div><div class="presenter-container"><aside class="slide-navigator"><h3>Slides</h3><div id="slide-list" class="slide-thumbnails"></div></aside><main class="slide-display"><div class="slide-header"><div id="progress-text" class="progress-text">Slide 1 of 10</div><div class="progress-bar-container"><div id="presenter-progress-bar" class="progress-bar"></div></div></div><div id="current-slide-display" class="current-slide"><div class="waiting-to-start"><h2>Ready to Start</h2><p>Share the access code or QR code with your audience</p><button id="start-presentation-btn" class="btn btn-primary btn-lg">Start Presentation</button></div></div><div class="slide-controls"><button id="prev-slide-btn" class="btn btn-control" disabled="disabled"><span class="icon">◀</span> Previous</button> <button id="next-slide-btn" class="btn btn-control">Next <span class="icon">▶</span></button></div></main><aside class="results-panel"><div class="panel-header"><h3>Live Results</h3><button id="toggle-results-btn" class="btn-icon">👁️</button></div><div id="live-results" class="live-results"><div class="no-responses"><p>Waiting for responses...</p></div></div><div class="results-footer"><button id="export-btn" class="btn btn-sm btn-secondary">Export Results</button></div></aside></div><div id="qr-modal" class="modal" style="display: none;"><div class="modal-content"><span class="close-button">&times;</span><h2>Scan to Join</h2><div class="qr-container"><img id="qr-code-image" src="" alt="QR Code"></div><div class="join-info"><p>Or visit: <strong>iquizpro.com/live-audience.html</strong></p><p>Enter code: <strong id="modal-access-code">------</strong></p></div></div></div>
+
+<!-- ── iQuizPros Presenter Extension Layer v6.0 ──────────────────────────────
+     Phase 5: createdAt patch, question type selector, QR code, results toggle, lock.
+     Phase 6: Leaderboard overlay (6.1), server timestamp for timer sync (6.2).
+     Does NOT modify the pre-built live-presenter bundle.
+─────────────────────────────────────────────────────────────────────────────-->
+
+<!-- Floating buttons (⚙️ panel, 🏆 leaderboard, 💬 Q&A, 😊 emoji, 📲 share QR) -->
+<button id="ext-share-qr-btn" title="Share join QR code" aria-label="Share join QR code">📲</button>
+<button id="ext-leaderboard-btn" title="Show leaderboard" aria-label="Show leaderboard">🏆</button>
+<button id="ext-qa-btn" title="Show audience Q&A" aria-label="Show audience Q&A">💬</button>
+<button id="ext-emoji-toggle-btn" title="Send emoji reaction" aria-label="Send emoji reaction">😊</button>
+<button id="ext-panel-toggle" title="Set question type" aria-label="Set question type">⚙️</button>
+
+<!-- 11.4: Share QR fullscreen overlay -->
+<div id="ext-share-qr-overlay">
+  <button id="ext-share-qr-close" style="position:absolute;top:1rem;right:1.5rem;background:none;border:none;color:#fff;font-size:2rem;cursor:pointer;line-height:1;" aria-label="Close">✕</button>
+  <img id="ext-share-qr-img" src="" alt="Audience join QR code" style="width:400px;height:400px;max-width:80vw;max-height:80vw;border-radius:12px;">
+  <p id="ext-share-qr-url" style="color:#fff;font-size:1.1rem;margin-top:1.25rem;word-break:break-all;text-align:center;max-width:480px;"></p>
+</div>
+
+<!-- Emoji reaction bar (Phase 9) -->
+<div id="ext-emoji-bar">
+  <button class="ext-emoji-react-btn" data-emoji="👍" title="Thumbs up">👍</button>
+  <button class="ext-emoji-react-btn" data-emoji="🎉" title="Celebrate">🎉</button>
+  <button class="ext-emoji-react-btn" data-emoji="😂" title="Funny">😂</button>
+  <button class="ext-emoji-react-btn" data-emoji="😮" title="Wow">😮</button>
+  <button class="ext-emoji-react-btn" data-emoji="❤️" title="Love">❤️</button>
+</div>
+
+<!-- Q&A overlay (Phase 9) -->
+<div id="ext-qa-overlay">
+  <div style="background:#fff;border-radius:16px;width:90%;max-width:520px;max-height:82vh;
+    overflow:hidden;box-shadow:0 8px 32px rgba(0,0,0,.3);display:flex;flex-direction:column;">
+    <div style="background:linear-gradient(135deg,#25d366,#128c7e);padding:1.1rem 1.5rem;
+      display:flex;justify-content:space-between;align-items:center;flex-shrink:0;">
+      <h2 style="margin:0;color:#fff;font-size:1.25rem;">💬 Audience Questions</h2>
+      <button id="ext-qa-close" style="background:none;border:none;color:#fff;
+        font-size:1.6rem;cursor:pointer;line-height:1;padding:.1rem .3rem;">×</button>
+    </div>
+    <div id="ext-qa-list" style="padding:1rem;overflow-y:auto;flex:1;min-height:120px;"></div>
+  </div>
+</div>
+
+<!-- Leaderboard overlay (Phase 6.1) -->
+<div id="ext-leaderboard-overlay">
+  <div style="background:#fff;border-radius:16px;width:90%;max-width:500px;max-height:82vh;
+    overflow:hidden;box-shadow:0 8px 32px rgba(0,0,0,.3);display:flex;flex-direction:column;">
+    <div style="background:linear-gradient(135deg,#25d366,#128c7e);padding:1.1rem 1.5rem;
+      display:flex;justify-content:space-between;align-items:center;flex-shrink:0;">
+      <h2 style="margin:0;color:#fff;font-size:1.25rem;">🏆 Leaderboard</h2>
+      <button id="ext-leaderboard-close" style="background:none;border:none;color:#fff;
+        font-size:1.6rem;cursor:pointer;line-height:1;padding:.1rem .3rem;">×</button>
+    </div>
+    <div id="ext-leaderboard-list" style="padding:1rem;overflow-y:auto;flex:1;"></div>
+  </div>
+</div>
+
+<!-- Question type panel -->
+<div id="ext-qtype-panel">
+  <h4>Question Type for Current Slide</h4>
+  <div class="ext-qtype-row">
+    <button class="ext-qtype-btn active" data-type="multiple-choice">Multiple Choice</button>
+    <button class="ext-qtype-btn" data-type="true-false">True / False</button>
+    <button class="ext-qtype-btn" data-type="rating">Rating Scale</button>
+    <button class="ext-qtype-btn" data-type="word-cloud">Word Cloud</button>
+    <button class="ext-qtype-btn" data-type="open-ended">Open Ended</button>
+    <button class="ext-qtype-btn" data-type="ranking">🏅 Ranking</button>
+    <button class="ext-qtype-btn" data-type="q-and-a">💬 Q&amp;A</button>
+  </div>
+  <div id="ext-rating-config">
+    <label>Scale:</label>
+    <select id="ext-rating-scale">
+      <option value="5">1–5</option>
+      <option value="10">1–10</option>
+    </select>
+  </div>
+  <div id="ext-timer-config">
+    <label>Timer (seconds, 0 = none):</label>
+    <input id="ext-timer-seconds" type="number" min="0" max="300" value="0">
+  </div>
+  <button class="ext-save-type-btn" id="ext-save-type-btn">Apply to Current Slide</button>
+  <div id="ext-save-feedback" style="margin-top:.4rem;font-size:.85rem;color:#25d366;display:none;">Saved ✓</div>
+</div>
+
+<script>
+(function() {
+  'use strict';
+
+  var FIREBASE_CONFIG = {
+    apiKey:            "AIzaSyCRs_kyp7U8sRGDInIY11ds2N85oT1U1zg",
+    authDomain:        "quizpros.firebaseapp.com",
+    databaseURL:       "https://quizpros-default-rtdb.europe-west1.firebasedatabase.app",
+    projectId:         "quizpros",
+    storageBucket:     "quizpros.firebasestorage.app",
+    messagingSenderId: "684284511365",
+    appId:             "1:684284511365:web:9cb2919960c3f54d5595ec"
+  };
+
+  var db, extDb;
+  var selectedType = 'multiple-choice';
+  var panelVisible = false;
+
+  // ── Init ────────────────────────────────────────────────────────────────────
+  function init() {
+    try {
+      // Use existing Firebase app if already initialised by the pre-built bundle
+      db = firebase.app().database();
+    } catch (e) {
+      try {
+        if (!firebase.apps.length) firebase.initializeApp(FIREBASE_CONFIG);
+        db = firebase.app().database();
+      } catch (e2) {
+        try {
+          var app = firebase.initializeApp(FIREBASE_CONFIG, 'ext-presenter');
+          db = app.database();
+        } catch (e3) {
+          console.warn('ext-presenter: could not get RTDB reference', e3);
+          return;
+        }
+      }
+    }
+    extDb = db;
+
+    // Patch session creation to inject createdAt field
+    patchSessionCreation();
+    setupPanel();
+    setupResultsToggle();
+    setupLockUnlock();
+    setupLeaderboard();     // Phase 6.1
+    setupQandA();           // Phase 9
+    setupEmojiReactions();  // Phase 9
+    setupCSVExport();       // Phase 9
+    setupArchiveButton();   // Phase 10.3
+    setupShareQR();         // Phase 11.4
+  }
+
+  // ── Patch session creation to add createdAt ─────────────────────────────────
+  // The pre-built bundle creates sessions via RTDB. We listen on the sessions
+  // path and set createdAt if it is missing (cleanupExpiredSessions requires it).
+  function patchSessionCreation() {
+    // Poll for the session code displayed in the header
+    var attempts = 0;
+    var poll = setInterval(function() {
+      attempts++;
+      var codeEl = document.getElementById('session-code-display');
+      var code = codeEl && codeEl.textContent && codeEl.textContent.trim().replace(/^Code:\s*/i, '');
+      if (code && code !== '------' && code.length >= 4) {
+        clearInterval(poll);
+        ensureCreatedAt(code);
+        // Store for the audience extension
+        try { localStorage.setItem('iqp_session_code', code); } catch(e){}
+        window._extSessionCode = code;
+      }
+      if (attempts > 240) clearInterval(poll); // 2 min timeout
+    }, 500);
+  }
+
+  function ensureCreatedAt(code) {
+    var ref = extDb.ref('sessions/' + code + '/createdAt');
+    ref.once('value', function(snap) {
+      if (!snap.exists()) {
+        ref.set(Date.now()).catch(function(err) {
+          console.warn('ext-presenter: could not set createdAt', err);
+        });
+      }
+    });
+    window._extPresenterSessionCode = code;
+    populateQrCode(code);
+  }
+
+  // ── QR Code ─────────────────────────────────────────────────────────────────
+  function populateQrCode(code) {
+    var joinUrl = 'https://iquizpro.com/live-audience.html?code=' + encodeURIComponent(code);
+    var qrSrc = 'https://api.qrserver.com/v1/create-qr-code/?data=' + encodeURIComponent(joinUrl) +
+                '&size=220x220&color=128c7e&bgcolor=ffffff&margin=4';
+    var qrImg = document.getElementById('qr-code-image');
+    if (qrImg) qrImg.src = qrSrc;
+    var codeEl = document.getElementById('modal-access-code');
+    if (codeEl) codeEl.textContent = code;
+  }
+
+  // ── Show / hide results toggle ───────────────────────────────────────────────
+  function setupResultsToggle() {
+    var btn = document.getElementById('toggle-results-btn');
+    if (!btn) return;
+    var resultsVisible = true;
+    btn.addEventListener('click', function() {
+      resultsVisible = !resultsVisible;
+      var code = window._extPresenterSessionCode;
+      if (code && extDb) {
+        extDb.ref('sessions/' + code + '/resultsVisible').set(resultsVisible);
+      }
+      btn.textContent = resultsVisible ? '👁️' : '🙈';
+      btn.title = resultsVisible ? 'Hide results from audience' : 'Show results to audience';
+      var liveResults = document.getElementById('live-results');
+      if (liveResults) liveResults.style.opacity = resultsVisible ? '1' : '0.35';
+    });
+  }
+
+  // ── Lock / unlock audience responses ────────────────────────────────────────
+  function setupLockUnlock() {
+    // Wait for the panel header to appear, then inject the lock button
+    var attempts = 0;
+    var poll = setInterval(function() {
+      var panelHeader = document.querySelector('.panel-header');
+      if (panelHeader || attempts > 30) {
+        clearInterval(poll);
+        if (!panelHeader) return;
+        var lockBtn = document.createElement('button');
+        lockBtn.id = 'ext-lock-btn';
+        lockBtn.className = 'btn-icon';
+        lockBtn.title = 'Lock audience responses';
+        lockBtn.textContent = '🔓';
+        lockBtn.style.marginLeft = '4px';
+        panelHeader.appendChild(lockBtn);
+
+        var locked = false;
+        lockBtn.addEventListener('click', function() {
+          locked = !locked;
+          lockBtn.textContent = locked ? '🔒' : '🔓';
+          lockBtn.title = locked ? 'Unlock audience responses' : 'Lock audience responses';
+          var code = window._extPresenterSessionCode;
+          if (code && extDb) {
+            extDb.ref('sessions/' + code + '/locked').set(locked);
+          }
+        });
+      }
+      attempts++;
+    }, 300);
+  }
+
+  // ── Panel UI ────────────────────────────────────────────────────────────────
+  function setupPanel() {
+    var toggleBtn = document.getElementById('ext-panel-toggle');
+    var panel     = document.getElementById('ext-qtype-panel');
+    var saveBtn   = document.getElementById('ext-save-type-btn');
+    var feedback  = document.getElementById('ext-save-feedback');
+    var typeBtns  = document.querySelectorAll('.ext-qtype-btn');
+    var timerCfg  = document.getElementById('ext-timer-config');
+    var ratingCfg = document.getElementById('ext-rating-config');
+
+    toggleBtn.addEventListener('click', function() {
+      panelVisible = !panelVisible;
+      panel.style.display = panelVisible ? 'block' : 'none';
+    });
+
+    var noTimerTypes = { 'multiple-choice': true, 'ranking': true, 'q-and-a': true };
+    typeBtns.forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        typeBtns.forEach(function(b) { b.classList.remove('active'); });
+        btn.classList.add('active');
+        selectedType = btn.dataset.type;
+        timerCfg.style.display  = noTimerTypes[selectedType] ? 'none' : 'flex';
+        ratingCfg.style.display = (selectedType === 'rating') ? 'flex' : 'none';
+      });
+    });
+
+    saveBtn.addEventListener('click', function() {
+      var code = window._extPresenterSessionCode;
+      if (!code) { alert('Session not started yet.'); return; }
+
+      // Find current slide index from the pre-built bundle's UI
+      var progressEl = document.getElementById('progress-text');
+      var slideIdx = 0;
+      if (progressEl) {
+        var m = progressEl.textContent.match(/Slide\s+(\d+)/i);
+        if (m) slideIdx = parseInt(m[1], 10) - 1;
+      }
+
+      var updates = { type: selectedType };
+      var timerVal = parseInt(document.getElementById('ext-timer-seconds').value, 10) || 0;
+      updates.timer = timerVal > 0 ? timerVal : null;
+      if (selectedType === 'rating') {
+        updates.ratingScale = parseInt(document.getElementById('ext-rating-scale').value, 10) || 5;
+      }
+      // Phase 6.2: Use RTDB server timestamp for accurate multi-device timer sync
+      updates.timerStartedAt = firebase.database.ServerValue.TIMESTAMP;
+
+      saveBtn.disabled = true;
+      extDb.ref('sessions/' + code + '/questions/' + slideIdx).update(updates)
+        .then(function() {
+          feedback.style.display = 'block';
+          setTimeout(function() { feedback.style.display = 'none'; }, 2000);
+        })
+        .catch(function(err) {
+          alert('Could not save question type: ' + (err.message || err));
+        })
+        .finally(function() {
+          saveBtn.disabled = false;
+        });
+    });
+  }
+
+  // ── Leaderboard (Phase 6.1) ─────────────────────────────────────────────────
+  function setupLeaderboard() {
+    var btn      = document.getElementById('ext-leaderboard-btn');
+    var overlay  = document.getElementById('ext-leaderboard-overlay');
+    var closeBtn = document.getElementById('ext-leaderboard-close');
+    var listEl   = document.getElementById('ext-leaderboard-list');
+    var lbListener = null;
+
+    function showLeaderboard() {
+      var code = window._extPresenterSessionCode;
+      if (!code) { alert('Session not started yet.'); return; }
+      overlay.style.display = 'flex';
+      // Real-time listener — updates as scores come in
+      if (lbListener) {
+        extDb.ref('sessions/' + code + '/participants').off('value', lbListener);
+      }
+      lbListener = function(snap) { renderLeaderboard(snap.val(), listEl); };
+      extDb.ref('sessions/' + code + '/participants').on('value', lbListener);
+    }
+
+    function hideLeaderboard() {
+      overlay.style.display = 'none';
+      var code = window._extPresenterSessionCode;
+      if (lbListener && code) {
+        extDb.ref('sessions/' + code + '/participants').off('value', lbListener);
+        lbListener = null;
+      }
+    }
+
+    if (btn)      btn.addEventListener('click', showLeaderboard);
+    if (closeBtn) closeBtn.addEventListener('click', hideLeaderboard);
+    if (overlay)  overlay.addEventListener('click', function(e) {
+      if (e.target === overlay) hideLeaderboard();
+    });
+  }
+
+  function renderLeaderboard(participants, container) {
+    if (!participants) {
+      container.innerHTML = '<p style="text-align:center;color:#777;padding:2rem 1rem;">No participants yet.</p>';
+      return;
+    }
+    var entries = [];
+    Object.keys(participants).forEach(function(key) {
+      var p = participants[key];
+      entries.push({
+        nickname: p.nickname || ('Player_' + key.slice(-4)),
+        score:    p.score    || 0
+      });
+    });
+    entries.sort(function(a, b) { return b.score - a.score; });
+    var top    = entries.slice(0, 10);
+    var medals = ['🥇', '🥈', '🥉'];
+    var html   = '';
+    top.forEach(function(entry, idx) {
+      var medal  = medals[idx] !== undefined ? medals[idx] : (idx + 1) + '.';
+      var isFirst = idx === 0;
+      html += '<div style="display:flex;align-items:center;padding:.7rem 1rem;' +
+        (isFirst ? 'background:#f0fdf4;border-radius:10px;margin-bottom:.25rem;' : 'border-top:1px solid #f4f4f4;') + '">' +
+        '<div style="width:2rem;font-size:1.1rem;text-align:center;">' + medal + '</div>' +
+        '<div style="flex:1;font-weight:' + (isFirst ? '700' : '600') + ';font-size:' + (isFirst ? '1rem' : '.95rem') + ';margin-left:.6rem;color:#1a1a1a;">' +
+          escHtml(entry.nickname) + '</div>' +
+        '<div style="font-weight:700;color:#25d366;font-size:1rem;">' + entry.score + ' pts</div>' +
+        '</div>';
+    });
+    if (top.length === 0) {
+      html = '<p style="text-align:center;color:#777;padding:2rem 1rem;">No scores yet.<br>' +
+        '<small style="color:#aaa;">Scores appear after timed questions are answered.</small></p>';
+    }
+    container.innerHTML = html;
+  }
+
+  // ── Q&A overlay (Phase 9) ──────────────────────────────────────────────────
+  function setupQandA() {
+    var btn      = document.getElementById('ext-qa-btn');
+    var overlay  = document.getElementById('ext-qa-overlay');
+    var closeBtn = document.getElementById('ext-qa-close');
+    var listEl   = document.getElementById('ext-qa-list');
+    var qaListener = null;
+
+    function showQA() {
+      var code = window._extPresenterSessionCode;
+      if (!code) { alert('Session not started yet.'); return; }
+      overlay.style.display = 'flex';
+      if (qaListener) extDb.ref('sessions/' + code + '/qa').off('value', qaListener);
+      qaListener = function(snap) { renderQAList(snap.val(), listEl); };
+      extDb.ref('sessions/' + code + '/qa').on('value', qaListener);
+    }
+
+    function hideQA() {
+      overlay.style.display = 'none';
+      var code = window._extPresenterSessionCode;
+      if (qaListener && code) {
+        extDb.ref('sessions/' + code + '/qa').off('value', qaListener);
+        qaListener = null;
+      }
+    }
+
+    if (btn)      btn.addEventListener('click', showQA);
+    if (closeBtn) closeBtn.addEventListener('click', hideQA);
+    if (overlay)  overlay.addEventListener('click', function(e) {
+      if (e.target === overlay) hideQA();
+    });
+    // 10.8a: Delete question via event delegation on the list container
+    if (listEl) {
+      listEl.addEventListener('click', function(e) {
+        if (e.target.classList.contains('ext-qa-delete-btn')) {
+          var code = window._extPresenterSessionCode;
+          var key  = e.target.getAttribute('data-key');
+          if (code && key) {
+            extDb.ref('sessions/' + code + '/qa/' + key).remove();
+          }
+        }
+      });
+    }
+  }
+
+  function renderQAList(questions, container) {
+    if (!questions || Object.keys(questions).length === 0) {
+      container.innerHTML = '<p style="text-align:center;color:#777;padding:2rem 1rem;">No questions yet.<br>' +
+        '<small style="color:#aaa;">Questions appear when audience members submit them in Q&amp;A mode.</small></p>';
+      return;
+    }
+    var entries = [];
+    Object.keys(questions).forEach(function(key) {
+      var q = questions[key];
+      var voteCount = q.votes ? Object.keys(q.votes).length : 0;
+      entries.push({ key: key, text: q.text, nickname: q.nickname, ts: q.ts || 0, votes: voteCount });
+    });
+    // Sort by vote count descending, then newest first (10.1)
+    entries.sort(function(a, b) { return b.votes - a.votes || b.ts - a.ts; });
+    var html = '';
+    entries.forEach(function(entry, idx) {
+      html += '<div style="padding:.75rem .5rem;display:flex;align-items:flex-start;gap:.5rem;' + (idx > 0 ? 'border-top:1px solid #f0f0f0;' : '') + '">' +
+        '<div style="flex:1;min-width:0;">' +
+          '<div style="font-weight:600;color:#1a1a1a;font-size:.95rem;margin-bottom:.2rem;">' + escHtml(entry.text) + '</div>' +
+          '<div style="font-size:.8rem;color:#888;">— ' + escHtml(entry.nickname || 'Anonymous') + '</div>' +
+        '</div>' +
+        '<div style="display:flex;align-items:center;gap:.35rem;flex-shrink:0;">' +
+          '<span class="ext-qa-votes" style="font-size:.8rem;color:#25d366;font-weight:700;white-space:nowrap;">👍 ' + entry.votes + '</span>' +
+          '<button class="ext-qa-delete-btn" data-key="' + escHtml(entry.key) + '" title="Delete question" ' +
+            'style="background:#f5f5f5;border:1px solid #ddd;border-radius:6px;cursor:pointer;padding:.2rem .45rem;font-size:.8rem;color:#888;line-height:1;">🗑️</button>' +
+        '</div>' +
+        '</div>';
+    });
+    container.innerHTML = html;
+  }
+
+  // ── Emoji reactions broadcaster (Phase 9) ─────────────────────────────────
+  function setupEmojiReactions() {
+    var toggleBtn    = document.getElementById('ext-emoji-toggle-btn');
+    var bar          = document.getElementById('ext-emoji-bar');
+    var emojiVisible = false;
+
+    if (!toggleBtn || !bar) return;
+
+    toggleBtn.addEventListener('click', function() {
+      emojiVisible = !emojiVisible;
+      bar.style.display = emojiVisible ? 'flex' : 'none';
+    });
+
+    bar.querySelectorAll('.ext-emoji-react-btn').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        var emoji = btn.dataset.emoji;
+        var code  = window._extPresenterSessionCode;
+        if (!code || !extDb) return;
+        extDb.ref('sessions/' + code + '/lastReaction').set({
+          emoji: emoji,
+          ts:    firebase.database.ServerValue.TIMESTAMP
+        }).catch(function(err) { console.warn('ext: emoji send failed', err); });
+        // Visual pulse feedback
+        btn.style.transform = 'scale(1.4)';
+        setTimeout(function() { btn.style.transform = ''; }, 200);
+      });
+    });
+  }
+
+  // ── CSV Export (Phase 9) ──────────────────────────────────────────────────
+  function setupCSVExport() {
+    var btn = document.getElementById('export-btn');
+    if (!btn) return;
+    btn.addEventListener('click', function() {
+      var code = window._extPresenterSessionCode;
+      if (!code) { alert('Session not started yet.'); return; }
+      btn.disabled = true;
+      btn.textContent = 'Exporting…';
+      Promise.all([
+        extDb.ref('sessions/' + code + '/participants').once('value'),
+        extDb.ref('sessions/' + code + '/responses').once('value')
+      ]).then(function(snaps) {
+        var participants = snaps[0].val() || {};
+        var responses    = snaps[1].val() || {};
+
+        // Build participant lookup: key → { nickname, score }
+        var partMap = {};
+        Object.keys(participants).forEach(function(k) {
+          partMap[k] = {
+            nickname: participants[k].nickname || ('Player_' + k.slice(-4)),
+            score:    participants[k].score    || 0
+          };
+        });
+
+        // Collect all slide indices present in responses
+        var slideSet = {};
+        Object.keys(responses).forEach(function(key) {
+          var r = responses[key];
+          if (r && r.slideIndex !== undefined) slideSet[r.slideIndex] = true;
+        });
+        var slides = Object.keys(slideSet).map(Number).sort(function(a, b) { return a - b; });
+
+        // Header row
+        var header = ['Nickname', 'Total Score'];
+        slides.forEach(function(s) { header.push('Slide ' + (s + 1)); });
+        var rows = [header];
+
+        // One row per participant
+        Object.keys(partMap).forEach(function(pKey) {
+          var row = [partMap[pKey].nickname, partMap[pKey].score];
+          slides.forEach(function(s) {
+            var resp = responses[pKey + '_' + s];
+            row.push(resp ? String(resp.value).replace(/,/g, ';') : '');
+          });
+          rows.push(row);
+        });
+
+        // Convert to CSV
+        var csv = rows.map(function(r) {
+          return r.map(function(cell) {
+            var s = String(cell);
+            return (s.indexOf(',') >= 0 || s.indexOf('"') >= 0 || s.indexOf('\n') >= 0)
+              ? '"' + s.replace(/"/g, '""') + '"' : s;
+          }).join(',');
+        }).join('\n');
+
+        // Trigger download
+        var blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+        var url  = URL.createObjectURL(blob);
+        var a    = document.createElement('a');
+        a.href   = url;
+        a.download = 'iquizpros_' + code + '_' + new Date().toISOString().slice(0, 10) + '.csv';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+      }).catch(function(err) {
+        alert('Export failed: ' + (err.message || err));
+      }).finally(function() {
+        btn.disabled = false;
+        btn.textContent = 'Export Results';
+      });
+    });
+  }
+
+  // ── Archive session on End (Phase 10.3) ────────────────────────────────────
+  // 11.4: Share Session QR overlay
+  function setupShareQR() {
+    var shareBtn = document.getElementById('ext-share-qr-btn');
+    var overlay  = document.getElementById('ext-share-qr-overlay');
+    var closeBtn = document.getElementById('ext-share-qr-close');
+    var img      = document.getElementById('ext-share-qr-img');
+    var urlEl    = document.getElementById('ext-share-qr-url');
+    if (!shareBtn || !overlay) return;
+
+    function openOverlay() {
+      var code = window._extPresenterSessionCode;
+      if (!code) { alert('No active session code. Start a session first.'); return; }
+      var joinUrl = 'https://iquizpro.com/live-audience.html?code=' + encodeURIComponent(code);
+      if (img) {
+        img.src = 'https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=' + encodeURIComponent(joinUrl);
+        img.alt = 'Join at ' + joinUrl;
+      }
+      if (urlEl) urlEl.textContent = joinUrl;
+      overlay.style.display = 'flex';
+    }
+
+    function closeOverlay() { overlay.style.display = 'none'; }
+
+    shareBtn.addEventListener('click', openOverlay);
+    if (closeBtn) closeBtn.addEventListener('click', closeOverlay);
+    overlay.addEventListener('click', function(e) { if (e.target === overlay) closeOverlay(); });
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && overlay.style.display === 'flex') closeOverlay();
+    });
+  }
+
+  function setupArchiveButton() {
+    var endBtn = document.getElementById('end-session-btn');
+    if (!endBtn) return;
+    endBtn.addEventListener('click', function() {
+      var code = window._extPresenterSessionCode;
+      if (!code) return;
+      var user;
+      try { user = firebase.app().auth().currentUser; } catch(e) {}
+      if (!user) return;
+      extDb.ref('sessions/' + code + '/participants').once('value', function(snap) {
+        var participantCount = snap.numChildren();
+        extDb.ref('sessions/' + code + '/currentSlide').once('value', function(slideSnap) {
+          var totalSlides = (slideSnap.val() || 0) + 1;
+          // 11.1: Read session title from RTDB before archiving
+          extDb.ref('sessions/' + code + '/title').once('value', function(titleSnap) {
+            var sessionTitle = (titleSnap.val() && String(titleSnap.val()).trim())
+              ? String(titleSnap.val()).trim()
+              : 'Session ' + code;
+            try {
+              var fsDb = firebase.app().firestore();
+              fsDb.collection('sessionArchive').doc(code).set({
+                presenterId: user.uid,
+                title: sessionTitle,
+                participantCount: participantCount,
+                totalSlides: totalSlides,
+                completedAt: firebase.firestore.FieldValue.serverTimestamp()
+              }).catch(function(err) {
+                console.warn('ext-presenter: archive write failed', err);
+              });
+            } catch(e) {
+              console.warn('ext-presenter: Firestore not available for archive', e);
+            }
+          });
+        });
+      });
+    });
+  }
+
+  function escHtml(str) {
+    return String(str)
+      .replace(/&/g, '&amp;').replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  }
+
+  // Delay so pre-built bundle and Firebase have time to initialise
+  document.addEventListener('DOMContentLoaded', function() {
+    setTimeout(init, 2000);
+  });
+
+  window._iqpPresenterExt = { getSessionCode: function() { return window._extPresenterSessionCode; } };
+})();
+</script>
+
+</body></html>

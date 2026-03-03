@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Dashboard - iQuizPros</title>
+    <meta name="description" content="Your iQuizPros dashboard — quiz history, AI-generated quizzes, and subscription management.">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+          integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg=="
+          crossorigin="anonymous" referrerpolicy="no-referrer">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-functions-compat.js"></script>
+
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f0f2f5;
+            min-height: 100vh;
+        }
+
+        /* ── Header ── */
+        header {
+            background: linear-gradient(135deg, #25d366 0%, #128c7e 100%);
+            color: white;
+            padding: 1rem 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+        }
+        .header-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo a { color: white; text-decoration: none; font-size: 1.5rem; font-weight: 700; }
+        .nav-menu { display: flex; list-style: none; gap: 2rem; }
+        .nav-menu a { color: rgba(255,255,255,0.9); text-decoration: none; transition: opacity .2s; }
+        .nav-menu a:hover { opacity: 0.75; }
+        @media (max-width: 600px) { .nav-menu { gap: 1rem; font-size: .9rem; } }
+
+        /* ── Loading / auth gate ── */
+        #loading-screen, #auth-gate {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 60vh;
+            text-align: center;
+            gap: 1rem;
+        }
+        .spinner {
+            width: 48px; height: 48px;
+            border: 4px solid #e0e0e0;
+            border-top-color: #25d366;
+            border-radius: 50%;
+            animation: spin .8s linear infinite;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .loading-text { color: #888; font-size: 1rem; }
+        #auth-gate h2 { font-size: 1.6rem; color: #333; }
+        #auth-gate p { color: #666; max-width: 400px; }
+        .btn { display: inline-block; padding: .75rem 1.75rem; border-radius: 8px; text-decoration: none;
+               font-size: .97rem; font-weight: 600; cursor: pointer; border: none; transition: all .2s; }
+        .btn-primary { background: linear-gradient(135deg, #25d366, #128c7e); color: white; }
+        .btn-primary:hover { opacity: .9; transform: translateY(-1px); }
+        .btn-secondary { background: white; color: #25d366; border: 2px solid #25d366; }
+        .btn-secondary:hover { background: #25d366; color: white; }
+        .btn-danger { background: #dc3545; color: white; }
+        .btn-danger:hover { background: #c82333; }
+        .btn-sm { padding: .45rem 1rem; font-size: .85rem; }
+        .btn:disabled { opacity: .5; cursor: not-allowed; }
+
+        /* ── Dashboard layout ── */
+        #dashboard-content { display: none; }
+
+        .dashboard-hero {
+            background: linear-gradient(135deg, #25d366 0%, #128c7e 100%);
+            color: white;
+            padding: 2.5rem 0 3.5rem;
+        }
+        .dashboard-hero .container {
+            max-width: 1100px; margin: 0 auto; padding: 0 20px;
+        }
+        .user-greeting { display: flex; align-items: center; gap: 1.25rem; flex-wrap: wrap; }
+        .user-avatar {
+            width: 64px; height: 64px; border-radius: 50%;
+            background: rgba(255,255,255,.25);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.8rem; font-weight: 700; flex-shrink: 0;
+        }
+        .user-info h1 { font-size: 1.7rem; margin-bottom: .2rem; }
+        .user-info p { opacity: .85; font-size: .95rem; }
+        .tier-badge {
+            display: inline-block; padding: .25rem .8rem; border-radius: 20px;
+            font-size: .8rem; font-weight: 700; letter-spacing: .5px; text-transform: uppercase;
+            background: rgba(255,255,255,.25); color: white; margin-left: .5rem;
+        }
+        .tier-badge.free    { background: rgba(255,255,255,.2); }
+        .tier-badge.premium { background: #f39c12; }
+        .tier-badge.pro     { background: #27ae60; }
+
+        /* ── Main content area ── */
+        .dashboard-main {
+            max-width: 1100px;
+            margin: -2rem auto 3rem;
+            padding: 0 20px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 14px;
+            padding: 1.75rem;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+            margin-bottom: 1.5rem;
+        }
+        .card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1.25rem;
+            flex-wrap: wrap;
+            gap: .5rem;
+        }
+        .card-header h2 {
+            font-size: 1.15rem;
+            color: #333;
+            display: flex;
+            align-items: center;
+            gap: .5rem;
+        }
+        .card-header h2 i { color: #25d366; }
+
+        /* ── Usage stats ── */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+        }
+        @media (max-width: 600px) { .stats-grid { grid-template-columns: 1fr; } }
+
+        .stat-item { text-align: center; padding: 1rem; background: #f8f9fa; border-radius: 10px; }
+        .stat-value { font-size: 2rem; font-weight: 700; color: #25d366; line-height: 1; }
+        .stat-label { font-size: .82rem; color: #888; margin-top: .3rem; }
+
+        .usage-bar-wrap { margin-top: 1.25rem; }
+        .usage-bar-label {
+            display: flex; justify-content: space-between;
+            font-size: .85rem; color: #666; margin-bottom: .4rem;
+        }
+        .usage-bar-track {
+            height: 10px; background: #e9ecef; border-radius: 5px; overflow: hidden;
+        }
+        .usage-bar-fill {
+            height: 100%; border-radius: 5px;
+            background: linear-gradient(90deg, #25d366, #128c7e);
+            transition: width .6s ease;
+        }
+        .usage-bar-fill.high  { background: linear-gradient(90deg, #f39c12, #e74c3c); }
+        .usage-bar-fill.unlimited { background: linear-gradient(90deg, #27ae60, #2ecc71); width: 30% !important; }
+
+        /* ── Subscription management ── */
+        .sub-info {
+            display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;
+        }
+        .sub-tier-display {
+            font-size: 1.05rem; font-weight: 500;
+        }
+        .sub-actions { display: flex; gap: .75rem; flex-wrap: wrap; }
+
+        /* ── Quiz history ── */
+        .history-list { list-style: none; }
+        .history-item {
+            display: flex; align-items: center; justify-content: space-between;
+            padding: .85rem 0; border-bottom: 1px solid #f0f0f0;
+            gap: 1rem; flex-wrap: wrap;
+        }
+        .history-item:last-child { border-bottom: none; }
+        .history-quiz-name { font-weight: 500; font-size: .97rem; flex: 1; min-width: 160px; }
+        .history-meta { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; }
+        .history-score {
+            font-weight: 700; font-size: .95rem;
+            padding: .25rem .75rem; border-radius: 20px;
+            background: #f0f0f0;
+        }
+        .history-score.good  { background: #d4edda; color: #155724; }
+        .history-score.ok    { background: #fff3cd; color: #856404; }
+        .history-score.low   { background: #f8d7da; color: #721c24; }
+        .history-score.personality { background: #e8f4fd; color: #0c5460; }
+        .history-date { font-size: .82rem; color: #999; white-space: nowrap; }
+
+        /* ── Score trend bars ── */
+        .score-trend {
+            display: flex; align-items: flex-end; gap: 6px;
+            height: 60px; margin-top: 1rem;
+        }
+        .score-bar-wrap { display: flex; flex-direction: column; align-items: center; gap: 3px; flex: 1; }
+        .score-bar {
+            width: 100%; border-radius: 4px 4px 0 0;
+            background: linear-gradient(180deg, #25d366, #128c7e);
+            min-height: 4px;
+            transition: height .5s ease;
+        }
+        .score-bar-label { font-size: .65rem; color: #999; text-align: center; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%; }
+
+        /* ── AI quiz library ── */
+        .quiz-library-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 1rem;
+        }
+        .quiz-card {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 1.1rem 1.25rem;
+            border: 1px solid #e9ecef;
+            display: flex; flex-direction: column; gap: .5rem;
+            transition: box-shadow .2s, border-color .2s;
+        }
+        .quiz-card:hover { box-shadow: 0 4px 12px rgba(0,0,0,0.1); border-color: #25d366; }
+        .quiz-card-title { font-weight: 600; font-size: .97rem; color: #333; }
+        .quiz-card-meta { font-size: .82rem; color: #888; }
+        .quiz-card-actions { display: flex; gap: .5rem; margin-top: .25rem; }
+
+        /* ── Empty states ── */
+        .empty-state {
+            text-align: center; padding: 2.5rem 1rem; color: #aaa;
+        }
+        .empty-state i { font-size: 2.5rem; margin-bottom: .75rem; display: block; }
+        .empty-state p { font-size: .95rem; }
+
+        /* ── Toast ── */
+        .toast {
+            position: fixed; bottom: 1.5rem; right: 1.5rem;
+            background: #333; color: white; padding: .85rem 1.25rem;
+            border-radius: 8px; font-size: .9rem; z-index: 9999;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+            transform: translateY(100px); opacity: 0;
+            transition: transform .3s, opacity .3s;
+        }
+        .toast.show { transform: translateY(0); opacity: 1; }
+        .toast.success { background: #28a745; }
+        .toast.error   { background: #dc3545; }
+
+        /* ── Footer ── */
+        footer {
+            background: #2c3e50; color: rgba(255,255,255,.7);
+            text-align: center; padding: 1.5rem;
+            font-size: .875rem;
+        }
+        footer a { color: rgba(255,255,255,.7); text-decoration: none; margin: 0 .5rem; }
+        footer a:hover { color: white; }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="header-container">
+        <div class="logo"><a href="/">iQuizPros</a></div>
+        <nav>
+            <ul class="nav-menu">
+                <li><a href="/">Quizzes</a></li>
+                <li><a href="/premium.html">Pricing</a></li>
+                <li><a href="/live-presenter.html">Live</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<!-- Loading -->
+<div id="loading-screen">
+    <div class="spinner"></div>
+    <p class="loading-text">Loading your dashboard…</p>
+</div>
+
+<!-- Auth gate (shown if not signed in) -->
+<div id="auth-gate" style="display:none;">
+    <i class="fas fa-lock" style="font-size:3rem;color:#25d366;"></i>
+    <h2>Sign in to view your dashboard</h2>
+    <p>Your quiz history, AI-generated quizzes, and subscription details are waiting for you.</p>
+    <a href="/" class="btn btn-primary" style="margin-top:.5rem;">Go to iQuizPros</a>
+</div>
+
+<!-- Main dashboard (shown when authenticated) -->
+<div id="dashboard-content">
+
+    <!-- Hero / greeting -->
+    <div class="dashboard-hero">
+        <div class="container">
+            <div class="user-greeting">
+                <div class="user-avatar" id="user-avatar">?</div>
+                <div class="user-info">
+                    <h1>Welcome back, <span id="user-display-name">…</span>!</h1>
+                    <p id="user-email-display" style="opacity:.75;"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="dashboard-main">
+
+        <!-- ── Subscription & Usage ── -->
+        <div class="card">
+            <div class="card-header">
+                <h2><i class="fas fa-star"></i> Subscription &amp; AI Usage</h2>
+                <div class="sub-actions" id="sub-actions">
+                    <!-- Populated by JS -->
+                </div>
+            </div>
+
+            <div class="sub-info" id="sub-info">
+                <span class="sub-tier-display" id="sub-tier-text">Loading…</span>
+            </div>
+
+            <div class="stats-grid" id="usage-stats-grid" style="margin-top:1.25rem;">
+                <div class="stat-item">
+                    <div class="stat-value" id="stat-used">—</div>
+                    <div class="stat-label">Used this month</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value" id="stat-limit">—</div>
+                    <div class="stat-label">Monthly limit</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value" id="stat-remaining">—</div>
+                    <div class="stat-label">Remaining</div>
+                </div>
+            </div>
+
+            <div class="usage-bar-wrap" id="usage-bar-wrap" style="display:none;">
+                <div class="usage-bar-label">
+                    <span>AI Quiz Generations</span>
+                    <span id="usage-bar-text"></span>
+                </div>
+                <div class="usage-bar-track">
+                    <div class="usage-bar-fill" id="usage-bar-fill" style="width:0%"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ── Quiz History ── -->
+        <div class="card">
+            <div class="card-header">
+                <h2><i class="fas fa-history"></i> Recent Quiz History</h2>
+                <span id="history-count-badge" style="font-size:.85rem;color:#888;"></span>
+            </div>
+
+            <!-- Score trend (last 10 scored quizzes) -->
+            <div id="score-trend-wrap" style="display:none;">
+                <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.25rem;">
+                    <p style="font-size:.82rem;color:#aaa;margin:0;">📈 Score trend (last 10 results)</p>
+                    <span id="score-avg-badge" style="font-size:.8rem;font-weight:700;color:#128c7e;"></span>
+                </div>
+                <div class="score-trend" id="score-trend"></div>
+                <hr style="margin:1.25rem 0;border:none;border-top:1px solid #f0f0f0;">
+            </div>
+
+            <ul class="history-list" id="history-list">
+                <li class="empty-state">
+                    <i class="fas fa-clipboard-list"></i>
+                    <p>Loading quiz history…</p>
+                </li>
+            </ul>
+        </div>
+
+        <!-- ── AI-Generated Quizzes ── -->
+        <div class="card">
+            <div class="card-header">
+                <h2><i class="fas fa-robot"></i> AI-Generated Quizzes</h2>
+                <a href="/" class="btn btn-secondary btn-sm">Generate New</a>
+            </div>
+            <div class="quiz-library-grid" id="quiz-library">
+                <div class="empty-state" style="grid-column:1/-1;">
+                    <i class="fas fa-magic"></i>
+                    <p>Loading your AI quizzes…</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ── Past Live Sessions (Phase 10.3) ── -->
+        <div class="card">
+            <div class="card-header">
+                <h2><i class="fas fa-broadcast-tower"></i> Past Live Sessions</h2>
+                <span id="sessions-count-badge" style="font-size:.85rem;color:#888;"></span>
+            </div>
+            <ul class="history-list" id="past-sessions-list">
+                <li class="empty-state">
+                    <i class="fas fa-broadcast-tower"></i>
+                    <p>Loading past sessions…</p>
+                </li>
+            </ul>
+        </div>
+
+    </div><!-- /.dashboard-main -->
+</div><!-- /#dashboard-content -->
+
+<!-- Toast notification -->
+<div id="toast" class="toast"></div>
+
+<footer>
+    <a href="/">Home</a>
+    <a href="/premium.html">Pricing</a>
+    <a href="/privacy-policy.html">Privacy</a>
+    <a href="/terms.html">Terms</a>
+    <br><br>
+    <p>&copy; 2026 iQuizPros. All rights reserved.</p>
+</footer>
+
+<script>
+// ── Firebase init ──
+const firebaseConfig = {
+    apiKey:            "AIzaSyCRs_kyp7U8sRGDInIY11ds2N85oT1U1zg",
+    authDomain:        "quizpros.firebaseapp.com",
+    projectId:         "quizpros",
+    storageBucket:     "quizpros.firebasestorage.app",
+    messagingSenderId: "684284511365",
+    appId:             "1:684284511365:web:9cb2919960c3f54d5595ec"
+};
+if (!firebase.apps.length) {
+    firebase.initializeApp(firebaseConfig);
+}
+
+const auth      = firebase.auth();
+const db        = firebase.firestore();
+const functions = firebase.functions();
+// Cloud Functions deployed to europe-west2
+functions.useEmulator && void 0; // no-op — production URLs only
+const fns = firebase.app().functions('europe-west2');
+
+// ── Toast helper ──
+function showToast(msg, type) {
+    const el = document.getElementById('toast');
+    el.textContent = msg;
+    el.className   = 'toast show' + (type ? ' ' + type : '');
+    clearTimeout(el._timer);
+    el._timer = setTimeout(() => { el.className = 'toast'; }, 4000);
+}
+
+// ── Format date ──
+function fmtDate(val) {
+    if (!val) return '';
+    const d = val.toDate ? val.toDate() : new Date(val);
+    if (isNaN(d)) return '';
+    return d.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+}
+
+// ── Tier label ──
+function tierLabel(t) {
+    const map = { free: 'Basic (Free)', premium: 'Premium', pro: 'Pro', unlimited: 'Legacy Unlimited', enterprise: 'Enterprise' };
+    return map[t] || t;
+}
+
+// ── Score class ──
+function scoreClass(score, total) {
+    if (!total) return 'personality';
+    const pct = score / total;
+    if (pct >= 0.8) return 'good';
+    if (pct >= 0.5) return 'ok';
+    return 'low';
+}
+
+// ── Render subscription section ──
+function renderSubscription(tier, customerId) {
+    document.getElementById('sub-tier-text').innerHTML =
+        'Current plan: <strong>' + tierLabel(tier) + '</strong>' +
+        '<span class="tier-badge ' + tier + '">' + tier + '</span>';
+
+    const actionsEl = document.getElementById('sub-actions');
+    if (tier !== 'free' && customerId) {
+        actionsEl.innerHTML =
+            '<button class="btn btn-secondary btn-sm" id="manage-sub-btn">' +
+            '<i class="fas fa-cog"></i> Manage Subscription</button>';
+        document.getElementById('manage-sub-btn').addEventListener('click', handleManageSubscription);
+    } else {
+        actionsEl.innerHTML =
+            '<a href="/premium.html" class="btn btn-primary btn-sm">Upgrade Plan</a>';
+    }
+}
+
+// ── Render usage stats ──
+function renderUsageStats(used, limit, remaining, tier) {
+    document.getElementById('stat-used').textContent      = used;
+    document.getElementById('stat-limit').textContent     = limit === null ? '∞' : limit;
+    document.getElementById('stat-remaining').textContent = remaining === null ? '∞' : remaining;
+
+    const wrapEl = document.getElementById('usage-bar-wrap');
+    const fillEl = document.getElementById('usage-bar-fill');
+    const textEl = document.getElementById('usage-bar-text');
+
+    if (limit === null) {
+        wrapEl.style.display = 'block';
+        textEl.textContent   = 'Unlimited';
+        fillEl.className     = 'usage-bar-fill unlimited';
+        fillEl.style.width   = '';
+    } else if (limit > 0) {
+        const pct = Math.min(100, Math.round((used / limit) * 100));
+        wrapEl.style.display = 'block';
+        textEl.textContent   = used + ' / ' + limit + ' used (' + pct + '%)';
+        fillEl.style.width   = pct + '%';
+        fillEl.className     = 'usage-bar-fill' + (pct >= 80 ? ' high' : '');
+    }
+}
+
+// ── Render quiz history ──
+function renderHistory(history) {
+    const listEl  = document.getElementById('history-list');
+    const countEl = document.getElementById('history-count-badge');
+
+    if (!history.length) {
+        listEl.innerHTML = '<li class="empty-state"><i class="fas fa-clipboard-list"></i>' +
+            '<p>No quizzes completed yet. <a href="/">Take your first quiz!</a></p></li>';
+        return;
+    }
+
+    countEl.textContent = history.length + ' quiz' + (history.length !== 1 ? 'zes' : '');
+
+    // Score trend — last 10 scored (non-personality) quizzes
+    const scored = history.filter(h => h.total > 0).slice(0, 10).reverse();
+    if (scored.length >= 1) {
+        const trendWrap = document.getElementById('score-trend-wrap');
+        const trendEl   = document.getElementById('score-trend');
+        const avgBadge  = document.getElementById('score-avg-badge');
+        trendWrap.style.display = 'block';
+
+        // Compute average
+        const avg = Math.round(scored.reduce((s, h) => s + Math.round((h.score / h.total) * 100), 0) / scored.length);
+        if (avgBadge) avgBadge.textContent = 'Avg ' + avg + '%';
+
+        trendEl.innerHTML = scored.map(h => {
+            const pct   = Math.round((h.score / h.total) * 100);
+            const ht    = Math.max(8, pct * 0.54); // max 54px at 100%
+            const name  = escHtml(String(h.quizTitle || h.quizId || 'Quiz'));
+            const dateS = fmtDate(h.completedAt);
+            // Colour: green >=70%, amber 40-69%, red <40%
+            const barClr = pct >= 70 ? 'linear-gradient(180deg,#25d366,#128c7e)'
+                         : pct >= 40 ? 'linear-gradient(180deg,#f0ad00,#e67e00)'
+                         :             'linear-gradient(180deg,#e74c3c,#c0392b)';
+            return '<div class="score-bar-wrap" title="' + name + ': ' + pct + '%' + (dateS ? ' (' + dateS + ')' : '') + '">' +
+                   '<div class="score-bar" style="height:' + ht + 'px;background:' + barClr + '"></div>' +
+                   '<div class="score-bar-label">' + pct + '%</div>' +
+                   '</div>';
+        }).join('');
+    }
+
+    listEl.innerHTML = history.map(h => {
+        const hasScore   = h.total > 0;
+        const scoreText  = hasScore ? h.score + ' / ' + h.total : (h.personalityType || 'Personality');
+        const cls        = hasScore ? scoreClass(h.score, h.total) : 'personality';
+        return '<li class="history-item">' +
+               '<span class="history-quiz-name">' + escHtml(h.quizTitle || h.quizId || 'Quiz') + '</span>' +
+               '<span class="history-meta">' +
+               '<span class="history-score ' + cls + '">' + escHtml(String(scoreText)) + '</span>' +
+               '<span class="history-date">' + fmtDate(h.completedAt) + '</span>' +
+               '</span></li>';
+    }).join('');
+}
+
+// ── Render AI quiz library ──
+function renderLibrary(quizzes) {
+    const gridEl = document.getElementById('quiz-library');
+    if (!quizzes.length) {
+        gridEl.innerHTML = '<div class="empty-state" style="grid-column:1/-1;">' +
+            '<i class="fas fa-magic"></i>' +
+            '<p>No AI quizzes yet. <a href="/">Generate one from the home page!</a></p></div>';
+        return;
+    }
+
+    gridEl.innerHTML = quizzes.map(q => {
+        const dateStr = fmtDate(q.createdAt);
+        return '<div class="quiz-card" data-id="' + escHtml(q.id) + '">' +
+               '<div class="quiz-card-title">' + escHtml(q.title) + '</div>' +
+               '<div class="quiz-card-meta">' +
+               '<i class="fas fa-question-circle" style="color:#25d366"></i> ' + (q.questionCount || '?') + ' questions' +
+               (dateStr ? ' &nbsp;·&nbsp; ' + dateStr : '') +
+               '</div>' +
+               '<div class="quiz-card-actions">' +
+               '<button class="btn btn-primary btn-sm quiz-retake-btn" data-id="' + escHtml(q.id) + '">Retake</button>' +
+               '<button class="btn btn-secondary btn-sm quiz-embed-btn" data-id="' + escHtml(q.id) + '" title="Get embed code for this quiz"><i class="fas fa-code"></i> Embed</button>' +
+               '<button class="btn btn-danger btn-sm quiz-delete-btn" data-id="' + escHtml(q.id) + '">Delete</button>' +
+               '</div></div>';
+    }).join('');
+
+    // Wire up delete buttons
+    gridEl.querySelectorAll('.quiz-delete-btn').forEach(btn => {
+        btn.addEventListener('click', () => handleDeleteQuiz(btn.dataset.id, btn));
+    });
+
+    // Retake: go to home with quiz ID in URL (for future deep-link support)
+    gridEl.querySelectorAll('.quiz-retake-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            window.location.href = '/?retake=' + encodeURIComponent(btn.dataset.id);
+        });
+    });
+
+    // Get Embed Code: show iframe snippet in a prompt (Phase 10.6)
+    gridEl.querySelectorAll('.quiz-embed-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const id = btn.dataset.id;
+            const embedUrl = 'https://iquizpro.com/?embed=1&quizId=' + encodeURIComponent(id);
+            const snippet = '<iframe src="' + embedUrl + '" width="100%" height="600" frameborder="0" allowtransparency="true" loading="lazy" title="iQuizPros Quiz"></iframe>';
+            showEmbedModal(snippet, embedUrl);
+        });
+    });
+}
+
+// ── Embed code modal (Phase 10.6) ──
+function showEmbedModal(snippet, previewUrl) {
+    let modal = document.getElementById('embed-modal');
+    if (!modal) {
+        modal = document.createElement('div');
+        modal.id = 'embed-modal';
+        modal.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:9999;display:flex;align-items:center;justify-content:center;padding:1rem;';
+        modal.innerHTML =
+            '<div style="background:#fff;border-radius:12px;max-width:540px;width:100%;padding:1.5rem;box-shadow:0 8px 32px rgba(0,0,0,.2);">' +
+            '<h3 style="margin:0 0 .75rem;font-size:1.1rem;color:#333;">Embed This Quiz</h3>' +
+            '<p style="font-size:.88rem;color:#666;margin:0 0 .75rem;">Paste this code into any webpage to embed the quiz:</p>' +
+            '<textarea id="embed-snippet-textarea" readonly style="width:100%;height:90px;font-family:monospace;font-size:.82rem;border:1px solid #ddd;border-radius:6px;padding:.6rem;resize:vertical;"></textarea>' +
+            '<div style="display:flex;gap:.5rem;margin-top:.75rem;">' +
+            '<button id="embed-copy-btn" class="btn btn-primary btn-sm">Copy Code</button>' +
+            '<a id="embed-preview-link" href="#" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm">Preview</a>' +
+            '<button id="embed-close-btn" class="btn btn-sm" style="margin-left:auto;background:#f0f0f0;color:#333;">Close</button>' +
+            '</div></div>';
+        document.body.appendChild(modal);
+        modal.addEventListener('click', e => { if (e.target === modal) modal.style.display = 'none'; });
+    }
+    document.getElementById('embed-snippet-textarea').value = snippet;
+    document.getElementById('embed-preview-link').href = previewUrl;
+    modal.style.display = 'flex';
+    document.getElementById('embed-copy-btn').onclick = function() {
+        navigator.clipboard.writeText(snippet).then(() => {
+            this.textContent = 'Copied!';
+            setTimeout(() => { this.textContent = 'Copy Code'; }, 2000);
+        }).catch(() => {
+            document.getElementById('embed-snippet-textarea').select();
+            document.execCommand('copy');
+        });
+    };
+    document.getElementById('embed-close-btn').onclick = () => { modal.style.display = 'none'; };
+}
+
+// ── Manage subscription ──
+async function handleManageSubscription() {
+    const btn = document.getElementById('manage-sub-btn');
+    btn.disabled    = true;
+    btn.textContent = 'Loading…';
+
+    try {
+        const createPortalSession = fns.httpsCallable('createPortalSession');
+        const result = await createPortalSession({ returnUrl: window.location.href });
+        window.location.href = result.data.url;
+    } catch (err) {
+        console.error('createPortalSession error', err);
+        showToast(err.message || 'Could not open subscription portal. Please try again.', 'error');
+        btn.disabled    = false;
+        btn.textContent = 'Manage Subscription';
+    }
+}
+
+// ── Delete AI quiz ──
+async function handleDeleteQuiz(quizId, btn) {
+    if (!confirm('Delete this quiz? This cannot be undone.')) return;
+    btn.disabled    = true;
+    btn.textContent = '…';
+
+    try {
+        const deleteGeneratedQuiz = fns.httpsCallable('deleteGeneratedQuiz');
+        await deleteGeneratedQuiz({ quizId });
+        // Remove the card from the DOM
+        const card = document.querySelector('.quiz-card[data-id="' + quizId + '"]');
+        if (card) card.remove();
+        // If grid is now empty, show empty state
+        const grid = document.getElementById('quiz-library');
+        if (!grid.querySelector('.quiz-card')) {
+            grid.innerHTML = '<div class="empty-state" style="grid-column:1/-1;">' +
+                '<i class="fas fa-magic"></i>' +
+                '<p>No AI quizzes yet. <a href="/">Generate one from the home page!</a></p></div>';
+        }
+        showToast('Quiz deleted.', 'success');
+    } catch (err) {
+        console.error('deleteGeneratedQuiz error', err);
+        showToast('Could not delete quiz. Please try again.', 'error');
+        btn.disabled    = false;
+        btn.textContent = 'Delete';
+    }
+}
+
+// ── Escape HTML ──
+function escHtml(s) {
+    return String(s)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+}
+
+// ── Render past live sessions (Phase 10.3) ──
+function renderPastSessions(sessions) {
+    const list = document.getElementById('past-sessions-list');
+    const badge = document.getElementById('sessions-count-badge');
+    if (!sessions || sessions.length === 0) {
+        list.innerHTML = '<li class="empty-state"><i class="fas fa-broadcast-tower"></i>' +
+            '<p>No past sessions yet. Start a live session from the presenter page.</p></li>';
+        return;
+    }
+    badge.textContent = sessions.length + ' session' + (sessions.length === 1 ? '' : 's');
+    list.innerHTML = sessions.map(s => {
+        const ts = s.completedAt && s.completedAt.toDate
+            ? s.completedAt.toDate().toLocaleDateString(undefined, { year:'numeric', month:'short', day:'numeric' })
+            : '—';
+        return `<li class="history-item">
+            <div class="history-info">
+                <div class="history-quiz-name">${escHtml(s.title || 'Session')}</div>
+                <div class="history-meta">${s.participantCount || 0} participants &bull; ${s.totalSlides || 0} slides &bull; ${ts}</div>
+            </div>
+        </li>`;
+    }).join('');
+}
+
+// ── Load all dashboard data ──
+async function loadDashboard(user) {
+    // User display
+    const name = user.displayName || user.email.split('@')[0];
+    document.getElementById('user-display-name').textContent = name;
+    document.getElementById('user-email-display').textContent = user.email;
+    document.getElementById('user-avatar').textContent = name.charAt(0).toUpperCase();
+
+    // ── Load usage stats + tier (via Cloud Function) ──
+    try {
+        const getUserUsageStats = fns.httpsCallable('getUserUsageStats');
+        const statsResult = await getUserUsageStats({});
+        const { used, limit, remaining, tier } = statsResult.data.currentLimit;
+        renderUsageStats(used, limit, remaining, tier);
+
+        // Read customerId from Firestore to show Manage Subscription button
+        const userDoc    = await db.collection('users').doc(user.uid).get();
+        const customerId = userDoc.exists ? userDoc.data()?.subscription?.stripeCustomerId : null;
+        renderSubscription(tier, customerId);
+    } catch (err) {
+        console.warn('Could not load usage stats', err);
+        renderSubscription('free', null);
+        document.getElementById('stat-used').textContent      = '—';
+        document.getElementById('stat-limit').textContent     = '—';
+        document.getElementById('stat-remaining').textContent = '—';
+    }
+
+    // ── Load quiz history from Firestore ──
+    try {
+        const snap = await db
+            .collection('users').doc(user.uid)
+            .collection('quizHistory')
+            .orderBy('completedAt', 'desc')
+            .limit(20)
+            .get();
+        const history = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+        renderHistory(history);
+    } catch (err) {
+        console.warn('Could not load quiz history', err);
+        document.getElementById('history-list').innerHTML =
+            '<li class="empty-state"><i class="fas fa-exclamation-triangle"></i>' +
+            '<p>Could not load quiz history.</p></li>';
+    }
+
+    // ── Load AI quiz library (via Cloud Function) ──
+    try {
+        const listUserQuizzes = fns.httpsCallable('listUserQuizzes');
+        const libResult = await listUserQuizzes({});
+        renderLibrary(libResult.data.quizzes || []);
+    } catch (err) {
+        console.warn('Could not load AI quiz library', err);
+        document.getElementById('quiz-library').innerHTML =
+            '<div class="empty-state" style="grid-column:1/-1;">' +
+            '<i class="fas fa-exclamation-triangle"></i>' +
+            '<p>Could not load AI quizzes.</p></div>';
+    }
+
+    // ── Load past live sessions (Phase 10.3) ──
+    try {
+        const sessSnap = await db.collection('sessionArchive')
+            .where('presenterId', '==', user.uid)
+            .orderBy('completedAt', 'desc')
+            .limit(20)
+            .get();
+        renderPastSessions(sessSnap.docs.map(d => ({ id: d.id, ...d.data() })));
+    } catch (err) {
+        console.warn('Could not load past sessions', err);
+        document.getElementById('past-sessions-list').innerHTML =
+            '<li class="empty-state"><i class="fas fa-exclamation-triangle"></i>' +
+            '<p>Could not load past sessions.</p></li>';
+    }
+}
+
+// ── Auth state observer ──
+auth.onAuthStateChanged(user => {
+    document.getElementById('loading-screen').style.display = 'none';
+
+    if (!user) {
+        document.getElementById('auth-gate').style.display = 'flex';
+        return;
+    }
+
+    document.getElementById('dashboard-content').style.display = 'block';
+    loadDashboard(user).catch(err => {
+        console.error('Dashboard load error', err);
+        showToast('There was a problem loading your dashboard.', 'error');
+    });
+});
+</script>
+
+</body>
+</html>

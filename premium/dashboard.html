@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>IQuizPros Premium Dashboard</title>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-0QZSJ62FJV"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-0QZSJ62FJV');
+    </script>
+    <!-- Fonts and Styles -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Open+Sans&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+    <link rel="stylesheet" href="../css/base.css" />
+    <link rel="stylesheet" href="../css/components.css" />
+    <link rel="stylesheet" href="../css/layout.css" />
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../styles.css?v=1.2" />
+    
+    <!-- Main app script and modules -->
+    <script src="../js/config.js"></script>
+    <script src="../js/utils/utils.js"></script>
+    <script src="../js/utils/storage.js"></script>
+    <script src="../js/utils/api.js"></script>
+    <script src="../js/utils/feature-flags.js"></script>
+    <script src="../js/components/header.js"></script>
+    <script src="../js/components/footer.js"></script>
+    <script src="../js/components/premium-badge.js"></script>
+    <script src="../js/modules/analytics.js"></script>
+    <script src="../js/modules/cookie-consent.js"></script>
+    <script src="../js/modules/premium.js"></script>
+    <script src="../js/modules/ui-manager.js"></script>
+    <script src="../js/modules/user-manager.js"></script>
+  </head>
+  <body>
+    <div class="quiz-container">
+      <!-- Header Section -->
+      <div class="quiz-header">
+        <a href="../index.html" class="back-button"><i class="fas fa-arrow-left"></i> Back to Home</a>
+        <div class="quiz-topic-info">Premium Dashboard</div>
+        <div id="premium-badge-container"></div>
+      </div>
+      
+      <!-- Dashboard Welcome Section -->
+      <div class="dashboard-welcome">
+        <h1>Welcome to Your Premium Dashboard</h1>
+        <p>Manage your premium subscription, access exclusive quizzes, and view your quiz history.</p>
+      </div>
+      
+      <!-- Subscription Info Section -->
+      <div class="subscription-info-section">
+        <h2>Your Subscription</h2>
+        <div class="subscription-card">
+          <div class="subscription-details">
+            <div class="subscription-tier" id="subscription-tier">
+              <h3>Premium Basic</h3>
+              <span class="subscription-status">Active</span>
+            </div>
+            <div class="subscription-meta">
+              <div class="subscription-item">
+                <span class="label">Next billing date:</span>
+                <span class="value" id="next-billing-date">April 30, 2025</span>
+              </div>
+              <div class="subscription-item">
+                <span class="label">Subscription ID:</span>
+                <span class="value" id="subscription-id">sub_1234567890</span>
+              </div>
+            </div>
+          </div>
+          <div class="subscription-actions">
+            <button class="btn btn-outline btn-sm" id="manage-subscription-btn">Manage Subscription</button>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Premium Quizzes Section -->
+      <div class="dashboard-section">
+        <h2>Premium Quizzes</h2>
+        <p>Exclusive quizzes available with your premium subscription.</p>
+        
+        <div class="premium-quizzes-grid">
+          <!-- Quiz 1 -->
+          <div class="premium-quiz-card">
+            <div class="quiz-image">
+              <img src="../assets/images/default-personality.jpeg" alt="Career Deep Dive Assessment">
+              <span class="premium-tag">Premium</span>
+            </div>
+            <div class="quiz-content">
+              <h3>Career Deep Dive Assessment</h3>
+              <p>Discover your ideal career path with our comprehensive assessment of your skills, values, and work preferences.</p>
+              <div class="quiz-meta">
+                <span><i class="fas fa-clock"></i> 10-15 minutes</span>
+                <span><i class="fas fa-tag"></i> Professional</span>
+              </div>
+              <a href="quizzes/career-deep-dive.html" class="btn btn-outline btn-block">Take Quiz</a>
+            </div>
+          </div>
+          
+          <!-- Quiz 2 -->
+          <div class="premium-quiz-card">
+            <div class="quiz-image">
+              <img src="../assets/images/default-personality.jpeg" alt="Emotional Intelligence Assessment">
+              <span class="premium-tag">Premium</span>
+            </div>
+            <div class="quiz-content">
+              <h3>Emotional Intelligence Assessment</h3>
+              <p>Discover your emotional intelligence strengths and growth areas with our comprehensive assessment of self-awareness, empathy, and emotional management.</p>
+              <div class="quiz-meta">
+                <span><i class="fas fa-clock"></i> 10-15 minutes</span>
+                <span><i class="fas fa-tag"></i> Self-Discovery</span>
+              </div>
+              <a href="quizzes/emotional-intelligence.html" class="btn btn-outline btn-block">Take Quiz</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Quiz History Section -->
+      <div class="dashboard-section">
+        <h2>Your Quiz History</h2>
+        <p>Review your past quiz results and track your progress over time.</p>
+        
+        <div class="quiz-history-container" id="quiz-history-container">
+          <div class="quiz-history-empty" id="quiz-history-empty">
+            <div class="empty-icon"><i class="fas fa-history"></i></div>
+            <h3>No Quiz History Yet</h3>
+            <p>Take some quizzes to build your history and track your results over time.</p>
+          </div>
+          
+          <!-- Quiz history items will be dynamically added here -->
+          <div class="quiz-history-list" id="quiz-history-list" style="display: none;">
+            <!-- Example history item (will be populated dynamically) -->
+            <!--
+            <div class="quiz-history-item">
+              <div class="history-quiz-info">
+                <h3>Career Deep Dive Assessment</h3>
+                <div class="history-meta">
+                  <span><i class="fas fa-calendar"></i> March 28, 2025</span>
+                  <span><i class="fas fa-tag"></i> Professional</span>
+                </div>
+              </div>
+              <div class="history-result-preview">
+                <span class="result-type">Analytical Specialist</span>
+              </div>
+              <div class="history-actions">
+                <a href="#" class="btn btn-sm btn-outline">View Results</a>
+              </div>
+            </div>
+            -->
+          </div>
+        </div>
+      </div>
+      
+      <!-- Plus Features Section (only visible for Plus subscribers) -->
+      <div class="dashboard-section" id="plus-features-section" style="display: none;">
+        <h2>Premium Plus Features</h2>
+        <p>Access these additional features available with your Premium Plus subscription.</p>
+        
+        <div class="plus-features-grid">
+          <!-- Feature 1 -->
+          <div class="feature-card">
+            <div class="feature-icon">
+              <i class="fas fa-file-download"></i>
+            </div>
+            <h3>Download Reports</h3>
+            <p>Export your quiz results as PDF reports to save, print, or share.</p>
+            <button class="btn btn-sm btn-outline download-reports-btn">View Reports</button>
+          </div>
+          
+          <!-- Feature 2 -->
+          <div class="feature-card">
+            <div class="feature-icon">
+              <i class="fas fa-chart-line"></i>
+            </div>
+            <h3>Advanced Analysis</h3>
+            <p>Access in-depth analysis and personalized insights for all your quiz results.</p>
+            <a href="analysis.html" class="btn btn-sm btn-outline">View Analysis</a>
+          </div>
+          
+          <!-- Feature 3 -->
+          <div class="feature-card">
+            <div class="feature-icon">
+              <i class="fas fa-headset"></i>
+            </div>
+            <h3>Priority Support</h3>
+            <p>Get faster responses and personalized assistance from our support team.</p>
+            <a href="../contact-page.html?priority=true" class="btn btn-sm btn-outline">Contact Support</a>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Upgrade Banner (only visible for Basic subscribers) -->
+      <div class="dashboard-section" id="upgrade-banner-section" style="display: none;">
+        <div class="upgrade-banner">
+          <div class="upgrade-content">
+            <h2>Upgrade to Premium Plus</h2>
+            <p>Get access to advanced analysis, downloadable reports, and priority support.</p>
+            <ul class="upgrade-features">
+              <li><i class="fas fa-check"></i> Advanced personality analysis</li>
+              <li><i class="fas fa-check"></i> Comparative results</li>
+              <li><i class="fas fa-check"></i> Downloadable reports</li>
+              <li><i class="fas fa-check"></i> Priority support</li>
+            </ul>
+          </div>
+          <div class="upgrade-action">
+            <button class="btn btn-primary" id="upgrade-btn">Upgrade Now</button>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Footer Section -->
+      <div class="quiz-footer">
+        <div class="footer-content">
+          <div class="copyright">© 2025 IQuizPros</div>
+          <div class="footer-links">
+            <a href="../privacy-policy.html" class="footer-link">Privacy Policy</a>
+            <a href="../terms-of-use.html" class="footer-link">Terms of Use</a>
+            <a href="../contact-page.html" class="footer-link">Contact</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        // Initialize analytics
+        if (window.QuizProsAnalytics) {
+          QuizProsAnalytics.trackPageView('Premium Dashboard', '/premium/dashboard.html');
+        }
+        
+        // Check if user has premium access
+        if (window.QuizProsPremium && window.QuizProsPremium.hasPremiumAccess()) {
+          // Get subscription data
+          const subscriptionData = window.QuizProsPremium.getSubscriptionData();
+          const currentTier = window.QuizProsPremium.getCurrentTier();
+          
+          // Update subscription info
+          if (subscriptionData) {
+            // Update tier display
+            const tierElement = document.getElementById('subscription-tier');
+            if (tierElement) {
+              tierElement.querySelector('h3').textContent = 
+                currentTier === 'plus' ? 'Premium Plus' : 'Premium Basic';
+            }
+            
+            // Update next billing date
+            const billingDateElement = document.getElementById('next-billing-date');
+            if (billingDateElement && subscriptionData.expiryDate) {
+              billingDateElement.textContent = window.QuizProsUtils.formatDate(
+                subscriptionData.expiryDate, 
+                'MMMM DD, YYYY'
+              );
+            }
+            
+            // Update subscription ID
+            const subscriptionIdElement = document.getElementById('subscription-id');
+            if (subscriptionIdElement && subscriptionData.subscriptionId) {
+              subscriptionIdElement.textContent = subscriptionData.subscriptionId;
+            }
+          }
+          
+          // Add premium badge to header
+          const badgeContainer = document.getElementById('premium-badge-container');
+          if (badgeContainer && window.QuizProsPremiumBadge) {
+            const badge = window.QuizProsPremiumBadge.createBadge(currentTier);
+            badgeContainer.appendChild(badge);
+          }
+          
+          // Show/hide tier-specific sections
+          const plusFeaturesSection = document.getElementById('plus-features-section');
+          const upgradeBannerSection = document.getElementById('upgrade-banner-section');
+          
+          if (currentTier === 'plus') {
+            // Show Plus features
+            if (plusFeaturesSection) {
+              plusFeaturesSection.style.display = 'block';
+            }
+            // Hide upgrade banner
+            if (upgradeBannerSection) {
+              upgradeBannerSection.style.display = 'none';
+            }
+          } else {
+            // Hide Plus features
+            if (plusFeaturesSection) {
+              plusFeaturesSection.style.display = 'none';
+            }
+            // Show upgrade banner
+            if (upgradeBannerSection) {
+              upgradeBannerSection.style.display = 'block';
+            }
+          }
+          
+          // Set up upgrade button
+          const upgradeBtn = document.getElementById('upgrade-btn');
+          if (upgradeBtn) {
+            upgradeBtn.addEventListener('click', function() {
+              if (window.QuizProsPremium && window.QuizProsPremium.showPremiumSignup) {
+                window.QuizProsPremium.showPremiumSignup('plus');
+                
+                // Track event
+                if (window.QuizProsAnalytics) {
+                  window.QuizProsAnalytics.trackEvent(
+                    'Premium',
+                    'UpgradeClicked',
+                    'Dashboard'
+                  );
+                }
+              }
+            });
+          }
+          
+          // Load quiz history
+          loadQuizHistory();
+        } else {
+          // Redirect to premium landing page if not premium
+          window.location.href = 'index.html';
+        }
+        
+        // Set up manage subscription button
+        const manageSubscriptionBtn = document.getElementById('manage-subscription-btn');
+        if (manageSubscriptionBtn) {
+          manageSubscriptionBtn.addEventListener('click', function() {
+            // In a real implementation, this would open a subscription management interface
+            alert('Subscription management functionality would be implemented here.');
+            
+            // Track event
+            if (window.QuizProsAnalytics) {
+              window.QuizProsAnalytics.trackEvent(
+                'Premium',
+                'ManageSubscriptionClicked',
+                'Dashboard'
+              );
+            }
+          });
+        }
+        
+        // Set up download reports button
+        const downloadReportsBtn = document.querySelectorAll('.download-reports-btn');
+        downloadReportsBtn.forEach(btn => {
+          btn.addEventListener('click', function() {
+            // In a real implementation, this would show a list of reports to download
+            alert('Report download functionality would be implemented here.');
+            
+            // Track event
+            if (window.QuizProsAnalytics) {
+              window.QuizProsAnalytics.trackEvent(
+                'Premium',
+                'DownloadReportsClicked',
+                'Dashboard'
+              );
+            }
+          });
+        });
+      });
+      
+      /**
+       * Load quiz history from storage
+       */
+      function loadQuizHistory() {
+        if (!window.QuizProsStorage) return;
+        
+        const quizResults = window.QuizProsStorage.getQuizResults();
+        const historyList = document.getElementById('quiz-history-list');
+        const historyEmpty = document.getElementById('quiz-history-empty');
+        
+        if (quizResults && quizResults.length > 0) {
+          // Show history list and hide empty state
+          historyList.style.display = 'block';
+          historyEmpty.style.display = 'none';
+          
+          // Clear existing items
+          historyList.innerHTML = '';
+          
+          // Sort results by timestamp (newest first)
+          quizResults.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+          
+          // Add history items
+          quizResults.forEach(result => {
+            const historyItem = document.createElement('div');
+            historyItem.className = 'quiz-history-item';
+            
+            // Format date
+            const formattedDate = window.QuizProsUtils.formatDate(
+              result.timestamp,
+              'MMMM DD, YYYY'
+            );
+            
+            // Get result type or score
+            let resultPreview = '';
+            if (result.data.type === 'personality' && result.data.dominantType) {
+              resultPreview = result.data.dominantType;
+            } else if (result.data.score !== undefined && result.data.totalQuestions !== undefined) {
+              resultPreview = `Score: ${result.data.score}/${result.data.totalQuestions}`;
+            } else {
+              resultPreview = 'Result Available';
+            }
+            
+            historyItem.innerHTML = `
+              <div class="history-quiz-info">
+                <h3>${result.quizId}</h3>
+                <div class="history-meta">
+                  <span><i class="fas fa-calendar"></i> ${formattedDate}</span>
+                  <span><i class="fas fa-tag"></i> ${result.data.category || 'Quiz'}</span>
+                </div>
+              </div>
+              <div class="history-result-preview">
+                <span class="result-type">${resultPreview}</span>
+              </div>
+              <div class="history-actions">
+                <a href="#" class="btn btn-sm btn-outline view-result-btn" data-quiz-id="${result.quizId}" data-timestamp="${result.timestamp}">View Results</a>
+              </div>
+            `;
+            
+            historyList.appendChild(historyItem);
+          });
+          
+          // Add event listeners to view result buttons
+          const viewResultButtons = document.querySelectorAll('.view-result-btn');
+          viewResultButtons.forEach(button => {
+            button.addEventListener('click', function(e) {
+              e.preventDefault();
+              
+              const quizId = this.getAttribute('data-quiz-id');
+              const timestamp = this.getAttribute('data-timestamp');
+              
+              // In a real implementation, this would navigate to the result page
+              alert(`Viewing results for ${quizId} from ${window.QuizProsUtils.formatDate(timestamp, 'MMMM DD, YYYY')}`);
+              
+              // Track event
+              if (window.QuizProsAnalytics) {
+                window.QuizProsAnalytics.trackEvent(
+                  'Premium',
+                  'ViewHistoricalResult',
+                  quizId
+                );
+              }
+            });
+          });
+        } else {
+          // Show empty state and hide history list
+          historyList.style.display = 'none';
+          historyEmpty.style.display = 'block';
+        }
+      }
+    </script>
+  </body>
+</html>

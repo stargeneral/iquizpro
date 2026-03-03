@@ -1,0 +1,164 @@
+{
+  "id": "color-personality",
+  "name": "Color Personality",
+  "description": "What colour matches your personality? Discover the hue that reflects who you truly are.",
+  "icon": "fas fa-palette",
+  "banner": "assets/images/color-personality.webp",
+  "category": "self-discovery",
+  "personalityTypes": {
+    "red": {
+      "title": "Red — The Powerhouse",
+      "description": "You are bold, passionate and driven. Red is the colour of action, energy and ambition. You don't wait for things to happen — you make them happen. Your presence is felt the moment you walk into a room.",
+      "characteristics": ["High energy and assertive", "Passionate and intense", "Competitive and driven", "Decisive under pressure", "Natural leader and initiator"],
+      "strengths": "Your determination and courage mean you achieve what others only dream about. You inspire people around you to raise their own standards.",
+      "challenges": "Your intensity can sometimes overwhelm others. Practising patience and active listening will make you an even more powerful force.",
+      "imagePath": "assets/images/red-personality.webp"
+    },
+    "blue": {
+      "title": "Blue — The Deep Thinker",
+      "description": "You are calm, thoughtful and deeply loyal. Blue is the colour of wisdom, trust and depth. You think before you speak, feel deeply and value genuine connection over surface-level interaction.",
+      "characteristics": ["Calm and reflective", "Deeply loyal and trustworthy", "Thoughtful communicator", "Values depth over breadth", "Analytical and methodical"],
+      "strengths": "Your reliability and wisdom make you the person everyone turns to when things get serious. Your clarity and depth of thinking are genuine gifts.",
+      "challenges": "Your high standards and tendency toward perfectionism can hold you back. Embrace good enough sometimes — done is better than perfect.",
+      "imagePath": "assets/images/blue-personality.webp"
+    },
+    "yellow": {
+      "title": "Yellow — The Bright Spirit",
+      "description": "You are optimistic, creative and wonderfully expressive. Yellow is the colour of sunshine, joy and innovation. You light up any room and see possibilities where others see walls.",
+      "characteristics": ["Optimistic and enthusiastic", "Creative and imaginative", "Spontaneous and fun-loving", "Inspiring and uplifting", "Curious about everything"],
+      "strengths": "Your positivity is infectious. You have the rare gift of making difficult situations feel manageable and inspiring others to see the bright side.",
+      "challenges": "Your enthusiasm sometimes leads to starting more than you finish. Building structure around your creativity will help you achieve your brilliant ideas.",
+      "imagePath": "assets/images/yellow-personality.webp"
+    },
+    "green": {
+      "title": "Green — The Grounded Nurturer",
+      "description": "You are balanced, compassionate and deeply empathetic. Green is the colour of growth, harmony and healing. You are the anchor in your relationships — steady, caring and always thinking about others.",
+      "characteristics": ["Empathetic and caring", "Calm and well-balanced", "Reliable and steady", "Supportive and patient", "Values harmony and fairness"],
+      "strengths": "You create genuine safety and harmony wherever you go. People feel accepted and valued in your presence, and you help communities thrive.",
+      "challenges": "You give so much to others that you sometimes neglect your own needs. Learning to prioritise yourself is not selfish — it's essential.",
+      "imagePath": "assets/images/green-personality.webp"
+    }
+  },
+  "questions": [
+    {
+      "question": "When you walk into a party where you don't know many people, you typically:",
+      "options": [
+        "Dive right in and start introducing yourself to everyone",
+        "Observe the room, find someone interesting and have one deep conversation",
+        "Head for the most fun-looking group and get the energy going",
+        "Find a comfortable corner and wait for someone to approach you first"
+      ],
+      "personalityPoints": [
+        { "red": 5, "blue": 1, "yellow": 2, "green": 1 },
+        { "red": 1, "blue": 5, "yellow": 1, "green": 2 },
+        { "red": 2, "blue": 1, "yellow": 5, "green": 1 },
+        { "red": 1, "blue": 2, "yellow": 1, "green": 5 }
+      ]
+    },
+    {
+      "question": "Your friends would most likely describe you as:",
+      "options": [
+        "Confident and go-getting — always chasing the next goal",
+        "Wise and reliable — the one everyone comes to for advice",
+        "Fun and spontaneous — guaranteed to make everyone laugh",
+        "Kind and steady — always there when someone needs support"
+      ],
+      "personalityPoints": [
+        { "red": 5, "blue": 1, "yellow": 2, "green": 1 },
+        { "red": 1, "blue": 5, "yellow": 1, "green": 2 },
+        { "red": 2, "blue": 1, "yellow": 5, "green": 1 },
+        { "red": 1, "blue": 2, "yellow": 1, "green": 5 }
+      ]
+    },
+    {
+      "question": "When facing a difficult decision, you:",
+      "options": [
+        "Trust your gut and act fast — hesitation costs opportunity",
+        "Analyse every angle carefully before committing",
+        "Brainstorm creatively and look for unexpected solutions",
+        "Think about how it affects everyone involved before deciding"
+      ],
+      "personalityPoints": [
+        { "red": 5, "blue": 1, "yellow": 2, "green": 1 },
+        { "red": 1, "blue": 5, "yellow": 1, "green": 2 },
+        { "red": 2, "blue": 1, "yellow": 5, "green": 1 },
+        { "red": 1, "blue": 2, "yellow": 1, "green": 5 }
+      ]
+    },
+    {
+      "question": "What is your biggest motivator?",
+      "options": [
+        "Winning, succeeding and achieving big things",
+        "Understanding the world deeply and getting things right",
+        "Having fun, being creative and experiencing life fully",
+        "Making others happy and keeping the peace"
+      ],
+      "personalityPoints": [
+        { "red": 5, "blue": 2, "yellow": 1, "green": 1 },
+        { "red": 1, "blue": 5, "yellow": 1, "green": 2 },
+        { "red": 1, "blue": 1, "yellow": 5, "green": 2 },
+        { "red": 1, "blue": 1, "yellow": 2, "green": 5 }
+      ]
+    },
+    {
+      "question": "Under pressure, you tend to:",
+      "options": [
+        "Take charge and push through — pressure brings out your best",
+        "Slow down, think carefully and make a methodical plan",
+        "Look for a creative or unconventional way out",
+        "Seek support from others and lean on your network"
+      ],
+      "personalityPoints": [
+        { "red": 5, "blue": 1, "yellow": 2, "green": 1 },
+        { "red": 1, "blue": 5, "yellow": 1, "green": 1 },
+        { "red": 2, "blue": 1, "yellow": 5, "green": 1 },
+        { "red": 1, "blue": 2, "yellow": 1, "green": 5 }
+      ]
+    },
+    {
+      "question": "Which of these words resonates most with you?",
+      "options": [
+        "Ambition",
+        "Depth",
+        "Freedom",
+        "Harmony"
+      ],
+      "personalityPoints": [
+        { "red": 5, "blue": 1, "yellow": 2, "green": 1 },
+        { "red": 1, "blue": 5, "yellow": 1, "green": 2 },
+        { "red": 2, "blue": 1, "yellow": 5, "green": 1 },
+        { "red": 1, "blue": 2, "yellow": 1, "green": 5 }
+      ]
+    },
+    {
+      "question": "Your ideal weekend looks like:",
+      "options": [
+        "A challenging hike, a competitive game or smashing a goal",
+        "A good book, a documentary and time to think",
+        "An art class, a festival or trying something completely new",
+        "A relaxed day with people you love, good food and no rush"
+      ],
+      "personalityPoints": [
+        { "red": 5, "blue": 2, "yellow": 1, "green": 1 },
+        { "red": 1, "blue": 5, "yellow": 1, "green": 2 },
+        { "red": 1, "blue": 1, "yellow": 5, "green": 2 },
+        { "red": 1, "blue": 2, "yellow": 2, "green": 5 }
+      ]
+    },
+    {
+      "question": "When something goes wrong in a project, your instinct is to:",
+      "options": [
+        "Immediately take action and fix it — no time for dwelling",
+        "Figure out exactly what went wrong and learn from it",
+        "Reframe the setback as a creative opportunity",
+        "Make sure the whole team is okay before solving the problem"
+      ],
+      "personalityPoints": [
+        { "red": 5, "blue": 1, "yellow": 2, "green": 1 },
+        { "red": 1, "blue": 5, "yellow": 1, "green": 1 },
+        { "red": 2, "blue": 1, "yellow": 5, "green": 1 },
+        { "red": 1, "blue": 2, "yellow": 1, "green": 5 }
+      ]
+    }
+  ]
+}

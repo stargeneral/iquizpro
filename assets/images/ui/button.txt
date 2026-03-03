@@ -1,0 +1,6 @@
+/* This is a placeholder image file for the iQuizPros application */
+/* In a real implementation, this would be a PNG or JPG image */
+/* Image: UI Button */
+
+This text represents a placeholder for a UI button image.
+The actual image would show a button design used in the application interface.

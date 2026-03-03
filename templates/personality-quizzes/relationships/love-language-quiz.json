@@ -1,0 +1,188 @@
+{
+  "id": "love-language",
+  "name": "Love Language",
+  "description": "Discover how you give and receive love. Based on the five love languages framework, find out what truly makes you feel valued.",
+  "icon": "fas fa-heart",
+  "banner": "assets/images/love-language.webp",
+  "category": "relationships",
+  "personalityTypes": {
+    "words": {
+      "title": "Words of Affirmation",
+      "description": "Verbal expressions of love mean the world to you. A sincere compliment, a heartfelt message or a simple \"I'm proud of you\" can lift your spirits for days. You value open communication and expressing feelings out loud.",
+      "characteristics": ["Energised by kind words and verbal appreciation", "Communicates affection through compliments", "Remembers meaningful things people say", "Hurt by harsh criticism or silence", "Values honest, open conversations"],
+      "strengths": "You create an atmosphere where people feel truly seen and appreciated. Your affirmations strengthen every relationship you're in.",
+      "challenges": "When others express love through actions rather than words, you might miss it. Learning to recognise non-verbal love can deepen your connections.",
+      "imagePath": "assets/images/words-affirmation-personality.webp"
+    },
+    "acts": {
+      "title": "Acts of Service",
+      "description": "Actions speak louder than words for you. When someone does something thoughtful without being asked — cooking dinner, fixing something, handling a difficult errand — you feel deeply loved and cared for.",
+      "characteristics": ["Values thoughtful, practical help", "Shows love by doing things for others", "Notices effort and initiative", "Frustrated by laziness or broken promises", "Believes love is demonstrated, not just spoken"],
+      "strengths": "You are incredibly reliable and supportive. The people in your life know they can count on you when it matters most.",
+      "challenges": "Be careful not to overextend yourself doing everything for others. It's okay to ask for and accept help in return.",
+      "imagePath": "assets/images/acts-service-personality.webp"
+    },
+    "gifts": {
+      "title": "Receiving Gifts",
+      "description": "It's not about materialism — for you, a thoughtful gift is a visible symbol of love and effort. A gift says \"I was thinking about you.\" The thought, the timing and the meaning behind it matter far more than the price tag.",
+      "characteristics": ["Values meaningful, thoughtful presents", "Remembers gift-giving occasions", "Feels loved by visible tokens of affection", "Hurt by forgotten occasions or careless gifts", "Treasures sentimental items"],
+      "strengths": "You are wonderfully thoughtful when choosing gifts for others. Your attention to detail makes people feel truly known and cherished.",
+      "challenges": "Help others understand what makes you feel loved. Not everyone connects gift-giving with love, so clear communication matters.",
+      "imagePath": "assets/images/receiving-gifts-personality.webp"
+    },
+    "time": {
+      "title": "Quality Time",
+      "description": "Your love language is undivided attention. When someone puts away their phone, looks you in the eyes and is truly present — that's love to you. Shared experiences, focused conversations and simply being together fill your cup.",
+      "characteristics": ["Values full, undivided presence", "Loves shared activities and experiences", "Feels closest when given focused attention", "Hurt by distractions and cancelled plans", "Prioritises time with loved ones over material things"],
+      "strengths": "You build the deepest, most meaningful bonds because you invest real time and presence into your relationships.",
+      "challenges": "Life gets busy. Learning to feel loved even during brief, quality moments — rather than needing long stretches of time — helps you stay connected.",
+      "imagePath": "assets/images/quality-time-personality.webp"
+    },
+    "touch": {
+      "title": "Physical Touch",
+      "description": "A hug, a pat on the back, sitting close — physical connection communicates safety, warmth and love to you in a way no words can match. You feel most loved when there is physical affection and closeness in your relationships.",
+      "characteristics": ["Expresses affection through physical contact", "Comforted by hugs and physical closeness", "Sensitive to the physical presence of loved ones", "Affected by lack of physical contact", "Uses touch to comfort and reassure others"],
+      "strengths": "You create an immediate sense of warmth and safety around you. Your physical expressiveness makes others feel welcome and loved.",
+      "challenges": "Be mindful that not everyone shares this love language. Checking in with others about their comfort level shows respect and deepens trust.",
+      "imagePath": "assets/images/physical-touch-personality.webp"
+    }
+  },
+  "questions": [
+    {
+      "question": "After a tough week, what would make you feel most loved?",
+      "options": [
+        "Someone telling you how much they appreciate you",
+        "A friend coming over and helping you sort things out",
+        "Receiving a small but thoughtful surprise gift",
+        "A long catch-up with your favourite person, phones away",
+        "A warm hug that lasts longer than a second"
+      ],
+      "personalityPoints": [
+        { "words": 5, "acts": 1, "gifts": 1, "time": 1, "touch": 1 },
+        { "words": 1, "acts": 5, "gifts": 1, "time": 2, "touch": 1 },
+        { "words": 1, "acts": 1, "gifts": 5, "time": 1, "touch": 1 },
+        { "words": 1, "acts": 1, "gifts": 1, "time": 5, "touch": 1 },
+        { "words": 1, "acts": 1, "gifts": 1, "time": 1, "touch": 5 }
+      ]
+    },
+    {
+      "question": "What upsets you most in a close relationship?",
+      "options": [
+        "Not hearing enough appreciation or kind words",
+        "People not following through on things they said they'd do",
+        "Important occasions going unnoticed or gifts feeling careless",
+        "Feeling like you're never anyone's priority",
+        "Not having enough physical closeness or affection"
+      ],
+      "personalityPoints": [
+        { "words": 5, "acts": 1, "gifts": 1, "time": 1, "touch": 1 },
+        { "words": 1, "acts": 5, "gifts": 1, "time": 1, "touch": 1 },
+        { "words": 1, "acts": 1, "gifts": 5, "time": 1, "touch": 1 },
+        { "words": 1, "acts": 1, "gifts": 1, "time": 5, "touch": 1 },
+        { "words": 1, "acts": 1, "gifts": 1, "time": 1, "touch": 5 }
+      ]
+    },
+    {
+      "question": "How do you most naturally show someone you love them?",
+      "options": [
+        "Writing them a heartfelt message or telling them directly",
+        "Doing something practical to make their life easier",
+        "Picking out a gift that perfectly suits them",
+        "Spending quality one-on-one time together",
+        "Offering a hug, a squeeze or physical reassurance"
+      ],
+      "personalityPoints": [
+        { "words": 5, "acts": 1, "gifts": 1, "time": 1, "touch": 1 },
+        { "words": 1, "acts": 5, "gifts": 1, "time": 2, "touch": 1 },
+        { "words": 1, "acts": 1, "gifts": 5, "time": 1, "touch": 1 },
+        { "words": 1, "acts": 1, "gifts": 1, "time": 5, "touch": 1 },
+        { "words": 1, "acts": 1, "gifts": 1, "time": 1, "touch": 5 }
+      ]
+    },
+    {
+      "question": "Which memory from a past relationship or friendship means the most to you?",
+      "options": [
+        "When they said something that genuinely moved you",
+        "When they stepped in and helped without being asked",
+        "A gift that showed they really knew you",
+        "A long day spent together doing something you both loved",
+        "Falling asleep next to someone who made you feel completely safe"
+      ],
+      "personalityPoints": [
+        { "words": 5, "acts": 1, "gifts": 1, "time": 1, "touch": 1 },
+        { "words": 1, "acts": 5, "gifts": 1, "time": 2, "touch": 1 },
+        { "words": 1, "acts": 1, "gifts": 5, "time": 1, "touch": 1 },
+        { "words": 1, "acts": 2, "gifts": 1, "time": 5, "touch": 1 },
+        { "words": 1, "acts": 1, "gifts": 1, "time": 2, "touch": 5 }
+      ]
+    },
+    {
+      "question": "You'd feel most disconnected from someone if they:",
+      "options": [
+        "Stopped complimenting you or expressing gratitude",
+        "Stopped putting in practical effort for the relationship",
+        "Forgot your birthday or never marked special moments",
+        "Were always busy and never carved out time for you",
+        "Became distant and physically cold or withdrawn"
+      ],
+      "personalityPoints": [
+        { "words": 5, "acts": 1, "gifts": 1, "time": 1, "touch": 1 },
+        { "words": 1, "acts": 5, "gifts": 1, "time": 1, "touch": 1 },
+        { "words": 1, "acts": 1, "gifts": 5, "time": 1, "touch": 1 },
+        { "words": 1, "acts": 1, "gifts": 1, "time": 5, "touch": 1 },
+        { "words": 1, "acts": 1, "gifts": 1, "time": 1, "touch": 5 }
+      ]
+    },
+    {
+      "question": "On your birthday, the perfect celebration would be:",
+      "options": [
+        "Heartfelt messages, cards and people telling you what you mean to them",
+        "Friends rallying together to take things off your plate for the day",
+        "A carefully chosen, meaningful gift that shows someone really thought about you",
+        "A whole day with the people who matter most, doing things you all love",
+        "Lots of hugs, physical celebration and warmth all around you"
+      ],
+      "personalityPoints": [
+        { "words": 5, "acts": 1, "gifts": 2, "time": 2, "touch": 1 },
+        { "words": 1, "acts": 5, "gifts": 1, "time": 2, "touch": 1 },
+        { "words": 1, "acts": 1, "gifts": 5, "time": 1, "touch": 2 },
+        { "words": 2, "acts": 1, "gifts": 1, "time": 5, "touch": 2 },
+        { "words": 2, "acts": 1, "gifts": 2, "time": 2, "touch": 5 }
+      ]
+    },
+    {
+      "question": "Imagine you're going through something difficult. What helps most?",
+      "options": [
+        "Someone saying exactly the right words at the right time",
+        "Someone handling a stressful task you've been dreading",
+        "An unexpected thoughtful gesture that shows someone cares",
+        "Someone sitting with you and giving you their full attention",
+        "Someone holding your hand or sitting physically close to you"
+      ],
+      "personalityPoints": [
+        { "words": 5, "acts": 1, "gifts": 1, "time": 2, "touch": 1 },
+        { "words": 1, "acts": 5, "gifts": 1, "time": 1, "touch": 1 },
+        { "words": 1, "acts": 1, "gifts": 5, "time": 1, "touch": 2 },
+        { "words": 2, "acts": 1, "gifts": 1, "time": 5, "touch": 2 },
+        { "words": 1, "acts": 1, "gifts": 2, "time": 2, "touch": 5 }
+      ]
+    },
+    {
+      "question": "In a friendship, what do you value most?",
+      "options": [
+        "Friends who regularly check in and tell you they appreciate you",
+        "Friends who show up and help when things get hard",
+        "Friends who remember what matters to you and mark special moments",
+        "Friends who make proper time for you, not just quick catch-ups",
+        "Friends who are naturally warm, affectionate and physically present"
+      ],
+      "personalityPoints": [
+        { "words": 5, "acts": 1, "gifts": 1, "time": 2, "touch": 1 },
+        { "words": 1, "acts": 5, "gifts": 1, "time": 2, "touch": 1 },
+        { "words": 1, "acts": 1, "gifts": 5, "time": 1, "touch": 1 },
+        { "words": 1, "acts": 2, "gifts": 1, "time": 5, "touch": 1 },
+        { "words": 1, "acts": 1, "gifts": 1, "time": 2, "touch": 5 }
+      ]
+    }
+  ]
+}

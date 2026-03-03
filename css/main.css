@@ -1,0 +1,7 @@
+/* Main CSS file for iQuizPros application */
+
+/* This file has been modified to use webpack imports instead of CSS imports */
+/* All styles are now imported through the src/styles/main.css file and bundled by webpack */
+
+/* This is a development version of the CSS file */
+/* For production, use the minified version in the build directory */

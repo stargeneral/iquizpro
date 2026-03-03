@@ -1,0 +1,173 @@
+{
+    "id": "leadership-style-quiz",
+    "name": "What's Your Leadership Style?",
+    "description": "Discover your natural approach to leading teams and organizations",
+    "icon": "fas fa-users-cog",
+    "banner": "assets/images/leadership-style-banner.webp",
+    "category": "professional",
+    "personalityTypes": {
+      "visionary": {
+        "title": "The Visionary Leader",
+        "description": "You focus on the big picture and inspire others with future possibilities. Excellent at guiding organizations through change, you help teams see beyond immediate challenges to long-term success.",
+        "characteristics": [
+          "Future-oriented thinking",
+          "Compelling vision communication",
+          "Comfort with ambiguity",
+          "Inspirational motivation",
+          "Strategic focus"
+        ],
+        "strengths": "Innovation, inspiration, change leadership, strategic direction",
+        "challenges": "May sometimes overlook operational details or immediate needs",
+        "imagePath": "assets/images/visionary-leader.webp"
+      },
+      "democratic": {
+        "title": "The Democratic Leader",
+        "description": "You believe in collaborative decision-making and team input. By valuing diverse perspectives, you create inclusive environments where everyone feels heard and valued.",
+        "characteristics": [
+          "Collaborative approach",
+          "Active listening skills",
+          "Team-focused decisions",
+          "Consensus-building",
+          "Inclusive mindset"
+        ],
+        "strengths": "Team morale, diverse input, employee engagement, conflict resolution",
+        "challenges": "May sometimes struggle with quick decisions in urgent situations",
+        "imagePath": "assets/images/democratic-leader.webp"
+      },
+      "coaching": {
+        "title": "The Coaching Leader",
+        "description": "You focus on developing individuals' potential and fostering growth. Your supportive approach helps team members build confidence and expand their capabilities.",
+        "characteristics": [
+          "Developmental focus",
+          "Personalized support",
+          "Growth mindset",
+          "Constructive feedback",
+          "Empowerment-oriented"
+        ],
+        "strengths": "Talent development, employee retention, skill-building, motivation",
+        "challenges": "May sometimes invest time in team members who aren't receptive",
+        "imagePath": "assets/images/coaching-leader.webp"
+      },
+      "pace-setting": {
+        "title": "The Pace-Setting Leader",
+        "description": "You lead by example with high standards and achievement focus. Your drive for excellence motivates teams to deliver quality results and continuous improvement.",
+        "characteristics": [
+          "High performance standards",
+          "Leading by example",
+          "Results-driven",
+          "Quality focus",
+          "Achievement-oriented"
+        ],
+        "strengths": "Excellence, productivity, quality standards, goal achievement",
+        "challenges": "May sometimes create pressure without adequate support",
+        "imagePath": "assets/images/pace-setting-leader.webp"
+      }
+    },
+    "questions": [
+      {
+        "question": "Your primary leadership focus is on:",
+        "options": [
+          "Setting a compelling direction for the future",
+          "Ensuring everyone's voice is heard",
+          "Developing each team member's potential",
+          "Achieving excellent results through personal example"
+        ],
+        "personalityPoints": [
+          { "visionary": 5, "democratic": 1, "coaching": 2, "pace-setting": 1 },
+          { "visionary": 1, "democratic": 5, "coaching": 2, "pace-setting": 1 },
+          { "visionary": 2, "democratic": 1, "coaching": 5, "pace-setting": 1 },
+          { "visionary": 1, "democratic": 1, "coaching": 2, "pace-setting": 5 }
+        ]
+      },
+      {
+        "question": "When making important decisions, you:",
+        "options": [
+          "Consider long-term strategic implications",
+          "Gather input from the whole team",
+          "Think about how it will help individuals grow",
+          "Rely on your own expertise and standards"
+        ],
+        "personalityPoints": [
+          { "visionary": 5, "democratic": 1, "coaching": 2, "pace-setting": 1 },
+          { "visionary": 1, "democratic": 5, "coaching": 2, "pace-setting": 1 },
+          { "visionary": 2, "democratic": 1, "coaching": 5, "pace-setting": 1 },
+          { "visionary": 1, "democratic": 1, "coaching": 2, "pace-setting": 5 }
+        ]
+      },
+      {
+        "question": "Your team would describe you as:",
+        "options": [
+          "The big-picture thinker",
+          "The great listener",
+          "The supportive mentor",
+          "The high achiever"
+        ],
+        "personalityPoints": [
+          { "visionary": 5, "democratic": 1, "coaching": 2, "pace-setting": 1 },
+          { "visionary": 1, "democratic": 5, "coaching": 2, "pace-setting": 1 },
+          { "visionary": 2, "democratic": 1, "coaching": 5, "pace-setting": 1 },
+          { "visionary": 1, "democratic": 1, "coaching": 2, "pace-setting": 5 }
+        ]
+      },
+      {
+        "question": "You measure success primarily by:",
+        "options": [
+          "Progress toward the vision",
+          "Team satisfaction and engagement",
+          "Individual growth and development",
+          "Quality of outcomes and achievements"
+        ],
+        "personalityPoints": [
+          { "visionary": 5, "democratic": 1, "coaching": 2, "pace-setting": 1 },
+          { "visionary": 1, "democratic": 5, "coaching": 2, "pace-setting": 1 },
+          { "visionary": 2, "democratic": 1, "coaching": 5, "pace-setting": 1 },
+          { "visionary": 1, "democratic": 1, "coaching": 2, "pace-setting": 5 }
+        ]
+      },
+      {
+        "question": "When problems arise, you typically:",
+        "options": [
+          "Refocus everyone on the long-term goals",
+          "Facilitate a team discussion to solve it together",
+          "Use it as a teaching moment for development",
+          "Jump in to demonstrate how to fix it properly"
+        ],
+        "personalityPoints": [
+          { "visionary": 5, "democratic": 1, "coaching": 2, "pace-setting": 1 },
+          { "visionary": 1, "democratic": 5, "coaching": 2, "pace-setting": 1 },
+          { "visionary": 2, "democratic": 1, "coaching": 5, "pace-setting": 1 },
+          { "visionary": 1, "democratic": 1, "coaching": 2, "pace-setting": 5 }
+        ]
+      },
+      {
+        "question": "Your strongest leadership skill is:",
+        "options": [
+          "Inspiring others with future possibilities",
+          "Building consensus among diverse views",
+          "Developing people's potential",
+          "Setting and achieving high standards"
+        ],
+        "personalityPoints": [
+          { "visionary": 5, "democratic": 1, "coaching": 2, "pace-setting": 1 },
+          { "visionary": 1, "democratic": 5, "coaching": 2, "pace-setting": 1 },
+          { "visionary": 2, "democratic": 1, "coaching": 5, "pace-setting": 1 },
+          { "visionary": 1, "democratic": 1, "coaching": 2, "pace-setting": 5 }
+        ]
+      },
+      {
+        "question": "In meetings, you're most likely to:",
+        "options": [
+          "Talk about long-term strategy and vision",
+          "Ensure everyone gets equal speaking time",
+          "Ask questions to draw out people's thoughts",
+          "Provide clear direction based on your expertise"
+        ],
+        "personalityPoints": [
+          { "visionary": 5, "democratic": 1, "coaching": 2, "pace-setting": 1 },
+          { "visionary": 1, "democratic": 5, "coaching": 2, "pace-setting": 1 },
+          { "visionary": 2, "democratic": 1, "coaching": 5, "pace-setting": 1 },
+          { "visionary": 1, "democratic": 1, "coaching": 2, "pace-setting": 5 }
+        ]
+      }
+    ]
+  }

@@ -1,0 +1,173 @@
+<!DOCTYPE html><html lang=en><head><meta charset=UTF-8><meta name=viewport content="width=device-width,initial-scale=1"><meta http-equiv=Content-Security-Policy content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google-analytics.com https://www.gstatic.com https://*.googleapis.com https://cdn.jsdelivr.net https://cdnjs.cloudflare.com; connect-src 'self' https://firebase*.googleapis.com https://identitytoolkit.googleapis.com https://securetoken.googleapis.com https://www.google-analytics.com https://region1.analytics.google.com https://stats.g.doubleclick.net https://www.google.co.uk https://cdn.jsdelivr.net https://www.gstatic.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com data:; img-src 'self' data: https://www.google-analytics.com https://www.google.co.uk; frame-src https://accounts.google.com https://www.youtube.com; worker-src 'self' blob:;"><title>iQuizPros - Free Online Quizzes &amp; Personality Tests</title><meta name="description" content="Take fun personality quizzes, knowledge challenges, and trivia tests. Discover your personality type, test your knowledge, and share results with friends."><meta name="robots" content="index, follow"><meta property="og:title" content="iQuizPros - Free Online Quizzes &amp; Personality Tests"><meta property="og:description" content="Take fun personality quizzes and knowledge challenges. Discover your personality type and share your results."><meta property="og:type" content="website"><meta property="og:url" content="https://iquizpro.com"><meta property="og:image" content="https://iquizpro.com/assets/images/personality-banner.jpg"><meta property="og:site_name" content="iQuizPros"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="iQuizPros - Free Online Quizzes &amp; Personality Tests"><meta name="twitter:description" content="Take fun personality quizzes and knowledge challenges. Discover your personality type."><meta name="twitter:image" content="https://iquizpro.com/assets/images/personality-banner.jpg"><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"iQuizPros","url":"https://iquizpro.com","description":"Free online personality quizzes and knowledge tests","potentialAction":{"@type":"SearchAction","target":"https://iquizpro.com/?quiz={quiz_id}","query-input":"required name=quiz_id"}}</script><script async src="https://www.googletagmanager.com/gtag/js?id=G-0QZSJ62FJV"></script><script>window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-0QZSJ62FJV');</script><link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Open+Sans:wght@400;600&display=swap" rel=stylesheet><link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin=anonymous referrerpolicy=no-referrer><link rel=stylesheet href="css/base.css?v=1.0"><link rel=stylesheet href="css/theme.css?v=1.0"><link rel=stylesheet href="css/layout.css?v=1.0"><link rel=stylesheet href="css/components.css?v=1.0"><link rel=stylesheet href="css/header.css?v=1.0"><link rel=stylesheet href="styles.css?v=1.3"><link rel=stylesheet href="css/quiz-detail.css?v=1.0"><link rel=stylesheet href="css/auth-styles.css?v=1.0"><link rel=stylesheet href="toast-styles.css?v=1.0"><script>document.addEventListener('DOMContentLoaded', function() {
+        // Check if Font Awesome loaded correctly
+        setTimeout(function() {
+          const testIcon = document.createElement('i');
+          testIcon.className = 'fas fa-check';
+          document.body.appendChild(testIcon);
+          
+          const computedStyle = window.getComputedStyle(testIcon);
+          const fontFamily = computedStyle.getPropertyValue('font-family');
+          
+          if (!fontFamily.includes('Font Awesome') && !fontFamily.includes('FontAwesome')) {
+            console.warn('Font Awesome not loaded correctly, adding emergency fallback');
+            
+            // Add emergency fallback
+            const fallbackLink = document.createElement('link');
+            fallbackLink.rel = 'stylesheet';
+            fallbackLink.href = 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css';
+            document.head.appendChild(fallbackLink);
+            
+            // Also add inline style for icons
+            const iconStyle = document.createElement('style');
+            iconStyle.textContent = `
+              /* Emergency icon fallbacks */
+              .fas.fa-arrow-left:before, .fas.fa-chevron-left:before { content: "←"; }
+              .fas.fa-brain:before { content: "🧠"; }
+              .fas.fa-flask:before { content: "🧪"; }
+              .fas.fa-landmark:before { content: "🏛️"; }
+              .fas.fa-globe-americas:before { content: "🌎"; }
+              .fas.fa-film:before { content: "🎬"; }
+              .fas.fa-user:before { content: "👤"; }
+              .fas.fa-user-check:before { content: "✓👤"; }
+              .fas.fa-briefcase:before { content: "💼"; }
+              .fas.fa-heart:before { content: "❤️"; }
+              .fas.fa-lightbulb:before { content: "💡"; }
+              .fas.fa-map-marker-alt:before { content: "📍"; }
+              .fas.fa-images:before { content: "🖼️"; }
+              .fas.fa-star:before { content: "⭐"; }
+              .fas.fa-crown:before { content: "👑"; }
+              .fab.fa-whatsapp:before { content: "📱"; }
+              .fas.fa-redo:before { content: "🔄"; }
+              .fab.fa-facebook:before { content: "F"; }
+              .fab.fa-twitter:before { content: "T"; }
+              .fab.fa-instagram:before { content: "I"; }
+            `;
+            document.head.appendChild(iconStyle);
+          }
+          
+          // Clean up test icon
+          document.body.removeChild(testIcon);
+        }, 1000);
+      });</script><script src=https://cdn.jsdelivr.net/npm/canvas-confetti@1.4.0/dist/confetti.browser.min.js></script><script src=https://www.gstatic.com/firebasejs/9.6.0/firebase-app-compat.js></script><script src=https://www.gstatic.com/firebasejs/9.6.0/firebase-auth-compat.js></script><script src=https://www.gstatic.com/firebasejs/9.6.0/firebase-database-compat.js></script><script src=https://www.gstatic.com/firebasejs/9.6.0/firebase-firestore-compat.js></script><script src=js/config.js></script><script src=js/utils/utils.js></script><script src=js/utils/storage.js></script><script src=js/utils/api.js></script><script src=js/utils/feature-flags.js></script><script src=js/utils/audio.js></script><script src=js/components/mobile-menu.js></script><script src=js/components/header.js></script><script src=js/components/footer.js></script><script src=js/components/premium-badge.js></script><script src=js/components/question-display.js></script><script src=js/components/quiz-card.js></script><script src=js/components/results-display.js></script><script src=js/modules/analytics.js></script><script src=js/modules/cookie-consent.js></script><script src=js/modules/premium.js></script><script src=js/modules/question-bank.js></script><script src=js/modules/topics.js></script><script src=js/modules/quiz-timer.js></script><script src=js/modules/quiz-scoring.js></script><script src=js/modules/quiz-renderer.js></script><script src=js/modules/quiz-engine.js></script><script src=js/modules/ui-manager.js></script><script src=js/modules/user-manager.js></script><script src=app.js></script><script src=js/modules/auth-manager.js></script><link rel=icon href=/favicon.ico><script defer=defer src=/js/runtime.6fdec4f4d8bfa2f8d22e.js></script><script defer=defer src=/js/vendors.de788a87b9bb3625350b.js></script><script defer=defer src=/js/main.fbb37b19692fd0d5c56a.js></script><script defer=defer src=/js/vendor.409035b1c3be45e43278.js></script><script defer=defer src=/js/live-presenter.e6fc5f16770ec082babb.js></script><script defer=defer src=/js/live-audience.31a46b5cdf8fe0b3ca6d.js></script></head><body><div class=toast-container></div><div id=topic-selection-screen class=quiz-container><h3>Loading quiz topics...</h3></div><div id=category-selection-screen class=quiz-container style="display: none;"><div class="quiz-header category-header"><button id=back-to-topics-from-categories class=back-button><i class="fas fa-arrow-left"></i> Back</button><div class=quiz-topic-info>Personality Quiz Categories</div></div><div id=category-grid-container></div></div><div class=quiz-container id=main-quiz-container style="display: none;"><div class=quiz-header><button id=back-to-topics class=back-button><i class="fas fa-arrow-left"></i> Topics</button><div class=quiz-topic-info id=current-topic-info>Quiz</div></div><div class=progress-container><div class=progress-bar><div class=progress id=progress></div></div></div><div id=question-container></div><div id=loading><div class=spinner></div><h2 id=loading-message>🔍 Loading Your Quiz...</h2><div class=loading-step>🧠 Analyzing your preferences...</div><div class=loading-step>📊 Preparing questions...</div><div class=loading-step>✨ Almost ready...</div></div><div id=pre-result style="display: none;"><div id=locked-result><div class=lock-icon>🔒</div><h2>Yay! Congratulations!</h2><p>We have calculated your result</p><div class=share-instructions><strong>Your results are ready:</strong><ol><li>Share this quiz with friends (Click the WhatsApp Button)</li><li>After sharing, you'll see your final results</li></ol></div><div class="progress-container share-progress"><p>Share with friends to see your results</p><div class="progress-bar share-bar"><div class=progress id=share-progress style="width: 33%"></div></div></div></div><button class=share-btn id=whatsapp-share-first><i class="fab fa-whatsapp"></i> Share on WhatsApp</button></div><div id=final-result style="display: none;"><div class=result-badge id=result-badge>🏆</div><h2>Your Score: <span id=result-score>0</span>/<span id=total-questions>0</span></h2><div class=result-message id=result-message></div><div id=share-container><button class=share-btn id=whatsapp-share-again><i class="fab fa-whatsapp"></i> Challenge Friends</button></div><button class="share-btn secondary" id=try-again><i class="fas fa-redo"></i> Try Again</button></div></div><script>// Add emergency inline styles if CSS files fail to load
+      document.addEventListener('DOMContentLoaded', function() {
+        setTimeout(function() {
+          // Check if our topic cards have proper styling
+          const topicCards = document.querySelectorAll('.topic-card');
+          if (topicCards.length > 0) {
+            const firstCard = topicCards[0];
+            const style = window.getComputedStyle(firstCard);
+            
+            // If card doesn't have a background color, apply emergency styles
+            if (style.backgroundColor === 'rgba(0, 0, 0, 0)' || style.backgroundColor === 'transparent') {
+              console.warn('Emergency styles being applied - CSS files may not have loaded correctly');
+              
+              const emergencyStyles = document.createElement('style');
+              emergencyStyles.textContent = `
+                /* Emergency styles for basic functionality */
+                .topic-card {
+                  padding: 15px;
+                  background-color: #f5f5f5;
+                  border-radius: 8px;
+                  margin: 10px;
+                  cursor: pointer;
+                  transition: all 0.3s;
+                  text-align: center;
+                }
+                
+                .topic-card:hover {
+                  transform: translateY(-5px);
+                  background-color: #ffffff;
+                  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+                }
+                
+                .topic-icon {
+                  font-size: 24px;
+                  color: #25d366;
+                  margin-bottom: 10px;
+                }
+                
+                .option {
+                  padding: 15px;
+                  background-color: #f5f5f5;
+                  border: 1px solid #ddd;
+                  border-radius: 8px;
+                  margin-bottom: 10px;
+                  cursor: pointer;
+                }
+                
+                .option:hover {
+                  background-color: #eeeeee;
+                }
+                
+                .back-button {
+                  background-color: #f5f5f5;
+                  border: 1px solid #ddd;
+                  padding: 8px 15px;
+                  border-radius: 5px;
+                  cursor: pointer;
+                }
+              `;
+              
+              document.head.appendChild(emergencyStyles);
+            }
+          }
+        }, 1500);
+      });</script><script>// Force Font Awesome icons to display
+      document.addEventListener('DOMContentLoaded', function() {
+        function checkAndFixIcons() {
+          const iconElements = document.querySelectorAll('.fas, .fab, .far, .fa');
+          
+          iconElements.forEach(icon => {
+            // Force a redraw of the icon
+            icon.style.display = 'none';
+            void icon.offsetHeight; // Trigger reflow
+            icon.style.display = '';
+            
+            // Add additional check for proper icon display
+            setTimeout(() => {
+              const style = window.getComputedStyle(icon, ':before');
+              if (!style.content || style.content === 'none' || style.content === '""') {
+                // Add a class we can target with our emergency styles
+                icon.classList.add('icon-fallback-needed');
+                
+                // Try to determine what icon this should be based on classes
+                const classes = Array.from(icon.classList);
+                let fallbackText = '•'; // Default fallback
+                
+                if (classes.includes('fa-arrow-left')) fallbackText = '←';
+                else if (classes.includes('fa-brain')) fallbackText = '🧠';
+                else if (classes.includes('fa-flask')) fallbackText = '🧪';
+                else if (classes.includes('fa-landmark')) fallbackText = '🏛️';
+                else if (classes.includes('fa-globe-americas')) fallbackText = '🌎';
+                else if (classes.includes('fa-film')) fallbackText = '🎬';
+                else if (classes.includes('fa-user')) fallbackText = '👤';
+                else if (classes.includes('fa-star')) fallbackText = '⭐';
+                else if (classes.includes('fa-crown')) fallbackText = '👑';
+                else if (classes.includes('fa-whatsapp')) fallbackText = '📱';
+                else if (classes.includes('fa-redo')) fallbackText = '🔄';
+                
+                // Apply the fallback text directly to the element
+                icon.textContent = fallbackText;
+              }
+            }, 100);
+          });
+        }
+        
+        // Run initially
+        setTimeout(checkAndFixIcons, 500);
+        
+        // Run again after everything is loaded
+        window.addEventListener('load', function() {
+          setTimeout(checkAndFixIcons, 1000);
+        });
+      });</script><script>// Initialize the footer when the DOM is loaded
+      document.addEventListener('DOMContentLoaded', function() {
+        // Check if the footer module is available
+        if (window.QuizProsFooter && typeof window.QuizProsFooter.initializeFullFooter === 'function') {
+          // Initialize the full footer with all components
+          window.QuizProsFooter.initializeFullFooter();
+        }
+      });</script><script src=https://js.stripe.com/v3/ ></script></body></html>

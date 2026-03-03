@@ -1,0 +1,98 @@
+/* ── Modal Components ───────────────────────────────────────────────────────
+   Reusable overlay / dialog styles.
+   ─────────────────────────────────────────────────────────────────────────── */
+
+/* Backdrop */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 8000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  animation: modal-fade-in 0.18s ease;
+}
+
+@keyframes modal-fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* Dialog box */
+.modal {
+  background: #fff;
+  border-radius: 16px;
+  padding: 2rem;
+  max-width: 480px;
+  width: 100%;
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.18);
+  animation: modal-slide-up 0.2s ease;
+  position: relative;
+}
+
+@keyframes modal-slide-up {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Header */
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.modal-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #1a1a1a;
+}
+
+/* Close button */
+.modal-close {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #888;
+  line-height: 1;
+  padding: 0.25rem;
+  border-radius: 4px;
+}
+
+.modal-close:hover { color: #1a1a1a; }
+.modal-close:focus-visible {
+  outline: 3px solid var(--primary-color, #25d366);
+  outline-offset: 2px;
+}
+
+/* Body */
+.modal-body {
+  color: #444;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+}
+
+/* Footer */
+.modal-footer {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: flex-end;
+}
+
+/* Dark mode */
+@media (prefers-color-scheme: dark) {
+  body:not(.light-mode-forced) .modal {
+    background: #1e1e1e;
+    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.5);
+  }
+  body:not(.light-mode-forced) .modal-title { color: #f0f0f0; }
+  body:not(.light-mode-forced) .modal-body  { color: #ccc; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .modal-backdrop, .modal { animation: none; }
+}

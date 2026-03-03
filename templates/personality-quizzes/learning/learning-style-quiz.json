@@ -1,0 +1,99 @@
+{
+    "id": "learning-style-quiz",
+    "name": "What's Your Learning Style?",
+    "description": "Discover how you process and retain information most effectively",
+    "icon": "fas fa-graduation-cap",
+    "banner": "assets/images/learning-style-banner.webp",
+    "category": "learning",
+    "personalityTypes": {
+      "visual": {
+        "title": "The Visual Learner",
+        "description": "You learn best when information is presented visually through diagrams, charts, and spatial organization. Your mind naturally converts words and ideas into mental pictures, making you excellent at remembering images and spatial relationships.",
+        "characteristics": [
+          "Prefers visual representations of information",
+          "Strong at remembering images and spatial layouts",
+          "Benefits from color-coding and mind maps",
+          "Often thinks in pictures rather than words",
+          "May doodle or draw to help understand concepts"
+        ],
+        "strengths": "Visualization, pattern recognition, artistic expression, spatial reasoning",
+        "challenges": "May struggle with purely auditory instruction or dense text without visual breaks",
+        "imagePath": "assets/images/visual-learner.webp"
+      },
+      "auditory": {
+        "title": "The Auditory Learner",
+        "description": "You process information most effectively through sound and verbal communication. Discussions, lectures, and verbal explanations resonate with you more than written materials. You likely have a strong memory for conversations and spoken instructions.",
+        "characteristics": [
+          "Learns best through verbal explanations",
+          "Remembers information by repeating it aloud",
+          "Enjoys discussions and verbal processing",
+          "May read aloud or subvocalize when studying",
+          "Strong at remembering names and conversations"
+        ],
+        "strengths": "Verbal communication, listening skills, musical ability, storytelling",
+        "challenges": "May struggle with purely visual materials or silent reading tasks",
+        "imagePath": "assets/images/auditory-learner.webp"
+      },
+      "kinesthetic": {
+        "title": "The Hands-On Learner",
+        "description": "You understand the world best through physical experience and movement. Learning by doing comes naturally to you, and you thrive when you can manipulate objects or engage in physical activities to grasp new concepts.",
+        "characteristics": [
+          "Learns best through physical activity",
+          "Needs to move while processing information",
+          "Remembers by doing rather than seeing/hearing",
+          "Excellent at physical coordination and skills",
+          "May struggle to sit still for long periods"
+        ],
+        "strengths": "Physical coordination, practical application, experimentation, sports",
+        "challenges": "May find traditional classroom settings restrictive",
+        "imagePath": "assets/images/kinesthetic-learner.webp"
+      },
+      "logical": {
+        "title": "The Analytical Learner",
+        "description": "You approach learning through systems, patterns, and logical reasoning. You naturally look for cause-and-effect relationships and prefer structured, systematic approaches to new information.",
+        "characteristics": [
+          "Prefers structured, systematic learning",
+          "Looks for patterns and logical relationships",
+          "Enjoys categorizing and classifying information",
+          "Strong at mathematical and scientific thinking",
+          "Needs to understand 'why' behind concepts"
+        ],
+        "strengths": "Problem-solving, critical thinking, mathematical ability, systems analysis",
+        "challenges": "May become frustrated with ambiguous or subjective material",
+        "imagePath": "assets/images/logical-learner.webp"
+      }
+    },
+    "questions": [
+      {
+        "question": "When learning something new, you prefer to:",
+        "options": [
+          "See diagrams, charts, or illustrations",
+          "Hear someone explain it to you",
+          "Try it out hands-on immediately",
+          "Understand the underlying principles first"
+        ],
+        "personalityPoints": [
+          { "visual": 5, "auditory": 1, "kinesthetic": 2, "logical": 1 },
+          { "visual": 1, "auditory": 5, "kinesthetic": 1, "logical": 2 },
+          { "visual": 2, "auditory": 1, "kinesthetic": 5, "logical": 1 },
+          { "visual": 1, "auditory": 2, "kinesthetic": 1, "logical": 5 }
+        ]
+      },
+      {
+        "question": "When giving directions to someone, you typically:",
+        "options": [
+          "Draw a map or sketch the route",
+          "Explain the route verbally in detail",
+          "Walk or drive with them the first time",
+          "Provide clear step-by-step instructions"
+        ],
+        "personalityPoints": [
+          { "visual": 5, "auditory": 1, "kinesthetic": 2, "logical": 1 },
+          { "visual": 1, "auditory": 5, "kinesthetic": 1, "logical": 2 },
+          { "visual": 2, "auditory": 1, "kinesthetic": 5, "logical": 1 },
+          { "visual": 1, "auditory": 2, "kinesthetic": 1, "logical": 5 }
+        ]
+      },
+      { "questions": [ { "question": "How do you best memorize new information?", "options": [ "By creating mind maps and visual diagrams", "By listening to explanations or podcasts", "By engaging in hands-on activities related to the topic", "By writing down and organizing information systematically" ], "personalityPoints": [ { "visual": 5, "auditory": 1, "kinesthetic": 2, "logical": 1 }, { "visual": 1, "auditory": 5, "kinesthetic": 1, "logical": 2 }, { "visual": 2, "auditory": 1, "kinesthetic": 5, "logical": 1 }, { "visual": 1, "auditory": 2, "kinesthetic": 1, "logical": 5 } ] }, { "question": "When trying to understand a complex topic, you prefer to:", "options": [ "Look at charts, graphs, and illustrations", "Attend lectures or listen to discussions", "Participate in interactive workshops or labs", "Break down the topic into logical, step-by-step segments" ], "personalityPoints": [ { "visual": 5, "auditory": 1, "kinesthetic": 2, "logical": 1 }, { "visual": 1, "auditory": 5, "kinesthetic": 1, "logical": 2 }, { "visual": 2, "auditory": 1, "kinesthetic": 5, "logical": 1 }, { "visual": 1, "auditory": 2, "kinesthetic": 1, "logical": 5 } ] }, { "question": "When reading a textbook, you find it most helpful to:", "options": [ "Highlight key points and visualize connections", "Discuss the material with peers or listen to recaps", "Apply the concepts through practice problems", "Summarize the information into structured outlines" ], "personalityPoints": [ { "visual": 5, "auditory": 1, "kinesthetic": 2, "logical": 1 }, { "visual": 1, "auditory": 5, "kinesthetic": 1, "logical": 2 }, { "visual": 2, "auditory": 1, "kinesthetic": 5, "logical": 1 }, { "visual": 1, "auditory": 2, "kinesthetic": 1, "logical": 5 } ] }, { "question": "During a class, which activity helps you stay engaged?", "options": [ "Observing and noting visual aids used by the teacher", "Listening intently to the lecture and discussions", "Participating in group activities and experiments", "Taking detailed, organized notes and following logical explanations" ], "personalityPoints": [ { "visual": 5, "auditory": 1, "kinesthetic": 2, "logical": 1 }, { "visual": 1, "auditory": 5, "kinesthetic": 1, "logical": 2 }, { "visual": 2, "auditory": 1, "kinesthetic": 5, "logical": 1 }, { "visual": 1, "auditory": 2, "kinesthetic": 1, "logical": 5 } ] }, { "question": "When trying to recall information, you often:", "options": [ "Visualize images and diagrams in your mind", "Recall the sound of the explanation or discussion", "Remember by physically practicing or simulating the task", "Reconstruct the information through logical sequencing" ], "personalityPoints": [ { "visual": 5, "auditory": 1, "kinesthetic": 2, "logical": 1 }, { "visual": 1, "auditory": 5, "kinesthetic": 1, "logical": 2 }, { "visual": 2, "auditory": 1, "kinesthetic": 5, "logical": 1 }, { "visual": 1, "auditory": 2, "kinesthetic": 1, "logical": 5 } ] }, { "question": "When studying alone, you prefer:", "options": [ "Creating visual summaries or diagrams of the material", "Listening to recordings of lectures or audiobooks", "Engaging in practical exercises or hands-on activities", "Structuring your study plan with clear, logical outlines" ], "personalityPoints": [ { "visual": 5, "auditory": 1, "kinesthetic": 2, "logical": 1 }, { "visual": 1, "auditory": 5, "kinesthetic": 1, "logical": 2 }, { "visual": 2, "auditory": 1, "kinesthetic": 5, "logical": 1 }, { "visual": 1, "auditory": 2, "kinesthetic": 1, "logical": 5 } ] }, { "question": "Which study environment suits you best?", "options": [ "A space filled with inspiring visuals and infographics", "A quiet room where you can listen to lectures or podcasts", "An interactive setting with opportunities for hands-on learning", "A well-organized desk with clear materials and structured notes" ], "personalityPoints": [ { "visual": 5, "auditory": 1, "kinesthetic": 2, "logical": 1 }, { "visual": 1, "auditory": 5, "kinesthetic": 1, "logical": 2 }, { "visual": 2, "auditory": 1, "kinesthetic": 5, "logical": 1 }, { "visual": 1, "auditory": 2, "kinesthetic": 1, "logical": 5 } ] }, { "question": "When learning a new skill, you usually:", "options": [ "Watch video tutorials and study visual guides", "Attend workshops or listen to expert explanations", "Jump right in and learn through practical experience", "Research and understand the theory behind it before starting" ], "personalityPoints": [ { "visual": 5, "auditory": 1, "kinesthetic": 2, "logical": 1 }, { "visual": 1, "auditory": 5, "kinesthetic": 1, "logical": 2 }, { "visual": 2, "auditory": 1, "kinesthetic": 5, "logical": 1 }, { "visual": 1, "auditory": 2, "kinesthetic": 1, "logical": 5 } ] } ] }
+    ]
+  }

@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Analytics - iQuizPros</title>
+    <meta name="robots" content="noindex, nofollow">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+          integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg=="
+          crossorigin="anonymous" referrerpolicy="no-referrer">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-firestore-compat.js"></script>
+
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Roboto', sans-serif; line-height: 1.6; color: #333; background: #f0f2f5; min-height: 100vh; }
+
+        header {
+            background: linear-gradient(135deg, #25d366 0%, #128c7e 100%);
+            color: white; padding: 1rem 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+        }
+        .header-container {
+            max-width: 1100px; margin: 0 auto; padding: 0 20px;
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .logo a { color: white; text-decoration: none; font-size: 1.5rem; font-weight: 700; }
+        .nav-menu { display: flex; list-style: none; gap: 2rem; }
+        .nav-menu a { color: rgba(255,255,255,0.9); text-decoration: none; transition: opacity .2s; }
+        .nav-menu a:hover { opacity: 0.75; }
+
+        #loading-screen, #auth-gate, #access-denied {
+            display: flex; flex-direction: column; align-items: center;
+            justify-content: center; min-height: 60vh; text-align: center; gap: 1rem;
+        }
+        .spinner {
+            width: 48px; height: 48px; border: 4px solid #e0e0e0;
+            border-top-color: #25d366; border-radius: 50%;
+            animation: spin .8s linear infinite;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        .btn { display: inline-block; padding: .75rem 1.75rem; border-radius: 8px;
+               text-decoration: none; font-size: .97rem; font-weight: 600; cursor: pointer; border: none; transition: all .2s; }
+        .btn-primary { background: linear-gradient(135deg, #25d366, #128c7e); color: white; }
+        .btn-primary:hover { opacity: .9; transform: translateY(-1px); }
+
+        .admin-main { max-width: 1100px; margin: 2rem auto; padding: 0 20px; display: grid; gap: 1.5rem; }
+
+        .card { background: white; border-radius: 12px; padding: 1.5rem; box-shadow: 0 2px 8px rgba(0,0,0,0.07); }
+        .card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem; }
+        .card-header h2 { font-size: 1.2rem; color: #333; display: flex; align-items: center; gap: .5rem; }
+        .card-header h2 i { color: #25d366; }
+
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 1rem; margin-bottom: 1rem; }
+        .stat-item { text-align: center; padding: 1rem; background: #f8fffe; border-radius: 8px; border: 1px solid #e8faf0; }
+        .stat-value { font-size: 2rem; font-weight: 700; color: #25d366; }
+        .stat-label { font-size: .8rem; color: #888; margin-top: .25rem; }
+
+        table { width: 100%; border-collapse: collapse; font-size: .9rem; }
+        th { text-align: left; padding: 8px 12px; font-size: .78rem; text-transform: uppercase; letter-spacing: .04em; color: #888; border-bottom: 2px solid #f0f0f0; }
+        td { padding: 10px 12px; border-bottom: 1px solid #f5f5f5; vertical-align: middle; }
+        tr:last-child td { border-bottom: none; }
+        tr:hover td { background: #fafffe; }
+        .play-bar-wrap { background: #f0f0f0; border-radius: 4px; height: 8px; min-width: 60px; overflow: hidden; }
+        .play-bar { background: linear-gradient(90deg, #25d366, #128c7e); height: 100%; border-radius: 4px; transition: width .4s; }
+        .tag { display: inline-block; font-size: .7rem; padding: 2px 8px; border-radius: 10px; font-weight: 600; }
+        .tag-green { background: #e8faf0; color: #128c7e; }
+
+        .empty { text-align: center; padding: 2rem; color: #aaa; font-size: .9rem; }
+
+        footer { text-align: center; padding: 2rem; color: #888; font-size: .85rem; }
+        footer a { color: #128c7e; text-decoration: none; margin: 0 .5rem; }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="header-container">
+        <div class="logo"><a href="/">iQuizPros</a></div>
+        <ul class="nav-menu">
+            <li><a href="/">Home</a></li>
+            <li><a href="/dashboard.html">Dashboard</a></li>
+        </ul>
+    </div>
+</header>
+
+<!-- Loading -->
+<div id="loading-screen">
+    <div class="spinner"></div>
+    <p style="color:#888;">Loading admin panel…</p>
+</div>
+
+<!-- Access denied -->
+<div id="access-denied" style="display:none;">
+    <i class="fas fa-lock" style="font-size:3rem;color:#dc3545;"></i>
+    <h2>Access Denied</h2>
+    <p>This page is restricted to administrators only.</p>
+    <a href="/" class="btn btn-primary" style="margin-top:.5rem;">Go Home</a>
+</div>
+
+<!-- Auth gate -->
+<div id="auth-gate" style="display:none;">
+    <i class="fas fa-user-lock" style="font-size:3rem;color:#888;"></i>
+    <h2>Sign In Required</h2>
+    <p>You must be signed in as an administrator to view this page.</p>
+    <a href="/" class="btn btn-primary" style="margin-top:.5rem;">Sign In</a>
+</div>
+
+<!-- Admin content -->
+<div id="admin-content" style="display:none;">
+    <div class="admin-main">
+
+        <!-- Summary stats -->
+        <div class="card">
+            <div class="card-header">
+                <h2><i class="fas fa-chart-bar"></i> Site Overview</h2>
+                <span id="last-refresh" style="font-size:.8rem;color:#aaa;"></span>
+            </div>
+            <div class="stats-grid" id="overview-stats">
+                <div class="stat-item"><div class="stat-value" id="stat-total-plays">—</div><div class="stat-label">Total Quiz Plays</div></div>
+                <div class="stat-item"><div class="stat-value" id="stat-total-topics">—</div><div class="stat-label">Active Topics</div></div>
+                <div class="stat-item"><div class="stat-value" id="stat-total-sessions">—</div><div class="stat-label">Archived Sessions</div></div>
+                <div class="stat-item"><div class="stat-value" id="stat-daily-entries">—</div><div class="stat-label">Daily Challenge Entries Today</div></div>
+            </div>
+        </div>
+
+        <!-- Quiz play counts -->
+        <div class="card">
+            <div class="card-header">
+                <h2><i class="fas fa-trophy"></i> Quiz Play Counts</h2>
+            </div>
+            <table>
+                <thead>
+                    <tr><th>#</th><th>Topic</th><th>Plays</th><th>Distribution</th></tr>
+                </thead>
+                <tbody id="quiz-plays-table">
+                    <tr><td colspan="4" class="empty">Loading…</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Today's daily leaderboard -->
+        <div class="card">
+            <div class="card-header">
+                <h2><i class="fas fa-calendar-day"></i> Today's Daily Challenge Leaderboard</h2>
+                <span class="tag tag-green" id="lb-date-badge"></span>
+            </div>
+            <table>
+                <thead>
+                    <tr><th>Rank</th><th>Nickname</th><th>Score</th><th>Topic</th><th>Time</th></tr>
+                </thead>
+                <tbody id="daily-lb-admin">
+                    <tr><td colspan="5" class="empty">Loading…</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Recent archived sessions -->
+        <div class="card">
+            <div class="card-header">
+                <h2><i class="fas fa-broadcast-tower"></i> Recent Live Sessions</h2>
+            </div>
+            <table>
+                <thead>
+                    <tr><th>Session</th><th>Presenter</th><th>Participants</th><th>Slides</th><th>Date</th></tr>
+                </thead>
+                <tbody id="sessions-admin-table">
+                    <tr><td colspan="5" class="empty">Loading…</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>
+
+<footer>
+    <a href="/">Home</a> &bull; <a href="/dashboard.html">Dashboard</a>
+    <br><br>
+    <p>&copy; 2026 iQuizPros. Admin Panel.</p>
+</footer>
+
+<script>
+// ── Firebase init ──
+const firebaseConfig = {
+    apiKey:            "AIzaSyCRs_kyp7U8sRGDInIY11ds2N85oT1U1zg",
+    authDomain:        "quizpros.firebaseapp.com",
+    projectId:         "quizpros",
+    storageBucket:     "quizpros.firebasestorage.app",
+    messagingSenderId: "684284511365",
+    appId:             "1:684284511365:web:9cb2919960c3f54d5595ec"
+};
+if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
+const db   = firebase.firestore();
+
+// ── ADMIN UID — replace with your actual Firebase UID ──
+const ADMIN_UID = '93fNHZN5u7YLk5ITbPTHfsFYTI13';
+
+function escHtml(s) {
+    return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+function todayKey() {
+    return new Date().toISOString().slice(0, 10);
+}
+
+// ── Load quiz plays ──
+async function loadQuizPlays() {
+    const tbody = document.getElementById('quiz-plays-table');
+    try {
+        const snap = await db.collection('quizStats').get();
+        if (snap.empty) { tbody.innerHTML = '<tr><td colspan="4" class="empty">No quiz play data yet.</td></tr>'; return 0; }
+        const rows = snap.docs.map(d => ({ id: d.id, plays: d.data().playCount || 0 }));
+        rows.sort((a, b) => b.plays - a.plays);
+        const maxPlays = rows[0].plays || 1;
+        tbody.innerHTML = rows.map((r, i) => `<tr>
+            <td style="color:#888;font-weight:700;">${i + 1}</td>
+            <td style="font-weight:600;">${escHtml(r.id)}</td>
+            <td style="font-weight:700;color:#25d366;">${r.plays.toLocaleString()}</td>
+            <td><div class="play-bar-wrap"><div class="play-bar" style="width:${Math.round(r.plays/maxPlays*100)}%"></div></div></td>
+        </tr>`).join('');
+        document.getElementById('stat-total-plays').textContent = rows.reduce((s, r) => s + r.plays, 0).toLocaleString();
+        document.getElementById('stat-total-topics').textContent = rows.length;
+        return rows.length;
+    } catch (err) {
+        console.warn('loadQuizPlays failed', err);
+        tbody.innerHTML = '<tr><td colspan="4" class="empty">Could not load quiz play data.</td></tr>';
+        return 0;
+    }
+}
+
+// ── Load today's daily leaderboard ──
+async function loadDailyLeaderboard() {
+    const today = todayKey();
+    document.getElementById('lb-date-badge').textContent = today;
+    const tbody = document.getElementById('daily-lb-admin');
+    try {
+        const snap = await db.collection('dailyLeaderboard').doc(today)
+            .collection('scores').orderBy('score', 'desc').limit(20).get();
+        if (snap.empty) { tbody.innerHTML = '<tr><td colspan="5" class="empty">No entries yet today.</td></tr>';
+            document.getElementById('stat-daily-entries').textContent = '0'; return; }
+        document.getElementById('stat-daily-entries').textContent = snap.size;
+        const medals = ['🥇','🥈','🥉'];
+        tbody.innerHTML = snap.docs.map((d, i) => {
+            const data = d.data();
+            const ts = data.completedAt && data.completedAt.toDate
+                ? data.completedAt.toDate().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+                : '—';
+            return `<tr>
+                <td style="font-weight:700;">${medals[i] || (i+1)}</td>
+                <td>${escHtml(data.nickname || d.id.slice(0,8) + '…')}</td>
+                <td style="font-weight:700;color:#25d366;">${data.score || 0}</td>
+                <td style="font-size:.85rem;color:#888;">${escHtml(data.topicId || '—')}</td>
+                <td style="font-size:.85rem;color:#888;">${ts}</td>
+            </tr>`;
+        }).join('');
+    } catch (err) {
+        console.warn('loadDailyLeaderboard failed', err);
+        tbody.innerHTML = '<tr><td colspan="5" class="empty">Could not load leaderboard.</td></tr>';
+    }
+}
+
+// ── Load archived sessions ──
+async function loadSessions() {
+    const tbody = document.getElementById('sessions-admin-table');
+    try {
+        const snap = await db.collection('sessionArchive').orderBy('completedAt', 'desc').limit(30).get();
+        if (snap.empty) { tbody.innerHTML = '<tr><td colspan="5" class="empty">No archived sessions yet.</td></tr>';
+            document.getElementById('stat-total-sessions').textContent = '0'; return; }
+        document.getElementById('stat-total-sessions').textContent = snap.size + (snap.size === 30 ? '+' : '');
+        tbody.innerHTML = snap.docs.map(d => {
+            const s = d.data();
+            const ts = s.completedAt && s.completedAt.toDate
+                ? s.completedAt.toDate().toLocaleDateString(undefined, { year:'numeric', month:'short', day:'numeric', hour:'2-digit', minute:'2-digit' })
+                : '—';
+            return `<tr>
+                <td style="font-weight:600;">${escHtml(s.title || d.id)}</td>
+                <td style="font-size:.82rem;color:#888;">${escHtml((s.presenterId || '').slice(0,12) + '…')}</td>
+                <td style="font-weight:700;color:#128c7e;">${s.participantCount || 0}</td>
+                <td>${s.totalSlides || 0}</td>
+                <td style="font-size:.85rem;color:#888;">${ts}</td>
+            </tr>`;
+        }).join('');
+    } catch (err) {
+        console.warn('loadSessions failed', err);
+        tbody.innerHTML = '<tr><td colspan="5" class="empty">Could not load sessions.</td></tr>';
+    }
+}
+
+// ── Main ──
+async function loadAdmin() {
+    document.getElementById('last-refresh').textContent = 'Refreshed ' + new Date().toLocaleTimeString();
+    await Promise.all([loadQuizPlays(), loadDailyLeaderboard(), loadSessions()]);
+}
+
+// ── Auth guard ──
+auth.onAuthStateChanged(user => {
+    document.getElementById('loading-screen').style.display = 'none';
+    if (!user) {
+        document.getElementById('auth-gate').style.display = 'flex';
+        return;
+    }
+    if (user.uid !== ADMIN_UID) {
+        document.getElementById('access-denied').style.display = 'flex';
+        return;
+    }
+    document.getElementById('admin-content').style.display = 'block';
+    loadAdmin().catch(err => console.error('Admin load error', err));
+});
+</script>
+
+</body>
+</html>

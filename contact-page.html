@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - iQuizPro</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+        
+        body {
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .header h1 {
+            font-size: 2.5rem;
+            color: #25d366;
+            margin-bottom: 15px;
+        }
+        
+        .header p {
+            font-size: 1.1rem;
+            color: #666;
+        }
+        
+        .contact-form {
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #444;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+        
+        .form-control:focus {
+            border-color: #25d366;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(37, 211, 102, 0.1);
+        }
+        
+        textarea.form-control {
+            min-height: 150px;
+            resize: vertical;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: #25d366;
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+        
+        .btn:hover {
+            background-color: #20bd59;
+        }
+        
+        .contact-info {
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+        }
+        
+        .contact-info h2 {
+            color: #25d366;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+        }
+        
+        .contact-info p {
+            margin-bottom: 10px;
+        }
+        
+        .contact-info a {
+            color: #25d366;
+            text-decoration: none;
+        }
+        
+        .contact-info a:hover {
+            text-decoration: underline;
+        }
+        
+        .contact-info .social-links {
+            margin-top: 20px;
+        }
+        
+        .contact-info .social-links a {
+            display: inline-block;
+            margin-right: 15px;
+            font-size: 1.2rem;
+        }
+        
+        /* Responsive styles */
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px 15px;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .contact-form, .contact-info {
+                padding: 20px;
+            }
+        }
+        
+        /* Form validation styles */
+        .form-control.error {
+            border-color: #dc3545;
+        }
+        
+        .error-message {
+            color: #dc3545;
+            font-size: 0.875rem;
+            margin-top: 5px;
+            display: none;
+        }
+        
+        .success-message {
+            display: none;
+            background-color: #d4edda;
+            color: #155724;
+            padding: 15px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Header -->
+<div class="return-header">
+    <div class="return-container">
+        <a href="/" class="return-home">
+            <span class="return-icon">←</span> Return to iQuizPro
+        </a>
+    </div>
+</div>
+
+<!-- CSS Styles for Navigation -->
+<style>
+    .return-header {
+        background-color: #25d366;
+        padding: 15px 0;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+    }
+    
+    .return-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+    }
+    
+    .return-home {
+        color: white;
+        text-decoration: none;
+        font-weight: bold;
+        font-size: 16px;
+        display: flex;
+        align-items: center;
+        width: fit-content;
+        transition: opacity 0.3s;
+    }
+    
+    .return-home:hover {
+        opacity: 0.9;
+        text-decoration: none;
+    }
+    
+    .return-icon {
+        font-size: 18px;
+        margin-right: 8px;
+    }
+    
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+        .return-container {
+            padding: 0 15px;
+        }
+    }
+</style>
+    <div class="container">
+        <div class="header">
+            <h1>Contact Us</h1>
+            <p>We'd love to hear from you! Send us a message and we'll respond as soon as possible.</p>
+        </div>
+        
+        <div class="success-message" id="success-message">
+            Your message has been sent successfully. We'll get back to you soon!
+        </div>
+        
+        <div class="contact-form">
+            <form id="contactForm" action="https://formsubmit.co/admin@iquizpro.com" method="POST">
+                <!-- Honeypot to prevent spam -->
+                <input type="text" name="_honey" style="display: none;">
+                
+                <!-- Disable captcha -->
+                <input type="hidden" name="_captcha" value="false">
+                
+                <!-- Success page (redirect back to same page) -->
+                <input type="hidden" name="_next" value="https://iquizpro.com/contact?success=true">
+                
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" class="form-control" id="name" name="name" required>
+                    <div class="error-message" id="name-error">Please enter your name</div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" class="form-control" id="email" name="email" required>
+                    <div class="error-message" id="email-error">Please enter a valid email address</div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="subject">Subject</label>
+                    <input type="text" class="form-control" id="subject" name="subject" required>
+                    <div class="error-message" id="subject-error">Please enter a subject</div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="message">Message</label>
+                    <textarea class="form-control" id="message" name="message" required></textarea>
+                    <div class="error-message" id="message-error">Please enter your message</div>
+                </div>
+                
+                <button type="submit" class="btn">Send Message</button>
+            </form>
+        </div>
+        
+        <div class="contact-info">
+            <h2>Other Ways to Reach Us</h2>
+            <p><strong>Email:</strong> <a href="mailto:admin@iquizpro.com">admin@iquizpro.com</a></p>
+            <p><strong>Business Hours:</strong> Monday-Friday, 9AM-5PM GMT</p>
+            
+            <div class="social-links">
+                <p><strong>Follow Us:</strong></p>
+                <a href="https://twitter.com/iquizpro" target="_blank">Twitter</a>
+                <a href="https://facebook.com/iquizpro" target="_blank">Facebook</a>
+                <a href="https://instagram.com/iquizpro" target="_blank">Instagram</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Check for success parameter in URL
+        window.onload = function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.get('success') === 'true') {
+                document.getElementById('success-message').style.display = 'block';
+                // Scroll to success message
+                document.getElementById('success-message').scrollIntoView();
+            }
+        };
+
+        // Form validation
+        const contactForm = document.getElementById('contactForm');
+        
+        contactForm.addEventListener('submit', function(event) {
+            let hasError = false;
+            
+            // Validate name
+            const nameInput = document.getElementById('name');
+            if (!nameInput.value.trim()) {
+                document.getElementById('name-error').style.display = 'block';
+                nameInput.classList.add('error');
+                hasError = true;
+            } else {
+                document.getElementById('name-error').style.display = 'none';
+                nameInput.classList.remove('error');
+            }
+            
+            // Validate email
+            const emailInput = document.getElementById('email');
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailPattern.test(emailInput.value.trim())) {
+                document.getElementById('email-error').style.display = 'block';
+                emailInput.classList.add('error');
+                hasError = true;
+            } else {
+                document.getElementById('email-error').style.display = 'none';
+                emailInput.classList.remove('error');
+            }
+            
+            // Validate subject
+            const subjectInput = document.getElementById('subject');
+            if (!subjectInput.value.trim()) {
+                document.getElementById('subject-error').style.display = 'block';
+                subjectInput.classList.add('error');
+                hasError = true;
+            } else {
+                document.getElementById('subject-error').style.display = 'none';
+                subjectInput.classList.remove('error');
+            }
+            
+            // Validate message
+            const messageInput = document.getElementById('message');
+            if (!messageInput.value.trim()) {
+                document.getElementById('message-error').style.display = 'block';
+                messageInput.classList.add('error');
+                hasError = true;
+            } else {
+                document.getElementById('message-error').style.display = 'none';
+                messageInput.classList.remove('error');
+            }
+            
+            if (hasError) {
+                event.preventDefault();
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,188 @@
+{
+  "id": "historical-era-quiz",
+  "name": "Which Historical Era Matches Your Personality?",
+  "description": "Discover which time period aligns with your values, temperament, and worldview",
+  "icon": "fas fa-hourglass",
+  "banner": "assets/images/history-banner.webp",
+  "category": "self-discovery",
+  "personalityTypes": {
+      "renaissance": {
+          "title": "The Renaissance Soul",
+          "description": "Like the 15th-16th century Renaissance, you thrive on intellectual curiosity, artistic expression, and interdisciplinary learning. You're a true polymath who sees connections between art, science, and philosophy.",
+          "characteristics": [
+              "Values human potential",
+              "Interested in multiple fields",
+              "Appreciates beauty and learning",
+              "Seeks to reconcile opposites",
+              "Believes in progress"
+          ],
+          "strengths": "Creativity, intellectual breadth, appreciation for arts and sciences",
+          "challenges": "May struggle with specialization or focus",
+          "imagePath": "assets/images/renaissance-soul.webp"
+      },
+      "enlightenment": {
+          "title": "The Enlightenment Thinker",
+          "description": "Like the 18th century Age of Reason, you value logic, progress, and human rights. Your approach to life is rational and principled, with faith in human potential through education and good governance.",
+          "characteristics": [
+              "Values reason over tradition",
+              "Interested in social reform",
+              "Believes in universal principles",
+              "Skilled at debate and discussion",
+              "Optimistic about progress"
+          ],
+          "strengths": "Critical thinking, principled reasoning, advocacy, clarity",
+          "challenges": "May underestimate emotional or irrational factors",
+          "imagePath": "assets/images/enlightenment-thinker.webp"
+      },
+      "romantic": {
+          "title": "The Romantic Spirit",
+          "description": "Like the 19th century Romantic era, you lead with emotion, intuition, and appreciation for nature's sublime beauty. You value authentic self-expression and meaningful personal experiences.",
+          "characteristics": [
+              "Follows your heart",
+              "Moved by art and nature",
+              "Values authenticity highly",
+              "Skeptical of pure rationality",
+              "Seeks transcendent experiences"
+          ],
+          "strengths": "Emotional intelligence, creativity, authenticity, passion",
+          "challenges": "May struggle with practical constraints",
+          "imagePath": "assets/images/romantic-spirit.webp"
+      },
+      "modernist": {
+          "title": "The Modernist Innovator",
+          "description": "Like the early 20th century Modernist movement, you embrace innovation, experimentation, and breaking with tradition. You're comfortable with ambiguity and enjoy challenging conventional thinking.",
+          "characteristics": [
+              "Questions established norms",
+              "Comfortable with ambiguity",
+              "Interested in new forms",
+              "Values originality",
+              "Tolerates dissonance"
+          ],
+          "strengths": "Innovation, adaptability, courage to challenge status quo",
+          "challenges": "May alienate others or reject valuable traditions",
+          "imagePath": "assets/images/modernist-innovator.webp"
+      }
+  },
+  "questions": [
+      {
+          "question": "Your approach to life is most influenced by:",
+          "options": [
+              "The pursuit of knowledge and beauty",
+              "Reason and universal principles",
+              "Emotional truth and nature",
+              "Innovation and new perspectives"
+          ],
+          "personalityPoints": [
+              { "renaissance": 5, "enlightenment": 2, "romantic": 1, "modernist": 1 },
+              { "renaissance": 2, "enlightenment": 5, "romantic": 1, "modernist": 1 },
+              { "renaissance": 1, "enlightenment": 1, "romantic": 5, "modernist": 2 },
+              { "renaissance": 1, "enlightenment": 2, "romantic": 1, "modernist": 5 }
+          ]
+      },
+      {
+          "question": "Which environment resonates most with your inner self?",
+          "options": [
+              "A vibrant, art-filled city where creativity flourishes",
+              "A structured society driven by reason and progress",
+              "A peaceful countryside that evokes deep emotions",
+              "A futuristic metropolis with cutting-edge technology"
+          ],
+          "personalityPoints": [
+              { "renaissance": 5, "enlightenment": 2, "romantic": 1, "modernist": 1 },
+              { "renaissance": 2, "enlightenment": 5, "romantic": 1, "modernist": 1 },
+              { "renaissance": 1, "enlightenment": 1, "romantic": 5, "modernist": 2 },
+              { "renaissance": 1, "enlightenment": 2, "romantic": 1, "modernist": 5 }
+          ]
+      },
+      {
+          "question": "What drives your creative expression?",
+          "options": [
+              "Exploring historical art and cultural masterpieces",
+              "Engaging in logical debates and scientific inquiry",
+              "Tapping into your deepest feelings and imagination",
+              "Embracing modern innovations and experimental ideas"
+          ],
+          "personalityPoints": [
+              { "renaissance": 5, "enlightenment": 2, "romantic": 1, "modernist": 1 },
+              { "renaissance": 2, "enlightenment": 5, "romantic": 1, "modernist": 1 },
+              { "renaissance": 1, "enlightenment": 1, "romantic": 5, "modernist": 2 },
+              { "renaissance": 1, "enlightenment": 2, "romantic": 1, "modernist": 5 }
+          ]
+      },
+      {
+          "question": "How do you view tradition and progress?",
+          "options": [
+              "I cherish the legacy of the past and timeless art",
+              "I value progress through logic and scientific discovery",
+              "I embrace personal expression and emotional heritage",
+              "I prioritize breaking barriers with modern innovation"
+          ],
+          "personalityPoints": [
+              { "renaissance": 5, "enlightenment": 2, "romantic": 1, "modernist": 1 },
+              { "renaissance": 2, "enlightenment": 5, "romantic": 1, "modernist": 1 },
+              { "renaissance": 1, "enlightenment": 1, "romantic": 5, "modernist": 2 },
+              { "renaissance": 1, "enlightenment": 2, "romantic": 1, "modernist": 5 }
+          ]
+      },
+      {
+          "question": "What best describes your ideal social gathering?",
+          "options": [
+              "A renaissance-style salon with art and culture discussions",
+              "An intellectual coffeehouse debate on philosophy and science",
+              "A heartfelt meetup celebrating music and nature",
+              "A modern forum for unconventional ideas and tech trends"
+          ],
+          "personalityPoints": [
+              { "renaissance": 5, "enlightenment": 2, "romantic": 1, "modernist": 1 },
+              { "renaissance": 2, "enlightenment": 5, "romantic": 1, "modernist": 1 },
+              { "renaissance": 1, "enlightenment": 1, "romantic": 5, "modernist": 2 },
+              { "renaissance": 1, "enlightenment": 2, "romantic": 1, "modernist": 5 }
+          ]
+      },
+      {
+          "question": "When facing challenges, which approach do you take?",
+          "options": [
+              "Draw inspiration from historical wisdom and artistic beauty",
+              "Analyze the situation with logic and rational thought",
+              "Trust your intuition and let your emotions lead the way",
+              "Innovate with new strategies and forward-thinking ideas"
+          ],
+          "personalityPoints": [
+              { "renaissance": 5, "enlightenment": 2, "romantic": 1, "modernist": 1 },
+              { "renaissance": 2, "enlightenment": 5, "romantic": 1, "modernist": 1 },
+              { "renaissance": 1, "enlightenment": 1, "romantic": 5, "modernist": 2 },
+              { "renaissance": 1, "enlightenment": 2, "romantic": 1, "modernist": 5 }
+          ]
+      },
+      {
+          "question": "How do you define success?",
+          "options": [
+              "Achieving mastery in the arts and connecting with heritage",
+              "Advancing through rational thought and scientific progress",
+              "Finding fulfillment through authentic emotional expression",
+              "Breaking boundaries and shaping a revolutionary future"
+          ],
+          "personalityPoints": [
+              { "renaissance": 5, "enlightenment": 2, "romantic": 1, "modernist": 1 },
+              { "renaissance": 2, "enlightenment": 5, "romantic": 1, "modernist": 1 },
+              { "renaissance": 1, "enlightenment": 1, "romantic": 5, "modernist": 2 },
+              { "renaissance": 1, "enlightenment": 2, "romantic": 1, "modernist": 5 }
+          ]
+      },
+      {
+          "question": "Which of these best captures your worldview?",
+          "options": [
+              "A harmonious blend of classical art and timeless beauty",
+              "A society built on logic, order, and enlightenment",
+              "An era defined by raw emotion and expressive freedom",
+              "A future shaped by innovation and modern breakthroughs"
+          ],
+          "personalityPoints": [
+              { "renaissance": 5, "enlightenment": 2, "romantic": 1, "modernist": 1 },
+              { "renaissance": 2, "enlightenment": 5, "romantic": 1, "modernist": 1 },
+              { "renaissance": 1, "enlightenment": 1, "romantic": 5, "modernist": 2 },
+              { "renaissance": 1, "enlightenment": 2, "romantic": 1, "modernist": 5 }
+          ]
+      }
+  ]
+}

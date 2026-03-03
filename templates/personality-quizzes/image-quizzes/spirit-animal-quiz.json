@@ -1,0 +1,433 @@
+{
+  "id": "spirit-animal-quiz",
+  "name": "Discover Your Spirit Animal",
+  "description": "Pick the animal you're most drawn to and reveal profound insights about your personality",
+  "icon": "fas fa-paw",
+  "category": "image-quizzes",
+  "banner": "assets/images/spirit-animal-banner.webp",
+  "isImageQuiz": true,
+  "personalityTypes": {
+    "cat": {
+      "title": "The Independent Observer",
+      "description": "Like the mysterious cat, you are independent, observant, and possess a quiet wisdom. You value your autonomy and prefer to analyze situations before acting. Your intuitive nature helps you sense underlying truths that others miss. You maintain your own space and boundaries while still forming meaningful connections with those who understand your need for freedom.",
+      "characteristics": [
+        "Independent thinking",
+        "Keen observation skills",
+        "Balanced perspective",
+        "Comfortable with solitude",
+        "Intuitive decision-making"
+      ],
+      "strengths": "Self-reliance, perception, adaptability",
+      "challenges": "May sometimes appear aloof or detached to others",
+      "imagePath": "assets/images/spirit-animals/cat-result.webp"
+    },
+    "dog": {
+      "title": "The Loyal Protector",
+      "description": "Your spirit resonates with the dog's unwavering loyalty and protective nature. You form deep bonds with those you care about and can be counted on in times of need. Your genuine approach to relationships makes you a trusted friend and ally. You value honesty and direct communication, and you're willing to stand up for what's right.",
+      "characteristics": [
+        "Steadfast loyalty",
+        "Protective of loved ones",
+        "Honest communication",
+        "Natural team player",
+        "Optimistic outlook"
+      ],
+      "strengths": "Trustworthiness, dedication, emotional support",
+      "challenges": "May sometimes prioritize others' needs above your own",
+      "imagePath": "assets/images/spirit-animals/dog-result.webp"
+    },
+    "horse": {
+      "title": "The Free Spirit",
+      "description": "The horse spirit runs through you, bringing a natural desire for freedom and self-expression. You crave open spaces and room to move, both physically and mentally. With a powerful presence and graceful strength, you inspire others to break free from limitations. Your independence is balanced with a willingness to form partnerships based on mutual respect.",
+      "characteristics": [
+        "Freedom-loving nature",
+        "Physical and emotional strength",
+        "Balanced independence",
+        "Natural grace under pressure",
+        "Powerful presence"
+      ],
+      "strengths": "Determination, endurance, inspiring others",
+      "challenges": "May sometimes resist necessary structure or commitment",
+      "imagePath": "assets/images/spirit-animals/horse-result.webp"
+    },
+    "bear": {
+      "title": "The Protective Guardian",
+      "description": "The bear's energy flows through you, granting strength, courage, and a nurturing heart. You are a natural protector who stands firm in defense of loved ones and core values. With deep wisdom and patience, you approach challenges with steady determination. Your connection to earth energies gives you exceptional grounding and resilience in times of change.",
+      "characteristics": [
+        "Protective instincts",
+        "Inner strength and courage",
+        "Nurturing leadership",
+        "Grounded presence",
+        "Deep introspection"
+      ],
+      "strengths": "Resilience, courage, protective abilities",
+      "challenges": "May sometimes appear intimidating or overwhelming to others",
+      "imagePath": "assets/images/spirit-animals/bear-result.webp"
+    },
+    "lion": {
+      "title": "The Natural Leader",
+      "description": "The lion's spirit roars within you, marking you as a natural leader with courage and charisma. You possess the ability to command respect while inspiring others to achieve greatness. Your confidence is balanced with nobility and fairness. Like the lion, you know when to assert yourself and when to conserve your energy, making your actions deliberate and impactful.",
+      "characteristics": [
+        "Natural leadership abilities",
+        "Courage in facing challenges",
+        "Commanding presence",
+        "Strategic thinking",
+        "Protective of your 'pride'"
+      ],
+      "strengths": "Confidence, decision-making, inspiring others",
+      "challenges": "May sometimes come across as domineering in group settings",
+      "imagePath": "assets/images/spirit-animals/lion-result.webp"
+    },
+    "wolf": {
+      "title": "The Loyal Pack Member",
+      "description": "The wolf's spirit moves through you, gifting you with loyalty, intuition, and powerful social bonds. You understand the strength of community while maintaining your unique identity. Your intelligence helps you navigate complex social dynamics, and your keen instincts guide you through challenging situations. Like the wolf, you value both freedom and the security of trusted relationships.",
+      "characteristics": [
+        "Strong family/pack bonds",
+        "Balance of independence and teamwork",
+        "Keen intelligence and instinct",
+        "Perseverance through challenges",
+        "Deep communication skills"
+      ],
+      "strengths": "Intuition, endurance, social intelligence",
+      "challenges": "May sometimes struggle with trusting those outside your 'pack'",
+      "imagePath": "assets/images/spirit-animals/wolf-result.webp"
+    },
+    "sloth": {
+      "title": "The Mindful Observer",
+      "description": "The sloth spirit moves through life with you, bringing mindfulness, contemplation, and peaceful energy. You understand that slow and steady often produces the best results. Your thoughtful approach to decisions means you rarely make hasty mistakes. You have a natural ability to remain calm in chaotic situations, offering a grounding presence to those around you.",
+      "characteristics": [
+        "Mindful presence",
+        "Thoughtful decision-making",
+        "Conservation of energy",
+        "Peaceful demeanor",
+        "Patient persistence"
+      ],
+      "strengths": "Mindfulness, stress management, thoughtful analysis",
+      "challenges": "May sometimes be perceived as lacking urgency",
+      "imagePath": "assets/images/spirit-animals/sloth-result.webp"
+    },
+    "snake": {
+      "title": "The Transformative Visionary",
+      "description": "The snake's spirit flows through you, bringing transformation, rebirth, and healing wisdom. You understand the power of shedding old limitations to grow into new potential. Your perception cuts through illusion to see hidden truths. Like the snake, you move with purposeful precision, knowing when to conserve energy and when to strike decisively toward your goals.",
+      "characteristics": [
+        "Comfort with transformation",
+        "Healing abilities",
+        "Perception of hidden truths",
+        "Cyclical view of life",
+        "Precise and deliberate action"
+      ],
+      "strengths": "Adaptability, transformation, intuition",
+      "challenges": "May sometimes be misunderstood due to your mysterious nature",
+      "imagePath": "assets/images/spirit-animals/snake-result.webp"
+    },
+    "owl": {
+      "title": "The Wise Seer",
+      "description": "The owl's spirit soars with you, bringing wisdom, intuition, and the ability to see what others miss. You thrive in situations that require deep thinking and careful observation. Your connection to hidden knowledge makes you a natural guide for others. Like the owl, you often prefer to watch and listen before making your presence known.",
+      "characteristics": [
+        "Deep wisdom and insight",
+        "Ability to see beyond the obvious",
+        "Comfort with solitude and silence",
+        "Patient observation",
+        "Connection to intuitive knowledge"
+      ],
+      "strengths": "Insight, wisdom, perception of truth",
+      "challenges": "May sometimes appear mysterious or difficult to know",
+      "imagePath": "assets/images/spirit-animals/owl-result.webp"
+    },
+    "eagle": {
+      "title": "The Visionary Achiever",
+      "description": "The eagle's spirit soars within you, bringing vision, courage, and the ability to rise above limitations. You possess a natural ability to see the bigger picture while maintaining focus on important details. Your perspective allows you to navigate complex situations with grace and precision. Like the eagle, you balance freedom with responsibility, using your gifts to achieve noble goals.",
+      "characteristics": [
+        "Visionary perspective",
+        "Balance of detailed and big-picture thinking",
+        "Courage to rise above challenges",
+        "Strategic decision-making",
+        "Purposeful pursuit of goals"
+      ],
+      "strengths": "Vision, perspective, achievement orientation",
+      "challenges": "May sometimes set expectations too high for yourself or others",
+      "imagePath": "assets/images/spirit-animals/eagle-result.webp"
+    }
+  },
+  "questions": [
+    {
+      "question": "Click to select the spirit animal you feel most drawn to:",
+      "isImageSelection": true,
+      "options": [
+        { "text": "Cat", "image": "assets/images/spirit-animals/cat.webp", "value": "cat" },
+        { "text": "Dog", "image": "assets/images/spirit-animals/dog.webp", "value": "dog" },
+        { "text": "Horse", "image": "assets/images/spirit-animals/horse.webp", "value": "horse" },
+        { "text": "Bear", "image": "assets/images/spirit-animals/bear.webp", "value": "bear" },
+        { "text": "Lion", "image": "assets/images/spirit-animals/lion.webp", "value": "lion" },
+        { "text": "Wolf", "image": "assets/images/spirit-animals/wolf.webp", "value": "wolf" },
+        { "text": "Sloth", "image": "assets/images/spirit-animals/sloth.webp", "value": "sloth" },
+        { "text": "Snake", "image": "assets/images/spirit-animals/snake.webp", "value": "snake" },
+        { "text": "Owl", "image": "assets/images/spirit-animals/owl.webp", "value": "owl" },
+        { "text": "Eagle", "image": "assets/images/spirit-animals/eagle.webp", "value": "eagle" }
+      ],
+      "personalityPoints": [
+        { "cat": 10 },
+        { "dog": 10 },
+        { "horse": 10 },
+        { "bear": 10 },
+        { "lion": 10 },
+        { "wolf": 10 },
+        { "sloth": 10 },
+        { "snake": 10 },
+        { "owl": 10 },
+        { "eagle": 10 }
+      ]
+    },
+    {
+      "question": "Which animal best represents your leadership style?",
+      "isImageSelection": true,
+      "options": [
+        { "text": "Cat", "image": "assets/images/spirit-animals/cat.webp", "value": "cat" },
+        { "text": "Dog", "image": "assets/images/spirit-animals/dog.webp", "value": "dog" },
+        { "text": "Horse", "image": "assets/images/spirit-animals/horse.webp", "value": "horse" },
+        { "text": "Bear", "image": "assets/images/spirit-animals/bear.webp", "value": "bear" },
+        { "text": "Lion", "image": "assets/images/spirit-animals/lion.webp", "value": "lion" },
+        { "text": "Wolf", "image": "assets/images/spirit-animals/wolf.webp", "value": "wolf" },
+        { "text": "Sloth", "image": "assets/images/spirit-animals/sloth.webp", "value": "sloth" },
+        { "text": "Snake", "image": "assets/images/spirit-animals/snake.webp", "value": "snake" },
+        { "text": "Owl", "image": "assets/images/spirit-animals/owl.webp", "value": "owl" },
+        { "text": "Eagle", "image": "assets/images/spirit-animals/eagle.webp", "value": "eagle" }
+      ],
+      "personalityPoints": [
+        { "cat": 10 },
+        { "dog": 10 },
+        { "horse": 10 },
+        { "bear": 10 },
+        { "lion": 10 },
+        { "wolf": 10 },
+        { "sloth": 10 },
+        { "snake": 10 },
+        { "owl": 10 },
+        { "eagle": 10 }
+      ]
+    },
+    {
+      "question": "Choose the animal that resonates with your inner strength.",
+      "isImageSelection": true,
+      "options": [
+        { "text": "Cat", "image": "assets/images/spirit-animals/cat.webp", "value": "cat" },
+        { "text": "Dog", "image": "assets/images/spirit-animals/dog.webp", "value": "dog" },
+        { "text": "Horse", "image": "assets/images/spirit-animals/horse.webp", "value": "horse" },
+        { "text": "Bear", "image": "assets/images/spirit-animals/bear.webp", "value": "bear" },
+        { "text": "Lion", "image": "assets/images/spirit-animals/lion.webp", "value": "lion" },
+        { "text": "Wolf", "image": "assets/images/spirit-animals/wolf.webp", "value": "wolf" },
+        { "text": "Sloth", "image": "assets/images/spirit-animals/sloth.webp", "value": "sloth" },
+        { "text": "Snake", "image": "assets/images/spirit-animals/snake.webp", "value": "snake" },
+        { "text": "Owl", "image": "assets/images/spirit-animals/owl.webp", "value": "owl" },
+        { "text": "Eagle", "image": "assets/images/spirit-animals/eagle.webp", "value": "eagle" }
+      ],
+      "personalityPoints": [
+        { "cat": 10 },
+        { "dog": 10 },
+        { "horse": 10 },
+        { "bear": 10 },
+        { "lion": 10 },
+        { "wolf": 10 },
+        { "sloth": 10 },
+        { "snake": 10 },
+        { "owl": 10 },
+        { "eagle": 10 }
+      ]
+    },
+    {
+      "question": "Pick the animal that embodies your approach to challenges.",
+      "isImageSelection": true,
+      "options": [
+        { "text": "Cat", "image": "assets/images/spirit-animals/cat.webp", "value": "cat" },
+        { "text": "Dog", "image": "assets/images/spirit-animals/dog.webp", "value": "dog" },
+        { "text": "Horse", "image": "assets/images/spirit-animals/horse.webp", "value": "horse" },
+        { "text": "Bear", "image": "assets/images/spirit-animals/bear.webp", "value": "bear" },
+        { "text": "Lion", "image": "assets/images/spirit-animals/lion.webp", "value": "lion" },
+        { "text": "Wolf", "image": "assets/images/spirit-animals/wolf.webp", "value": "wolf" },
+        { "text": "Sloth", "image": "assets/images/spirit-animals/sloth.webp", "value": "sloth" },
+        { "text": "Snake", "image": "assets/images/spirit-animals/snake.webp", "value": "snake" },
+        { "text": "Owl", "image": "assets/images/spirit-animals/owl.webp", "value": "owl" },
+        { "text": "Eagle", "image": "assets/images/spirit-animals/eagle.webp", "value": "eagle" }
+      ],
+      "personalityPoints": [
+        { "cat": 10 },
+        { "dog": 10 },
+        { "horse": 10 },
+        { "bear": 10 },
+        { "lion": 10 },
+        { "wolf": 10 },
+        { "sloth": 10 },
+        { "snake": 10 },
+        { "owl": 10 },
+        { "eagle": 10 }
+      ]
+    },
+    {
+      "question": "Identify the animal that mirrors your creative spirit.",
+      "isImageSelection": true,
+      "options": [
+        { "text": "Cat", "image": "assets/images/spirit-animals/cat.webp", "value": "cat" },
+        { "text": "Dog", "image": "assets/images/spirit-animals/dog.webp", "value": "dog" },
+        { "text": "Horse", "image": "assets/images/spirit-animals/horse.webp", "value": "horse" },
+        { "text": "Bear", "image": "assets/images/spirit-animals/bear.webp", "value": "bear" },
+        { "text": "Lion", "image": "assets/images/spirit-animals/lion.webp", "value": "lion" },
+        { "text": "Wolf", "image": "assets/images/spirit-animals/wolf.webp", "value": "wolf" },
+        { "text": "Sloth", "image": "assets/images/spirit-animals/sloth.webp", "value": "sloth" },
+        { "text": "Snake", "image": "assets/images/spirit-animals/snake.webp", "value": "snake" },
+        { "text": "Owl", "image": "assets/images/spirit-animals/owl.webp", "value": "owl" },
+        { "text": "Eagle", "image": "assets/images/spirit-animals/eagle.webp", "value": "eagle" }
+      ],
+      "personalityPoints": [
+        { "cat": 10 },
+        { "dog": 10 },
+        { "horse": 10 },
+        { "bear": 10 },
+        { "lion": 10 },
+        { "wolf": 10 },
+        { "sloth": 10 },
+        { "snake": 10 },
+        { "owl": 10 },
+        { "eagle": 10 }
+      ]
+    },
+    {
+      "question": "Which animal's qualities do you admire most in yourself?",
+      "isImageSelection": true,
+      "options": [
+        { "text": "Cat", "image": "assets/images/spirit-animals/cat.webp", "value": "cat" },
+        { "text": "Dog", "image": "assets/images/spirit-animals/dog.webp", "value": "dog" },
+        { "text": "Horse", "image": "assets/images/spirit-animals/horse.webp", "value": "horse" },
+        { "text": "Bear", "image": "assets/images/spirit-animals/bear.webp", "value": "bear" },
+        { "text": "Lion", "image": "assets/images/spirit-animals/lion.webp", "value": "lion" },
+        { "text": "Wolf", "image": "assets/images/spirit-animals/wolf.webp", "value": "wolf" },
+        { "text": "Sloth", "image": "assets/images/spirit-animals/sloth.webp", "value": "sloth" },
+        { "text": "Snake", "image": "assets/images/spirit-animals/snake.webp", "value": "snake" },
+        { "text": "Owl", "image": "assets/images/spirit-animals/owl.webp", "value": "owl" },
+        { "text": "Eagle", "image": "assets/images/spirit-animals/eagle.webp", "value": "eagle" }
+      ],
+      "personalityPoints": [
+        { "cat": 10 },
+        { "dog": 10 },
+        { "horse": 10 },
+        { "bear": 10 },
+        { "lion": 10 },
+        { "wolf": 10 },
+        { "sloth": 10 },
+        { "snake": 10 },
+        { "owl": 10 },
+        { "eagle": 10 }
+      ]
+    },
+    {
+      "question": "Select the animal that symbolizes your unique personality.",
+      "isImageSelection": true,
+      "options": [
+        { "text": "Cat", "image": "assets/images/spirit-animals/cat.webp", "value": "cat" },
+        { "text": "Dog", "image": "assets/images/spirit-animals/dog.webp", "value": "dog" },
+        { "text": "Horse", "image": "assets/images/spirit-animals/horse.webp", "value": "horse" },
+        { "text": "Bear", "image": "assets/images/spirit-animals/bear.webp", "value": "bear" },
+        { "text": "Lion", "image": "assets/images/spirit-animals/lion.webp", "value": "lion" },
+        { "text": "Wolf", "image": "assets/images/spirit-animals/wolf.webp", "value": "wolf" },
+        { "text": "Sloth", "image": "assets/images/spirit-animals/sloth.webp", "value": "sloth" },
+        { "text": "Snake", "image": "assets/images/spirit-animals/snake.webp", "value": "snake" },
+        { "text": "Owl", "image": "assets/images/spirit-animals/owl.webp", "value": "owl" },
+        { "text": "Eagle", "image": "assets/images/spirit-animals/eagle.webp", "value": "eagle" }
+      ],
+      "personalityPoints": [
+        { "cat": 10 },
+        { "dog": 10 },
+        { "horse": 10 },
+        { "bear": 10 },
+        { "lion": 10 },
+        { "wolf": 10 },
+        { "sloth": 10 },
+        { "snake": 10 },
+        { "owl": 10 },
+        { "eagle": 10 }
+      ]
+    },
+    {
+      "question": "Choose the animal that reflects your energy and dynamism.",
+      "isImageSelection": true,
+      "options": [
+        { "text": "Cat", "image": "assets/images/spirit-animals/cat.webp", "value": "cat" },
+        { "text": "Dog", "image": "assets/images/spirit-animals/dog.webp", "value": "dog" },
+        { "text": "Horse", "image": "assets/images/spirit-animals/horse.webp", "value": "horse" },
+        { "text": "Bear", "image": "assets/images/spirit-animals/bear.webp", "value": "bear" },
+        { "text": "Lion", "image": "assets/images/spirit-animals/lion.webp", "value": "lion" },
+        { "text": "Wolf", "image": "assets/images/spirit-animals/wolf.webp", "value": "wolf" },
+        { "text": "Sloth", "image": "assets/images/spirit-animals/sloth.webp", "value": "sloth" },
+        { "text": "Snake", "image": "assets/images/spirit-animals/snake.webp", "value": "snake" },
+        { "text": "Owl", "image": "assets/images/spirit-animals/owl.webp", "value": "owl" },
+        { "text": "Eagle", "image": "assets/images/spirit-animals/eagle.webp", "value": "eagle" }
+      ],
+      "personalityPoints": [
+        { "cat": 10 },
+        { "dog": 10 },
+        { "horse": 10 },
+        { "bear": 10 },
+        { "lion": 10 },
+        { "wolf": 10 },
+        { "sloth": 10 },
+        { "snake": 10 },
+        { "owl": 10 },
+        { "eagle": 10 }
+      ]
+    },
+    {
+      "question": "Which animal do you think best represents your decision-making style?",
+      "isImageSelection": true,
+      "options": [
+        { "text": "Cat", "image": "assets/images/spirit-animals/cat.webp", "value": "cat" },
+        { "text": "Dog", "image": "assets/images/spirit-animals/dog.webp", "value": "dog" },
+        { "text": "Horse", "image": "assets/images/spirit-animals/horse.webp", "value": "horse" },
+        { "text": "Bear", "image": "assets/images/spirit-animals/bear.webp", "value": "bear" },
+        { "text": "Lion", "image": "assets/images/spirit-animals/lion.webp", "value": "lion" },
+        { "text": "Wolf", "image": "assets/images/spirit-animals/wolf.webp", "value": "wolf" },
+        { "text": "Sloth", "image": "assets/images/spirit-animals/sloth.webp", "value": "sloth" },
+        { "text": "Snake", "image": "assets/images/spirit-animals/snake.webp", "value": "snake" },
+        { "text": "Owl", "image": "assets/images/spirit-animals/owl.webp", "value": "owl" },
+        { "text": "Eagle", "image": "assets/images/spirit-animals/eagle.webp", "value": "eagle" }
+      ],
+      "personalityPoints": [
+        { "cat": 10 },
+        { "dog": 10 },
+        { "horse": 10 },
+        { "bear": 10 },
+        { "lion": 10 },
+        { "wolf": 10 },
+        { "sloth": 10 },
+        { "snake": 10 },
+        { "owl": 10 },
+        { "eagle": 10 }
+      ]
+    },
+    {
+      "question": "Which animal would you choose as your lifelong companion?",
+      "isImageSelection": true,
+      "options": [
+        { "text": "Cat", "image": "assets/images/spirit-animals/cat.webp", "value": "cat" },
+        { "text": "Dog", "image": "assets/images/spirit-animals/dog.webp", "value": "dog" },
+        { "text": "Horse", "image": "assets/images/spirit-animals/horse.webp", "value": "horse" },
+        { "text": "Bear", "image": "assets/images/spirit-animals/bear.webp", "value": "bear" },
+        { "text": "Lion", "image": "assets/images/spirit-animals/lion.webp", "value": "lion" },
+        { "text": "Wolf", "image": "assets/images/spirit-animals/wolf.webp", "value": "wolf" },
+        { "text": "Sloth", "image": "assets/images/spirit-animals/sloth.webp", "value": "sloth" },
+        { "text": "Snake", "image": "assets/images/spirit-animals/snake.webp", "value": "snake" },
+        { "text": "Owl", "image": "assets/images/spirit-animals/owl.webp", "value": "owl" },
+        { "text": "Eagle", "image": "assets/images/spirit-animals/eagle.webp", "value": "eagle" }
+      ],
+      "personalityPoints": [
+        { "cat": 10 },
+        { "dog": 10 },
+        { "horse": 10 },
+        { "bear": 10 },
+        { "lion": 10 },
+        { "wolf": 10 },
+        { "sloth": 10 },
+        { "snake": 10 },
+        { "owl": 10 },
+        { "eagle": 10 }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,84 @@
+{
+    "id": "decision-making-quiz",
+    "name": "What's Your Decision-Making Style?",
+    "description": "Discover how you naturally approach important choices and judgments",
+    "icon": "fas fa-chess",
+    "banner": "assets/images/decision-banner.webp",
+    "category": "professional",
+    "personalityTypes": {
+      "rational": {
+        "title": "The Analytical Strategist",
+        "description": "You make decisions through careful analysis of data and logical evaluation of options. Your strength is creating systematic frameworks to assess alternatives objectively.",
+        "characteristics": [
+          "Creates pros/cons lists",
+          "Seeks quantitative data",
+          "Considers long-term consequences",
+          "May experience analysis paralysis",
+          "Values objectivity"
+        ],
+        "strengths": "Thoroughness, objectivity, strategic thinking, risk assessment",
+        "challenges": "Can be slow to decide; may overlook intuitive factors",
+        "imagePath": "assets/images/analytical-strategist.webp"
+      },
+      "intuitive": {
+        "title": "The Gut-Trusting Visionary",
+        "description": "You rely on instinct and pattern recognition when making choices. Your strength is synthesizing information quickly and making bold decisions without excessive deliberation.",
+        "characteristics": [
+          "Trusts first impressions",
+          "Decides quickly",
+          "Good at reading between lines",
+          "Comfortable with uncertainty",
+          "Future-oriented"
+        ],
+        "strengths": "Speed, creativity, adaptability, big-picture thinking",
+        "challenges": "May overlook important details or data",
+        "imagePath": "assets/images/gut-trusting-visionary.webp"
+      },
+      "collaborative": {
+        "title": "The Consensus Builder",
+        "description": "You make decisions through consultation and team input. Your strength is creating buy-in and considering multiple perspectives before choosing a direction.",
+        "characteristics": [
+          "Seeks diverse opinions",
+          "Values team harmony",
+          "Good at facilitating discussion",
+          "May avoid unilateral decisions",
+          "Strong emotional intelligence"
+        ],
+        "strengths": "Inclusivity, relationship-building, conflict prevention",
+        "challenges": "May sacrifice optimal choices for group harmony",
+        "imagePath": "assets/images/consensus-builder.webp"
+      },
+      "pragmatic": {
+        "title": "The Action-Oriented Problem Solver",
+        "description": "You make decisions based on practical constraints and immediate actionability. Your strength is cutting through complexity to find workable solutions quickly.",
+        "characteristics": [
+          "Focuses on feasibility",
+          "Prefers 'good enough' solutions",
+          "Learns by doing",
+          "Comfortable with course correction",
+          "Results-driven"
+        ],
+        "strengths": "Efficiency, adaptability, practical implementation",
+        "challenges": "May overlook strategic considerations",
+        "imagePath": "assets/images/action-oriented-solver.webp"
+      }
+    },
+    "questions": [
+      {
+        "question": "When making an important purchase, you:",
+        "options": [
+          "Research specifications and reviews thoroughly",
+          "Go with what feels right in the moment",
+          "Ask friends/family for recommendations",
+          "Choose the most practical option quickly"
+        ],
+        "personalityPoints": [
+          { "rational": 5, "intuitive": 1, "collaborative": 2, "pragmatic": 1 },
+          { "rational": 1, "intuitive": 5, "collaborative": 1, "pragmatic": 2 },
+          { "rational": 2, "intuitive": 1, "collaborative": 5, "pragmatic": 1 },
+          { "rational": 1, "intuitive": 2, "collaborative": 1, "pragmatic": 5 }
+        ]
+      },
+      { "questions": [ { "question": "When making an important purchase, you:", "options": [ "Research specifications and reviews thoroughly", "Go with what feels right in the moment", "Ask friends/family for recommendations", "Choose the most practical option quickly" ], "personalityPoints": [ { "rational": 5, "intuitive": 1, "collaborative": 2, "pragmatic": 1 }, { "rational": 1, "intuitive": 5, "collaborative": 1, "pragmatic": 2 }, { "rational": 2, "intuitive": 1, "collaborative": 5, "pragmatic": 1 }, { "rational": 1, "intuitive": 2, "collaborative": 1, "pragmatic": 5 } ] }, { "question": "When faced with a difficult decision, you tend to:", "options": [ "Gather and analyze all available data before deciding", "Trust your gut feeling and decide quickly", "Seek advice from trusted friends or mentors", "Opt for the solution that seems most practical" ], "personalityPoints": [ { "rational": 5, "intuitive": 1, "collaborative": 2, "pragmatic": 1 }, { "rational": 1, "intuitive": 5, "collaborative": 1, "pragmatic": 2 }, { "rational": 2, "intuitive": 1, "collaborative": 5, "pragmatic": 1 }, { "rational": 1, "intuitive": 2, "collaborative": 1, "pragmatic": 5 } ] }, { "question": "When planning a significant life event, you:", "options": [ "Meticulously plan every detail using logic and data", "Rely on your intuition to guide your decisions", "Consult with family and friends to get their input", "Choose the option that minimizes risks and is most practical" ], "personalityPoints": [ { "rational": 5, "intuitive": 1, "collaborative": 2, "pragmatic": 1 }, { "rational": 1, "intuitive": 5, "collaborative": 1, "pragmatic": 2 }, { "rational": 2, "intuitive": 1, "collaborative": 5, "pragmatic": 1 }, { "rational": 1, "intuitive": 2, "collaborative": 1, "pragmatic": 5 } ] }, { "question": "When choosing a career path, you are most influenced by:", "options": [ "Logical analysis of the pros and cons", "A strong, intuitive sense of passion", "Advice from mentors and peers", "Practical considerations and stability" ], "personalityPoints": [ { "rational": 5, "intuitive": 1, "collaborative": 2, "pragmatic": 1 }, { "rational": 1, "intuitive": 5, "collaborative": 1, "pragmatic": 2 }, { "rational": 2, "intuitive": 1, "collaborative": 5, "pragmatic": 1 }, { "rational": 1, "intuitive": 2, "collaborative": 1, "pragmatic": 5 } ] }, { "question": "When organizing a team project, you prefer to:", "options": [ "Set clear, data-driven objectives from the start", "Encourage creative, intuitive brainstorming", "Facilitate discussions to gather everyone’s input", "Implement a structured plan to achieve practical results" ], "personalityPoints": [ { "rational": 5, "intuitive": 1, "collaborative": 2, "pragmatic": 1 }, { "rational": 1, "intuitive": 5, "collaborative": 1, "pragmatic": 2 }, { "rational": 2, "intuitive": 1, "collaborative": 5, "pragmatic": 1 }, { "rational": 1, "intuitive": 2, "collaborative": 1, "pragmatic": 5 } ] }, { "question": "When deciding on a vacation destination, you:", "options": [ "Research all the facts and details about each location", "Choose based on a spontaneous, intuitive impulse", "Ask friends for their personal travel experiences", "Pick the destination that offers the most convenience and value" ], "personalityPoints": [ { "rational": 5, "intuitive": 1, "collaborative": 2, "pragmatic": 1 }, { "rational": 1, "intuitive": 5, "collaborative": 1, "pragmatic": 2 }, { "rational": 2, "intuitive": 1, "collaborative": 5, "pragmatic": 1 }, { "rational": 1, "intuitive": 2, "collaborative": 1, "pragmatic": 5 } ] }, { "question": "When confronted with a sudden change of plans, you:", "options": [ "Evaluate the situation logically and adjust your strategy", "Rely on your gut reaction and adapt immediately", "Discuss new options with those around you", "Quickly implement the most straightforward, practical solution" ], "personalityPoints": [ { "rational": 5, "intuitive": 1, "collaborative": 2, "pragmatic": 1 }, { "rational": 1, "intuitive": 5, "collaborative": 1, "pragmatic": 2 }, { "rational": 2, "intuitive": 1, "collaborative": 5, "pragmatic": 1 }, { "rational": 1, "intuitive": 2, "collaborative": 1, "pragmatic": 5 } ] }, { "question": "When making financial decisions, you:", "options": [ "Analyze all the numbers and trends carefully", "Rely on your instinct about what feels right", "Consult with financial advisors or trusted peers", "Opt for the option that offers the best tangible benefits" ], "personalityPoints": [ { "rational": 5, "intuitive": 1, "collaborative": 2, "pragmatic": 1 }, { "rational": 1, "intuitive": 5, "collaborative": 1, "pragmatic": 2 }, { "rational": 2, "intuitive": 1, "collaborative": 5, "pragmatic": 1 }, { "rational": 1, "intuitive": 2, "collaborative": 1, "pragmatic": 5 } ] }, { "question": "When encountering conflicting advice, you:", "options": [ "Weigh the evidence logically to decide what's best", "Trust your personal instincts over external opinions", "Consider the views of those you respect and collaborate with", "Choose the solution that appears most practical and direct" ], "personalityPoints": [ { "rational": 5, "intuitive": 1, "collaborative": 2, "pragmatic": 1 }, { "rational": 1, "intuitive": 5, "collaborative": 1, "pragmatic": 2 }, { "rational": 2, "intuitive": 1, "collaborative": 5, "pragmatic": 1 }, { "rational": 1, "intuitive": 2, "collaborative": 1, "pragmatic": 5 } ] } ] }
+    ]
+  }
