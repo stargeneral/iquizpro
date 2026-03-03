@@ -215,9 +215,7 @@ window.QuizProsAuthManager = (function () {
       const e = new Error('Auth not initialized'); e.code = 'auth/not-ready';
       return Promise.reject(e);
     }
-    // Wait up to 3 s for _auth to be set (mobile devices parse the async auth
-    // SDK script more slowly, so _auth may not yet be available on form submit).
-    return _waitForAuth(3000)
+    return _waitForAuth(10000)
       .then(function(auth) {
         // setPersistence is already set in initialize(); calling it again here
         // adds unnecessary latency on mobile before signInWithEmailAndPassword.
@@ -231,7 +229,7 @@ window.QuizProsAuthManager = (function () {
       const e = new Error('Auth not initialized'); e.code = 'auth/not-ready';
       return Promise.reject(e);
     }
-    return _waitForAuth(3000)
+    return _waitForAuth(10000)
       .then(function(auth) {
         return auth.createUserWithEmailAndPassword(email, password)
           .then(cred => {
@@ -248,29 +246,30 @@ window.QuizProsAuthManager = (function () {
       .catch(e => { log.error('signUp error:', e); throw e; });
   }
 
-  // Detect mobile devices — used to choose signInWithPopup over signInWithRedirect
-  // on mobile, where the redirect flow can be interrupted by the OS or browser.
+  // Detect mobile devices — used to choose signInWithRedirect vs signInWithPopup.
   function _isMobileDevice() {
-    return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    return /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
   }
 
   function signInWithGoogle() {
     if (!initialize()) return Promise.reject(new Error('Auth not initialized'));
     if (_googleInProgress) return Promise.reject(new Error('Auth already in progress'));
     _googleInProgress = true;
-    return _waitForAuth(3000)
+    return _waitForAuth(10000)
       .then(function(auth) {
         const provider = new firebase.auth.GoogleAuthProvider();
         if (_isMobileDevice()) {
-          // Use popup on mobile — more reliable than redirect in mobile browsers
-          // and PWA standalone mode where redirect can be swallowed by the OS.
+          // On mobile use signInWithRedirect — Safari (iOS) blocks popups opened
+          // from async callbacks, which is unavoidable when _waitForAuth() runs.
+          // signInWithRedirect is a simple page navigation and always works.
+          return auth.signInWithRedirect(provider)
+            .catch(e => { _googleInProgress = false; log.error('Google sign-in (redirect) error:', e); throw e; });
+        } else {
+          // On desktop use signInWithPopup — no page navigation, better UX,
+          // no popup-blocker risk since it's triggered directly by a click.
           return auth.signInWithPopup(provider)
             .then(result => { _googleInProgress = false; return result.user; })
             .catch(e => { _googleInProgress = false; log.error('Google sign-in (popup) error:', e); throw e; });
-        } else {
-          // Redirect is preferred on desktop (no popup blocker issues)
-          return auth.signInWithRedirect(provider)
-            .catch(e => { _googleInProgress = false; log.error('Google sign-in (redirect) error:', e); throw e; });
         }
       })
       .catch(e => { _googleInProgress = false; throw e; });
