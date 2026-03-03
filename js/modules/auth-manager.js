@@ -126,9 +126,10 @@ window.QuizProsAuthManager = (function () {
     if (typeof firebase.auth === 'function') {
       _doInitAuth();
     } else {
-      // Auth SDK loaded async — poll up to 20 × 50ms = 1000ms
+      // Auth SDK not yet parsed — poll up to 60 × 50ms = 3000ms as safety net.
+      // (auth-compat script should be synchronous now, so this path should be rare.)
       log.info('firebase.auth not yet available, polling…');
-      _waitForAuthAndInit(20);
+      _waitForAuthAndInit(60);
     }
     return true;
   }
