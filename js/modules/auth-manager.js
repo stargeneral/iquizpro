@@ -36,6 +36,13 @@ window.QuizProsAuthManager = (function () {
   let _modalsCreated     = false;
   let _googleInProgress  = false;
 
+  // authInitPromise — resolves to _auth once the SDK is ready.
+  // Created eagerly in initialize() so _waitForAuth() can race it
+  // rather than spinning a new poll on each sign-in attempt.
+  let _authInitPromise = null;
+  let _authInitResolve = null;
+  let _authInitReject  = null;
+
   // ─── Firebase Initialization ───────────────────────────────────────────────
   function _initFirebase() {
     if (_fbInitialized) return true;
@@ -79,31 +86,49 @@ window.QuizProsAuthManager = (function () {
 
       _authInitialized = true;
       log.info('Auth initialized');
+
+      // Resolve the init promise so any callers awaiting _waitForAuth() unblock
+      if (_authInitResolve) { _authInitResolve(_auth); _authInitResolve = null; }
     } catch (e) {
       log.error('Auth init failed:', e);
+      if (_authInitReject) { _authInitReject(e); _authInitReject = null; }
     }
   }
 
   // Returns a promise that resolves to _auth once it is available, or rejects
-  // after maxWaitMs. Used by signIn/signUp to tolerate the async SDK loading
-  // window (Phase 11.6) without immediately rejecting on mobile devices where
-  // JS parsing is slower and _auth may not be set for 500–1500ms after page load.
+  // after maxWaitMs (default 10s). Uses the authInitPromise race pattern:
+  // initialize() creates _authInitPromise eagerly on page load, so by the time
+  // a user submits the sign-in form the promise has already resolved.
   function _waitForAuth(maxWaitMs) {
+    maxWaitMs = maxWaitMs || 10000;
     if (_auth) return Promise.resolve(_auth);
-    return new Promise(function(resolve, reject) {
+
+    var timeoutPromise = new Promise(function(_, reject) {
+      setTimeout(function() {
+        var e = new Error('Auth not ready'); e.code = 'auth/not-ready';
+        reject(e);
+      }, maxWaitMs);
+    });
+
+    // Race the pre-initialized promise against the timeout (most reliable path)
+    if (_authInitPromise) {
+      return Promise.race([_authInitPromise, timeoutPromise]);
+    }
+
+    // Fallback: poll every 50ms (should be rare now that auth-compat is synchronous)
+    var pollPromise = new Promise(function(resolve, reject) {
       var elapsed = 0;
       var poll = setInterval(function() {
         elapsed += 50;
-        if (_auth) {
-          clearInterval(poll);
-          resolve(_auth);
-        } else if (elapsed >= maxWaitMs) {
+        if (_auth) { clearInterval(poll); resolve(_auth); }
+        else if (elapsed >= maxWaitMs) {
           clearInterval(poll);
           var e = new Error('Auth not ready'); e.code = 'auth/not-ready';
           reject(e);
         }
       }, 50);
     });
+    return Promise.race([pollPromise, timeoutPromise]);
   }
 
   // 11.6: Poll for firebase.auth availability (auth SDK may load async)
@@ -123,11 +148,21 @@ window.QuizProsAuthManager = (function () {
     if (_authInitialized) return true;
     if (!_initFirebase()) return false;
 
+    // Create the init promise eagerly so _waitForAuth() can race it.
+    // Any callers that arrived before _doInitAuth() ran will chain off this
+    // promise rather than polling — more reliable on slow mobile networks.
+    if (!_authInitPromise) {
+      _authInitPromise = new Promise(function(resolve, reject) {
+        _authInitResolve = resolve;
+        _authInitReject  = reject;
+      });
+    }
+
     if (typeof firebase.auth === 'function') {
       _doInitAuth();
     } else {
-      // Auth SDK not yet parsed — poll up to 60 × 50ms = 3000ms as safety net.
-      // (auth-compat script should be synchronous now, so this path should be rare.)
+      // Auth SDK not yet parsed — poll up to 60 × 50ms = 3s as safety net.
+      // (auth-compat script should be synchronous now, so this path is rare.)
       log.info('firebase.auth not yet available, polling…');
       _waitForAuthAndInit(60);
     }
@@ -490,26 +525,41 @@ window.QuizProsAuthManager = (function () {
     _setButtonLoading(btn, true, 'Signing in…');
     _hideError(errEl);
 
-    // 15-second timeout guard — resets the button if Firebase auth hangs on a
-    // slow mobile network, preventing an unrecoverable "Signing in…" state.
+    // Generous timeout — 45s on mobile (slow 3G), 30s on desktop.
+    // Previous 15s was too short when the auth SDK hadn't loaded yet.
+    const TIMEOUT_MS = _isMobileDevice() ? 45000 : 30000;
     var _signInTimeout = setTimeout(function() {
       _setButtonLoading(btn, false, 'Sign In');
       _showError(errEl, 'Sign-in timed out. Check your connection and try again.');
-    }, 15000);
+    }, TIMEOUT_MS);
 
-    signIn(email, pass)
-      .then(() => {
-        clearTimeout(_signInTimeout);
-        // Reset button before closing the modal — guards against any edge case
-        // where the modal stays open (e.g. very slow onAuthStateChanged on iOS).
-        _setButtonLoading(btn, false, 'Sign In');
-        _closeAllModals();
-      })
-      .catch(err => {
+    function _onSignInSuccess() {
+      clearTimeout(_signInTimeout);
+      _setButtonLoading(btn, false, 'Sign In');
+      _closeAllModals();
+    }
+    function _onSignInError(err) {
+      // Auto-retry once if auth service wasn't ready (e.g. very slow CDN load)
+      if (err.code === 'auth/not-ready') {
+        log.warn('signIn: auth/not-ready — retrying in 2s');
+        _showError(errEl, 'Service is starting up, retrying…');
+        setTimeout(function() {
+          signIn(email, pass)
+            .then(_onSignInSuccess)
+            .catch(function(err2) {
+              clearTimeout(_signInTimeout);
+              _setButtonLoading(btn, false, 'Sign In');
+              _showError(errEl, _getErrorMessage(err2));
+            });
+        }, 2000);
+      } else {
         clearTimeout(_signInTimeout);
         _setButtonLoading(btn, false, 'Sign In');
         _showError(errEl, _getErrorMessage(err));
-      });
+      }
+    }
+
+    signIn(email, pass).then(_onSignInSuccess).catch(_onSignInError);
   }
 
   function _handleSignUpSubmit(e) {
@@ -533,24 +583,40 @@ window.QuizProsAuthManager = (function () {
     _setButtonLoading(btn, true, 'Creating account…');
     _hideError(errEl);
 
-    // 15-second timeout guard — same pattern as sign-in to prevent stuck button
-    // on slow mobile networks.
+    // Generous timeout — 45s on mobile, 30s on desktop.
+    const TIMEOUT_MS = _isMobileDevice() ? 45000 : 30000;
     var _signUpTimeout = setTimeout(function() {
       _setButtonLoading(btn, false, 'Sign Up');
       _showError(errEl, 'Account creation timed out. Check your connection and try again.');
-    }, 15000);
+    }, TIMEOUT_MS);
 
-    signUp(email, pass, name || null)
-      .then(() => {
-        clearTimeout(_signUpTimeout);
-        _setButtonLoading(btn, false, 'Sign Up');
-        _closeAllModals();
-      })
-      .catch(err => {
+    function _onSignUpSuccess() {
+      clearTimeout(_signUpTimeout);
+      _setButtonLoading(btn, false, 'Sign Up');
+      _closeAllModals();
+    }
+    function _onSignUpError(err) {
+      // Auto-retry once if auth service wasn't ready
+      if (err.code === 'auth/not-ready') {
+        log.warn('signUp: auth/not-ready — retrying in 2s');
+        _showError(errEl, 'Service is starting up, retrying…');
+        setTimeout(function() {
+          signUp(email, pass, name || null)
+            .then(_onSignUpSuccess)
+            .catch(function(err2) {
+              clearTimeout(_signUpTimeout);
+              _setButtonLoading(btn, false, 'Sign Up');
+              _showError(errEl, _getErrorMessage(err2));
+            });
+        }, 2000);
+      } else {
         clearTimeout(_signUpTimeout);
         _setButtonLoading(btn, false, 'Sign Up');
         _showError(errEl, _getErrorMessage(err));
-      });
+      }
+    }
+
+    signUp(email, pass, name || null).then(_onSignUpSuccess).catch(_onSignUpError);
   }
 
   function _handleForgotPasswordSubmit(e) {
