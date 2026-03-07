@@ -544,6 +544,9 @@ window.QuizProsHeader = (function() {
         <a href="#" id="view-results-button" class="user-dropdown-item">
           <i class="fas fa-history"></i> Quiz History
         </a>
+        <a href="/dashboard.html" class="user-dropdown-item">
+          <i class="fas fa-tachometer-alt"></i> Dashboard
+        </a>
         <a href="/premium.html" class="user-dropdown-item premium-item">
           <i class="fas fa-crown"></i> Upgrade to Premium
         </a>
@@ -598,6 +601,10 @@ window.QuizProsHeader = (function() {
         });
       }
     }
+
+    // Apply signed-in visual state to the toggle button icon
+    const toggleBtnUpdate = document.getElementById('user-menu-toggle');
+    if (toggleBtnUpdate) toggleBtnUpdate.classList.add('signed-in');
   }
 
   function _showProfileModal() {
@@ -708,7 +715,7 @@ window.QuizProsHeader = (function() {
       if (signInButton) {
         signInButton.addEventListener('click', function(e) {
           e.preventDefault();
-          
+
           // Use Firebase Auth UI if available
           if (window.QuizProsAuthUI && typeof window.QuizProsAuthUI.showSignInModal === 'function') {
             window.QuizProsAuthUI.showSignInModal();
@@ -718,8 +725,12 @@ window.QuizProsHeader = (function() {
         });
       }
     }
+
+    // Remove signed-in visual state from the toggle button icon
+    const toggleBtnReset = document.getElementById('user-menu-toggle');
+    if (toggleBtnReset) toggleBtnReset.classList.remove('signed-in');
   }
-  
+
   /**
    * Update premium status in header
    * @param {Event} event - Premium status event

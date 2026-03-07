@@ -804,6 +804,10 @@ window.QuizProsAuthManager = (function () {
         });
       }
     }
+
+    // Apply signed-in visual state to the toggle button icon
+    const toggleBtn = document.getElementById('user-menu-toggle');
+    if (toggleBtn) toggleBtn.classList.add('signed-in');
   }
 
   function _showProfileModal(user) {
@@ -903,6 +907,10 @@ window.QuizProsAuthManager = (function () {
         headerSignIn.addEventListener('click', e => { e.preventDefault(); showSignInModal(); });
       }
     }
+
+    // Remove signed-in visual state from the toggle button icon
+    const toggleBtn = document.getElementById('user-menu-toggle');
+    if (toggleBtn) toggleBtn.classList.remove('signed-in');
   }
 
   // ─── Module Initialization ─────────────────────────────────────────────────

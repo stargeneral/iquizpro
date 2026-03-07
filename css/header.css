@@ -189,6 +189,16 @@
   color: #25d366;
 }
 
+/* Green icon when user is signed in (class added/removed by JS) */
+.user-menu-toggle.signed-in {
+  color: #25d366;
+}
+
+.user-menu-toggle.signed-in:hover {
+  background-color: #e8faf0;
+  color: #128c7e;
+}
+
 .user-dropdown {
   position: absolute;
   top: 100%;

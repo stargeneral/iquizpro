@@ -15,7 +15,7 @@ The main application is now webpack-bundled. Run `npm run build` to generate `di
 - Entry: `src/app-entry.js` → `dist/js/app.[hash].js` + `dist/css/app.[hash].css`
 - HTML template: `src/index.template.html` → `dist/index.html`
 - Static assets (images, templates, fonts, HTML pages) copied to `dist/` via CopyPlugin
-- Current production bundle: `app.03ede69d.js` / `app.6134aff4.css` (built 2026-03-06, Phase 13: MedEd Hub, psych-mistakes diagnostic quizzes, diagnostic results routing)
+- Current production bundle: `app.f5314404.js` / `app.e71dcbe8.css` (built 2026-03-07, Phase 13C: header icon sign-in fix, Live Session Pro gate rewrite, dashboard subscription display fix)
 
 ### Module system
 All modules use `window.QuizProsXxx = (function() { ... })()` IIFE pattern. They communicate through the global `window` object. Loading ORDER in index.html is critical — changing it will break dependencies.
@@ -258,6 +258,9 @@ background: linear-gradient(135deg, #25d366 0%, #128c7e 100%);
 37. **Psych placeholder images** (Phase 12) — `assets/images/psychiatry/*.webp` are brand-green gradient placeholders. Replace with real clinical artwork (no code changes needed — just overwrite and rebuild).
 38. **`psych-mistakes-*` question order is fixed** (Phase 13) — `_injectMedEdDiagnosticResults()` in `quiz-engine.js` maps question position (0–7) to specific mistake categories. Never reorder or insert questions into `psychMistakesMedStudent` or `psychMistakesNurse` arrays in `question-bank.js` without also updating the analysis logic.
 39. **`meded.html` is standalone** (Phase 13) — Pure marketing page; no Firebase init, no webpack bundle. Any style or content changes must be made directly in `meded.html`; rebuild with `npm run build` to copy to `dist/`.
+40. **Header icon sign-in has two independent code paths** (Phase 13C) — `auth-manager.js → _updateHeaderForUser` fires on `onAuthStateChanged` (page load); `header.js → updateUserMenu` fires on `quizpros:auth:signed_in` (modal sign-in). Both paths MUST add/remove the `.signed-in` class on `#user-menu-toggle`. Never modify one without the other.
+41. **`_startLiveSession` uses `getCurrentTier()` allowlist, not `hasTierAccess`** (Phase 13C) — `hasTierAccess('pro')` chains through `hasPremiumAccess()` which returns `true` for any non-free tier with `expiresAt = null`. Use `getCurrentTier()` + explicit `proTiers = ['pro', 'unlimited', 'enterprise']` array instead for reliable Live Session gating.
+42. **`renderSubscription` in `dashboard.html` uses three-case logic** (Phase 13D) — `PAID_TIERS = ['premium', 'pro', 'unlimited', 'enterprise']`. Case 1: paid + `customerId` → "Manage Subscription" button. Case 2: paid + no `customerId` → empty actions (e.g. manually-set tiers without a Stripe record). Case 3: free → "Upgrade Plan" link. Never collapse cases 2 and 3 back into a single `else`.
 
 ## What Needs Improvement
 

@@ -6,6 +6,67 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [13.4.0] - 2026-03-07 — Dashboard Subscription Display Fix
+
+### Fixed
+- **`dashboard.html`** — `renderSubscription(tier, customerId)`: replaced two-case `if/else` with three-case logic. The old `else` branch incorrectly showed "Upgrade Plan" to paid users without a Stripe customer ID (e.g. manually-assigned `unlimited`/`enterprise` accounts). New behaviour: (1) paid tier + `customerId` → "Manage Subscription" button wired to `handleManageSubscription`; (2) paid tier + no `customerId` → empty actions area (no button); (3) free tier → "Upgrade Plan" link to `/premium.html`. Paid tiers defined as `PAID_TIERS = ['premium', 'pro', 'unlimited', 'enterprise']`.
+
+### Notes
+- No JS/CSS bundle change — `dashboard.html` is a CopyPlugin file, not webpack-processed
+- All 66 unit tests passing
+
+---
+
+## [13.3.0] - 2026-03-07 — Bug Fixes & Account Configuration (Phase 13C)
+
+### Fixed
+- **`css/header.css`** — Added `.user-menu-toggle.signed-in { color: #25d366 }` and `.signed-in:hover { background-color: #e8faf0; color: #128c7e }` rules. The header user icon now turns brand-green immediately on sign-in and reverts to dark (`#333`) on sign-out.
+- **`js/modules/auth-manager.js`** — `_updateHeaderForUser`: adds `.signed-in` class to `#user-menu-toggle` after updating dropdown HTML (covers the `onAuthStateChanged` / page-load auth path).
+- **`js/modules/auth-manager.js`** — `_updateHeaderForGuest`: removes `.signed-in` class on sign-out.
+- **`js/components/header.js`** — `updateUserMenu`: adds `.signed-in` class to `#user-menu-toggle`; restored missing **Dashboard** link in dropdown HTML (covers the `quizpros:auth:signed_in` event / modal sign-in path).
+- **`js/components/header.js`** — `resetUserMenu`: removes `.signed-in` class on sign-out.
+- **`js/modules/ui-manager.js`** — Replaced `_startLiveSession` implementation: now reads `getCurrentTier()` directly and checks against explicit `proTiers = ['pro', 'unlimited', 'enterprise']` allowlist. The old `hasTierAccess('pro')` chain could incorrectly return `true` for any non-free tier with `expiresAt = null`.
+- **`js/modules/ui-manager.js`** — Added `_showLiveSessionProModal()`: dedicated 📡 "Pro Feature" modal replacing the generic "Premium Content" modal. Includes correct copy, green gradient CTA to `/premium.html`, and `Maybe later` / click-outside dismissal.
+
+### Changed (data only — no code deployed)
+- **Firestore** `users/93fNHZN5u7YLk5ITbPTHfsFYTI13` — `subscription.tier` set to `unlimited` (`peter@mitala.co.uk` — already hardcoded admin UID, now also has explicit Firestore tier).
+- **Firestore** `users/HKGncOeQ5STgCSQ9w72cj5peKxJ3` — `subscription.tier` set to `unlimited` (`ceo@stargeneral.co.uk` — full feature access including Live Session).
+- **Firestore** `users/F9qXFklGtVRYvxzhEV9UjhnNnLf1` — `subscription.tier` set to `premium` (`peter@bestsellingstore.ltd` — premium quizzes + AI generation, no Live Session).
+
+### Notes
+- Two bundles produced: `app.67400b2e.js` (header icon fix) then `app.f5314404.js` (Live Session gate). Final deployed: `app.f5314404.js` / `app.e71dcbe8.css`
+- All 66 unit tests passing throughout
+
+---
+
+## [13.2.0] - 2026-03-07 — Bug Fixes (Phase 13B)
+
+### Fixed
+- **`dashboard.html`** — Auth gate: replaced "Go to iQuizPros" link (`href="/"`) with an inline sign-in UI (Google popup button + collapsible email/password form). Users can authenticate directly without leaving the dashboard. Firebase `onAuthStateChanged` loads the full dashboard on success.
+- **`js/modules/ui-manager.js`** — `_startLiveSession(quizId)`: new gating function replaces bare `onclick="window.location.href='live-presenter.html?quiz=...'"` that allowed unauthenticated / non-Pro access. Checks `QuizProsAuthManager.isSignedIn()` then `QuizProsPremium.hasTierAccess('pro')` before navigation. Exposed as `window._startLiveSession`.
+- **`js/modules/ui-manager.js`** — Added `data-topic-id="${topic.id}"` attribute to `.topic-card` elements in `initTopicSelectionUI()`; dispatches `quizpros:ui:ready` CustomEvent after rendering.
+- **`app.js`** — `?topic=` URL param handler IIFE: waits for `quizpros:ui:ready`, finds `[data-topic-id]` card, calls `scrollIntoView({ behavior: 'smooth', block: 'center' })`, adds `.topic-card--highlighted` for 2.5 s, cleans param via `history.replaceState`.
+- **`css/theme.css`** — `.topic-card--highlighted` keyframe animation: pulsing brand-green border (`#25d366`, 3 px, `box-shadow`).
+
+### Notes
+- Bundle: `app.091ab80c.js` / `app.7e479268.css`
+- All 66 unit tests passing
+
+---
+
+## [13.1.0] - 2026-03-06 — Landing Page & Quiz SPA Split (Phase 13.1)
+
+### Changed
+- **`landing.html`** — New standalone marketing/landing page. CopyPlugin copies it to `dist/index.html` (served at `/`). Hero section uses `assets/images/iquizpro4.png`, feature highlights, MedEd callout, sign-in / sign-up CTAs.
+- **`src/index.template.html`** — HtmlWebpackPlugin now outputs to `dist/app.html` (quiz SPA), served at `/app` via Firebase rewrite.
+- **`firebase.json`** — Rewrites updated: `/app` and `/app/**` → `dist/app.html`; `/` serves `dist/index.html` directly.
+- **`dashboard.html`** / **`js/components/header.js`** — All internal deep-links updated from `/` and `/index.html` to `/app`.
+
+### Notes
+- Separates marketing landing page from the quiz SPA for a conversion-optimised entry point at `/`
+
+---
+
 ## [13.0.0] - 2026-03-06 — MedEd Hub & Diagnostic Quizzes (Phase 13)
 
 ### Added

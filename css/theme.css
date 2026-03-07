@@ -1163,6 +1163,21 @@ body.dark-mode.embed-mode { background: #121212; }
 body.dark-mode .embed-play-cta { color: #25d366; }
 body.dark-mode .daily-lb-table th { border-bottom-color: #2a2a2a; }
 
+/* ── 13B ?topic= deep-link highlight ────────────────────────────────────── */
+.topic-card--highlighted {
+  animation: topicHighlight 2.5s ease-out forwards;
+  outline: 3px solid #25d366;
+  outline-offset: 2px;
+}
+@keyframes topicHighlight {
+  0%   { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.6); }
+  50%  { box-shadow: 0 0 16px 8px rgba(37, 211, 102, 0.3); }
+  100% { box-shadow: none; outline-color: transparent; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .topic-card--highlighted { animation: none; outline: 3px solid #25d366; }
+}
+
 /* ── 11.5 Quiz Search Bar ─────────────────────────────────────────────────── */
 .quiz-search-bar { display:flex; gap:.5rem; margin-bottom:1rem; max-width:480px; }
 .quiz-search-bar input { flex:1; padding:.65rem 1rem; border:2px solid #e0e0e0; border-radius:8px; font-size:1rem; background:#fff; color:#333; }

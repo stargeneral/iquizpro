@@ -112,7 +112,7 @@ window.QuizProsUI = (function() {
       // Add regular quiz cards
       regularQuizzes.forEach((topic) => {
         html += `
-          <div class="topic-card" role="listitem" aria-label="${topic.name} quiz" data-topic="${topic.id}" data-title="${topic.name.toLowerCase()}" data-category="knowledge" onclick="window.QuizProsUI.showQuizDetail('${topic.id}'); return false;">
+          <div class="topic-card" role="listitem" aria-label="${topic.name} quiz" data-topic="${topic.id}" data-topic-id="${topic.id}" data-title="${topic.name.toLowerCase()}" data-category="knowledge" onclick="window.QuizProsUI.showQuizDetail('${topic.id}'); return false;">
             <div class="topic-icon"><i class="${topic.icon}"></i></div>
             <h3>${topic.name}</h3>
           </div>
@@ -132,7 +132,7 @@ window.QuizProsUI = (function() {
         healthcareQuizzes.forEach((topic) => {
           const lockIcon = topic.isPremium ? '<span class="premium-lock" title="Premium"><i class="fas fa-lock"></i></span>' : '';
           html += `
-            <div class="topic-card" role="listitem" aria-label="${topic.name} quiz" data-topic="${topic.id}" data-title="${topic.name.toLowerCase()}" data-category="healthcare" onclick="window.QuizProsUI.showQuizDetail('${topic.id}'); return false;" style="position:relative;">
+            <div class="topic-card" role="listitem" aria-label="${topic.name} quiz" data-topic="${topic.id}" data-topic-id="${topic.id}" data-title="${topic.name.toLowerCase()}" data-category="healthcare" onclick="window.QuizProsUI.showQuizDetail('${topic.id}'); return false;" style="position:relative;">
               ${lockIcon}
               <div class="topic-icon"><i class="${topic.icon || 'fas fa-brain'}"></i></div>
               <h3>${topic.name}</h3>
@@ -250,6 +250,8 @@ window.QuizProsUI = (function() {
       }
 
       utils.performance.endMeasure('initTopicSelectionUI');
+      // Signal that topic grid is fully rendered (used by ?topic= deep-link handler)
+      document.dispatchEvent(new CustomEvent('quizpros:ui:ready'));
     } catch (error) {
       utils.logger.error('Error initializing topic selection UI:', error);
       utils.performance.endMeasure('initTopicSelectionUI');
@@ -962,7 +964,7 @@ function showQuizzesByCategory(categoryId) {
                 <i class="fas fa-play"></i>
                 Start Quiz
               </button>
-              <button class="quiz-action-button start-live-btn" onclick="window.location.href='live-presenter.html?quiz=${quizId}'">
+              <button class="quiz-action-button start-live-btn" onclick="window._startLiveSession('${quizId}')">
                 <i class="fas fa-broadcast-tower"></i>
                 Start Live Session
               </button>
@@ -1072,6 +1074,77 @@ function showQuizzesByCategory(categoryId) {
     topicInfo.appendChild(badge);
   }
   
+  // ── Live Session gate ─────────────────────────────────────────────────────────
+  // Checks auth + Pro tier before navigating to live-presenter.html.
+  // Exposed on window so inline onclick can reach it from generated HTML.
+
+  function _showLiveSessionProModal() {
+    var existing = document.getElementById('live-session-pro-modal');
+    if (existing) existing.remove();
+
+    var overlay = document.createElement('div');
+    overlay.id = 'live-session-pro-modal';
+    overlay.style.cssText = [
+      'position:fixed;inset:0;background:rgba(0,0,0,.55);',
+      'display:flex;align-items:center;justify-content:center;',
+      'z-index:99999;opacity:0;transition:opacity .25s'
+    ].join('');
+
+    overlay.innerHTML =
+      '<div style="background:#fff;border-radius:16px;padding:2.5rem 2rem;max-width:440px;' +
+      'width:90%;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.25);">' +
+        '<div style="font-size:3rem;margin-bottom:.75rem;">📡</div>' +
+        '<h2 style="margin-bottom:.5rem;color:#333;font-size:1.6rem;">Pro Feature</h2>' +
+        '<p style="color:#333;margin-bottom:.4rem;line-height:1.6;font-weight:600;">' +
+          'Live Session is available on the Pro plan and above.' +
+        '</p>' +
+        '<p style="color:#666;margin-bottom:1.5rem;line-height:1.6;font-size:.95rem;">' +
+          'Host real-time interactive quiz sessions with your audience, live leaderboards, ' +
+          'and instant response tracking. Upgrade to Pro to unlock this feature.' +
+        '</p>' +
+        '<a href="/premium.html" ' +
+           'style="display:block;background:linear-gradient(135deg,#25d366,#128c7e);' +
+           'color:#fff;padding:.9rem 2rem;border-radius:8px;text-decoration:none;' +
+           'font-weight:600;font-size:1.05rem;margin-bottom:.8rem;">' +
+          'View Pro Plans' +
+        '</a>' +
+        '<button id="live-session-pro-modal-close" ' +
+                'style="background:none;border:none;color:#aaa;font-size:.95rem;cursor:pointer;">' +
+          'Maybe later' +
+        '</button>' +
+      '</div>';
+
+    document.body.appendChild(overlay);
+    requestAnimationFrame(function() { overlay.style.opacity = '1'; });
+
+    var closeModal = function() {
+      overlay.style.opacity = '0';
+      setTimeout(function() { if (overlay.parentNode) overlay.remove(); }, 250);
+    };
+    overlay.addEventListener('click', function(e) { if (e.target === overlay) closeModal(); });
+    var closeBtn = overlay.querySelector('#live-session-pro-modal-close');
+    if (closeBtn) closeBtn.addEventListener('click', closeModal);
+  }
+
+  function _startLiveSession(quizId) {
+    // Auth check
+    if (!window.QuizProsAuthManager || !window.QuizProsAuthManager.isSignedIn()) {
+      if (window.QuizProsAuthManager) window.QuizProsAuthManager.showSignInModal();
+      return;
+    }
+    // Pro tier check — use getCurrentTier() directly for a reliable string comparison.
+    // Tiers that have Live Session access: 'pro', 'unlimited' (legacy), 'enterprise' (admin).
+    var tier = (window.QuizProsPremium && window.QuizProsPremium.getCurrentTier) ?
+      window.QuizProsPremium.getCurrentTier() : 'free';
+    var proTiers = ['pro', 'unlimited', 'enterprise'];
+    if (proTiers.indexOf(tier) === -1) {
+      _showLiveSessionProModal();
+      return;
+    }
+    window.location.href = 'live-presenter.html?quiz=' + encodeURIComponent(quizId);
+  }
+  window._startLiveSession = _startLiveSession;
+
   // Public API
   return {
     // UI initialization

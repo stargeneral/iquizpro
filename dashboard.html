@@ -288,7 +288,31 @@
     <i class="fas fa-lock" style="font-size:3rem;color:#25d366;"></i>
     <h2>Sign in to view your dashboard</h2>
     <p>Your quiz history, AI-generated quizzes, and subscription details are waiting for you.</p>
-    <a href="/" class="btn btn-primary" style="margin-top:.5rem;">Go to iQuizPros</a>
+
+    <!-- Google sign-in -->
+    <button id="auth-gate-google-btn" class="btn btn-secondary" style="margin-top:1rem;display:flex;align-items:center;gap:.6rem;" onclick="dashboardSignInWithGoogle()">
+        <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><path fill="#4285F4" d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.717v2.258h2.908c1.702-1.566 2.684-3.874 2.684-6.615z"/><path fill="#34A853" d="M9 18c2.43 0 4.467-.806 5.956-2.18l-2.908-2.259c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332A8.997 8.997 0 0 0 9 18z"/><path fill="#FBBC05" d="M3.964 10.71A5.41 5.41 0 0 1 3.682 9c0-.593.102-1.17.282-1.71V4.958H.957A8.996 8.996 0 0 0 0 9c0 1.452.348 2.827.957 4.042l3.007-2.332z"/><path fill="#EA4335" d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0A8.997 8.997 0 0 0 .957 4.958L3.964 7.29C4.672 5.163 6.656 3.58 9 3.58z"/></svg>
+        Sign in with Google
+    </button>
+
+    <!-- Divider -->
+    <div style="display:flex;align-items:center;gap:.75rem;width:100%;max-width:320px;margin:.75rem 0;">
+        <hr style="flex:1;border:none;border-top:1px solid #e0e0e0;">
+        <span style="color:#aaa;font-size:.85rem;">or</span>
+        <hr style="flex:1;border:none;border-top:1px solid #e0e0e0;">
+    </div>
+
+    <!-- Email/password form -->
+    <form id="auth-gate-form" style="display:flex;flex-direction:column;gap:.6rem;width:100%;max-width:320px;" onsubmit="dashboardSignInWithEmail(event)">
+        <input id="auth-gate-email" type="email" placeholder="Email address" autocomplete="email"
+               style="padding:.7rem 1rem;border:1.5px solid #ddd;border-radius:8px;font-size:1rem;outline:none;" required>
+        <input id="auth-gate-password" type="password" placeholder="Password" autocomplete="current-password"
+               style="padding:.7rem 1rem;border:1.5px solid #ddd;border-radius:8px;font-size:1rem;outline:none;" required>
+        <button id="auth-gate-email-btn" type="submit" class="btn btn-primary" style="margin-top:.25rem;">Sign In</button>
+    </form>
+
+    <p id="auth-gate-error" style="color:#c62828;font-size:.9rem;margin-top:.5rem;display:none;"></p>
+    <p style="margin-top:.75rem;font-size:.88rem;color:#888;">Don't have an account? <a href="/app" style="color:#25d366;">Sign up on iQuizPros</a></p>
 </div>
 
 <!-- Main dashboard (shown when authenticated) -->
@@ -533,11 +557,15 @@ function renderSubscription(tier, customerId) {
         '<span class="tier-badge ' + tier + '">' + tier + '</span>';
 
     const actionsEl = document.getElementById('sub-actions');
-    if (tier !== 'free' && customerId) {
+    const PAID_TIERS = ['premium', 'pro', 'unlimited', 'enterprise'];
+    const isPaid = PAID_TIERS.includes(tier);
+    if (isPaid && customerId) {
         actionsEl.innerHTML =
             '<button class="btn btn-secondary btn-sm" id="manage-sub-btn">' +
             '<i class="fas fa-cog"></i> Manage Subscription</button>';
         document.getElementById('manage-sub-btn').addEventListener('click', handleManageSubscription);
+    } else if (isPaid && !customerId) {
+        actionsEl.innerHTML = '';
     } else {
         actionsEl.innerHTML =
             '<a href="/premium.html" class="btn btn-primary btn-sm">Upgrade Plan</a>';
@@ -854,6 +882,81 @@ async function loadDashboard(user) {
             '<li class="empty-state"><i class="fas fa-exclamation-triangle"></i>' +
             '<p>Could not load past sessions.</p></li>';
     }
+}
+
+// ── Auth gate helpers ──────────────────────────────────────────────────────────
+function _authGateShowError(msg) {
+    var el = document.getElementById('auth-gate-error');
+    if (!el) return;
+    el.textContent = msg;
+    el.style.display = 'block';
+}
+function _authGateHideError() {
+    var el = document.getElementById('auth-gate-error');
+    if (el) el.style.display = 'none';
+}
+
+function dashboardSignInWithGoogle() {
+    _authGateHideError();
+    var btn = document.getElementById('auth-gate-google-btn');
+    var originalHTML = btn.innerHTML;
+    btn.disabled = true;
+    btn.textContent = 'Redirecting…';
+
+    var timeout = setTimeout(function() {
+        btn.disabled = false;
+        btn.innerHTML = originalHTML;
+        _authGateShowError('Sign-in timed out. Please try again.');
+    }, 15000);
+
+    var provider = new firebase.auth.GoogleAuthProvider();
+    auth.signInWithPopup(provider)
+        .then(function() {
+            clearTimeout(timeout);
+            btn.disabled = false;
+            btn.innerHTML = originalHTML;
+        })
+        .catch(function(err) {
+            clearTimeout(timeout);
+            btn.disabled = false;
+            btn.innerHTML = originalHTML;
+            if (err.code !== 'auth/popup-closed-by-user' && err.code !== 'auth/cancelled-popup-request') {
+                _authGateShowError(err.message);
+            }
+        });
+}
+
+function dashboardSignInWithEmail(e) {
+    e.preventDefault();
+    _authGateHideError();
+    var email = (document.getElementById('auth-gate-email').value || '').trim();
+    var password = document.getElementById('auth-gate-password').value || '';
+    if (!email || !password) { _authGateShowError('Please enter your email and password.'); return; }
+
+    var btn = document.getElementById('auth-gate-email-btn');
+    var originalText = btn.textContent;
+    btn.disabled = true;
+    btn.textContent = 'Signing in…';
+
+    var timeout = setTimeout(function() {
+        btn.disabled = false;
+        btn.textContent = originalText;
+        _authGateShowError('Sign-in timed out. Please try again.');
+    }, 15000);
+
+    auth.signInWithEmailAndPassword(email, password)
+        .then(function() {
+            clearTimeout(timeout);
+            btn.disabled = false;
+            btn.textContent = originalText;
+            // onAuthStateChanged handles the rest
+        })
+        .catch(function(err) {
+            clearTimeout(timeout);
+            btn.disabled = false;
+            btn.textContent = originalText;
+            _authGateShowError(err.message);
+        });
 }
 
 // ── Auth state observer ──

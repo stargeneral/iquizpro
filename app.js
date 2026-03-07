@@ -855,3 +855,28 @@ function _flushPendingQuizHistory() {
     }
   }, 100);
 })();
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Phase 13B — ?topic= Deep-Link Handler
+// Navigating to /app?topic=<topicId> scrolls to and highlights the quiz card.
+// Used by meded.html CTAs to bring users directly to a specific quiz.
+// ─────────────────────────────────────────────────────────────────────────────
+(function() {
+  var topicParam = new URLSearchParams(window.location.search).get('topic');
+  if (!topicParam) return;
+
+  // Clean param from URL immediately (before UI renders) so back-nav doesn't re-highlight
+  try {
+    history.replaceState(null, '', window.location.pathname);
+  } catch (e) { /* ignore */ }
+
+  document.addEventListener('quizpros:ui:ready', function() {
+    var card = document.querySelector('[data-topic-id="' + topicParam + '"]');
+    if (!card) return;
+    setTimeout(function() {
+      card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      card.classList.add('topic-card--highlighted');
+      setTimeout(function() { card.classList.remove('topic-card--highlighted'); }, 2500);
+    }, 300);
+  });
+})();
