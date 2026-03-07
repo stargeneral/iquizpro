@@ -8,7 +8,7 @@ window.QuizProsConfig = {
   app: {
     name: 'IQuizPros',
     version: '2.0.0',
-    copyright: '© 2025 IQuizPros by P G Mitala',
+    copyright: '© 2026 iQuizpro by P.G. Mitala. All rights reserved.',
     baseUrl: 'https://iquizpro.com'
   },
   
@@ -118,7 +118,7 @@ window.QuizProsConfig = {
   // Premium tiers configuration
   premium: {
     // Quiz IDs that require a paid subscription
-    gatedQuizIds: ['career-deep-dive', 'emotional-intelligence'],
+    gatedQuizIds: ['career-deep-dive', 'emotional-intelligence', 'psych-mood', 'psych-anxiety', 'psych-neurocognitive', 'psych-personality-disorders', 'psych-nursing-mood', 'psych-nursing-psychosis', 'psych-nursing-personality', 'psych-nursing-special'],
 
     tiers: {
       free: {

@@ -34,7 +34,8 @@ window.QuizProsUI = (function() {
       const topicsData = window.QuizProsTopics ? window.QuizProsTopics.getTopics() : [];
 
       // If no topics module, use fallback data
-      const regularQuizzes = topicsData.filter(topic => !topic.isPersonality && topic.id !== 'personality');
+      const regularQuizzes = topicsData.filter(topic => !topic.isPersonality && topic.id !== 'personality' && topic.category !== 'healthcare');
+      const healthcareQuizzes = topicsData.filter(topic => topic.category === 'healthcare');
 
       // ── Hero Section ────────────────────────────────────────────────────────
       let html = `
@@ -119,7 +120,28 @@ window.QuizProsUI = (function() {
       });
       
       html += `</div></div>`;
-      
+
+      // ── Healthcare / Psychiatry Section ─────────────────────────────────────
+      if (healthcareQuizzes.length > 0) {
+        html += `
+          <div class="quiz-section" id="healthcare-section">
+            <h3><i class="fas fa-stethoscope" style="margin-right:.4rem;"></i>Healthcare Quizzes</h3>
+            <p>Medical Psychiatry (DSM-5 aligned) and Nursing Psychiatry (NCLEX-style) assessments for healthcare professionals and students.</p>
+            <div class="topics-grid" role="list">
+        `;
+        healthcareQuizzes.forEach((topic) => {
+          const lockIcon = topic.isPremium ? '<span class="premium-lock" title="Premium"><i class="fas fa-lock"></i></span>' : '';
+          html += `
+            <div class="topic-card" role="listitem" aria-label="${topic.name} quiz" data-topic="${topic.id}" data-title="${topic.name.toLowerCase()}" data-category="healthcare" onclick="window.QuizProsUI.showQuizDetail('${topic.id}'); return false;" style="position:relative;">
+              ${lockIcon}
+              <div class="topic-icon"><i class="${topic.icon || 'fas fa-brain'}"></i></div>
+              <h3>${topic.name}</h3>
+            </div>
+          `;
+        });
+        html += `</div></div>`;
+      }
+
       // Add personality quiz section
       html += `
         <div class="quiz-section personality-section" id="personality-section">
@@ -828,7 +850,8 @@ function showQuizzesByCategory(categoryId) {
     // Add copyright
     html += `
       <div class="copyright-text">
-        <p>${config.app.copyright || '© 2025 QuizPros. All rights reserved.'}</p>
+        <p>${config.app.copyright || '© 2026 iQuizpro by P.G. Mitala. All rights reserved.'}</p>
+        <p>Made with <span style="color:#e74c3c">&#10084;</span> for curious minds</p>
       </div>
     `;
     

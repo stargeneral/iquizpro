@@ -51,7 +51,7 @@ window.QuizProsHeader = (function() {
     header.innerHTML = `
       <div class="header-container">
         <div class="header-logo">
-          <a href="/index.html" class="logo-link">
+          <a href="/app" class="logo-link">
             <span class="logo-text">${config.app.name}</span>
           </a>
         </div>
@@ -62,13 +62,13 @@ window.QuizProsHeader = (function() {
         
         <nav class="header-nav">
           <ul class="nav-list">
-            <li class="nav-item"><a href="/index.html" class="nav-link">Home</a></li>
+            <li class="nav-item"><a href="/app" class="nav-link">Home</a></li>
             <li class="nav-item dropdown">
               <a href="#" class="nav-link dropdown-toggle">Quizzes <i class="fas fa-chevron-down"></i></a>
               <ul class="dropdown-menu">
-                <li><a href="/index.html" class="dropdown-item">All Quizzes</a></li>
-                <li><a href="/index.html#personality-section" class="dropdown-item">Personality</a></li>
-                <li><a href="/index.html#knowledge-section" class="dropdown-item">Knowledge</a></li>
+                <li><a href="/app" class="dropdown-item">All Quizzes</a></li>
+                <li><a href="/app#personality-section" class="dropdown-item">Personality</a></li>
+                <li><a href="/app#knowledge-section" class="dropdown-item">Knowledge</a></li>
                 <li><a href="/premium.html" class="dropdown-item premium-item"><i class="fas fa-crown"></i> Premium Quizzes</a></li>
               </ul>
             </li>
@@ -293,7 +293,7 @@ window.QuizProsHeader = (function() {
     var items = bottomNav.querySelectorAll('.bottom-nav-item');
     items.forEach(function(item) {
       var href = item.getAttribute('href') || '';
-      if (href === '/' && (path === '/' || path === '/index.html')) {
+      if (href === '/' && (path === '/' || path === '/app')) {
         item.classList.add('active');
       } else if (href !== '/' && path.startsWith(href.split('#')[0])) {
         item.classList.add('active');

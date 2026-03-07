@@ -15,7 +15,7 @@ The main application is now webpack-bundled. Run `npm run build` to generate `di
 - Entry: `src/app-entry.js` → `dist/js/app.[hash].js` + `dist/css/app.[hash].css`
 - HTML template: `src/index.template.html` → `dist/index.html`
 - Static assets (images, templates, fonts, HTML pages) copied to `dist/` via CopyPlugin
-- Current production bundle: `app.59cbbb09.js` / `app.6f4cc9ba.css` (built 2026-03-01, Phase 8: PWA service worker, manifest, install prompt, security rules hardening)
+- Current production bundle: `app.03ede69d.js` / `app.6134aff4.css` (built 2026-03-06, Phase 13: MedEd Hub, psych-mistakes diagnostic quizzes, diagnostic results routing)
 
 ### Module system
 All modules use `window.QuizProsXxx = (function() { ... })()` IIFE pattern. They communicate through the global `window` object. Loading ORDER in index.html is critical — changing it will break dependencies.
@@ -252,6 +252,12 @@ background: linear-gradient(135deg, #25d366 0%, #128c7e 100%);
 31. **`sw.js` must NOT be aggressively cached** (Phase 8) — `firebase.json` includes a `sw.js` header rule with `Cache-Control: no-cache, no-store, must-revalidate` and `Service-Worker-Allowed: /`. This rule MUST appear BEFORE the `**/*.@(js|css)` catch-all in the headers array, or the year-long immutable cache will apply to the SW itself — preventing updates from reaching users.
 32. **Storage rules NOT yet deployed** (Phase 8) — `storage.rules` (deny-all) exists at project root but Firebase Storage has not been initialised on the `quizpros` project. Deploy with `firebase deploy --only storage` after visiting Firebase Console → Storage → "Get Started".
 33. **Install prompt dismissed flag** (Phase 8) — `_showInstallPromptSheet()` in `app.js` respects `localStorage('iqp_install_dismissed')`. Clearing this flag (e.g. in dev tools) will re-show the prompt on next quiz completion.
+34. **`getScoreMessage` topicId param** (Phase 12) — third param is optional for backward-compat. Any new call that passes `topicId` starting with `psych-` will get specialist profile messages with a `.title` field. Existing callers without the param continue to use standard score brackets. All 66 unit tests must pass after any change to this function.
+35. **Healthcare section requires `category: 'healthcare'`** (Phase 12) — topics without this field appear in Knowledge or Personality sections. The `ui-manager.js` filter uses `topic.category === 'healthcare'` to separate them. New healthcare topics must include this field.
+36. **`promptPrefix` 300-char cap** (Phase 12) — enforced server-side in `generateQuiz` via `.slice(0, 300)`. The dashboard UI does not enforce this. Longer strings are silently truncated.
+37. **Psych placeholder images** (Phase 12) — `assets/images/psychiatry/*.webp` are brand-green gradient placeholders. Replace with real clinical artwork (no code changes needed — just overwrite and rebuild).
+38. **`psych-mistakes-*` question order is fixed** (Phase 13) — `_injectMedEdDiagnosticResults()` in `quiz-engine.js` maps question position (0–7) to specific mistake categories. Never reorder or insert questions into `psychMistakesMedStudent` or `psychMistakesNurse` arrays in `question-bank.js` without also updating the analysis logic.
+39. **`meded.html` is standalone** (Phase 13) — Pure marketing page; no Firebase init, no webpack bundle. Any style or content changes must be made directly in `meded.html`; rebuild with `npm run build` to copy to `dist/`.
 
 ## What Needs Improvement
 

@@ -23,6 +23,18 @@
     ],
     "rewrites": [
       {
+        "source": "/app/**",
+        "destination": "/app.html"
+      },
+      {
+        "source": "/meded",
+        "destination": "/meded.html"
+      },
+      {
+        "source": "/meded/**",
+        "destination": "/meded.html"
+      },
+      {
         "source": "**",
         "destination": "/index.html"
       }

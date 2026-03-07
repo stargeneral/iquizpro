@@ -6,6 +6,45 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [13.0.0] - 2026-03-06 — MedEd Hub & Diagnostic Quizzes (Phase 13)
+
+### Added
+- **`meded.html`** — New standalone MedEd Hub marketing page at `/meded`. Dark hero with "Do you make these psychiatry learning mistakes?" headline, two CTA buttons (Medical Student / Psychiatric Nurse), benefits section, How It Works steps, and final CTA strip. Inline GA4, brand green only.
+- **`js/modules/question-bank.js`** — Two new free diagnostic quiz topic objects added to `defaultTopics`: `psych-mistakes-med-student` and `psych-mistakes-nurse` (both `category: 'healthcare'`, 8 Qs, `isPremium: false`).
+- **`js/modules/question-bank.js`** — Two new question arrays: `psychMistakesMedStudent` (8 study-habits questions for med students) and `psychMistakesNurse` (8 clinical-learning questions for psychiatric nurses). All questions: `answer` as 0-based integer, `difficulty: 'easy'`, `explanation` field, `category: 'healthcare'`.
+- **`js/modules/quiz-engine.js`** — `_injectMedEdDiagnosticResults(topicId, answers, score, total)` — new private function that analyses `selectedAnswers` after a `psych-mistakes-*` quiz to detect up to 4 mistake patterns per role (passive learning, avoiding scenarios, ignoring feedback, cramming for med students; similar patterns for nurses). Shows top 3 mistakes with descriptive text, then renders a "Best next quizzes for you" block with 3 recommended psychiatry topic links. Called automatically from `showResults()`.
+- **`landing.html`** — Added "MedEd Hub" nav link pointing to `/meded`.
+- **`webpack.config.js`** — Added `meded.html` CopyPlugin entry.
+- **`firebase.json`** — Added `/meded` and `/meded/**` rewrites to `dist/meded.html`.
+
+### Notes
+- Bundle: `app.03ede69d.js` / `app.6134aff4.css` — 3 pre-existing warnings, 0 errors
+- All 66 unit tests passing
+
+---
+
+## [12.0.0] - 2026-03-05 — Healthcare Quiz Category & Psychiatry Content (Phase 12)
+
+### Added
+- **`js/modules/question-bank.js`** — 250 clinically accurate psychiatry questions across 10 topics:
+  - Medical: Schizophrenia (25), Mood Disorders (25), Anxiety/OCD/Trauma (25), Neurocognitive Disorders (25), Personality Disorders (25) — DSM-5 aligned
+  - Nursing: Communication & Legal (25), Mood & Anxiety Care (25), Psychotic Disorders (25), Personality Nursing (25), Special Populations & Ethics (25) — NCLEX-style
+- **`js/modules/question-bank.js`** — 10 new `defaultTopics` entries with `category: 'healthcare'`; 2 free (`psych-schizophrenia`, `psych-nursing-communication`), 8 premium-gated.
+- **`js/config.js`** — 8 new `gatedQuizIds` entries for premium psychiatry topics.
+- **`js/modules/ui-manager.js`** — Healthcare section (`#healthcare-section`) rendered after Knowledge section; uses `fas fa-stethoscope` icon; premium lock badges on gated cards.
+- **`js/modules/quiz-scoring.js`** — `getScoreMessage(score, total, topicId)` — optional `topicId` param; `psych-*` topics get specialist profiles (🧠 Brilliant Diagnostician → 🎓 Beginning the Journey) with `.title` field.
+- **`js/modules/quiz-renderer.js`** — `renderScoreResult(score, total, topicId)` — renders `.title` as `<h2>` for psych topics.
+- **`js/modules/quiz-engine.js`** — Passes `currentQuiz` as `topicId` to scoring/renderer; psych-specific WhatsApp share text.
+- **`assets/images/psychiatry/`** — 10 WebP placeholder images (800×800, brand green gradient).
+- **`dashboard.html`** — AI presets panel with preset dropdown (Medical/Nursing Psychiatry optgroups), question count, difficulty, and `promptPrefix` support; `dashboardGenerateQuiz()` function.
+- **`functions/index.js`** — `promptPrefix` field in `generateQuiz` (300-char cap, injected into Gemini prompt).
+
+### Notes
+- Bundle: `app.de279f41.js` / `app.6134aff4.css`
+- All 66 unit tests passing
+
+---
+
 ## [11.0.2] - 2026-03-03 — Mobile Sign-In Fix (auth-ready wait)
 
 ### Fixed

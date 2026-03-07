@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!--
+        Main content column: URL bar on top, WebView fills the rest.
+        Sits behind the debug overlay and FAB (both float above via CoordinatorLayout).
+    -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <!-- ── URL bar ──────────────────────────────────────────────────── -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:background="#1A1A1A"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingStart="8dp"
+            android:paddingEnd="4dp">
+
+            <!-- Lock icon: shows https:// status visually -->
+            <TextView
+                android:id="@+id/text_lock"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="🔒"
+                android:textSize="13sp"
+                android:paddingEnd="4dp" />
+
+            <!-- URL input -->
+            <EditText
+                android:id="@+id/edit_url"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@android:color/transparent"
+                android:fontFamily="monospace"
+                android:hint="@string/hint_url_bar"
+                android:imeOptions="actionGo"
+                android:inputType="textUri"
+                android:maxLines="1"
+                android:paddingStart="4dp"
+                android:paddingEnd="4dp"
+                android:selectAllOnFocus="true"
+                android:singleLine="true"
+                android:text="https://iquizpro.com"
+                android:textColor="#FFFFFF"
+                android:textColorHint="#888888"
+                android:textSize="12sp" />
+
+            <!-- Go button -->
+            <Button
+                android:id="@+id/btn_go"
+                android:layout_width="wrap_content"
+                android:layout_height="36dp"
+                android:minWidth="0dp"
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp"
+                android:text="@string/btn_go"
+                android:textColor="#FFFFFF"
+                android:textSize="12sp"
+                style="@style/Widget.MaterialComponents.Button"
+                app:backgroundTint="#25d366" />
+
+        </LinearLayout>
+
+        <!-- 1dp separator -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#333333" />
+
+        <!-- ── WebView fills remaining space ──────────────────────────── -->
+        <WebView
+            android:id="@+id/webview_main"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+    </LinearLayout>
+
+    <!-- ── Debug overlay — 320dp panel at bottom ─────────────────────────── -->
+    <LinearLayout
+        android:id="@+id/debug_overlay"
+        android:layout_width="match_parent"
+        android:layout_height="320dp"
+        android:layout_gravity="bottom"
+        android:background="#E6000000"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <!-- Summary bar: site, auth status, network count, error/warn counts -->
+        <TextView
+            android:id="@+id/text_summary"
+            android:layout_width="match_parent"
+            android:layout_height="28dp"
+            android:background="#1AFFFFFF"
+            android:ellipsize="end"
+            android:fontFamily="monospace"
+            android:gravity="center_vertical"
+            android:paddingEnd="8dp"
+            android:paddingStart="8dp"
+            android:singleLine="true"
+            android:text="Initialising…"
+            android:textColor="#E0E0E0"
+            android:textSize="10sp" />
+
+        <!-- 1dp divider -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#33FFFFFF" />
+
+        <!-- Scrollable log list -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_logs"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:clipToPadding="false"
+            android:paddingEnd="8dp"
+            android:paddingStart="8dp" />
+
+        <!-- Button row 1: Copy All | Clear | Export -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingEnd="4dp"
+            android:paddingStart="4dp"
+            android:paddingTop="2dp">
+
+            <Button
+                android:id="@+id/btn_copy_all"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:padding="5dp"
+                android:text="@string/btn_copy_all"
+                android:textColor="#ffffff"
+                android:textSize="11sp"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:strokeColor="#ffffff" />
+
+            <Button
+                android:id="@+id/btn_clear"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:padding="5dp"
+                android:text="@string/btn_clear"
+                android:textColor="#ffffff"
+                android:textSize="11sp"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:strokeColor="#ffffff" />
+
+            <Button
+                android:id="@+id/btn_export"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:padding="5dp"
+                android:text="@string/btn_export"
+                android:textColor="#ffffff"
+                android:textSize="11sp"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:strokeColor="#ffffff" />
+
+        </LinearLayout>
+
+        <!-- Button row 2: Freeze | Starred -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingBottom="4dp"
+            android:paddingEnd="4dp"
+            android:paddingStart="4dp">
+
+            <Button
+                android:id="@+id/btn_freeze"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:padding="5dp"
+                android:text="@string/btn_freeze"
+                android:textColor="#64B5F6"
+                android:textSize="11sp"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:strokeColor="#64B5F6" />
+
+            <Button
+                android:id="@+id/btn_starred"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:padding="5dp"
+                android:text="@string/btn_starred"
+                android:textColor="#FFB74D"
+                android:textSize="11sp"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:strokeColor="#FFB74D" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <!-- FAB to toggle debug overlay — renders above everything -->
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_debug"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="16dp"
+        android:contentDescription="Toggle debug overlay"
+        android:src="@android:drawable/ic_menu_info_details"
+        app:backgroundTint="#25d366"
+        app:tint="@android:color/white" />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

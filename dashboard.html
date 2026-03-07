@@ -79,6 +79,7 @@
         .btn-danger:hover { background: #c82333; }
         .btn-sm { padding: .45rem 1rem; font-size: .85rem; }
         .btn:disabled { opacity: .5; cursor: not-allowed; }
+        .hidden { display: none !important; }
 
         /* ── Dashboard layout ── */
         #dashboard-content { display: none; }
@@ -376,8 +377,64 @@
         <div class="card">
             <div class="card-header">
                 <h2><i class="fas fa-robot"></i> AI-Generated Quizzes</h2>
-                <a href="/" class="btn btn-secondary btn-sm">Generate New</a>
+                <button class="btn btn-secondary btn-sm" id="toggle-ai-gen-btn" onclick="document.getElementById('ai-gen-panel').classList.toggle('hidden')"><i class="fas fa-plus"></i> Generate New</button>
             </div>
+
+            <!-- AI Generation Presets Panel -->
+            <div id="ai-gen-panel" class="hidden" style="border:1px solid #e0e0e0;border-radius:8px;padding:1rem;margin-bottom:1rem;background:#f9fffe;">
+                <h3 style="margin:0 0 .75rem;font-size:1rem;color:#128c7e;"><i class="fas fa-brain"></i> Quick Generate</h3>
+                <div style="display:grid;gap:.75rem;">
+                    <div>
+                        <label for="ai-preset-select" style="font-weight:600;font-size:.9rem;display:block;margin-bottom:.25rem;">Preset Topic</label>
+                        <select id="ai-preset-select" style="width:100%;padding:.5rem;border:1px solid #ccc;border-radius:6px;font-size:.95rem;">
+                            <option value="">— Custom topic —</option>
+                            <optgroup label="Medical Psychiatry (DSM-5)">
+                                <option value="psych-schizophrenia|Medical Psychiatry — Schizophrenia &amp; Psychosis (DSM-5 aligned). Focus on diagnostic criteria, differential diagnosis, antipsychotic mechanisms and side effects.">Schizophrenia &amp; Psychosis</option>
+                                <option value="psych-mood|Medical Psychiatry — Mood Disorders (DSM-5 aligned). Cover MDD, bipolar I/II, cyclothymia, mood stabilisers, and ECT indications.">Mood Disorders</option>
+                                <option value="psych-anxiety|Medical Psychiatry — Anxiety, OCD &amp; Trauma (DSM-5 aligned). Include GAD, panic, PTSD, OCD, and evidence-based pharmacotherapy.">Anxiety, OCD &amp; Trauma</option>
+                                <option value="psych-neurocognitive|Medical Psychiatry — Neurocognitive Disorders &amp; Substance Use (DSM-5). Cover dementia subtypes, delirium, ADHD, and addiction pharmacology.">Neurocognitive &amp; Substance</option>
+                                <option value="psych-personality-disorders|Medical Psychiatry — Personality &amp; Neurodevelopmental Disorders (DSM-5). Include cluster A/B/C PDs, ASD, and ADHD adult presentations.">Personality &amp; Neurodevelopmental</option>
+                            </optgroup>
+                            <optgroup label="Nursing Psychiatry (NCLEX-style)">
+                                <option value="psych-nursing-communication|Nursing Psychiatry — Therapeutic Communication &amp; Safety (NCLEX-style). Focus on safety priorities, de-escalation, and legal/ethical principles.">Therapeutic Communication &amp; Safety</option>
+                                <option value="psych-nursing-mood|Nursing Psychiatry — Mood &amp; Anxiety Nursing Care (NCLEX-style). Cover nursing interventions, patient education, medication monitoring for mood/anxiety.">Mood &amp; Anxiety Nursing</option>
+                                <option value="psych-nursing-psychosis|Nursing Psychiatry — Psychotic Disorders &amp; Medications (NCLEX-style). Focus on antipsychotic administration, side-effect monitoring, and therapeutic responses.">Psychotic Disorders &amp; Medications</option>
+                                <option value="psych-nursing-personality|Nursing Psychiatry — Personality &amp; Substance Disorders (NCLEX-style). Cover BPD nursing approach, addiction nursing, harm reduction.">Personality &amp; Substance Disorders</option>
+                                <option value="psych-nursing-special|Nursing Psychiatry — Special Populations &amp; Ethics (NCLEX-style). Include forensic, perinatal, paediatric, elderly, and ethical dilemmas.">Special Populations &amp; Ethics</option>
+                            </optgroup>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="ai-custom-topic" style="font-weight:600;font-size:.9rem;display:block;margin-bottom:.25rem;">Custom topic <span style="font-weight:400;color:#888;">(overrides preset)</span></label>
+                        <input type="text" id="ai-custom-topic" placeholder="e.g. Forensic psychiatry, Eating disorders…" style="width:100%;padding:.5rem;border:1px solid #ccc;border-radius:6px;font-size:.95rem;box-sizing:border-box;">
+                    </div>
+                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:.75rem;">
+                        <div>
+                            <label for="ai-qcount" style="font-weight:600;font-size:.9rem;display:block;margin-bottom:.25rem;">Questions</label>
+                            <select id="ai-qcount" style="width:100%;padding:.5rem;border:1px solid #ccc;border-radius:6px;">
+                                <option value="5">5</option>
+                                <option value="10" selected>10</option>
+                                <option value="15">15</option>
+                                <option value="20">20</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="ai-difficulty" style="font-weight:600;font-size:.9rem;display:block;margin-bottom:.25rem;">Difficulty</label>
+                            <select id="ai-difficulty" style="width:100%;padding:.5rem;border:1px solid #ccc;border-radius:6px;">
+                                <option value="mixed" selected>Mixed</option>
+                                <option value="easy">Easy</option>
+                                <option value="medium">Medium</option>
+                                <option value="hard">Hard</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button id="ai-gen-submit-btn" onclick="dashboardGenerateQuiz()" style="padding:.625rem 1.25rem;background:linear-gradient(135deg,#25d366,#128c7e);color:#fff;border:none;border-radius:8px;font-size:1rem;font-weight:700;cursor:pointer;min-height:44px;">
+                        <i class="fas fa-magic"></i> Generate Quiz
+                    </button>
+                    <p id="ai-gen-status" style="font-size:.875rem;color:#128c7e;margin:0;display:none;"></p>
+                </div>
+            </div>
+
             <div class="quiz-library-grid" id="quiz-library">
                 <div class="empty-state" style="grid-column:1/-1;">
                     <i class="fas fa-magic"></i>
@@ -412,7 +469,8 @@
     <a href="/privacy-policy.html">Privacy</a>
     <a href="/terms.html">Terms</a>
     <br><br>
-    <p>&copy; 2026 iQuizPros. All rights reserved.</p>
+    <p>&copy; 2026 iQuizpro by P.G. Mitala. All rights reserved.</p>
+    <p>Made with <span style="color:#e74c3c">&#10084;</span> for curious minds</p>
 </footer>
 
 <script>
@@ -597,7 +655,7 @@ function renderLibrary(quizzes) {
     // Retake: go to home with quiz ID in URL (for future deep-link support)
     gridEl.querySelectorAll('.quiz-retake-btn').forEach(btn => {
         btn.addEventListener('click', () => {
-            window.location.href = '/?retake=' + encodeURIComponent(btn.dataset.id);
+            window.location.href = '/app?retake=' + encodeURIComponent(btn.dataset.id);
         });
     });
 
@@ -813,6 +871,67 @@ auth.onAuthStateChanged(user => {
         showToast('There was a problem loading your dashboard.', 'error');
     });
 });
+
+// ── AI Generation Presets (Phase 12) ──────────────────────────────────────────
+async function dashboardGenerateQuiz() {
+    const presetEl   = document.getElementById('ai-preset-select');
+    const customEl   = document.getElementById('ai-custom-topic');
+    const qcountEl   = document.getElementById('ai-qcount');
+    const diffEl     = document.getElementById('ai-difficulty');
+    const submitBtn  = document.getElementById('ai-gen-submit-btn');
+    const statusEl   = document.getElementById('ai-gen-status');
+
+    const customTopic = (customEl.value || '').trim();
+    const presetValue = presetEl.value;
+
+    let topic = '';
+    let promptPrefix = '';
+
+    if (customTopic) {
+        topic = customTopic;
+    } else if (presetValue) {
+        const parts = presetValue.split('|');
+        topic = parts[0] || '';
+        promptPrefix = (parts[1] || '').slice(0, 300);
+    }
+
+    if (!topic) {
+        showToast('Please select a preset or enter a custom topic.', 'error');
+        return;
+    }
+
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Generating…';
+    statusEl.style.display = 'block';
+    statusEl.textContent = 'Generating your quiz — this takes about 10–15 seconds…';
+
+    try {
+        const generateQuiz = fns.httpsCallable('generateQuiz');
+        const result = await generateQuiz({
+            topic,
+            questionCount: parseInt(qcountEl.value, 10) || 10,
+            difficulty: diffEl.value,
+            style: topic.startsWith('psych-nursing') ? 'NCLEX' : 'multiple-choice',
+            promptPrefix: promptPrefix || undefined
+        });
+        const quizId = result.data && result.data.quizId;
+        if (quizId) {
+            statusEl.textContent = 'Quiz created! Redirecting…';
+            window.location.href = '/app?generated=' + quizId;
+        } else {
+            throw new Error('No quizId returned');
+        }
+    } catch (err) {
+        console.error('AI gen error', err);
+        const msg = err.message && err.message.includes('limit')
+            ? 'Monthly AI generation limit reached. Upgrade to generate more quizzes.'
+            : 'Failed to generate quiz. Please try again.';
+        showToast(msg, 'error');
+        statusEl.style.display = 'none';
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = '<i class="fas fa-magic"></i> Generate Quiz';
+    }
+}
 </script>
 
 </body>

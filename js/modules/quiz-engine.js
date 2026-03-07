@@ -1568,6 +1568,152 @@ function startQuiz(topicId, _skipDifficultyPicker) {
     }
   }
   
+  // ── 13.8: MedEd Diagnostic Results ──────────────────────────────────────────
+  /**
+   * Inject the "Your Learning Mistakes" analysis + "Best next quizzes" block
+   * into the results screen for psych-mistakes-* diagnostic quizzes.
+   * @param {string} topicId - 'psych-mistakes-med-student' | 'psych-mistakes-nurse'
+   * @param {Array}  answers  - selectedAnswers array (0-based option indices per question)
+   * @param {number} score    - correct answer count
+   * @param {number} total    - total questions
+   */
+  function _injectMedEdDiagnosticResults(topicId, answers, score, total) {
+    var resultMsgEl = document.getElementById('result-message');
+    if (!resultMsgEl) return;
+
+    var isMedStudent = topicId === 'psych-mistakes-med-student';
+
+    // ── Mistake detection ─────────────────────────────────────────────────────
+    // Answers are 0-based indices. A "correct" optimal answer has index 2 or 3 for most questions.
+    var ans = answers || [];
+    var mistakes = [];
+
+    if (isMedStudent) {
+      // Q1 (idx 0): passive study = option 0; Q7 (idx 6): alone/lectures = option 0 or 3
+      if (ans[0] === 0 || ans[0] === 3 || ans[6] === 0 || ans[6] === 3) {
+        mistakes.push({
+          icon: '📖',
+          title: 'Passive learning habit',
+          body: 'You rely heavily on reading and highlighting rather than active recall. Research consistently shows that testing yourself — even before you feel ready — produces far stronger long-term retention than re-reading notes.'
+        });
+      }
+      // Q3 (idx 2): no vignettes = option 0 or 3; Q6 (idx 5): low clinical confidence
+      if (ans[2] === 0 || ans[2] === 3 || ans[5] === 0 || ans[5] === 1) {
+        mistakes.push({
+          icon: '🏥',
+          title: 'Avoiding clinical scenarios',
+          body: 'Psychiatry exams and OSCEs test clinical reasoning, not textbook recall. Practising simple fact questions won\'t build the pattern-recognition skills you need for complex vignettes and real ward situations.'
+        });
+      }
+      // Q4 (idx 3): not reading explanations after errors = option 0 or 1
+      if (ans[3] === 0 || ans[3] === 1) {
+        mistakes.push({
+          icon: '💡',
+          title: 'Not learning from wrong answers',
+          body: 'Moving on after a wrong answer wastes your most valuable learning opportunity. Reading the explanation and linking it to a clinical scenario turns each mistake into a durable memory trace.'
+        });
+      }
+      // Q5 (idx 4): cramming = option 0 or 1
+      if (ans[4] === 0 || ans[4] === 1) {
+        mistakes.push({
+          icon: '📅',
+          title: 'Cramming instead of spacing',
+          body: 'Last-minute revision produces short-term recall but poor retention. Short, regular study sessions spaced across your rotation allow memories to consolidate — and dramatically reduce pre-exam anxiety.'
+        });
+      }
+    } else {
+      // Nurse version
+      // Q1 (idx 0): reading/watching only = option 0 or 1; Q6 (idx 5): last-minute = option 0 or 1
+      if (ans[0] === 0 || ans[0] === 1 || ans[5] === 0 || ans[5] === 1) {
+        mistakes.push({
+          icon: '📖',
+          title: 'Passive preparation habit',
+          body: 'Reading protocols and watching videos builds familiarity, but not competence. Scenario-based practice in a safe environment is what transfers learning into confident clinical action during shifts.'
+        });
+      }
+      // Q2 (idx 1): no simulation = option 0 or 3; Q3 (idx 2): not reading explanations
+      if (ans[1] === 0 || ans[1] === 3 || ans[2] === 0 || ans[2] === 1) {
+        mistakes.push({
+          icon: '🏥',
+          title: 'Skipping safe scenario practice',
+          body: 'Facing agitation, suicide risk, or medication errors for the first time on a real shift is high-stakes. Regular simulation or quiz-based scenarios let you make mistakes safely — and build muscle memory for critical decisions.'
+        });
+      }
+      // Q4 (idx 3): medication low confidence = option 0 or 1
+      if (ans[3] === 0 || ans[3] === 1) {
+        mistakes.push({
+          icon: '💊',
+          title: 'Avoiding medication questions',
+          body: 'Confidence with psychotropic medications — doses, side-effects, interactions — is essential for safe psychiatric nursing. Targeted short quizzes on pharmacology can build this confidence quickly without overwhelming revision sessions.'
+        });
+      }
+      // Q5 (idx 4): infrequent refreshers = option 0 or 1
+      if (ans[4] === 0 || ans[4] === 1) {
+        mistakes.push({
+          icon: '📅',
+          title: 'Infrequent knowledge refreshers',
+          body: 'Psychiatric nursing knowledge fades quickly without regular reinforcement. Brief quizzes between shifts — even 5 minutes — maintain competency and flag gaps before mandatory assessments reveal them.'
+        });
+      }
+    }
+
+    // Cap at top 3 mistakes, ensure at least 1 shown
+    if (mistakes.length === 0) {
+      mistakes.push({
+        icon: '🌟',
+        title: 'Strong learning approach!',
+        body: 'Your answers suggest you already use evidence-based study habits. Use the practice quizzes below to keep that edge sharp — push yourself with the harder clinical scenario topics.'
+      });
+    }
+    var topMistakes = mistakes.slice(0, 3);
+
+    // ── Recommended next quizzes ──────────────────────────────────────────────
+    var recommendations = isMedStudent
+      ? [
+          { id: 'psych-schizophrenia',        label: 'Schizophrenia & Psychosis', icon: '🧠', desc: 'DSM-5 criteria, antipsychotics, differential diagnosis' },
+          { id: 'psych-mood',                  label: 'Mood Disorders',            icon: '💊', desc: 'MDD, bipolar, ECT, mood stabilisers' },
+          { id: 'psych-anxiety',               label: 'Anxiety, OCD & Trauma',     icon: '🌊', desc: 'GAD, PTSD, OCD — pharmacotherapy & therapies' }
+        ]
+      : [
+          { id: 'psych-nursing-psychosis',     label: 'Psychotic Disorders & Medications', icon: '💉', desc: 'NMS, clozapine monitoring, EPS types' },
+          { id: 'psych-nursing-mood',          label: 'Mood & Anxiety Nursing Care',       icon: '💊', desc: 'Mania interventions, lithium toxicity, SSRI teaching' },
+          { id: 'psych-nursing-special',       label: 'Special Populations & Ethics',      icon: '👥', desc: 'Safeguarding, perinatal MH, involuntary admission' }
+        ];
+
+    // ── Render HTML ───────────────────────────────────────────────────────────
+    var mistakesHTML = topMistakes.map(function(m) {
+      return '<div style="background:#fff;border-left:4px solid #25d366;border-radius:10px;padding:16px 18px;margin-bottom:12px;box-shadow:0 2px 8px rgba(0,0,0,.07);">' +
+        '<p style="font-weight:700;font-size:.95rem;color:#1a1a2e;margin-bottom:4px;">' + m.icon + ' ' + m.title.replace(/</g,'&lt;').replace(/>/g,'&gt;') + '</p>' +
+        '<p style="font-size:.85rem;color:#4a5568;line-height:1.55;margin:0;">' + m.body.replace(/</g,'&lt;').replace(/>/g,'&gt;') + '</p>' +
+      '</div>';
+    }).join('');
+
+    var recsHTML = recommendations.map(function(r) {
+      var href = '/app?topic=' + encodeURIComponent(r.id);
+      return '<a href="' + href + '" style="display:flex;align-items:flex-start;gap:12px;background:#f8fffe;border:1.5px solid #e8f5e9;border-radius:10px;padding:14px 16px;text-decoration:none;color:inherit;transition:border-color .2s;" ' +
+        'onmouseover="this.style.borderColor=\'#25d366\'" onmouseout="this.style.borderColor=\'#e8f5e9\'">' +
+        '<span style="font-size:1.5rem;flex-shrink:0;">' + r.icon + '</span>' +
+        '<span>' +
+          '<strong style="display:block;font-size:.9rem;color:#1a1a2e;margin-bottom:2px;">' + r.label.replace(/</g,'&lt;').replace(/>/g,'&gt;') + '</strong>' +
+          '<span style="font-size:.8rem;color:#4a5568;">' + r.desc.replace(/</g,'&lt;').replace(/>/g,'&gt;') + '</span>' +
+        '</span>' +
+        '<span style="margin-left:auto;color:#25d366;font-size:1.1rem;flex-shrink:0;align-self:center;">→</span>' +
+      '</a>';
+    }).join('');
+
+    var diagnosticBlock = document.createElement('div');
+    diagnosticBlock.className = 'meded-diagnostic-results';
+    diagnosticBlock.style.cssText = 'margin-top:24px;padding-top:20px;border-top:2px solid #e8f5e9;';
+    diagnosticBlock.innerHTML =
+      '<h3 style="font-family:\'Montserrat\',sans-serif;font-size:1.1rem;font-weight:800;color:#1a1a2e;margin-bottom:14px;">🔍 Your Learning Mistakes</h3>' +
+      mistakesHTML +
+      '<h3 style="font-family:\'Montserrat\',sans-serif;font-size:1.1rem;font-weight:800;color:#1a1a2e;margin:20px 0 12px;">🎯 Best next quizzes for you</h3>' +
+      '<div style="display:flex;flex-direction:column;gap:10px;">' + recsHTML + '</div>' +
+      '<p style="font-size:.78rem;color:#888;margin-top:14px;text-align:center;">Premium topics require a paid plan. Free topics are always available.</p>';
+
+    resultMsgEl.appendChild(diagnosticBlock);
+  }
+
   /**
    * Handle answer selection
    * @param {number} selectedIndex - Index of the selected answer
@@ -1872,7 +2018,7 @@ function startQuiz(topicId, _skipDifficultyPicker) {
 
         // Get score message from scoring module
         const scoring = window.QuizProsScoring
-          ? window.QuizProsScoring.getScoreMessage(score, questionData.length)
+          ? window.QuizProsScoring.getScoreMessage(score, questionData.length, currentQuiz)
           : { message: 'Quiz complete!', emoji: '🏆', shouldCelebrate: false };
 
         // Update result badge
@@ -1908,7 +2054,7 @@ function startQuiz(topicId, _skipDifficultyPicker) {
 
         // Build and set result HTML via renderer
         const resultHTML = window.QuizProsRenderer
-          ? window.QuizProsRenderer.renderScoreResult(score, questionData.length)
+          ? window.QuizProsRenderer.renderScoreResult(score, questionData.length, currentQuiz)
           : '<p>Score: ' + score + '/' + questionData.length + '</p>';
         utils.domUtils.setInnerHTML('result-message', resultHTML);
 
@@ -1965,8 +2111,13 @@ function startQuiz(topicId, _skipDifficultyPicker) {
 
         // Remove streak badge when showing results
         _removeStreakBadge();
+
+        // ── 13.8: MedEd Diagnostic Results — psych-mistakes-* topics ──────────
+        if (currentQuiz === 'psych-mistakes-med-student' || currentQuiz === 'psych-mistakes-nurse') {
+          _injectMedEdDiagnosticResults(currentQuiz, selectedAnswers, score, questionData.length);
+        }
       }
-      
+
       // ── C.5: Inject "Share Result" Canvas card button ──────────────────────
       _injectShareButton();
       _injectPDFButton();   // Phase 10.4
@@ -2061,6 +2212,10 @@ function startQuiz(topicId, _skipDifficultyPicker) {
               } else {
                 shareText = `I just took a personality quiz! Find out your personality type: ${window.location.href}`;
               }
+            } else if (currentQuiz && currentQuiz.indexOf('psych-') === 0) {
+              // Healthcare / psychiatry quiz
+              const quizLabel = window.QuizProsTopics ? (window.QuizProsTopics.getTopics().find(t => t.id === currentQuiz) || {}).name || currentQuiz : currentQuiz;
+              shareText = `I just tested my psychiatry knowledge on "${quizLabel}" — scored ${score}/${questionData.length}! Try it at iQuizPros: ${window.location.href}`;
             } else {
               // Regular quiz
               shareText = `I scored ${score}/${questionData.length} on the ${currentQuiz} quiz! Can you beat my score? ${window.location.href}`;

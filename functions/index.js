@@ -16,7 +16,7 @@
 
 'use strict';
 
-const functions                  = require('firebase-functions');
+const functions                  = require('firebase-functions/v1');
 const { defineSecret }           = require('firebase-functions/params');
 const admin                      = require('firebase-admin');
 const { GoogleGenerativeAI }     = require('@google/generative-ai');
@@ -95,8 +95,11 @@ exports.generateQuiz = functions.region(REGION).https.onCall({ secrets: [GEMINI_
     topic,
     questionCount = 10,
     difficulty    = 'medium',
-    style         = 'multiple-choice'
+    style         = 'multiple-choice',
+    promptPrefix  = ''
   } = data;
+
+  const safePrefix = String(promptPrefix || '').slice(0, 300);
 
   if (!topic) {
     throw new functions.https.HttpsError('invalid-argument', 'topic is required.');
@@ -145,9 +148,11 @@ JSON format:
   ]
 }`;
 
+  const fullPrompt = safePrefix ? `${safePrefix}\n\n${prompt}` : prompt;
+
   let quizData;
   try {
-    const result   = await model.generateContent(prompt);
+    const result   = await model.generateContent(fullPrompt);
     const raw      = result.response.text().trim();
     const jsonText = raw.replace(/^```json?\s*/i, '').replace(/\s*```$/, '');
     quizData       = JSON.parse(jsonText);

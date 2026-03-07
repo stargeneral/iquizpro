@@ -16,8 +16,8 @@ The codebase is at:
 
 Read these files IN ORDER before making any changes:
 
-1. `CLAUDE.md` — Architecture, module system, conventions, all 33+ numbered pitfalls
-2. `docs/development/PHASE11_HANDOFF.md` — What changed in Phase 11, files modified, known issues
+1. `CLAUDE.md` — Architecture, module system, conventions, all 34+ numbered pitfalls
+2. `docs/development/PHASE11_HANDOFF.md` — What changed in Phase 11 (including the post-deploy sign-in bug fix in §11.7), files modified, known issues
 3. `docs/development/DEVELOPMENT_PLAN.md` — Full roadmap; Phase 12 section for context
 4. `docs/development/PROMPT_FRAMEWORK.md` — Naming rules, module patterns, handoff/prompt templates
 
@@ -38,22 +38,37 @@ Read these files IN ORDER before making any changes:
 - `js/modules/ui-manager.js`: `#quiz-search-input` bar + `_initSearchFilter()` — debounced (200ms), filters `.topic-card` by `data-title`/`data-category`; ✕ clear; no-results message
 - `css/theme.css`: search bar styles + dark mode
 
-### 11.6 — Lazy-Load Firebase Auth SDK
-- `src/index.template.html`: `firebase-auth-compat.js` now `async`
-- `js/modules/auth-manager.js`: `_waitForAuthAndInit(20)` polls until auth SDK ready (20×50ms)
+### 11.6 — Lazy-Load Firebase Auth SDK (PARTIALLY REVERTED — see 11.7)
+- `src/index.template.html`: `firebase-auth-compat.js` was changed to `async`
+- `js/modules/auth-manager.js`: `_waitForAuthAndInit(20)` polling guard added
+- ⚠️ The `async` attribute introduced a mobile regression and was subsequently removed in §11.7.
 
-**Current state (post Phase 11, deployed 2026-03-03):**
-- Bundle: `app.17bd2872.js` / `css/app.6134aff4.css`
+### 11.7 — Post-Deploy Mobile Sign-In Bug: Diagnosis & Fix ⭐
+This was the most significant work of the post-Phase-11 period. A native Android debug app was built to diagnose a mobile sign-in failure that could not be reproduced in browser DevTools.
+
+**Debug app location:** `docs/development/debug app/debug-app/` (Android Studio project, 3 build phases)
+
+**Root causes found and fixed:**
+
+1. **`async` on `firebase-auth-compat.js` (Phase 11.6 regression):** The auth SDK arriving asynchronously caused a race condition — `auth-manager.js` would call `firebase.auth()` before the SDK had parsed. On fast desktop connections: invisible. On mobile: silent hang. **Fix:** `async` attribute removed. This is now Pitfall #34 in CLAUDE.md — **never add `async` to `firebase-auth-compat.js`.**
+
+2. **CSP blocking `apis.google.com`:** Firebase Auth internally requests `apis.google.com` to initialise its op queue. The CSP `script-src` didn't include it, so the request was blocked and all subsequent auth calls hung silently. **Fix:** `https://apis.google.com` added to `script-src`.
+
+3. **Invalid `connect-src` wildcard:** `https://firebase*.googleapis.com` is syntactically invalid CSP — wildcards only work as subdomain prefixes. Chrome silently ignored it, so Firestore was actually blocked on mobile. **Fix:** Replaced with explicit host entries (`https://firestore.googleapis.com`, `https://firebase.googleapis.com`, `https://firebaseinstallations.googleapis.com`, `wss://*.firebaseio.com`, etc.).
+
+**Additional hardening applied:**
+- Auth handlers now have a 15-second timeout guard + button restore in `.then()` (not just `.catch()`)
+- `signInWithGoogle()` uses `signInWithPopup` on mobile, `signInWithRedirect` on desktop
+- `_waitForAuthAndInit` polling raised from 20×50ms to 60×50ms (3s)
+- SW cache bumped `v8.0 → v8.2`
+
+**Current state (post Phase 11 + all hotfixes, deployed 2026-03-03):**
+- Bundle: `app.2a61d3d1.js` / `css/app.6134aff4.css`
 - 533 dist files; all 9 Cloud Functions deployed; 66 unit tests passing
 - Admin UID `93fNHZN5u7YLk5ITbPTHfsFYTI13` set in `admin.html`, `js/config.js`, `functions/index.js`
 - Admin bypass active in `premium.js` and Cloud Functions (no rate limits, enterprise tier)
-- All Phase 10–11 features live; Stripe E2E test still pending (manual)
-
----
-
-## Phase 12 Goal: Psychiatry & Medical Quiz Expansion
-
-Add a professional-grade **Medical Psychiatry** (doctor-focused, DSM-5 aligned) and **Nursing Psychiatry** (NCLEX-style, care-focused) quiz section — 250+ questions across 10 sub-categories, a new "🏥 Healthcare" category tab, "Psych Score Profile" result messages, AI generation presets for psychiatry, and premium gating for advanced categories.
+- Mobile sign-in working — confirmed via native Android debug app on physical device
+- Stripe E2E test still pending (manual)
 
 ---
 
@@ -66,6 +81,23 @@ This makes iQuizPros uniquely valuable to healthcare professionals, medical stud
 ---
 
 ## Critical Architecture Notes — Read Before Writing Any Code
+
+### ⚠️ NEVER add `async` to `firebase-auth-compat.js` (Pitfall #34)
+All Firebase compat scripts must remain synchronous. The auth SDK is the only one accessed immediately at `initialize()` time — making it async silently breaks mobile auth. This was the root cause of the Phase 11 mobile sign-in regression.
+
+```html
+<!-- CORRECT — always synchronous: -->
+<script src="https://www.gstatic.com/firebasejs/9.20.0/firebase-auth-compat.js"></script>
+
+<!-- WRONG — breaks mobile: -->
+<script src="https://www.gstatic.com/firebasejs/9.20.0/firebase-auth-compat.js" async></script>
+```
+
+### ⚠️ CSP wildcards do not work mid-string (Pitfall #35)
+`https://firebase*.googleapis.com` is invalid CSP syntax — Chrome silently ignores it. Always use explicit host entries for Firebase services. The current working `connect-src` set is in `src/index.template.html`.
+
+### Auth submit handlers must restore the button in `.then()` (not just `.catch()`)
+`_handleSignInSubmit` and `_handleSignUpSubmit` must call `_setButtonLoading(btn, false, text)` + `clearTimeout()` inside the `.then()` handler before `_closeAllModals()`. A missing `.then()` restore is invisible on desktop (fast network) but leaves the button permanently disabled on mobile.
 
 ### Question format in `question-bank.js`
 **IMPORTANT:** iQuizPros uses `answer` as a **0-based integer index**, NOT a letter. Options are plain strings, no "A)" prefix.
@@ -82,7 +114,7 @@ This makes iQuizPros uniquely valuable to healthcare professionals, medical stud
   category: 'medical-psychiatry'
 }
 
-// WRONG — never use letter format from the original prompt:
+// WRONG — never use letter format:
 { correct: 'B', options: ['A) Lithium', 'B) Haloperidol', ...] }
 ```
 
@@ -97,6 +129,7 @@ This makes iQuizPros uniquely valuable to healthcare professionals, medical stud
 - Each topic object: `{ id, name, category, image, description, questionCount, isPremium }`
 - Category tabs in the UI filter by `topic.category` — add `category: 'healthcare'` to new topics
 - The "Healthcare" tab needs adding to `src/index.template.html` category tabs section
+- The Phase 11.5 search filter already handles `data-category="healthcare"` — no search code change needed
 
 ### How question images work
 - Images stored as WebP in `assets/images/` — max 800×800px
@@ -113,6 +146,26 @@ This makes iQuizPros uniquely valuable to healthcare professionals, medical stud
 - `functions/index.js` `generateQuiz` callable — accepts `{ topic, questionCount, difficulty, style }`
 - Adding a `promptPrefix` field to the data lets the function inject specialized instructions into the Gemini prompt
 - Admin has no rate limit on AI generation
+
+---
+
+## Development Tool — Native Android Debug App
+
+A native Android WebView debug app exists at:
+```
+docs/development/debug app/debug-app/    ← Android Studio project
+```
+
+Use it whenever a bug is suspected to be mobile-specific or network-related. It captures:
+- All JS console output (including errors hidden from remote DevTools)
+- All network requests with host, method, and Firebase service category
+- Auth events, RTDB events, Functions calls — all tagged separately
+
+Build: open in Android Studio → Build APK, or run:
+```powershell
+$env:JAVA_HOME = "C:\Program Files\Java\jdk-18.0.1.1"; .\gradlew.bat assembleDebug
+```
+APK: `app\build\outputs\apk\debug\app-debug.apk`
 
 ---
 
@@ -156,7 +209,7 @@ Add to `question-bank.js`. 25 questions per sub-category = 125 total. NCLEX prio
 
 **NCLEX style notes:**
 - Questions ask "Priority nursing action" or "Best response" — phrased from nurse's perspective
-- Use "select all that apply" sparingly (they're hard to render in current quiz engine — stick to single-answer for now)
+- Use "select all that apply" sparingly (hard to render in current quiz engine — stick to single-answer)
 - Safety questions always prioritise physical safety over therapeutic goals
 
 ### 12.3 — "Healthcare" Category Tab + Topic Registration
@@ -300,7 +353,7 @@ firebase deploy --only hosting
 
 - `PHASE12_HANDOFF.md` — what changed, files modified, known issues
 - `PHASE13_PROMPT.md` — next phase goals
-- Updated `CLAUDE.md` — add Healthcare category, psychiatry question bank keys, promptPrefix field
+- Updated `CLAUDE.md` — add Healthcare category, psychiatry question bank keys, promptPrefix field, Pitfalls #34 and #35 if not already present
 - Updated `memory/MEMORY.md`
 
 ---
@@ -311,6 +364,8 @@ firebase deploy --only hosting
 - `answer` field is **always a 0-based integer**, never a letter like "B"
 - Options are plain strings — never include "A)" / "B)" prefixes
 - Admin UID: `93fNHZN5u7YLk5ITbPTHfsFYTI13` — bypass already active, do not remove
+- **Never add `async` to `firebase-auth-compat.js`** — mobile auth will break silently
+- **Never use `https://firebase*.googleapis.com` in CSP** — invalid syntax, silently ignored
 - Never rename or remove a `window.QuizPros*` global without searching the whole codebase
 - All questions must be medically accurate — cite DSM-5 for medical, NCLEX blueprints for nursing
 - Difficulty distribution: ~40% easy / 40% medium / 20% hard per topic

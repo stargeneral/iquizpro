@@ -8,7 +8,7 @@
  * Bundles produced:
  *   dist/js/app.[hash].js      — all app JS (25+ scripts → 1 file)
  *   dist/css/app.[hash].css    — all app CSS (9 files → 1 file)
- *   dist/index.html            — updated index.html with injected bundle tags
+ *   dist/app.html              — updated app.html with injected bundle tags (quiz SPA)
  *   dist/assets/               — copied static assets
  *   dist/templates/            — copied quiz JSON templates
  *   dist/fonts/                — copied fonts
@@ -68,10 +68,10 @@ module.exports = (env, argv) => {
         filename: isProd ? 'css/app.[contenthash:8].css' : 'css/app.css',
       }),
 
-      // Generate dist/index.html from template, injecting bundle tags
+      // Generate dist/app.html from template, injecting bundle tags (quiz SPA)
       new HtmlWebpackPlugin({
         template: './src/index.template.html',
-        filename: 'index.html',
+        filename: 'app.html',
         inject: 'body', // <script> tags before </body>; <link> tags in <head>
         minify: isProd
           ? {
@@ -95,7 +95,10 @@ module.exports = (env, argv) => {
           // Favicon
           { from: 'favicon.ico', to: 'favicon.ico', noErrorOnMissing: true },
 
-          // Other HTML pages (not index.html — that's handled by HtmlWebpackPlugin)
+          // Landing page — becomes dist/index.html (served at /)
+          { from: 'landing.html', to: 'index.html', noErrorOnMissing: true },
+
+          // Other HTML pages (not app.html — that's handled by HtmlWebpackPlugin)
           { from: 'contact.html', to: 'contact.html', noErrorOnMissing: true },
           { from: 'contact-page.html', to: 'contact-page.html', noErrorOnMissing: true },
           { from: 'premium.html', to: 'premium.html', noErrorOnMissing: true },
@@ -109,6 +112,7 @@ module.exports = (env, argv) => {
           { from: 'live-audience.html', to: 'live-audience.html', noErrorOnMissing: true },
           { from: 'dashboard.html', to: 'dashboard.html', noErrorOnMissing: true },
           { from: 'admin.html', to: 'admin.html', noErrorOnMissing: true },
+          { from: 'meded.html', to: 'meded.html', noErrorOnMissing: true },
 
           // Error pages
           { from: '404.html', to: '404.html', noErrorOnMissing: true },

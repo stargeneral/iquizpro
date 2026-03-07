@@ -11,7 +11,7 @@
 
 'use strict';
 
-var CACHE_VERSION = 'v8.0';
+var CACHE_VERSION = 'v8.2';  // bumped: CSP fix (connect-src: replaced invalid firebase* wildcard with explicit entries)
 var SHELL_CACHE    = 'iqp-shell-'     + CACHE_VERSION;
 var RUNTIME_CACHE  = 'iqp-runtime-'   + CACHE_VERSION;
 var TEMPLATE_CACHE = 'iqp-templates-' + CACHE_VERSION;

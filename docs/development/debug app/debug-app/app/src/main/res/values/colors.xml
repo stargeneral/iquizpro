@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="log_info">#212121</color>
+    <color name="log_warn">#F57C00</color>
+    <color name="log_error">#C62828</color>
+    <color name="log_network">#1565C0</color>
+    <color name="log_auth">#2E7D32</color>
+
+    <color name="brand_green">#25d366</color>
+    <color name="brand_green_dark">#128c7e</color>
+
+    <color name="overlay_bg">#E6000000</color>
+</resources>

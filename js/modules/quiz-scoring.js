@@ -26,13 +26,32 @@ window.QuizProsScoring = (function () {
 
   /**
    * Compute the score message, emoji and whether to celebrate.
-   * @param {number} score   Number of correct answers.
-   * @param {number} total   Total number of questions.
-   * @returns {{ message: string, emoji: string, shouldCelebrate: boolean }}
+   * @param {number} score    Number of correct answers.
+   * @param {number} total    Total number of questions.
+   * @param {string} [topicId] Optional topic ID — used to provide specialist profile messages.
+   * @returns {{ message: string, title?: string, emoji: string, shouldCelebrate: boolean }}
    */
-  function getScoreMessage(score, total) {
+  function getScoreMessage(score, total, topicId) {
     var percentage = Math.round((score / total) * 100);
 
+    // ── Psychiatry / Healthcare topics — Psych Score Profile ────────────────
+    if (topicId && topicId.indexOf('psych-') === 0) {
+      if (percentage >= 90) {
+        return { title: '🧠 Brilliant Diagnostician', message: 'You think like a seasoned psychiatrist! Top-tier clinical reasoning.', emoji: '🧠', shouldCelebrate: true };
+      }
+      if (percentage >= 70) {
+        return { title: '💡 Sharp Clinician', message: 'Strong foundations. Keep building your clinical expertise!', emoji: '💡', shouldCelebrate: true };
+      }
+      if (percentage >= 50) {
+        return { title: '📚 Developing Practitioner', message: "You're on the right path. Review your pharmacology and DSM-5 criteria.", emoji: '📚', shouldCelebrate: false };
+      }
+      if (percentage >= 30) {
+        return { title: '🌱 Keen Learner', message: 'Great start for a challenging field. Study those mechanisms!', emoji: '🌱', shouldCelebrate: false };
+      }
+      return { title: '🎓 Beginning the Journey', message: 'Psychiatry is complex — keep studying and you\'ll get there!', emoji: '🎓', shouldCelebrate: false };
+    }
+
+    // ── Standard score messages ──────────────────────────────────────────────
     if (percentage >= 90) {
       return { message: "Outstanding! You're a true expert!", emoji: '🏆', shouldCelebrate: true };
     }

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">WebView Debugger</string>
+
+    <!-- URL bar -->
+    <string name="hint_url_bar">https://example.com</string>
+    <string name="btn_go">Go</string>
+
+    <!-- Overlay buttons row 1 -->
+    <string name="btn_copy_all">Copy All</string>
+    <string name="btn_clear">Clear</string>
+    <string name="btn_export">Export</string>
+
+    <!-- Overlay buttons row 2 -->
+    <string name="btn_freeze">⏸ Freeze</string>
+    <string name="btn_freeze_active">▶ Live</string>
+    <string name="btn_starred">⭐ Starred</string>
+    <string name="btn_starred_active">✦ All</string>
+</resources>

@@ -105,13 +105,15 @@ window.QuizProsRenderer = (function () {
    * @param {number} total  Total number of questions.
    * @returns {string} HTML string.
    */
-  function renderScoreResult(score, total) {
+  function renderScoreResult(score, total, topicId) {
     var percentage = Math.round((score / total) * 100);
     var scoring = window.QuizProsScoring
-      ? window.QuizProsScoring.getScoreMessage(score, total)
+      ? window.QuizProsScoring.getScoreMessage(score, total, topicId)
       : { message: 'Quiz complete!', emoji: '🏆', shouldCelebrate: false };
 
+    var titleHtml = scoring.title ? '<h2 style="margin-bottom:.25rem;">' + scoring.title + '</h2>' : '';
     return '<div class="score-result">'
+      + titleHtml
       + '<h3>' + scoring.message + '</h3>'
       + '<div class="score-percentage">' + percentage + '%</div>'
       + '<p>You answered ' + score + ' out of ' + total + ' questions correctly.</p>'
